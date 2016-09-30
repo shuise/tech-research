@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>clipboard@html5</title>
+</head>
+<body style="background:url(http://vimg1.ws.126.net/image/snapshot/2013/12/S/S/V9F9K5BSS.jpg);">
+	
+<style>
+html,body{
+	height:100%;
+}
+#content{
+	background:#fff;
+	border:3px solid #333;
+	padding:15px;
+	width:50%;
+	height:50%;
+	
+	position:absolute;
+	margin:auto;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+
+	text-align:center;
+}
+#content img {
+	max-width:80%;
+	max-height:80%;
+}	
+</style>
+
+<div id="content" contenteditable="true">
+	请截图后在此粘贴
+</div>
+
+<script>
+var target = document.getElementById("content");
+
+target.addEventListener("paste", function(e) {
+    if(e && e.clipboardData && e.clipboardData.types && e.clipboardData.items.length) {
+        var clipboardData = e.clipboardData;
+        var	type = clipboardData.types;
+
+        console.log(type);
+        console.log(type.join(","));
+        console.log(clipboardData.items);
+        console.log(clipboardData.items.length);
+
+        //粘贴截图
+        if(type.indexOf("Files") !== -1 && type.indexOf("text/plain") == -1) {
+            var item = clipboardData.items[0],
+                reader = new FileReader();
+        
+            reader.readAsDataURL(item.getAsFile());
+
+            reader.onload = function(event) {
+            	target.innerHTML = "";
+            	var img = document.createElement('img');
+	                img.src = event.target.result;
+                target.appendChild(img);
+            }
+        }
+
+        //粘贴图片
+        //对复制图片的处理，非截图 
+        if(type.indexOf("Files") !== -1 && type.indexOf("text/plain") !== -1){
+        	//get blob object
+	        var _item = clipboardData.items[1];
+	            _item = _item.getAsFile();
+
+	        //transform to base64 on FileReader    
+	        var reader2 = new FileReader();
+	        reader2.readAsDataURL(_item);
+	        reader2.onload = function(event) {
+	        	console.log(event.target.result.length)
+	        	var img = document.createElement('img');
+	                img.src = event.target.result;
+	        	target.innerHTML = "";
+	            target.appendChild(img);
+
+	            //clipboard里复制的是图片路径，最后生成的图片都是默认的同一个。
+	        }
+        }  
+    }
+});
+</script>
+
+</body>
+</html>
