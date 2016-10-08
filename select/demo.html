@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>聊天测试</title>
+<script src="./pencombox.js">
+
+</script>
+<style type='text/css'>
+ .old{
+  height: 500px;
+  width: 500px;
+  float:left;
+ }
+ .new{
+  height: 500px;
+  width: 500px;
+  float: left;
+ }
+</style>
+</head>
+
+<body>
+ <div class="old">
+  <h3>Old</h3>
+  <button onclick="fun('old1')"> select-combox</button><br/>
+   <select id="old1" style="display:none;">
+    <option value="">1</option>
+    <option value="">2</option>
+   </select>
+   <br/>
+    <br/>
+   <button onclick='fun("old2")'>ul-li-combox</button>
+     <ul id="old2" style="display:none;">
+      <li>li1</li>
+      <li>li2</li>
+      <li>li2</li>
+     </ul>
+
+  <br/>
+   <br/>
+  <button onclick='fun("old3")'>div-div-combox</button>
+  <div id="old3"  style="display:none;">
+   <div>test1</div>
+   <div>test2</div>
+   <div>test3</div>
+  </div>
+
+  <br/>
+   <br/>
+  <button onclick='fun("old4")'>div-span-combox</button>
+  <div id="old4"  style="display:none;">
+   <span>span1</span>
+   <span>span2</span>
+   <span>span3</span>
+  </div>
+  </div>
+
+ </div>
+
+ <div class="new">
+  <h3>New</h3>
+  <button onclick="fun('selectId')"> select-combox</button><br/>
+  <select id="selectId" style="display:none;">
+   <option value="">1</option>
+   <option value="">2</option>
+  </select>
+  <br/>
+   <br/>
+  <button onclick='fun("ulliId")'>ul-li-combox</button>
+    <ul id="ulliId" style="display:none;">
+     <li>li1</li>
+     <li>li2</li>
+     <li>li2</li>
+    </ul>
+
+ <br/>
+  <br/>
+ <button onclick='fun("divId")'>div-div-combox</button>
+ <div id="divId"  style="display:none;">
+  <div>test1</div>
+  <div>test2</div>
+  <div>test3</div>
+ </div>
+
+ <br/>
+  <br/>
+ <button onclick='fun("spanId")'>div-span-combox</button>
+ <div id="spanId"  style="display:none;">
+  <span>span1</span>
+  <span>span2</span>
+  <span>span3</span>
+ </div>
+ </div>
+
+
+
+
+</body>
+
+<script type="text/javascript">
+  function fun(id){
+    var dom = document.getElementById(id);
+    dom.style.display == 'none' ? dom.style.display = 'block' : dom.style.display = 'none';
+  }
+
+  PenCombox.genCombox('selectId');
+  PenCombox.genCombox('ulliId');
+  PenCombox.genCombox('divId');
+  PenCombox.genCombox('spanId');
+</script>
+</html>
