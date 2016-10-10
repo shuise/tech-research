@@ -1,0 +1,1 @@
+javascript:(function(){var url=location.href;var b="https://github.com/shuise/tech-research/blob/master/";if(url.indexOf(b)==0){var bb = url.replace(b,"https://shuise.github.io/tech-research/");location.href = bb;}})();
