@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="libs/vue-2.0.1.js"></script>
+<meta charset="UTF-8">
+<title>download demo</title>
+</head>
+
+<body>
+
+
+<style>
+.lib{
+    width:500px;
+    border:1px solid #ccc;
+    padding:30px;
+    vertical-align:top;
+}    
+.lib-download{
+    display:inline-block;
+    vertical-align:top;
+}
+.lib-download a{
+    color:#0099ff;
+    line-height:40px;
+    text-decoration:none;
+    border:1px solid #0099ff;
+    border-radius:10px;
+    padding:15px;
+}
+.lib-download a:hover{
+    background-color:#0099ff;
+    color:#fff;
+}
+.lib-mod-list{
+    display:inline-block;
+    margin-left:2em;
+    width:300px;
+    font-size:14px;
+    line-height:1em;
+    /*margin-left:150px;*/
+}
+.lib-mod-list label{
+    display:inline-block;
+    margin-right:1em;
+    margin-bottom:1em;
+}
+.lib-mod-list label input{
+    margin:0;
+}
+</style>
+<div class="lib lib-ios" id="lib-ios">
+    <div class="lib-download">
+        <a v-bind:href="packLink" v-on:click="loadStart()"><span>{{packName}}</span></a>
+    </div>
+    <div class="lib-mod-list">
+        <label class="lib-mod-item" v-for="modItem in optList">
+            <input v-model="libModChecked" name="lib-ios-mod" type="checkbox" v-bind:value="modItem.link">
+            <span>{{modItem.quenceName}}</span>
+        </label>
+    </div>   
+</div>
+
+<script>
+var iOSData = {
+    "packName" : "CallLib SDK 下载",
+    "packLink" : "http://downloads.rongcloud.cn/Rong_Cloud_Android_IMKit_SDK_v2_7_3_stable_with_CallKit.zip",
+    "optList" : [
+        {
+            "quenceName":"音视频通话",
+            "link":'io10'
+        },
+        {
+            "quenceName":"红包",
+            "link":'io11'
+        },
+        {
+            "quenceName":"语音通话",
+            "link":'io12'
+        },
+        {
+            "quenceName":"地图",
+            "link":'io13'
+        },
+        {
+            "quenceName":"vip",
+            "link":'io14'
+        }
+    ]               
+};    
+</script>
+<script>
+downloadInit(iOSData);
+
+function downloadInit(data){
+    //全部默认选中
+    var libModChecked = [];
+    for(var i=0,len=data.optList.length;i<len;i++){
+        libModChecked.push(data.optList[i].link);
+    }
+    data["libModChecked"] = libModChecked;
+
+    var downloaded = {};
+
+    var demo1 = new Vue({
+        el : "#lib-ios", //document.getElementById("lib-ios"),
+        data : iOSData,
+        methods : {
+            loadStart : function(){
+                var key = this.libModChecked.sort().join("-");
+                if(downloaded[key]){
+                    alert("缓存命中，开始下载：" + key + downloaded[key]);
+                }else{
+                    var url = "getUrlByAjax";
+                    downloaded[key] = url;
+                    alert("开始下载：" + key + ":" + url);
+                }
+                // alert(this.packLink + "?&selected=" + this.libModChecked);
+                return false;
+            }
+        }
+    });
+}
+</script>
+
+
+</body>
+</html>
