@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript" src="libs/angular-1.2.8.js"></script>
+<meta charset="UTF-8">
+<title>download demo</title>
+</head>
+
+<body>
+
+<style>
+.lib{
+    width:500px;
+    border:1px solid #ccc;
+    padding:30px;
+    vertical-align:top;
+}    
+.lib-download{
+    display:inline-block;
+    vertical-align:top;
+}
+.lib-download a{
+    color:#0099ff;
+    line-height:40px;
+    text-decoration:none;
+    border:1px solid #0099ff;
+    border-radius:10px;
+    padding:15px;
+}
+.lib-download a:hover{
+    background-color:#0099ff;
+    color:#fff;
+}
+.lib-mod-list{
+    display:inline-block;
+    margin-left:2em;
+    width:300px;
+    font-size:14px;
+    line-height:1em;
+    /*margin-left:150px;*/
+}
+.lib-mod-list label{
+    display:inline-block;
+    margin-right:1em;
+    margin-bottom:1em;
+}
+.lib-mod-list label input{
+    margin:0;
+}
+</style>
+
+<div class="lib lib-ios" ng-app="Rong" ng-controller="DownloadCtrl">
+    <div class="lib-download">
+        <a href="{{ packLink }}" ng-click="loadStart()"> <span>{{ packName }}</span></a>
+    </div>
+    <div class="lib-mod-list">
+        <label class="lib-mod-item" ng-repeat="item in optList">
+            <input name="lib-ios-mod" type="checkbox" value="{{item.link}}" ng-checked="exists(item.link, libModChecked)" ng-click="toggle(item.link, libModChecked)">
+            <span>{{item.quenceName}}</span>
+        </label>
+    </div>   
+</div>
+
+
+<script type="text/javascript">
+var iOSData = {
+    "packName" : "CallLib SDK 下载",
+    "packLink" : "http://downloads.rongcloud.cn/Rong_Cloud_Android_IMKit_SDK_v2_7_3_stable_with_CallKit.zip",
+    "optList" : [
+        {
+            "quenceName":"音视频通话",
+            "link":'io10'
+        },
+        {
+            "quenceName":"红包",
+            "link":'io11'
+        },
+        {
+            "quenceName":"语音通话",
+            "link":'io12'
+        },
+        {
+            "quenceName":"地图",
+            "link":'io13'
+        },
+        {
+            "quenceName":"vip",
+            "link":'io14'
+        }
+    ]               
+};    
+</script>
+<script type="text/javascript">
+//https://material.angularjs.org/latest/demo/checkbox
+
+var Rong = angular.module("Rong", []);
+    Rong.controller("DownloadCtrl", function($scope){
+        /*checkbox selectall default*/
+        var libModChecked = [];
+
+        var optList = iOSData.optList;
+        for(var i=0,len=optList.length;i<len;i++){
+            libModChecked.push(optList[i].link);
+        }
+
+        $scope.packName = iOSData.packName;
+        $scope.packLink = iOSData.packLink;
+        $scope.optList = optList;
+        $scope.libModChecked = libModChecked;
+
+        console.log($scope)
+
+        $scope.toggle = function(item, list){
+            // console.log("toggle");
+            // console.log(item);
+            // console.log(list);
+            var idx = list.indexOf(item);
+            if (idx > -1) {
+              list.splice(idx, 1);
+            }else {
+              list.push(item);
+            }
+            console.log("最新选择结果")
+            console.log(list)
+        }
+        $scope.exists = function(item, list){
+            // console.log("exists");
+            // console.log(item);
+            // console.log(list);
+            return list.indexOf(item) > -1;
+        }
+
+        var downloaded = {};
+        $scope.loadStart = function(){
+            var key = libModChecked.sort().join("-");
+            if(downloaded[key]){
+                alert("缓存命中，开始下载：" + key + downloaded[key]);
+            }else{
+                var url = "getUrlByAjax";
+                downloaded[key] = url;
+                alert("开始下载：" + key + ":" + url);
+            }
+            return false;
+        }
+    });
+</script>
+
+
+</body>
+</html>
