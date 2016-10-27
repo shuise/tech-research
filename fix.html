@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>fix</title>
+</head>
+<body>
+
+
+<style>
+.main{
+	width:900px;
+	margin:0 auto;
+}	
+header{
+	background:#ccc;
+	height:200px;
+	margin-bottom:20px;
+}
+section{
+	min-height:2000px;
+	border:1px solid #cd0000;
+	padding:10px;
+	position:relative;
+}
+section aside,
+section div{
+	display:inline-block;
+	vertical-align:top;
+}
+section aside{
+	height:300px;
+	width:200px;
+	background:green;
+	position:absolute; 
+	top: 15px; 
+	left:50%;
+	margin-left:-435px;
+	/*435 = 900 * 50% - 15*/
+}
+section div{
+	height:1500px;
+	width:600px;
+	margin-left:240px;
+	background:#000;
+}
+</style>
+
+<div class="main">
+	<header id="a">header</header>
+
+	<section>
+		<aside id="b">aside</aside>
+		<div id="c">main</div>
+	</section>
+</div>
+
+<script>
+var a = document.getElementById("a");
+var b = document.getElementById("b");
+
+var h1 = a.clientHeight;
+window.onscroll = function(){
+	var h = window.scrollY;
+	if(h>h1+15){
+		b.style.position = "fixed";
+	}else{
+		b.style.position = "absolute";		
+	}
+}
+</script>
+
+</body>
+</html>
