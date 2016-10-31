@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META charset="utf-8">
+<TITLE>canvas</TITLE>
+</HEAD>
+<BODY>
+<body>
+	
+<p><input type="file" id="file" value="resize img" /></p>
+
+<table>
+	<tr>
+		<td>压缩后图</td>
+		<td>原图</td>
+	</tr>
+	<tr>
+		<td style="vertical-align:top"><img id="show2"></td>
+		<td><img id="show1"></td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+var show1 = document.getElementById("show1");
+var show2 = document.getElementById("show2");
+var file = document.getElementById("file");
+file.onchange = function(){
+	var _file = this.files[0];
+	trans(_file,function(data){
+		show1.src = data["origin"];
+		show2.src = data["resize"];
+	});
+}
+
+function trans(_file,callback){
+	/*
+	width: recommend <2000
+	height: recommend <2000
+	outType: only support "png/jpeg/webp"，browser return png when type !support
+	*/ 
+	var config = {
+		maxWidth : 1000,
+		maxHeight : 1000,
+		outType : "png"	
+	};
+
+	var reader = new FileReader();
+		reader.readAsDataURL(_file);
+		reader.onload = function(evt){
+			var image1 = evt.target.result; //typeof image is base64
+			resizeImg(image1,function(image){
+				callback && callback({
+					"origin" : image1,
+					"resize" : image
+				});
+			},config);
+		}
+}
+
+
+function resizeImg(image,callback,config){
+	//load img，get size
+	config = config || {};
+
+	var img = new Image();
+	img.src  = image;
+	img.onload = function(){
+		var oWidth = img.width;
+		var oHeight = img.height;
+
+		var cWidth = config.maxWidth || 1000;
+		var cHeight = config.maxHeight || 1000;
+
+		//get resize 比例
+		var p1 = cWidth/oWidth;
+		var p2 = cHeight/oWidth;
+		var p = Math.min(p1,p2);
+
+		var width = oWidth*p;
+		var height = oHeight*p;
+
+		var canvas = document.createElement("canvas");
+			canvas.width = width;
+			canvas.height = height;
+
+		var context = canvas.getContext("2d");
+			context.drawImage(img, p, p);
+
+		var outType = config.outType || "png";
+		var url = canvas.toDataURL("image/" + outType);
+		callback && callback(url);
+	}
+}
+</script>
+</BODY>
+</HTML>
