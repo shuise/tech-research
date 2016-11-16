@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>upload</title>
+</head>
+<body>
+<style>
+#wrap {float:left;width:400px;height:300px;margin:10px 0 0 0;border:1px solid #015EAC;color:#666;overflow:hidden;clear:left;font-size:12px;}	
+</style>
+
+
+<script src="getFiles.js"></script>
+<script src="upload.js"></script>
+
+
+
+<p><input type="file" id="file" value="选择文件" multiple>
+</p>
+
+<div id="wrap">			
+	拖拽文件到这里！	    
+</div>	
+
+
+<script>
+
+var fileDom = document.getElementById('file');                           
+var fileList1 = getFiles.bySelect(fileDom,function(fileList){
+	console.log(fileList);
+
+	console.log("imgs");
+	console.log(fileList.imgs);
+
+	var imgs = fileList.imgs;
+	for(var i=0;i<imgs.length;i++){
+		upload.uploadImg(imgs[i],{
+			success : function(url){
+				window.open(url);
+			}
+		});
+	}
+
+	console.log("files");
+	console.log(fileList.files);
+	var files = fileList.files;
+	for(var i=0;i<files.length;i++){
+		upload.uploadImg(files[i],{
+			success : function(url){
+				window.open(url);
+			}
+		});
+	}
+});
+
+
+var drapArea = document.getElementById('wrap');
+var fileList1 = getFiles.byDrag(drapArea,function(fileList){
+	console.log(fileList);
+
+	console.log("imgs");
+	console.log(fileList.imgs);
+
+	console.log("files");
+	console.log(fileList.files);
+});
+
+</script>
+	
+</body>
+</html>
