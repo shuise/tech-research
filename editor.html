@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>editor</title>
+</head>
+<body>
+
+<style>
+.editor{
+	display:inline-block;
+	vertical-align:top;
+	width:400px;
+	height:300px;
+	border:1px solid #ccc;
+	padding:10px;
+	line-height:1.5;
+	font-size:14px;
+	margin-right:20px;
+}	
+</style>
+
+<script src="editor.js"></script>
+
+<textarea id="editor1" class="editor"></textarea>
+
+<pre id="editor2" class="editor"></pre>
+
+<script>
+var input = document.getElementById("editor1");
+var target = document.getElementById("editor2");
+	target.onclick = function(){
+		var content = editor(input.value);		
+		this.innerHTML = content;
+	}
+</script>	
+</body>
+</html>
