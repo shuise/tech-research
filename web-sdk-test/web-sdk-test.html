@@ -17,39 +17,87 @@ body{
 }
 #show{
 	display:none;
+	font-size:12px;
 	border:1px solid #ccc;
 	padding:10px 30px;
-	max-width:400px;
+	width:300px;
+	position:fixed;
+	right:0;
+	top:0;
+}
+.btns{
+	display:none;
+}
+.btns input{
+	margin:20px 20px 0 0;
 }	
+.result{
+	display:none;
+	background:#f5f5f5;
+	margin-top:30px;
+	width:730px;
+	padding:5px;
+	overflow:hidden;
+}
+.result h2{
+	font-size:14px;
+	margin:0;
+	padding:0;
+}
+.result pre{
+	background:#fff;
+	border:1px solid #ccc;
+	padding:10px;
+	font-size:12px;
+	font-family:verdana;
+	margin:0;
+}
+.result pre h3{
+	margin:0;
+	padding:0;
+	color:#cd0000;
+}
 </style>
 
-<div class="panel">
-	<p>
-		<span>appkey</span>
-		<input type="text" id="appkey" size="20" value="8w7jv4qb78a9y">
-	</p>
-	<p>
-		<span>token</span>
-		<input type="text" id="token" size="120" value="qyN3mb4PjM+ZXDOdW4f8KpltMLEfik9DxpqXaALr0RGROd6gPSiwQtBYfRPwWMBLjb+Q/sj37frDI5cUnfVAKg==">
-	</p>
-	<p>
-		<span>&#160;</span>
-		<input type="button" onclick="run()" value="开始测试">
-	</p>
-</div>
-
-<ol id="show"></ol>
 
 <script>
-var dom = document.getElementById("show");
 function showTips(data){
-	dom.innerHTML += "<li>" + data + "</li>";
+	var dom = document.getElementById("show");
+		dom.style.display = "block";
+	if(data){
+		dom.innerHTML += "<li>" + data + "</li>";
+	}else{
+		dom.innerHTML = "";
+	}
 }	
+function showResult(title,code){
+	var dom = document.getElementById("result-area");
+		dom.style.display = "block";
+	
+
+	var t = document.getElementById("result");
+		t.innerHTML = '<h3>' + title + '</h3>'	+ JSON.stringify(code,null,"\t");
+}
 </script>
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.4.min.js"></script>
+<!-- 
+	当前用户：user8
+	对象用户：user9 
+-->
 <script>
-function run(){
+var instance = null;
+
+
+/*
+消息全部用单聊，user8 -> user9
+*/
+var targetId = "user9"; // 目标 Id
+var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+
+
+
+function init(){
 	var appKey = document.getElementById("appkey").value;
 	var token = document.getElementById("token").value;
 
@@ -57,8 +105,12 @@ function run(){
 		alert("必须提供appkey和token");
 	}
 
-	dom.innerHTML = "";
-	dom.style.display = "block";
+	showTips();
+
+
+	/*
+	文档：http://www.rongcloud.cn/docs/web.html
+	*/
 
 	//初始化
 	RongIMLib.RongIMClient.init(appKey);
@@ -69,7 +121,8 @@ function run(){
 		onChanged: function (status) {
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
-		            showTips("链接成功")
+		            showTips("链接成功");
+		            afterConnected();
 		            break;
 		        case RongIMLib.ConnectionStatus.CONNECTING:
 		            showTips('正在链接');
@@ -90,12 +143,20 @@ function run(){
 		}
 	});
 
-	// 消息监听器
+	/*
+	文档：http://www.rongcloud.cn/docs/web.html#3、设置消息监听器
+
+	注意事项：
+		1：为了看到接收效果，需要另外一个用户向本用户发消息
+		2：
+	*/
 	RongIMClient.setOnReceiveMessageListener({
 		// 接收到的消息
 		onReceived: function (message) {
 		    // 判断消息类型
 		    showTips("新消息，类型为：" + message.messageType);
+            showResult("新消息",message);
+
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
 		            break;
@@ -144,7 +205,7 @@ function run(){
 		}
 	});
 
-
+	//开始链接
 	RongIMClient.connect(token, {
 		onSuccess: function(userId) {
 			showTips("链接成功，用户id：" + userId);
@@ -175,7 +236,312 @@ function run(){
 		}
 	});
 }
-</script>
+
+function afterConnected(){
+	document.getElementById("btns").style.display = "block";
+	instance = RongIMClient.getInstance();
+}
+
+function disconnect(){
+	/*
+	文档：http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+	*/
+
+	instance.disconnect();
+}
+
+function reconnect(){
+	//docs   http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+
+	RongIMClient.reconnect({
+		onSuccess: function(userId) {
+			showTips("重新链接成功，用户id：" + userId);
+		},
+		onTokenIncorrect: function() {
+			//console.log('token无效');
+		},
+		onError:function(errorCode){
+		  var info = '';
+		  switch (errorCode) {
+		    case RongIMLib.ErrorCode.TIMEOUT:
+		      info = '超时';
+		      break;
+		    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+		      info = '未知错误';
+		      break;
+		    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+		      info = '不可接受的协议版本';
+		      break;
+		    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+		      info = 'appkey不正确';
+		      break;
+		    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+		      info = '服务器不可用';
+		      break;
+		  }
+		  showTips(info);
+		}
+	});
+}
+
+function sendTextMessage(){
+	/*
+	文档： http://www.rongcloud.cn/docs/web.html#5_1、发送消息
+
+	单条消息整体不得大于128K
+	*/
+
+	var content = {
+		content:"hello",
+		extra:"RongCloud"
+	};
+
+	var msg = new RongIMLib.TextMessage(content);
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送文字消息成功");
+            showResult("发送文字消息成功",message);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送文字消息失败",message);
+        }
+    });
+}
+
+function sendImageMessage(){
+	/*
+	文档：http://www.rongcloud.cn/docs/api/js/ImageMessage.html
+
+	需要自行解决文件上传、获取base64码的缩略图，建议不大于100K
+
+	单条消息整体不得大于128K
+	*/
+
+	var content = {
+		content: "http://rongcloud.cn/images/newVersion/log_wx.png", 
+		imageUri: getBase64("RongCloud.cn")
+	};
+
+	var msg = new RongIMLib.ImageMessage(content);
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送图片消息成功");
+            showResult("发送图片消息成功",message);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送图片消息失败",message);
+        }
+    });	
+
+	//获取base64的mock方法
+	function getBase64(str){
+		var canvas = document.createElement("canvas");
+			canvas.width = 100;
+			canvas.height = 100;
+
+
+		var context = canvas.getContext("2d");	
+			context.font = "20pt Arial";    			
+			context.fillStyle = "blue"; 
+			context.fillText(str, 10, 20);
+		var content = canvas.toDataURL("image/png");
+		return content;
+	}
+}
+
+function sendFileMessage(){
+	var content = {
+	    name: 'fileName', // 文件名称
+	    size: 'fileSize', // 文件大小，单位自己约定
+	    type: 'png', // 文件的后缀名，例如 png、js、doc ...
+	    fileUrl: 'http://rongcloud.cn/images/newVersion/log_wx.png' // 文件地址
+	};
+
+	var msg = new RongIMLib.FileMessage(content);
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送文件消息成功");
+            showResult("发送文件消息成功",message);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送文件消息失败",message);
+        }
+    });	
+}
+
+function sendVoiceMessage(){
+	/*
+	文档：http://www.rongcloud.cn/docs/api/js/VoiceMessage.html
+
+	需自行解决录音和转码问题，要求编码为amr
+	*/
+	var content = {
+		content : "声音base64码",
+		duration : 1200
+	};
 	
+	var msg = new RongIMLib.VoiceMessage(content);
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送语音消息成功");
+            showResult("发送语音消息成功",message);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送语音消息失败",message);
+        }
+    });
+}
+
+function registerMessageType(type){
+	var messageName = type;; // 消息名称。
+	var objectName = "s:" + type; // 消息内置名称，请按照此格式命名。
+	var mesasgeTag = new RongIMLib.MessageTag(true,true);// 消息是否保存是否计数，true true 保存且计数，false false 不保存不计数。
+	var propertys = ["name","age"]; // 消息类中的属性名。
+
+	RongIMClient.registerMessageType(messageName,objectName,mesasgeTag,propertys);
+}
+function sendRegisterMessage(){
+	/*
+	文档：http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息
+
+	注意事项：
+		1：init之前注册新消息类型
+		2：对应接收 onReceived: function (message) {}
+			message.messageType == "PersonMessage"
+		3：需要自己做解析实现
+	*/
+
+	registerMessageType("PersonMessage");
+
+	var content = {
+		name:"RongCloud",
+		age:3
+	};
+
+	var msg = new RongIMClient.RegisterMessage.PersonMessage(content);
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送自定义消息成功");
+            showResult("发送自定义消息成功",message);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送自定义消息失败",message);
+        }
+    });
+}
+
+
+function getHistroyMessage(){
+	/*
+	文档：http://www.rongcloud.cn/docs/web_api_demo.html#获取历史消息
+
+	注意事项：
+		1：一定一定一定要先开通 多设备同步 功能，本服务收费，测试环境可免费开通
+		2：timestrap第二次拉取必须为null才能实现循环拉取
+	*/
+
+	var count = 20;  // 2 <= count <= 20
+	var timestrap = null; //0, 1483950413013
+
+	instance.getHistoryMessages(conversationtype, targetId, timestrap, count, {
+		onSuccess: function(list, hasMsg) {
+			// hasMsg == true 表示还有剩余历史消息可拉取
+            showTips("获取历史消息成功");
+            showResult("获取历史消息成功",list);
+		},
+		onError: function(error) {
+            showTips("获取历史消息失败");
+            showResult("获取历史消息失败",error);
+		}
+	});
+} 
+
+function getConversationList(){	
+	/*
+	文档：http://www.rongcloud.cn/docs/web_api_demo.html#会话接口
+		 http://www.rongcloud.cn/docs/web.html#5_2、同步会话列表
+
+	注意事项：
+		1：一定一定一定要先开通 多设备同步 功能，本服务收费，测试环境可免费开通
+		2：只有发过消息才能生成会话
+	*/
+
+	instance.getConversationList({
+		onSuccess: function(list) {
+            showTips("获取会话成功");
+            showResult("获取会话成功",list);
+		},
+		onError: function(error) {
+            showTips("获取会话失败");
+            showResult("获取会话失败",error);
+		}
+    },null);
+
+}
+
+function receiveMessage(){
+	alert("请见init方法里的 RongIMClient.setOnReceiveMessageListener")
+}
+</script>
+
+
+
+<div class="panel">
+	<p>
+		<span>appkey</span>
+		<input type="text" id="appkey" size="20" value="8w7jv4qb78a9y">
+	</p>
+	<p>
+		<span>token</span>
+		<input type="text" id="token" size="110" value="qyN3mb4PjM+ZXDOdW4f8KpltMLEfik9DxpqXaALr0RGROd6gPSiwQtBYfRPwWMBLjb+Q/sj37frDI5cUnfVAKg==">
+	</p>
+	<p>
+		<span>&#160;</span>
+		<input type="button" onclick="init()" value="初始化">
+	</p>
+</div>
+
+<div class="btns" id="btns">
+	链接状态：
+	<input type="button" value="断开链接" onclick="disconnect();">
+	<input type="button" value="重新链接" onclick="reconnect();">
+
+	<br>
+
+
+	发送消息：
+	<input type="button" value="文字消息" onclick="sendTextMessage();">
+	<input type="button" value="图片消息" onclick="sendImageMessage();">
+	<input type="button" value="文件消息" onclick="sendFileMessage();">
+	<input type="button" value="语音消息" onclick="sendVoiceMessage();">
+	<input type="button" value="自定义消息" onclick="sendRegisterMessage();"> 
+
+	<br>
+
+	接收消息：
+	<input type="button" value="消息接收" onclick="receiveMessage();"> 
+	<input type="button" value="历史消息" onclick="getHistroyMessage();"> 
+	<input type="button" value="获取会话" onclick="getConversationList();"> 
+
+</div>
+
+<div class="result" id="result-area">
+	<!-- <h2>运行结果：</h2> -->
+	<pre id="result"></pre>
+</div>
+
+
+<ol id="show"></ol>
+
 </body>
 </html>
