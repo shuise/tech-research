@@ -21,9 +21,11 @@ body{
 	border:1px solid #ccc;
 	padding:10px 30px;
 	width:300px;
+	overflow:auto;
 	position:fixed;
-	right:0;
+	right:10px;
 	top:0;
+	bottom:10px;
 }
 .btns{
 	display:none;
@@ -70,7 +72,7 @@ function showTips(data){
 		dom.innerHTML = "";
 	}
 }	
-function showResult(title,code,occor){
+function showResult(title,code,start){
 	var dom = document.getElementById("result-area");
 		dom.style.display = "block";
 	
@@ -78,19 +80,32 @@ function showResult(title,code,occor){
 	var now = new Date().getTime();
 	var t = document.getElementById("result");
 		t.innerHTML = '<h3>' 
-					+ title + '  <small>执行时间：'  + (now - occor) + 'ms</small>' 
+					+ title + '  <small>执行时间：'  + (now - start) + 'ms</small>' 
 					+ '</h3>' 
 					+ JSON.stringify(code,null,"\t");
 }
 </script>
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.4.min.js"></script>
+<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<!-- 
+用户数据，群组数据，好友关系 必须有应用服务器提供
+显示会话信息需要从融云和应用服务器共同获取数据才能完整显示
+
+本地存储问题
+
+访问协议，禁止file:///
+
+
+-->
 <!-- 
 	当前用户：user8
 	对象用户：user9 
 -->
 <script>
 var instance = null;
+var appKey = "";
+var token = "";
 
 
 /*
@@ -99,13 +114,11 @@ var instance = null;
 var targetId = "user9"; // 目标 Id
 var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
 
-
-
 function init(){
-	var appKey = document.getElementById("appkey").value;
-	var token = document.getElementById("token").value;
+	appKey = document.getElementById("appkey").value;
+	token = document.getElementById("token").value;
 
-	if(appkey == "" || token == ""){
+	if(appKey == "" || token == ""){
 		alert("必须提供appkey和token");
 	}
 
@@ -118,7 +131,12 @@ function init(){
 
 	//初始化
 	RongIMLib.RongIMClient.init(appKey);
-	showTips("开始初始化");
+	showTips("初始化 应用");
+
+
+	RongIMLib.RongIMEmoji.init();
+	showTips("初始化 表情库");
+
 
 	// 连接状态监听器
 	RongIMClient.setConnectionStatusListener({
@@ -163,6 +181,11 @@ function init(){
 
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
+		        	/*
+		        	显示消息方法： 
+		        	消息里是 原生emoji
+		        	RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
+		            */
 		            break;
 		        case RongIMClient.MessageType.VoiceMessage:
 		            // 对声音进行预加载                
@@ -303,15 +326,15 @@ function sendTextMessage(){
 
 	var msg = new RongIMLib.TextMessage(content);
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             showTips("发送文字消息成功");
-            showResult("发送文字消息成功",message,occor);
+            showResult("发送文字消息成功",message,start);
         },
         onError: function (errorCode,message) {
             showTips(errorCode);
-            showResult("发送文字消息失败",message,occor);
+            showResult("发送文字消息失败",message,start);
         }
     });
 }
@@ -327,58 +350,43 @@ function sendImageMessage(){
 
 	var content = {
 		content: "http://rongcloud.cn/images/newVersion/log_wx.png", 
-		imageUri: getBase64("RongCloud.cn")
+		imageUri: getBase64Image()
 	};
 
 	var msg = new RongIMLib.ImageMessage(content);
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             showTips("发送图片消息成功");
-            showResult("发送图片消息成功",message,occor);
+            showResult("发送图片消息成功",message,start);
         },
         onError: function (errorCode,message) {
             showTips(errorCode);
-            showResult("发送图片消息失败",message,occor);
+            showResult("发送图片消息失败",message,start);
         }
     });	
-
-	//获取base64的mock方法
-	function getBase64(str){
-		var canvas = document.createElement("canvas");
-			canvas.width = 100;
-			canvas.height = 100;
-
-
-		var context = canvas.getContext("2d");	
-			context.font = "20pt Arial";    			
-			context.fillStyle = "blue"; 
-			context.fillText(str, 10, 20);
-		var content = canvas.toDataURL("image/png");
-		return content;
-	}
 }
 
 function sendFileMessage(){
 	var content = {
-	    name: 'fileName', // 文件名称
-	    size: 'fileSize', // 文件大小，单位自己约定
+	    name: 'log_wx', // 文件名称
+	    size: '20k', // 文件大小，单位自己约定
 	    type: 'png', // 文件的后缀名，例如 png、js、doc ...
 	    fileUrl: 'http://rongcloud.cn/images/newVersion/log_wx.png' // 文件地址
 	};
 
 	var msg = new RongIMLib.FileMessage(content);
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             showTips("发送文件消息成功");
-            showResult("发送文件消息成功",message,occor);
+            showResult("发送文件消息成功",message,start);
         },
         onError: function (errorCode,message) {
             showTips(errorCode);
-            showResult("发送文件消息失败",message,occor);
+            showResult("发送文件消息失败",message,start);
         }
     });	
 }
@@ -396,15 +404,15 @@ function sendVoiceMessage(){
 	
 	var msg = new RongIMLib.VoiceMessage(content);
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             showTips("发送语音消息成功");
-            showResult("发送语音消息成功",message,occor);
+            showResult("发送语音消息成功",message,start);
         },
         onError: function (errorCode,message) {
             showTips(errorCode);
-            showResult("发送语音消息失败",message,occor);
+            showResult("发送语音消息失败",message,start);
         }
     });
 }
@@ -437,19 +445,84 @@ function sendRegisterMessage(){
 
 	var msg = new RongIMClient.RegisterMessage.PersonMessage(content);
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             showTips("发送自定义消息成功");
-            showResult("发送自定义消息成功",message,occor);
+            showResult("发送自定义消息成功",message,start);
         },
         onError: function (errorCode,message) {
             showTips(errorCode);
-            showResult("发送自定义消息失败",message,occor);
+            showResult("发送自定义消息失败",message,start);
         }
     });
 }
 
+function sendLocationMessage(){
+	/*
+	文档：http://www.rongcloud.cn/docs/api/js/LocationMessage.html
+
+	注意事项：
+		1：需要自己做显示效果
+	*/
+
+	var content = {
+		"content":getBase64Image(),
+		"latitude":"24.114",
+		"longitude":"334.221",
+		"poi":"北京市朝阳区北苑路北辰泰岳大厦"
+	};
+
+	var msg = new RongIMLib.LocationMessage(content);
+
+	var start = new Date().getTime();
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送自定义消息成功");
+            showResult("发送自定义消息成功",message,start);
+            // showMap(message);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送自定义消息失败",message,start);
+        }
+    });	
+
+    // function showMap(message){
+    // 	var latitude = message.content.latitude;
+    // 	var longitude = message.content.longitude;
+    // 	var content = message.content.content;
+    // 	var poi = message.content.poi;
+    // }
+}
+
+
+function checkUnreadMessage(){
+	/*
+	http://www.rongcloud.cn/docs/web.html#5_5、检测是否有未读的消息
+
+	此接口必须在init()方法之后调用。
+	只返回true/false，不返回具体的未读数量
+	*/
+	
+	var start = new Date().getTime();
+	instance.hasRemoteUnreadMessages(token,{
+	    onSuccess:function(hasMessage){
+	        if(hasMessage){
+	            // 有未读的消息
+	        }else{
+	            // 没有未读的消息
+	        }
+
+            showTips("检查未读消息成功");
+            showResult("检查未读消息成功",hasMessage,start);
+
+	    },onError:function(err){
+            showTips("检查未读消息失败");
+            showResult("检查未读消息失败",err,start);
+	    }
+	});
+}
 
 function getHistroyMessage(){
 	/*
@@ -463,16 +536,20 @@ function getHistroyMessage(){
 	var count = 20;  // 2 <= count <= 20
 	var timestrap = null; //0, 1483950413013
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.getHistoryMessages(conversationtype, targetId, timestrap, count, {
 		onSuccess: function(list, hasMsg) {
-			// hasMsg == true 表示还有剩余历史消息可拉取
+			//可通过sort订制其他顺序
+			list.sort(function(a,b){
+				return a.sentTime > b.sentTime;
+			});
+
             showTips("获取历史消息成功");
-            showResult("获取历史消息成功",list,occor);
+            showResult("获取历史消息成功",list,start);
 		},
 		onError: function(error) {
             showTips("获取历史消息失败");
-            showResult("获取历史消息失败",error,occor);
+            showResult("获取历史消息失败",error,start);
 		}
 	});
 } 
@@ -487,22 +564,143 @@ function getConversationList(){
 		2：只有发过消息才能生成会话
 	*/
 
-	var occor = new Date().getTime();
+	var start = new Date().getTime();
 	instance.getConversationList({
 		onSuccess: function(list) {
+			list.sort(function(a,b){
+				return a.sentTime > b.sentTime;
+			});
             showTips("获取会话成功");
-            showResult("获取会话成功",list,occor);
+            showResult("获取会话成功",list,start);
 		},
 		onError: function(error) {
             showTips("获取会话失败");
-            showResult("获取会话失败",error,occor);
+            showResult("获取会话失败",error,start);
 		}
     },null);
-
 }
 
 function receiveMessage(){
 	alert("请见init方法里的 RongIMClient.setOnReceiveMessageListener")
+}
+
+
+var chatRoomId = "chatRoomId-008"; // 聊天室 Id,可任意指定，能区分不同聊天室即可
+var count = 10;// 
+
+function enterChatroom(){
+	/*
+	http://www.rongcloud.cn/docs/web_api_demo.html#聊天室
+
+	聊天室不支持通过 getHistoryMessages 方法获取历史消息，
+	可以在 joinChatRoom 时拉取最近的消息, 最多 50 条。
+	*/
+
+	var start = new Date().getTime();
+	instance.joinChatRoom(chatRoomId, count, {
+		onSuccess: function() {
+            showTips("加入聊天室成功");
+            showResult("加入聊天室成功",null,start);
+		},
+		onError: function(error) {
+            showTips("加入聊天室失败");
+            showResult("加入聊天室失败",null,start);
+		}
+	});
+}
+
+function quitChatroom(){
+	var start = new Date().getTime();
+	instance.quitChatRoom(chatRoomId, {
+		onSuccess: function() {
+            showTips("退出聊天室成功");
+            showResult("退出聊天室成功",null,start);
+		},
+		onError: function(error) {
+            showTips("退出聊天室失败");
+            showResult("退出聊天室失败",null,start);
+		}
+	});
+}
+
+function getChatroomInfo(){
+	/*
+	需确认 当前用户 已加入聊天室
+	*/ 
+	var order = RongIMLib.GetChatRoomType.REVERSE;// 排序方式。
+	var memberCount = 10; // 获取聊天室人数 （范围 0-20 ）
+
+	var start = new Date().getTime();
+	instance.getChatRoomInfo(chatRoomId, memberCount, order, {
+	  onSuccess: function(chatRoom) {
+			// chatRoom => 聊天室信息。
+			// chatRoom.userInfos => 返回聊天室成员。
+			// chatRoom.userTotalNums => 当前聊天室总人数。
+            showTips("获取聊天室信息成功");
+            showResult("获取聊天室信息成功",chatRoom,start);
+	  },
+	  onError: function(error) {
+            showTips("获取聊天室信息失败");
+            showResult("获取天室信息失败",error);
+	  }
+	});
+}
+
+
+function showRecentContact(){
+	//获取最近会话，获得会话对象id 
+
+	//mock数据，实际项目从应用服务器获取
+	var usersInfo = {
+		"user9" : {
+			"userId" : "user9",
+			"name" : "张三",
+			"portraitUri" : "http://rongcloud.cn/images/newVersion/log_wx.png"
+
+		}
+	};
+
+	var start = new Date().getTime();
+	instance.getConversationList({
+		onSuccess: function(list) {
+			list.sort(function(a,b){
+				return a.sentTime > b.sentTime;
+			});
+			var list = merge(list,usersInfo);
+			//配置模板继续做dom呈现即可
+			
+            showTips("获取会话merge用户数据成功");
+            showResult("获取会话merge用户数据成功",list,start);
+		},
+		onError: function(error) {
+            showTips("获取会话失败");
+            showResult("获取会话失败",error,start);
+		}
+    },null);
+
+    function merge(conversationList,userInfo){
+    	for(var i = 0, len = conversationList.length; i < len; i++){
+    		var userId = conversationList[i].targetId;
+    		conversationList[i].userInfo = usersInfo[userId];
+    	}
+    	return conversationList;
+    }
+}
+
+
+//获取base64假数据方法
+function getBase64Image(){
+	var canvas = document.createElement("canvas");
+		canvas.width = 100;
+		canvas.height = 100;
+
+
+	var context = canvas.getContext("2d");	
+		context.font = "20pt Arial";    			
+		context.fillStyle = "blue"; 
+		context.fillText("RongCloud.cn", 10, 20);
+	var content = canvas.toDataURL("image/png");
+	return content;
 }
 </script>
 
@@ -536,15 +734,28 @@ function receiveMessage(){
 	<input type="button" value="图片消息" onclick="sendImageMessage();">
 	<input type="button" value="文件消息" onclick="sendFileMessage();">
 	<input type="button" value="语音消息" onclick="sendVoiceMessage();">
-	<input type="button" value="自定义消息" onclick="sendRegisterMessage();"> 
+	<input type="button" value="自定义消息" onclick="sendRegisterMessage();">
+	<input type="button" value="位置消息" onclick="sendLocationMessage();"> 
 
 	<br>
 
 	接收消息：
+	<input type="button" value="检查未读消息" onclick="checkUnreadMessage();"> 
 	<input type="button" value="消息接收" onclick="receiveMessage();"> 
 	<input type="button" value="历史消息" onclick="getHistroyMessage();"> 
 	<input type="button" value="获取会话" onclick="getConversationList();"> 
 
+	<br>
+
+	聊天室：
+	<input type="button" value="加入聊天室" onclick="enterChatroom();"> 
+	<input type="button" value="退出聊天室" onclick="quitChatroom();"> 
+	<input type="button" value="获取聊天室信息" onclick="getChatroomInfo();"> 
+
+	<br>
+
+	二次开发：
+	<input type="button" value="最近联系人信息" onclick="showRecentContact()">
 </div>
 
 <div class="result" id="result-area">
