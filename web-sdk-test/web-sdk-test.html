@@ -172,12 +172,13 @@ function init(){
 		1：为了看到接收效果，需要另外一个用户向本用户发消息
 		2：
 	*/
+	var start = new Date().getTime();
 	RongIMClient.setOnReceiveMessageListener({
 		// 接收到的消息
 		onReceived: function (message) {
 		    // 判断消息类型
 		    showTips("新消息，类型为：" + message.messageType);
-            showResult("新消息",message);
+            showResult("新消息",message,start);
 
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
@@ -668,7 +669,7 @@ function showRecentContact(){
 			});
 			var list = merge(list,usersInfo);
 			//配置模板继续做dom呈现即可
-			
+
             showTips("获取会话merge用户数据成功");
             showResult("获取会话merge用户数据成功",list,start);
 		},
