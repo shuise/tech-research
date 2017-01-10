@@ -88,6 +88,7 @@ function showResult(title,code,start){
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.4.min.js"></script>
 <script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 <!-- 
 用户数据，群组数据，好友关系 必须有应用服务器提供
 显示会话信息需要从融云和应用服务器共同获取数据才能完整显示
@@ -131,11 +132,16 @@ function init(){
 
 	//初始化
 	RongIMLib.RongIMClient.init(appKey);
+	instance = RongIMClient.getInstance();
 	showTips("初始化 应用");
 
 
 	RongIMLib.RongIMEmoji.init();
 	showTips("初始化 表情库");
+
+
+	RongIMLib.RongIMVoice.init();
+	showTips("初始化 声音库");
 
 
 	// 连接状态监听器
@@ -395,12 +401,13 @@ function sendFileMessage(){
 function sendVoiceMessage(){
 	/*
 	文档：http://www.rongcloud.cn/docs/api/js/VoiceMessage.html
+		 http://www.rongcloud.cn/docs/web.html#8_1、_声音库引用地址
 
 	需自行解决录音和转码问题，要求编码为amr
 	*/
 	var content = {
 		content : "声音base64码",
-		duration : 1200
+		duration : 20
 	};
 	
 	var msg = new RongIMLib.VoiceMessage(content);
@@ -410,6 +417,16 @@ function sendVoiceMessage(){
         onSuccess: function (message) {
             showTips("发送语音消息成功");
             showResult("发送语音消息成功",message,start);
+
+            /*
+            play语音消息
+			
+			var voice = message.content.content;
+			var duration = message.content.duration;  //单位为秒
+			RongIMLib.RongIMVoice.preLoaded(voice,function(){
+				RongIMLib.RongIMVoice.play(voice,duration);
+			});
+			*/
         },
         onError: function (errorCode,message) {
             showTips(errorCode);
@@ -502,7 +519,7 @@ function checkUnreadMessage(){
 	/*
 	http://www.rongcloud.cn/docs/web.html#5_5、检测是否有未读的消息
 
-	此接口必须在init()方法之后调用。
+	此接口必须在init()方法之后调用，但不依赖于connect
 	只返回true/false，不返回具体的未读数量
 	*/
 	
@@ -689,6 +706,10 @@ function showRecentContact(){
 }
 
 
+function upload(){
+	alert("location.href == upload.html");
+}
+
 //获取base64假数据方法
 function getBase64Image(){
 	var canvas = document.createElement("canvas");
@@ -757,6 +778,7 @@ function getBase64Image(){
 
 	二次开发：
 	<input type="button" value="最近联系人信息" onclick="showRecentContact()">
+	<input type="button" value="上传组件" onclick="upload()">
 </div>
 
 <div class="result" id="result-area">
