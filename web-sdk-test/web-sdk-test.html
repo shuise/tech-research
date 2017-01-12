@@ -107,7 +107,9 @@ function showResult(title,code,start){
 var instance = null;
 var appKey = "";
 var token = "";
-
+var config = {
+	navi: 'nav.cn.ronghub.com'
+};
 
 /*
 消息全部用单聊，user8 -> user9
@@ -131,7 +133,7 @@ function init(){
 	*/
 
 	//初始化
-	RongIMLib.RongIMClient.init(appKey);
+	RongIMLib.RongIMClient.init(appKey, null, config);
 	instance = RongIMClient.getInstance();
 	showTips("初始化 应用");
 
