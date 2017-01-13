@@ -10,6 +10,7 @@
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
+  border:1px solid red;
 }
 
 .userinfo-nickname {
@@ -18,4 +19,9 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.myCanvas{
+  border:1px solid red;
+  display:none;
 }

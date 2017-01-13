@@ -170,9 +170,16 @@ module.exports = (function(wx){
             });
         }
 
+        function preview(urls){
+            wx.previewImage({
+                urls: urls // 需要预览的图片http链接列表
+            }); 
+        }
+
         return {
             select : select,
-            getThumb: getThumb
+            getThumb: getThumb,
+            preview : preview
         };
     }
 
@@ -198,7 +205,7 @@ module.exports = (function(wx){
             var keys = res.keys;
             var result = {};
             keys.forEach(function(key){
-                if(key.indexOf(keyword) >= -1){
+                if(key.indexOf(keyword) > -1){
                     result[key] = get(key);
                 }
             });
