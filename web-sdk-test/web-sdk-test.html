@@ -107,6 +107,7 @@ function showResult(title,code,start){
 var instance = null;
 var appKey = "";
 var token = "";
+//获取token方法：http://www.rongcloud.cn/docs/web.html#2、获取_Token
 
 
 /*
@@ -603,6 +604,7 @@ function receiveMessage(){
 }
 
 
+//加入聊天室后，可以用任意一个发送消息的方法发送消息，只需要conversationType为CHATROOM
 var chatRoomId = "chatRoomId-008"; // 聊天室 Id,可任意指定，能区分不同聊天室即可
 var count = 10;// 
 
@@ -778,6 +780,10 @@ function getBase64Image(){
 
 	二次开发：
 	<input type="button" value="最近联系人信息" onclick="showRecentContact()">
+
+	<br>
+
+	其他：
 	<input type="button" value="上传组件" onclick="upload()">
 </div>
 
