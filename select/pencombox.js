@@ -1,24 +1,31 @@
 ;(function(global,factory){
  if (typeof define === 'function'){
-   define([], factory);
+   define(factory);
  }else if(typeof require == 'function' && typeof module == 'object' && module['export']){
    module["exports"] = factory();
  }else{
    global["PenCombox"] = factory() || {};
  }
 })(this,function(){
-    var PenCombox = {};
-    PenCombox.genCombox = function(comboxId){
+    var genCombox = function(combox){
        if (typeof comboxId != 'undefined'){
-          var combox = document.getElementById(comboxId),clsOpts = PenCombox.cssFactory();
+          var clsOpts = cssFactory();
           combox.className += " " + clsOpts.parent;
           for(var i=0,len = combox.childNodes.length; i<len; i++){
             combox.childNodes[i].className +=clsOpts.child;
           }
+
+          var tpl = {
+            "head" : '<div class="open/close">ul>',
+            "repeat" : '<li _value="{{value}}" {{if data.selected}}class="selected"{{end}}}}>{{text}}</li>'
+            "end" : '</ul></div>'
+          }
        }
     };
 
-    PenCombox.bindEvent = function(elementObj,eventName,method){
+    var addEvent = window.addEventListener || window.attachEvent;
+
+    var bindEvent = function(elementObj,eventName,method){
        if (window.addEventListener) {
           elementObj.addEventListener(eventName,method);
        }else if(window.attachEvent){
@@ -26,7 +33,7 @@
        }
     };
 
-    PenCombox.removeEvent = function(elementObj,eventName,method){
+    var removeEvent = function(elementObj,eventName,method){
         if (window.addEventListener) {
            elementObj.removeEventListener(eventName,method);
         }else if(window.attachEvent){
@@ -35,7 +42,7 @@
     };
 
     // 重写此方法请返回对象 {parent:'',child:''}
-    PenCombox.cssFactory = function(recreate){
+    var cssFactory = function(recreate){
      var clsOpts = {};
      if (!document.getElementById('penStyleId') && !recreate) {
          var style = document.createElement("style");
@@ -48,6 +55,9 @@
        clsOpts.parent = 'pen-parent-combox';
        clsOpts.child  = 'pen-child-combox'
        return clsOpts;
-    }
-    return PenCombox;
+    }dom,cssom
+    return {
+      removeEvent:removeEvent,
+      cssFactory:cssFactory
+    };
 });

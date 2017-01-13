@@ -37,10 +37,10 @@ function render(template, data) {
     return html;    
 }
 
-var tpl = '<a>{{this.key1}} --- {{this.value1}}</a>   <p class="test">-</p>';
+var tpl = '<a class="c1 {{this.special}}">{{this.key1}} --- {{this.value1}}</a>   <p class="test">-</p>';
 var data = [
 		{"key1":1,"value1":1},
-		{"key1":2,"value1":2},
+		{"key1":2,"value1":2,"special":"c2"},
 		{"key1":3,"value1":3}
 		];
 var html = render(tpl,data);	
