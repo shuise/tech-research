@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>emoji</title>
+</head>
+<body>
+
+
+<div id="a">馃崑</div>
+	
+<script>
+var a = document.getElementById("a");
+alert(encodeURIComponent(a.innerHTML));
+var isSupport = a.innerHTML == "馃崑";
+document.write(isSupport);	
+</script>	
+</body>
+</html>
