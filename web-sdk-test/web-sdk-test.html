@@ -63,6 +63,13 @@ body{
 
 
 <script>
+(function(){
+	var url = location.href;
+	if(url.indexOf("http://") == -1 && url.indexOf("https://") == -1){
+		alert("集成页面一定要在http(s)协议下运行");
+	}
+})();
+
 function showTips(data){
 	var dom = document.getElementById("show");
 		dom.style.display = "block";
@@ -124,6 +131,11 @@ function init(){
 
 	if(appKey == "" || token == ""){
 		alert("必须提供appkey和token");
+	}
+
+	targetId = document.getElementById("targetId").value;
+	if(targetId == ""){
+		alert("必须提供targetId");
 	}
 
 	showTips();
@@ -668,6 +680,27 @@ function getChatroomInfo(){
 	});
 }
 
+function sendMessageToChatroom(){
+	var content = {
+		content:"hello，sendTime：" + new Date().getTime(),
+		extra:"RongCloud"
+	};
+
+	var conversationtype = RongIMLib.ConversationType.CHATROOM; // 私聊
+	var msg = new RongIMLib.TextMessage(content);
+
+	var start = new Date().getTime();
+	instance.sendMessage(conversationtype, chatRoomId, msg, {
+        onSuccess: function (message) {
+            showTips("发送聊天室消息成功");
+            showResult("发送聊天室消息成功",message,start);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送聊天室消息失败",message,start);
+        }
+    });
+}
 
 function showRecentContact(){
 	//获取最近会话，获得会话对象id 
@@ -739,7 +772,11 @@ function getBase64Image(){
 	</p>
 	<p>
 		<span>token</span>
-		<input type="text" id="token" size="110" value="qyN3mb4PjM+ZXDOdW4f8KpltMLEfik9DxpqXaALr0RGROd6gPSiwQtBYfRPwWMBLjb+Q/sj37frDI5cUnfVAKg==">
+		<input type="text" id="token" size="100" value="qyN3mb4PjM+ZXDOdW4f8KpltMLEfik9DxpqXaALr0RGROd6gPSiwQtBYfRPwWMBLjb+Q/sj37frDI5cUnfVAKg==">
+	</p>
+	<p>
+		<span>targetId</span>
+		<input type="text" id="targetId" size="15" value="user9">
 	</p>
 	<p>
 		<span>&#160;</span>
@@ -775,6 +812,7 @@ function getBase64Image(){
 
 	聊天室：
 	<input type="button" value="加入聊天室" onclick="enterChatroom();"> 
+	<input type="button" value="聊天室发消息" onclick="sendMessageToChatroom();"> 
 	<input type="button" value="退出聊天室" onclick="quitChatroom();"> 
 	<input type="button" value="获取聊天室信息" onclick="getChatroomInfo();"> 
 
