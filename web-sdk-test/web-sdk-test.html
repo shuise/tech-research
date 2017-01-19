@@ -1,19 +1,18 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Web SDK test</title>
 </head>
 <body>
+
 <style>
 body{
 	font-size:14px;
 	line-height:2;
 	color:#333;
 }
-.panel span{
-	display:inline-block;
-	width:60px;
+.panel span{	width:60px;
 }
 #show{
 	display:none;
@@ -108,7 +107,7 @@ function showResult(title,code,start){
 -->
 <!-- 
 	当前用户：user8
-	对象用户：user9 
+	对象用户：user9,user10 
 -->
 <script>
 var instance = null;
@@ -123,6 +122,17 @@ var config = {
 消息全部用单聊，user8 -> user9
 */
 var targetId = "user9"; // 目标 Id
+var targetId2 = "user10"; // 目标 Id
+//mock数据，实际项目从应用服务器获取
+var usersInfo = {
+	"user9" : {
+		"userId" : "user9",
+		"name" : "张三",
+		"portraitUri" : "http://rongcloud.cn/images/newVersion/log_wx.png"
+
+	}
+};
+
 var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
 
 function init(){
@@ -133,10 +143,14 @@ function init(){
 		alert("必须提供appkey和token");
 	}
 
-	targetId = document.getElementById("targetId").value;
-	if(targetId == ""){
-		alert("必须提供targetId");
+	targetIds = document.getElementById("targetId").value;
+	if(targetIds == ""){
+		alert("必须提供两个的有效targetId");
 	}
+
+	targetIds = targetIds.split("，").join(",").split(",");
+	targetId = targetIds[0];	
+	targetId2 = targetIds[1];	
 
 	showTips();
 
@@ -199,7 +213,7 @@ function init(){
 		onReceived: function (message) {
 		    // 判断消息类型
 		    showTips("新消息，类型为：" + message.messageType);
-            showResult("新消息",message,start);
+            // showResult("新消息",message,start);
 
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
@@ -341,7 +355,7 @@ function sendTextMessage(){
 	*/
 
 	var content = {
-		content:"hello",
+		content:"hello " + encodeURIComponent('π，α，β'),
 		extra:"RongCloud"
 	};
 
@@ -472,7 +486,7 @@ function sendRegisterMessage(){
 	registerMessageType("PersonMessage");
 
 	var content = {
-		name:"RongCloud",
+		name:"RegisterMessage",
 		age:3
 	};
 
@@ -528,7 +542,6 @@ function sendLocationMessage(){
     // 	var poi = message.content.poi;
     // }
 }
-
 
 function checkUnreadMessage(){
 	/*
@@ -702,18 +715,140 @@ function sendMessageToChatroom(){
     });
 }
 
+
+var discussionName = "shuise`s discussion"; // 名称自定义
+var userIds = [targetId];//讨论组初始成员。
+var discussionId;
+
+function getDiscussionInfo(discussionId,start){
+	instance.getDiscussion(discussionId,{
+		onSuccess:function(discussion){
+			showResult("讨论组信息获取成功",discussion,start);
+		},
+		onError:function(error){
+            showTips(error);
+            showResult("讨论组信息获取失败",error,start);
+		}
+	});
+}
+
+function createDiscussion(){
+	/*
+	http://www.rongcloud.cn/docs/web_api_demo.html#讨论组
+	
+	*/ 
+	var start = new Date().getTime();
+	instance.createDiscussion(discussionName,userIds,{
+	    onSuccess:function(discussionId){
+	    	window.discussionId = discussionId;
+            showTips("讨论组创建成功");
+
+			getDiscussionInfo(discussionId,start);
+	    },
+	    onError:function(error){
+            showTips(error);
+            showResult("讨论组创建失败",error,start);
+	    }
+	});
+}
+
+function setDiscussionName(){
+	var start = new Date().getTime();
+	var discusstionName = "another discussion";
+
+	instance.setDiscussionName(discussionId,discusstionName,{
+	    onSuccess:function(){
+            showTips("讨论组改名成功");
+            showResult("讨论组改名成功",null,start);
+
+            getDiscussionInfo(discussionId,start);
+	    },
+	    onError:function(error){
+            showTips("讨论组改名失败");
+            showResult("讨论组改名失败",error,start);
+	    }
+	});
+}
+
+function setDiscussionStatus(){
+	var status = RongIMLib.DiscussionInviteStatus.CLOSED; 
+	/* 讨论邀请状态 ，默认开放
+	0 ： 开发邀请，
+	1：关闭邀请  
+	RongIMLib.DiscussionInviteStatus.OPEND
+	RongIMLib.DiscussionInviteStatus.CLOSED
+	*/
+	var start = new Date().getTime();
+	instance.setDiscussionInviteStatus(discussionId,status,{
+	    onSuccess:function(){
+            showTips("讨论组状态修改成功");
+            // showResult("讨论组状态修改成功",null,start);
+
+            getDiscussionInfo(discussionId, start);
+	    },
+	    onError:function(error){
+            showTips("讨论组状态修改成功");
+            showResult("讨论组状态修改成功",error,start);
+	    }
+	});
+}
+
+function addMemberToDiscussion(){
+	var userIds = [targetId2];//被邀请成员。
+
+	var start = new Date().getTime();
+	instance.addMemberToDiscussion(discussionId,userIds,{
+	    onSuccess:function(){
+            showTips("讨论组加人成功");
+            // showResult("讨论组加人成功",null,start);
+
+            getDiscussionInfo(discussionId, start);
+	    },
+	    onError:function(error){
+            showTips("讨论组加人失败");
+            showResult("讨论组加人失败",error,start);
+	    }
+	});
+}
+
+function removeMemberFromDiscussion(){
+	var userIds = targetId2;//被邀请成员。
+
+	var start = new Date().getTime();
+
+	instance.removeMemberFromDiscussion(discussionId,userIds,{
+	    onSuccess:function(){
+            showTips("讨论组踢人成功");
+            // showResult("讨论组踢人成功",null,start);
+
+            getDiscussionInfo(discussionId, start);
+	    },
+	    onError:function(error){
+            showTips("讨论组加人失败");
+            showResult("讨论组加人失败",error,start);
+	    }
+	});
+}
+
+function quitDiscussion(){
+	var start = new Date().getTime();
+
+	instance.quitDiscussion(discussionId,{
+	    onSuccess:function(){
+            showTips("退出讨论组成功");
+            // showResult("讨论组踢人成功",null,start);
+
+            getDiscussionInfo(discussionId, start);
+	    },
+	    onError:function(error){
+	    	showTips("退出讨论组失败");
+	    	showResult("讨论组加人失败",error,start);
+	    }
+	});
+}
+
 function showRecentContact(){
 	//获取最近会话，获得会话对象id 
-
-	//mock数据，实际项目从应用服务器获取
-	var usersInfo = {
-		"user9" : {
-			"userId" : "user9",
-			"name" : "张三",
-			"portraitUri" : "http://rongcloud.cn/images/newVersion/log_wx.png"
-
-		}
-	};
 
 	var start = new Date().getTime();
 	instance.getConversationList({
@@ -744,7 +879,7 @@ function showRecentContact(){
 
 
 function upload(){
-	alert("location.href == upload.html");
+	location.href = "https://github.com/yuhongda0315/martin-demo/tree/master/upload";
 }
 
 //获取base64假数据方法
@@ -775,8 +910,9 @@ function getBase64Image(){
 		<input type="text" id="token" size="110" value="qyN3mb4PjM+ZXDOdW4f8KpltMLEfik9DxpqXaALr0RGROd6gPSiwQtBYfRPwWMBLjb+Q/sj37frDI5cUnfVAKg==">
 	</p>
 	<p>
-		<span>targetId</span>
-		<input type="text" id="targetId" size="15" value="user9">
+		<span>targetIds</span>
+		<input type="text" id="targetId" size="25" value="user9,user10">
+		<em>逗号间隔，至少提供两个</em>
 	</p>
 	<p>
 		<span>&#160;</span>
@@ -815,6 +951,16 @@ function getBase64Image(){
 	<input type="button" value="聊天室发消息" onclick="sendMessageToChatroom();"> 
 	<input type="button" value="退出聊天室" onclick="quitChatroom();"> 
 	<input type="button" value="获取聊天室信息" onclick="getChatroomInfo();"> 
+
+	<br>
+
+	讨论组：
+	<input type="button" value="讨论组创建" onclick="createDiscussion();"> 
+	<input type="button" value="讨论组改名" onclick="setDiscussionName();"> 
+	<input type="button" value="讨论组状态" onclick="setDiscussionStatus();"> 
+	<input type="button" value="讨论组加人" onclick="addMemberToDiscussion();"> 
+	<input type="button" value="讨论组踢人" onclick="removeMemberFromDiscussion();"> 
+	<input type="button" value="退出讨论组" onclick="quitDiscussion();"> 
 
 	<br>
 
