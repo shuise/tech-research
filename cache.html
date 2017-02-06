@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>cache</title>
+</head>
+<body>
+<style>
+body{
+	font-family:arial;
+}	
+pre{
+	font-family:arial;
+	font-size:14px;
+	line-height:1.8;
+	border:1px solid #ccc;
+	background:#f5f5f5;
+	padding:10px;
+	width:400px;
+}
+</style>
+
+<h1>cache API</h1>
+
+<p>
+	<h3>注意：</h3>
+	1: localStorage和sessionStorage禁止使用相同key <br>
+	2: 复杂数据在存储时会进行JSON.stringfy，获取时JSON.parse
+</p>
+<pre>
+var cache = RongIM.cache;
+
+cache.get(key)
+
+cache.remove(key)
+
+持久化cache
+	cache.set(key, value);
+
+session cache
+	cache.set(key, value, isTemp);
+</pre>
+
+<script>
+var cache = (function(){
+    var keyNS = "rongcloud-im-";
+
+    function get(key){
+        var key = keyNS + key;
+        var val = sessionStorage.getItem(key) || localStorage.getItem(key);
+            val = JSON.parse(val);
+        return val;
+    }
+
+    //isPersistent
+    function set(key,val,isTemp){
+        var _store = localStorage;
+        if(isTemp){
+            _store = sessionStorage;
+        }
+        key = keyNS + key;
+        _store[key] = JSON.stringify(val);
+    }
+
+    function remove(key){
+        key = keyNS + key;
+        localStorage.removeItem(key);
+        sessionStorage.removeItem(key);
+    }
+
+    return {
+        get : get,
+        set : set,
+        remove : remove
+    }
+})();	
+</script>
+
+<script>
+// cache.set("auth","login",true);
+console.log(cache.get("auth"));
+
+cache.set("test",12345);
+console.log(cache.get("test"));
+
+// cache.remove("test");
+console.log(cache.get("test"));
+
+</script>
+</body>
+</html>

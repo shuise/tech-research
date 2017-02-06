@@ -23,7 +23,7 @@ alert(isSupportEmoji());
 
 function isSupportEmoji(){
 
-	var emoji = "😄";
+	var emoji = "馃槃";
 	
 	var _standard = Images.getFile(emoji);
 
