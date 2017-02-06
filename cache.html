@@ -47,8 +47,14 @@ var cache = (function(){
 
     function get(key){
         var key = keyNS + key;
+        var key2 = "JSON-" + key;
         var val = sessionStorage.getItem(key) || localStorage.getItem(key);
-            val = JSON.parse(val);
+        var val2 = sessionStorage.getItem(key2) || localStorage.getItem(key2);
+
+      	if(val2){
+      		val = JSON.parse(val2);
+      	}
+
         return val;
     }
 
@@ -59,7 +65,19 @@ var cache = (function(){
             _store = sessionStorage;
         }
         key = keyNS + key;
-        _store[key] = JSON.stringify(val);
+        var key2 = "JSON-" + key;
+
+        //覆盖复杂类型
+        if(get(key2)){
+        	remove(key2);
+        }
+
+        if(typeof val == "object"){
+        	val = JSON.stringify(val);
+       		key = key2;
+        }
+
+        _store[key] = val;
     }
 
     function remove(key){
