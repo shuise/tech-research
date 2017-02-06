@@ -1,8 +1,4 @@
 var utils = require("../../utils/util.js");
-/*
-cloudregister@fetionyy.com.cn
-elope33chilt
-*/ 
 
 console.log("utils");
 console.log(utils);

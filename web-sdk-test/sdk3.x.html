@@ -6,387 +6,42 @@
 </head>
 <body>
 
-<style>
-body{
-	font-size:14px;
-	line-height:2;
-	color:#333;
-}
-.panel span{
-	display:inline-block;	
-	width:60px;
-}
-.show{
-	display:none;
-	font-size:12px;
-	border:1px solid #ccc;
-	padding:10px 30px;
-	width:300px;
-	overflow:auto;
-	position:fixed;
-	right:10px;
-	top:0;
-	bottom:10px;
-}
-.btns{
-	display:none;
-}
-.btns input,
-.btns a{
-	font-size:12px;
-	margin:20px 20px 0 0;
-}	
-.result{
-	display:none;
-	background:#f5f5f5;
-	margin-top:30px;
-	width:730px;
-	padding:5px;
-	overflow:hidden;
-}
-.result h2{
-	font-size:14px;
-	margin:0;
-	padding:0;
-}
-.result pre{
-	background:#fff;
-	border:1px solid #ccc;
-	padding:10px;
-	font-size:12px;
-	font-family:verdana;
-	margin:0;
-}
-.result pre h3{
-	margin:0;
-	padding:0;
-	color:#cd0000;
-}
-</style>
-
 <script src="//cdn.ronghub.com/RongIMLib-2.2.4.min.js"></script>
-<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
-<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+<script src="sdk.enxtend.js"></script>
 
-<!-- <script src="res/pace.js"></script> -->
-<script>
-/*
-检测代码建议放在SDK加载之后，init运行之前。
-*/
-
-//检测本地环境WebSocket
-(function(){
-	var isPure = checkFunctionPure("WebSocket");
-	if(isPure){
-		console.log("WebSocket is ok, here wo go!");
-	}else{
-		alert("WebSocket is broken,RongCloud cantnot init")
-	}
-})();
-
-function checkFunctionPure(funcName){
-	var d = document, w = window;
-	var id = "RongCloudCloud-API-Test" + new Date().getTime;
-	var iframe = d.getElementById(id);
-	if(!iframe){
-		iframe = d.createElement("iframe");
-		iframe.id = id;
-		iframe.style.display = "none";
-		d.body.appendChild(iframe);
-	}
-	var funcPure = iframe.contentWindow[funcName];
-	var funcNow = w[funcName];
-
-	return (funcPure.toString() == funcNow.toString());
-}
-
-//不允许用file协议
-(function(){
-	var url = location.href;
-	if(url.indexOf("http://") == -1 && url.indexOf("https://") == -1){
-		alert("集成页面一定要在http(s)协议下运行");
-	}
-})();
-</script>
-
-<script>
-
-function showTips(data){
-	var dom = document.getElementById("show");
-		dom.style.display = "block";
-	if(data){
-		dom.innerHTML += "<li>" + data + "</li>";
-	}else{
-		dom.innerHTML = "";
-	}
-}	
-function showResult(title,code,start){
-	var dom = document.getElementById("result-area");
-		dom.style.display = "block";
-	
-
-	var now = new Date().getTime();
-	var t = document.getElementById("result");
-		t.innerHTML = '<h3>' 
-					+ title + '  <small>执行时间：'  + (now - start) + 'ms</small>' 
-					+ '</h3>' 
-					+ JSON.stringify(code,null,"\t");
-}
-</script>
-
-<!-- 
-用户数据，群组数据，好友关系 必须有应用服务器提供
-显示会话信息需要从融云和应用服务器共同获取数据才能完整显示
-
-本地存储问题
-
-访问协议，禁止file:///
-
-
--->
-<!-- 
-	当前用户：user8
-	对象用户：user9,user10 
--->
 <script>
 var instance = null;
 var appKey = "";
 var token = "";
-
 var config = {
 	navi: 'nav.cn.ronghub.com'
 };
+var targetId = "user9"; // 目标 Id
 
 /*
 消息全部用单聊，user8 -> user9
 */
-var targetId = "user9"; // 目标 Id
-var targetId2 = "user10"; // 目标 Id
-//mock数据，实际项目从应用服务器获取
-var usersInfo = {
-	"user9" : {
-		"userId" : "user9",
-		"name" : "张三",
-		"portraitUri" : "http://rongcloud.cn/images/newVersion/log_wx.png"
 
+function init(){
+	var params = {
+		appkey : appKey,
+		token : token,
+		config : config
 	}
-};
+	RongIMClient.initApp(params,function(instance){
+
+	},function(instance){
+
+	});
+}
+
+RongIMClient.ready(){
+
+}
+
 
 var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
 
-function init(){
-	appKey = document.getElementById("appkey").value;
-	token = document.getElementById("token").value;
-
-	if(appKey == "" || token == ""){
-		alert("必须提供appkey和token");
-	}
-
-	targetIds = document.getElementById("targetId").value;
-	if(targetIds == ""){
-		alert("必须提供两个的有效targetId");
-	}
-
-	targetIds = targetIds.split("，").join(",").split(",");
-	targetId = targetIds[0];	
-	targetId2 = targetIds[1];	
-
-	showTips();
-
-
-	/*
-	文档：http://www.rongcloud.cn/docs/web.html
-	*/
-
-	//初始化
-	// RongIMLib.RongIMClient.init(appKey, null, config);
-	RongIMLib.RongIMClient.init(appKey);
-	instance = RongIMClient.getInstance();
-	showTips("初始化 应用");
-
-
-	RongIMLib.RongIMEmoji.init();
-	showTips("初始化 表情库");
-
-
-	RongIMLib.RongIMVoice.init();
-	showTips("初始化 声音库");
-
-
-	// 连接状态监听器
-	RongIMClient.setConnectionStatusListener({
-		onChanged: function (status) {
-		    switch (status) {
-		        case RongIMLib.ConnectionStatus.CONNECTED:
-		            showTips("链接成功");
-		            afterConnected();
-		            break;
-		        case RongIMLib.ConnectionStatus.CONNECTING:
-		            showTips('正在链接');
-		            break;
-		        case RongIMLib.ConnectionStatus.DISCONNECTED:
-		            showTips('断开连接');
-		            break;
-		        case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
-		            showTips('其他设备登录');
-		            break;
-		          case RongIMLib.ConnectionStatus.DOMAIN_INCORRECT:
-		            showTips('域名不正确');
-		            break;
-		        case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
-		        	showTips('网络不可用');
-		        	break;
-		        }
-		}
-	});
-
-	/*
-	文档：http://www.rongcloud.cn/docs/web.html#3、设置消息监听器
-
-	注意事项：
-		1：为了看到接收效果，需要另外一个用户向本用户发消息
-		2：
-	*/
-	var start = new Date().getTime();
-	RongIMClient.setOnReceiveMessageListener({
-		// 接收到的消息
-		onReceived: function (message) {
-		    // 判断消息类型
-		    showTips("新消息，类型为：" + message.messageType);
-            // showResult("新消息",message,start);
-
-		    switch(message.messageType){
-		        case RongIMClient.MessageType.TextMessage:
-		        	/*
-		        	显示消息方法： 
-		        	消息里是 原生emoji
-		        	RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
-		            */
-		            break;
-		        case RongIMClient.MessageType.VoiceMessage:
-		            // 对声音进行预加载                
-		            // message.content.content 格式为 AMR 格式的 base64 码
-		            break;
-		        case RongIMClient.MessageType.ImageMessage:
-		           // message.content.content => 图片缩略图 base64。
-		           // message.content.imageUri => 原图 URL。
-		           break;
-		        case RongIMClient.MessageType.DiscussionNotificationMessage:
-		           // message.content.extension => 讨论组中的人员。
-		           break;
-		        case RongIMClient.MessageType.LocationMessage:
-		           // message.content.latiude => 纬度。
-		           // message.content.longitude => 经度。
-		           // message.content.content => 位置图片 base64。
-		           break;
-		        case RongIMClient.MessageType.RichContentMessage:
-		           // message.content.content => 文本消息内容。
-		           // message.content.imageUri => 图片 base64。
-		           // message.content.url => 原图 URL。
-		           break;
-		        case RongIMClient.MessageType.InformationNotificationMessage:
-		            // do something...
-		           break;
-		        case RongIMClient.MessageType.ContactNotificationMessage:
-		            // do something...
-		           break;
-		        case RongIMClient.MessageType.ProfileNotificationMessage:
-		            // do something...
-		           break;
-		        case RongIMClient.MessageType.CommandNotificationMessage:
-		            // do something...
-		           break;
-		        case RongIMClient.MessageType.CommandMessage:
-		            // do something...
-		           break;
-		        case RongIMClient.MessageType.UnknownMessage:
-		            // do something...
-		           break;
-		        default:
-		            // do something...
-		    }
-		}
-	});
-
-	//开始链接
-	RongIMClient.connect(token, {
-		onSuccess: function(userId) {
-			showTips("链接成功，用户id：" + userId);
-		},
-		onTokenIncorrect: function() {
-			//console.log('token无效');
-		},
-		onError:function(errorCode){
-		  var info = '';
-		  switch (errorCode) {
-		    case RongIMLib.ErrorCode.TIMEOUT:
-		      info = '超时';
-		      break;
-		    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
-		      info = '未知错误';
-		      break;
-		    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
-		      info = '不可接受的协议版本';
-		      break;
-		    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
-		      info = 'appkey不正确';
-		      break;
-		    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
-		      info = '服务器不可用';
-		      break;
-		  }
-		  showTips(info);
-		}
-	});
-}
-
-function afterConnected(){
-	document.getElementById("panel").style.display = "none";
-	document.getElementById("btns").style.display = "block";
-	instance = RongIMClient.getInstance();
-}
-
-function disconnect(){
-	/*
-	文档：http://www.rongcloud.cn/docs/api/js/RongIMClient.html
-	*/
-
-	instance.disconnect();
-}
-
-function reconnect(){
-	//docs   http://www.rongcloud.cn/docs/api/js/RongIMClient.html
-
-	RongIMClient.reconnect({
-		onSuccess: function(userId) {
-			showTips("重新链接成功，用户id：" + userId);
-		},
-		onTokenIncorrect: function() {
-			//console.log('token无效');
-		},
-		onError:function(errorCode){
-		  var info = '';
-		  switch (errorCode) {
-		    case RongIMLib.ErrorCode.TIMEOUT:
-		      info = '超时';
-		      break;
-		    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
-		      info = '未知错误';
-		      break;
-		    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
-		      info = '不可接受的协议版本';
-		      break;
-		    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
-		      info = 'appkey不正确';
-		      break;
-		    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
-		      info = '服务器不可用';
-		      break;
-		  }
-		  showTips(info);
-		}
-	});
-}
 
 function sendTextMessage(){
 	/*
@@ -657,17 +312,6 @@ function getConversationList(){
 			list.sort(function(a,b){
 				return a.sentTime > b.sentTime;
 			});
-
-			// list = jQuery.grep(list, function(n,i){
-			// 	return (n!== 5 && i>4)
-			// });
-
-			// // console.log(list)
-			// $.each(list,function(i,e){
-			// 	// console.log(e);
-			// 	console.log($(e));
-			// });
-
             showTips("获取会话成功");
             showResult("获取会话成功",list,start);
 		},
@@ -952,7 +596,7 @@ function getBase64Image(){
 
 
 
-<div class="panel" id="panel">
+<div class="panel">
 	<p>
 		<span>appkey</span>
 		<input type="text" id="appkey" size="20" value="8w7jv4qb78a9y">
@@ -1020,12 +664,9 @@ function getBase64Image(){
 	<input type="button" value="最近联系人信息" onclick="showRecentContact()">
 
 	<br>
-	<br>
 
 	其他：
-	<a href="https://github.com/yuhongda0315/martin-demo/tree/master/upload">上传组件</a>
-	<a href="http://web.hitalk.im/widget/web/user1/index.html">聊天插件</a>
-	<a href="http://web.sealtalk.im/">Web IM</a>
+	<input type="button" value="上传组件" onclick="upload()">
 </div>
 
 <div class="result" id="result-area">
