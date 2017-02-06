@@ -68,10 +68,11 @@ var cache = (function(){
         var key2 = "JSON-" + key;
 
         //覆盖复杂类型
-        if(get(key2)){
+        if(isKeyExist(key2)){
         	remove(key2);
         }
 
+        //储存负责类型，先stringfy，然后key前+JSON区分
         if(typeof val == "object"){
         	val = JSON.stringify(val);
        		key = key2;
@@ -81,9 +82,12 @@ var cache = (function(){
     }
 
     function remove(key){
-        key = keyNS + key;
         localStorage.removeItem(key);
         sessionStorage.removeItem(key);
+    }
+
+    function isKeyExist(key){
+        return localStorage.hasOwnProperty(key) || sessionStorage.hasOwnProperty(key);
     }
 
     return {
