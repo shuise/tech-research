@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>cache</title>
+<title>Cache</title>
 </head>
 <body>
 <style>
@@ -20,41 +20,59 @@ pre{
 }
 </style>
 
-<h1>cache API</h1>
+<h1>Cache API</h1>
 
 <p>
 	<h3>注意：</h3>
-	1: localStorage和sessionStorage禁止使用相同key <br>
-	2: 复杂数据在存储时会进行JSON.stringfy，获取时JSON.parse
+	1: 复杂数据在存储时会进行JSON.stringfy，获取时JSON.parse <br>
+    2: 数字，boolean等也都会按照初始格式还原 <br>
+    3: 打开控制台看单元测试结果
 </p>
 <pre>
-var cache = RongIM.cache;
+var Cache = RongIM.Cache;
 
-cache.get(key)
+Cache.get(key)
 
-cache.remove(key)
+Cache.remove(key)
 
-持久化cache
-	cache.set(key, value);
+持久化Cache
+	Cache.set(key, value);
 
-session cache
-	cache.set(key, value, isTemp);
+session Cache
+	Cache.set(key, value, isTemp);
 </pre>
 
 <script>
-var cache = (function(){
+var Cache = (function(){
     var keyNS = "rongcloud-im-";
 
     function get(key){
-        var key = keyNS + key;
-        var key2 = "JSON-" + key;
-        var val = sessionStorage.getItem(key) || localStorage.getItem(key);
-        var val2 = sessionStorage.getItem(key2) || localStorage.getItem(key2);
+        key = keyNS + key;
 
-      	if(val2){
-      		val = JSON.parse(val2);
-      	}
+        if(!isKeyExist(key)){
+            return undefined;   //key不存在
+        }
+        var val =  localStorage.getItem(key) || sessionStorage.getItem(key);
+      		val = JSON.parse(val);
 
+        if(val == null){
+            return null;        //有key无值
+        }
+        var type = val.type;
+        val = val.data;
+
+        /*
+        array, object在parse里已处理
+        string 不处理
+        下面处理boolean和number即可
+        */
+        var funcs = {
+            "boolean" : Boolean,    //boolean
+            "number" : Number       //number
+        }                           
+        if(funcs[type]){
+            val = funcs[type](val);
+        }
         return val;
     }
 
@@ -64,29 +82,25 @@ var cache = (function(){
         if(isTemp){
             _store = sessionStorage;
         }
+
         key = keyNS + key;
-        var key2 = "JSON-" + key;
+        var type = (typeof val);
+        val = {
+            data : val,
+            type : type
+        };
 
-        //覆盖复杂类型
-        if(isKeyExist(key2)){
-        	remove(key2);
-        }
-
-        //储存负责类型，先stringfy，然后key前+JSON区分
-        if(typeof val == "object"){
-        	val = JSON.stringify(val);
-       		key = key2;
-        }
-
-        _store[key] = val;
+        _store[key] = JSON.stringify(val);
     }
 
     function remove(key){
+        key = keyNS + key;
         localStorage.removeItem(key);
         sessionStorage.removeItem(key);
     }
 
     function isKeyExist(key){
+        //不能用返回值判断，因为可以写入""和0
         return localStorage.hasOwnProperty(key) || sessionStorage.hasOwnProperty(key);
     }
 
@@ -99,14 +113,100 @@ var cache = (function(){
 </script>
 
 <script>
-// cache.set("auth","login",true);
-console.log(cache.get("auth"));
+//test case
+console.log("====================================");
+console.log("string");
+Cache.set("k1","string",true);
+console.log(Cache.get("k1") === "string");
+Cache.set("k1","");
+console.log(Cache.get("k1") === "");
+Cache.remove("k1")
+console.log(Cache.get("k1") === undefined);
 
-cache.set("test",12345);
-console.log(cache.get("test"));
 
-// cache.remove("test");
-console.log(cache.get("test"));
+console.log("====================================");
+console.log("number");
+Cache.set("k2",12345);
+console.log(Cache.get("k2") === 12345);
+Cache.remove("k2")
+console.log(Cache.get("k2") === undefined);
+
+
+
+console.log("====================================");
+console.log("boolean");
+Cache.set("k3",true);
+console.log(Cache.get("k3"));
+Cache.set("k3",false);
+console.log(Cache.get("k3") === false);
+Cache.remove("k3")
+console.log(Cache.get("k3") === undefined);
+
+
+
+function isPlainObject (obj) {
+  return toString.call(obj) === '[object Object]'
+}
+console.log("====================================");
+console.log("object");
+
+Cache.set("k4",{});
+// console.log(Cache.get("k4"));
+console.log(isPlainObject(Cache.get("k4")));
+Cache.set("k4",null);
+// console.log(Cache.get("k4"));
+console.log(Cache.get("k4") === null);
+
+Cache.set("k4",undefined);
+// console.log(Cache.get("k4"));
+console.log(Cache.get("k4") === undefined);
+
+
+Cache.set("k4",{"a":1,"b":"2","c":true,"d":false,"e":[],"f":{},"g":null,"h":undefined});
+console.log(Cache.get("k4").a == 1);
+console.log(Cache.get("k4").b == "2");
+console.log(Cache.get("k4").c);
+console.log(Cache.get("k4").d === false);
+console.log(typeof Cache.get("k4").e === "object" &&Cache.get("k4").e.length === 0);
+console.log(isPlainObject(Cache.get("k4").f));
+console.log(Cache.get("k4").g === null);
+console.log(Cache.get("k4").h === undefined);
+
+
+Cache.remove("k4")
+console.log(Cache.get("k4") === undefined);
+
+
+
+
+console.log("====================================");
+console.log("array");
+Cache.set("k5",[]);
+console.log(typeof Cache.get("k5") === "object" &&Cache.get("k5").length === 0);
+Cache.set("k5",[1,"2",true,false,[],{},null,undefined]);
+
+// console.log(Cache.get("k5"));
+console.log(Cache.get("k5")[0] === 1);
+console.log(Cache.get("k5")[1] === "2");
+console.log(Cache.get("k5")[2]);
+console.log(Cache.get("k5")[3] === false);
+console.log(typeof Cache.get("k5")[4] == "object" && Cache.get("k5")[4].length === 0);
+console.log(isPlainObject(Cache.get("k5")[5]));
+console.log(Cache.get("k5")[6] === null);
+console.log(Cache.get("k5")[7] === undefined);
+
+Cache.remove("k5")
+console.log(Cache.get("k5") === undefined);
+
+
+
+// Cache.remove("k2")
+// console.log(Cache.get("k2") == undefined);
+
+
+
+// Cache.remove("test");
+// console.log(Cache.get("test"));
 
 </script>
 </body>

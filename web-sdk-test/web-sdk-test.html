@@ -69,45 +69,7 @@ body{
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
 <!-- <script src="res/pace.js"></script> -->
-<script>
-/*
-检测代码建议放在SDK加载之后，init运行之前。
-*/
-
-//检测本地环境WebSocket
-(function(){
-	var isPure = checkFunctionPure("WebSocket");
-	if(isPure){
-		console.log("WebSocket is ok, here wo go!");
-	}else{
-		alert("WebSocket is broken,RongCloud cantnot init")
-	}
-})();
-
-function checkFunctionPure(funcName){
-	var d = document, w = window;
-	var id = "RongCloudCloud-API-Test" + new Date().getTime;
-	var iframe = d.getElementById(id);
-	if(!iframe){
-		iframe = d.createElement("iframe");
-		iframe.id = id;
-		iframe.style.display = "none";
-		d.body.appendChild(iframe);
-	}
-	var funcPure = iframe.contentWindow[funcName];
-	var funcNow = w[funcName];
-
-	return (funcPure.toString() == funcNow.toString());
-}
-
-//不允许用file协议
-(function(){
-	var url = location.href;
-	if(url.indexOf("http://") == -1 && url.indexOf("https://") == -1){
-		alert("集成页面一定要在http(s)协议下运行");
-	}
-})();
-</script>
+<script src="check.js"></script>
 
 <script>
 
