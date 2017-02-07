@@ -12,6 +12,9 @@ body{
 	line-height:2;
 	color:#333;
 }
+h1,h2{
+	margin:0;
+}
 .panel span{
 	display:inline-block;	
 	width:60px;
@@ -34,7 +37,14 @@ body{
 .btns input,
 .btns a{
 	font-size:12px;
-	margin:20px 20px 0 0;
+	margin:20px 10px 0 10px;
+}
+.other-demos{
+	display:block;
+	background:#f5f5f5;
+	border:1px solid #ccc;
+	padding:10px;
+	display:inline-block;
 }	
 .result{
 	display:none;
@@ -72,7 +82,6 @@ body{
 <script src="check.js"></script>
 
 <script>
-
 function showTips(data){
 	var dom = document.getElementById("show");
 		dom.style.display = "block";
@@ -892,10 +901,6 @@ function showRecentContact(){
 }
 
 
-function upload(){
-	location.href = "https://github.com/yuhongda0315/martin-demo/tree/master/upload";
-}
-
 //获取base64假数据方法
 function getBase64Image(){
 	var canvas = document.createElement("canvas");
@@ -914,6 +919,7 @@ function getBase64Image(){
 
 
 
+<h1>Web SDK demo</h1>
 <div class="panel" id="panel">
 	<p>
 		<span>appkey</span>
@@ -983,11 +989,14 @@ function getBase64Image(){
 
 	<br>
 	<br>
+</div>
 
-	其他：
-	<a href="https://github.com/yuhongda0315/martin-demo/tree/master/upload">上传组件</a>
-	<a href="http://web.hitalk.im/widget/web/user1/index.html">聊天插件</a>
+<div class="btns other-demos">
+	其他demo:
+	<a href="https://github.com/rongcloud/rongcloud-web-im-upload">上传组件</a>
+	<a href="http://web.hitalk.im/widget/web/index.html">聊天插件</a>
 	<a href="http://web.sealtalk.im/">Web IM</a>
+	<a href="http://web.hitalk.im/VoIP/start.html">VoIP</a>
 </div>
 
 <div class="result" id="result-area">
