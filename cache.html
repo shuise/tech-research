@@ -26,7 +26,8 @@ pre{
 	<h3>注意：</h3>
 	1: 复杂数据在存储时会进行JSON.stringfy，获取时JSON.parse <br>
     2: 数字，boolean等也都会按照初始格式还原 <br>
-    3: 打开控制台看单元测试结果
+    3: 打开控制台看单元测试结果 <br>
+    4: 数组里写入undefined经过stringfy+parse后会变成null
 </p>
 <pre>
 var Cache = RongIM.Cache;
@@ -66,13 +67,13 @@ var Cache = (function(){
         string 不处理
         下面处理boolean和number即可
         */
-        var funcs = {
-            "boolean" : Boolean,    //boolean
-            "number" : Number       //number
-        }                           
-        if(funcs[type]){
-            val = funcs[type](val);
-        }
+        // var funcs = {
+        //     "boolean" : Boolean,    //boolean
+        //     "number" : Number       //number
+        // }                           
+        // if(funcs[type]){
+        //     val = funcs[type](val);
+        // }
         return val;
     }
 
