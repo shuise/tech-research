@@ -39,7 +39,7 @@ Cache.remove(key)
 持久化Cache
 	Cache.set(key, value);
 
-session Cache
+session Cache，页面关闭时自动销毁
 	Cache.set(key, value, isTemp);
 </pre>
 
@@ -56,25 +56,11 @@ var Cache = (function(){
         var val =  localStorage.getItem(key) || sessionStorage.getItem(key);
       		val = JSON.parse(val);
 
-        if(val == null){
-            return null;        //有key无值
+        if(val != null && val.hasOwnProperty("type") && val.hasOwnProperty("data")){
+            return val.data;
         }
-        var type = val.type;
-        val = val.data;
 
-        /*
-        array, object在parse里已处理
-        string 不处理
-        下面处理boolean和number即可
-        */
-        // var funcs = {
-        //     "boolean" : Boolean,    //boolean
-        //     "number" : Number       //number
-        // }                           
-        // if(funcs[type]){
-        //     val = funcs[type](val);
-        // }
-        return val;
+        return undefined;
     }
 
     //isPersistent
