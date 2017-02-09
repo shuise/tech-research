@@ -49,8 +49,11 @@ var Images = (function(){
 				size : evt.total
 			}
 			var ratio = getResizeRatio(imageInfo,config);
-
-			compress(img, width*ratio, height*ratio);
+			var newImageData = imageData;
+			if(ratio < 1){
+				newImageData = compress(img, width*ratio, height*ratio);;
+			}
+			callback(newImageData);
 		}
 
 		function compress(img, width, height){
@@ -76,7 +79,7 @@ var Images = (function(){
 				exportType = type;
 			} 
 			var newImageData = canvas.toDataURL(exportType);
-			callback(newImageData);
+			return newImageData;
 		}
 
 		function supportWebP(){
