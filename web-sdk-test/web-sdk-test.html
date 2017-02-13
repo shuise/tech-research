@@ -216,7 +216,9 @@ function init(){
 
 	注意事项：
 		1：为了看到接收效果，需要另外一个用户向本用户发消息
-		2：
+		2：判断会话唯一性 ：conversationType + targetId
+		3：显示消息在页面前，需要判断是否属于当前会话，避免消息错乱。
+		4：消息体属性说明可参考：http://rongcloud.cn/docs/api/js/index.html
 	*/
 	var start = new Date().getTime();
 	RongIMClient.setOnReceiveMessageListener({
@@ -314,7 +316,7 @@ function init(){
 function afterConnected(){
 	document.getElementById("panel").style.display = "none";
 	document.getElementById("btns").style.display = "block";
-	instance = RongIMClient.getInstance();
+	// instance = RongIMClient.getInstance();
 }
 
 function disconnect(){
@@ -325,6 +327,10 @@ function disconnect(){
 	instance.disconnect();
 }
 
+/*
+	1: reconnect 是重新连接，并没有重连机制，调用此方法前应该进行网络嗅探，网络正常再调用 reconnect。
+	2: 提示其他设备登录请勿调用重连方法。
+ */
 function reconnect(){
 	//docs   http://www.rongcloud.cn/docs/api/js/RongIMClient.html
 
@@ -362,8 +368,9 @@ function reconnect(){
 function sendTextMessage(){
 	/*
 	文档： http://www.rongcloud.cn/docs/web.html#5_1、发送消息
-
-	单条消息整体不得大于128K
+		   http://rongcloud.cn/docs/api/js/TextMessage.html
+	1: 单条消息整体不得大于128K
+	2: conversatinType 类型是 number，targetId 类型是 string
 	*/
 
 	var content = {
@@ -391,6 +398,8 @@ function sendImageMessage(){
 	/*
 	文档：http://www.rongcloud.cn/docs/api/js/ImageMessage.html
 
+	上传插件文档: http://rongcloud.cn/docs/web.html#上传插件
+
 	需要自行解决文件上传、获取base64码的缩略图，建议不大于100K
 
 	单条消息整体不得大于128K
@@ -417,6 +426,18 @@ function sendImageMessage(){
 }
 
 function sendFileMessage(){
+	/*
+	文档：http://www.rongcloud.cn/docs/api/js/ImageMessage.html
+
+	上传插件文档: http://rongcloud.cn/docs/web.html#上传插件
+
+	单条消息整体不得大于128K
+
+	文件消息分两步：
+		1、上传文件至文件服务器
+		2、发送文件信息和文件 URL
+	*/
+
 	var content = {
 	    name: 'log_wx', // 文件名称
 	    size: '20k', // 文件大小，单位自己约定
@@ -477,8 +498,8 @@ function sendVoiceMessage(){
 }
 
 function registerMessageType(type){
-	var messageName = type;; // 消息名称。
-	var objectName = "s:" + type; // 消息内置名称，请按照此格式命名。
+	var messageName = type; // 消息名称。
+	var objectName = "s:" + type; // 消息内置名称，请按照此格式命名 *:* 。
 	var mesasgeTag = new RongIMLib.MessageTag(true,true);// 消息是否保存是否计数，true true 保存且计数，false false 不保存不计数。
 	var propertys = ["name","age"]; // 消息类中的属性名。
 
@@ -555,12 +576,33 @@ function sendLocationMessage(){
     // }
 }
 
+function SendSyncReadStatusMessage(){
+	var sentTime = 1486975569605;// message 的 sentTime。
+	var content = {
+		lastMessageSendTime: sentTime
+	};
+	var msg = new RongIMLib.SyncReadStatusMessage(content);
+
+	var start = Date.now();
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送同步消息成功");
+            showResult("发送同步消息成功",message,start);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+            showResult("发送同步消息成功",message,start);
+        }
+    });	
+}
+
 function checkUnreadMessage(){
 	/*
 	http://www.rongcloud.cn/docs/web.html#5_5、检测是否有未读的消息
 
 	此接口必须在init()方法之后调用，但不依赖于connect
 	只返回true/false，不返回具体的未读数量
+	若连接成功后调用此方法将一直返回 false。
 	*/
 	
 	var start = new Date().getTime();
@@ -585,9 +627,10 @@ function checkUnreadMessage(){
 function getHistroyMessage(){
 	/*
 	文档：http://www.rongcloud.cn/docs/web_api_demo.html#获取历史消息
+	历史消息云存储开通位置：https://developer.rongcloud.cn/service/roam/rXxI4IAJjxRAD72SpQ==
 
 	注意事项：
-		1：一定一定一定要先开通 多设备同步 功能，本服务收费，测试环境可免费开通
+		1：一定一定一定要先开通 历史消息云存储 功能，本服务收费，测试环境可免费开通
 		2：timestrap第二次拉取必须为null才能实现循环拉取
 	*/
 
@@ -617,8 +660,10 @@ function getConversationList(){
 	文档：http://www.rongcloud.cn/docs/web_api_demo.html#会话接口
 		 http://www.rongcloud.cn/docs/web.html#5_2、同步会话列表
 
+	历史消息云存储开通位置：https://developer.rongcloud.cn/service/roam/rXxI4IAJjxRAD72SpQ==
+
 	注意事项：
-		1：一定一定一定要先开通 多设备同步 功能，本服务收费，测试环境可免费开通
+		1：一定一定一定要先开通 历史消息云存储 功能，本服务收费，测试环境可免费开通
 		2：只有发过消息才能生成会话
 	*/
 
@@ -649,6 +694,73 @@ function getConversationList(){
     },null);
 }
 
+function getUnreadCount(){
+	/*
+		注意事项：
+
+		获取未读消息数必须在获取会话列表和收到实时消息之后
+
+		未读消息数存在 localStorage 中
+
+
+	 */
+	var start = Date.now();
+	instance.getUnreadCount(conversationtype,targetId,{
+	    onSuccess:function(count){
+	       showTips("获取会话未读数成功");
+	       showResult("获取会话未读数成功", count, start);
+	    },
+	    onError:function(error){
+	       showTips("获取会话未读数失败");
+	       showResult("获取会话未读数失败", error, start);
+	    }
+	});
+}
+
+function getTotalUnreadCount(){
+	/*
+		注意事项：
+
+		获取未读消息数必须在获取会话列表和收到实时消息之后
+
+		未读消息数存在 localStorage 中
+
+	 */
+	var start = Date.now();
+	instance.getTotalUnreadCount({
+	  onSuccess:function(count){
+	       showTips("获取总未读数成功");
+	       showResult("获取总未读数成功", count, start);
+	  },
+	  onError:function(error){
+	      showTips("获取总未读数失败");
+	      showResult("获取总未读数失败", error, start);
+	  }
+	});
+}
+
+function clearUnreadCount(){
+	/*
+		注意事项：
+
+	 	此方法清除当前端的未读数，并不会多端同步，多端同步需要发送 SyncReadStatusMessage 	同步给多端 请参考 SendSyncReadStatusMessage。
+	 	
+	 */
+
+	var start = Date.now();
+	instance.clearUnreadCount(conversationtype,targetId,{
+	    onSuccess:function(){
+	        showTips("清除未读数成功");
+	        showResult("清除未读数成功", "success", start);
+	    },
+	    onError:function(error){
+	    	showTips("清除未读数失败");
+	        showResult("清除未读数失败", error, start);
+	    }
+	});
+}
+
+
 function receiveMessage(){
 	alert("请见init方法里的 RongIMClient.setOnReceiveMessageListener")
 }
@@ -656,7 +768,7 @@ function receiveMessage(){
 
 //加入聊天室后，可以用任意一个发送消息的方法发送消息，只需要conversationType为CHATROOM
 var chatRoomId = "chatRoomId-008"; // 聊天室 Id,可任意指定，能区分不同聊天室即可
-var count = 10;// 
+var count = 10; //拉取最近的会话内容（最近 n ( n <= 50 )条） 
 
 function enterChatroom(){
 	/*
@@ -901,6 +1013,10 @@ function showRecentContact(){
 }
 
 
+function upload(){
+	window.open('http://rongcloud.cn/docs/web.html#上传插件');
+}
+
 //获取base64假数据方法
 function getBase64Image(){
 	var canvas = document.createElement("canvas");
@@ -955,6 +1071,7 @@ function getBase64Image(){
 	<input type="button" value="语音消息" onclick="sendVoiceMessage();">
 	<input type="button" value="自定义消息" onclick="sendRegisterMessage();">
 	<input type="button" value="位置消息" onclick="sendLocationMessage();"> 
+	<input type="button" value="同步状态消息" onclick="SendSyncReadStatusMessage();">
 
 	<br>
 
@@ -962,11 +1079,18 @@ function getBase64Image(){
 	<input type="button" value="检查未读消息" onclick="checkUnreadMessage();"> 
 	<input type="button" value="消息接收" onclick="receiveMessage();"> 
 	<input type="button" value="历史消息" onclick="getHistroyMessage();"> 
-	<input type="button" value="获取会话" onclick="getConversationList();"> 
 
 	<br>
 
-	聊天室：
+	会&nbsp;&nbsp;话：
+	<input type="button" value="会话列表" onclick="getConversationList();">
+	<input type="button" value="会话未读数" onclick="getUnreadCount();"> 
+	<input type="button" value="会话未读总数" onclick="getTotalUnreadCount();"> 
+	<input type="button" value="清除会话未读数" onclick="clearUnreadCount();">
+
+	<br>
+
+	聊 天 室：
 	<input type="button" value="加入聊天室" onclick="enterChatroom();"> 
 	<input type="button" value="聊天室发消息" onclick="sendMessageToChatroom();"> 
 	<input type="button" value="退出聊天室" onclick="quitChatroom();"> 
