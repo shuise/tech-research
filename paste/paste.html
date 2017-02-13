@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>paste</title>
+</head>
+<body>
+<canvas></canvas>
+<img src="" id="a" alt="">
+<div id="message-content" contenteditable="true" style="width:900px;height:100px;border:1px solid #cd0000;">
+	sdf
+</div>
+
+
+<!--
+https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData 
+https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/webkitGetAsEntry
+ -->
+<script>
+var target = document.getElementById("message-content");
+var show = document.getElementById("a");
+
+function showResult(data){
+    var type = data.type;
+    var file = data.file;
+
+    show.src = file;
+    drawImg(show);
+}
+
+target.addEventListener("paste", function(e) {
+	var clipboardData = e.clipboardData;
+    var	types = clipboardData.types;
+    
+    var isFile = types.indexOf("Files") > -1;
+    var isCaptrue = types.indexOf("text/plain") == -1;
+
+    //粘贴截图
+    if(isFile && isCaptrue) {
+        var item = clipboardData.items[0];
+            item = item.getAsFile();
+        getBase64File(item,showResult);
+    }
+
+    //对复制图片的处理，非截图 
+    if(isFile && !isCaptrue) {
+        var item = clipboardData.items[1];
+            item = item.getAsFile();
+        getBase64File(item,showResult);
+    }  
+});
+
+function drawImg(img){
+    var w = img.width;
+    var h = img.height;
+
+    var p = 1;
+
+    var canvas = document.getElementsByTagName("canvas")[0];
+        canvas.width = w*p;
+        canvas.height = h*p;
+
+    var context = canvas.getContext('2d');
+        context.scale(p , p);
+        context.drawImage(img, 0, 0,w,h);
+}
+
+function getBase64File(file,callback){
+    var reader = new FileReader();
+        reader.readAsDataURL(file);
+
+    reader.onload = function(event) {
+        var base64Code = event.target.result;
+
+        callback({
+            file : base64Code,
+            type : file.type
+        }); 
+    }        
+}
+
+function getBlobUrl(file){
+    var url = "";
+    var createURL = window.createObjectURL || window.createBlobURL;
+    if(window.URL && window.URL.createObjectURL){
+        createURL = window.URL.createObjectURL;     //chrome,firefox
+    }else if(window.webkitURL && window.webkitURL.createObjectURL){
+        createURL = window.webkitURL.createObjectURL;   //safari
+    } 
+    url = createURL(file);
+
+    return url;
+}
+
+
+
+
+function handlePaste(e) {
+    // var reg = new RegExp('^data:image/[^;]+;base64,');
+    // var hasImg = false;
+    var items = e.clipboardData.items;
+    if (!items) {
+        return;
+    }
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.type.indexOf("image") > -1) {
+            var fr = new FileReader;
+            var data = item.getAsFile();
+            fr.onloadend = function () {
+                var base64Code = fr.result;
+                var picContent = document.getElementsByClassName("picContent")[0];
+                picContent.src = base64Code;
+                $scope.showPasteDiv(true);
+            };
+            fr.readAsDataURL(data);
+            // pasteImgFile = data;
+            // e.preventDefault();
+            // hasImg = true;
+            // break;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function callback(imageData){
+    pasteImgFile = imageData.file;
+    var picContent = document.getElementsByClassName("picContent")[0];
+        picContent.src = imageData.base64;
+    $scope.showPasteDiv(true);
+}
+function handlePaste(e,callback) {
+    var items = e.clipboardData.items;
+    if (!items) {
+        return;
+    }
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.type.indexOf("image") > -1) {
+            var imageFile = item.getAsFile();
+            var fr = new FileReader;
+                fr.readAsDataURL(imageFile);
+                fr.onloadend = function () {
+                    var imageBase64 = fr.result;
+                    callback({
+                        file : imageFile,
+                        base64 : imageBase64
+                    });
+                };
+        }
+    }
+}
+</script>	
+
+	
+</body>
+</html>

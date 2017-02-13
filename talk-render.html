@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>angularj</title>
+<script src="libs/angular-1.4.8.js"></script>
+<script src="libs/vue-2.0.3.js"></script>
+</head>
+
+<style>
+.list{
+    display:inline-block;
+    margin-right: 50px;
+    width:200px;
+    font-size:16px;
+    border:1px solid #ddd;
+}
+.list ol{
+    max-height:290px;
+    overflow:auto;  
+    list-style:none;
+    margin:10px;
+    padding:0;
+    line-height: 1;
+}
+.list img{
+    width:20px;
+    height:20px;
+    float:left;
+    margin-right:10px;
+}   
+.list p {
+    margin-left:34px;
+} 
+.list p span{
+    display:block;
+    background:#ccc;
+}
+</style>
+
+<script src="render.js"></script>
+
+<body ng-app="App">
+
+
+<div ng-controller="chatlist" class="list">
+    <ol>
+        <li ng-repeat="item in list">
+            <img ng-src="{{::item.pic}}" alt="">
+            <p>{{::item.name}}<br>
+                <span>{{::item.msg}}</span></p>
+        </li>
+    </ol>
+    <input type="button" ng-click="push($event)" value="on-time 发消息1">
+</div>
+<script>
+var App = angular.module("App", [],function(){
+});
+
+App.controller("chatlist", function($scope,$interval){
+    var list = [
+        {"msg":1},
+        {"msg":2},
+        {"msg":3},
+        {"msg":4},
+        {"msg":5},
+        {"msg":6},
+        {"msg":7},
+        {"msg":8}
+    ];
+
+    var pic = "http://7xogjk.com1.z0.glb.clouddn.com/FrMzQAt-JEJIwnYWRc885UEGB6il";
+    var name = "水色1";
+    for(var i=0,len=list.length;i<len;i++){
+        list[i].name = list[i].name || name;
+        list[i].pic = list[i].pic || pic;
+    }
+
+    $scope.list = list;
+
+    $scope.push = function($event){
+        var t1 = new Date().getTime();
+        var t = 0;
+        var sends = $interval(function(){
+            t += 1;
+            if(t>=500){
+                $interval.cancel(sends);
+                console.log("chat:" + (new Date().getTime() - t1));
+            }
+            var msg = Math.random();
+            $scope.list = [{"msg":msg, "pic":pic, "name":name}].concat($scope.list);
+        },50);
+    }
+
+    // $scope.$$destroyed = true;
+    // $scope.$on('$destroy', function () {
+    //     console.log("chat end");
+    // });
+}); 
+</script> 
+
+
+
+
+<div ng-controller="chatlist2" class="list">
+    <ol>
+        <li ng-repeat="item in list">
+            <img ng-src="{{item.pic || 'http://7xogjk.com1.z0.glb.clouddn.com/FrMzQAt-JEJIwnYWRc885UEGB6il'}}" alt="">
+            <p> {{item.name || '水色2'}}<br>
+                <span>{{item.msg}}</span></p>
+        </li>
+    </ol>
+    <input type="button" ng-click="push($event)" value="双向绑定 发消息2">
+</div>
+<script>
+App.controller("chatlist2", function($scope,$interval){
+    $scope.list = [
+        {"msg":1},
+        {"msg":2},
+        {"msg":3},
+        {"msg":4},
+        {"msg":5},
+        {"msg":6},
+        {"msg":7},
+        {"msg":8}
+    ];
+
+    $scope.push = function($event){
+        var t1 = new Date().getTime();
+        var t = 0;
+        var sends = $interval(function(){
+            t += 1;
+            if(t>=500){
+                $interval.cancel(sends);
+                console.log("chat2:" + (new Date().getTime() - t1));
+            }
+            var msg = Math.random();
+            $scope.list = [{"msg":msg}].concat($scope.list);
+        },50);
+    }
+
+    // $scope.$on('$destroy', function(){
+    //     console.log("chat2 end");
+    // });
+});    
+</script>
+
+
+
+
+<div class="list" id="list3">
+    <ol id="msglist3">
+        
+    </ol>
+    <input type="button" id="push3" value="全量更新 发消息3">
+</div>
+<script>
+(function(){
+    var tpl = ['<li>',
+                '    <img src="{{this.pic}}" alt="">',
+                '   <p>{{this.name}}<br>',
+                '        <span>{{this.msg}}</span></p>',
+                '</li>'].join("");
+    var list = [
+        {"msg":1},
+        {"msg":2},
+        {"msg":3},
+        {"msg":4},
+        {"msg":5},
+        {"msg":6},
+        {"msg":7},
+        {"msg":8}
+    ];
+
+    var pic = "http://7xogjk.com1.z0.glb.clouddn.com/FrMzQAt-JEJIwnYWRc885UEGB6il";
+    var name = "水色3";
+    for(var i=0,len=list.length;i<len;i++){
+        list[i].name = list[i].name || name;
+        list[i].pic = list[i].pic || pic;
+    }
+
+    var target = document.getElementById("msglist3")
+    target.innerHTML = render(tpl,list);
+    
+
+    var _push = document.getElementById("push3");
+    _push.onclick = function(){
+        var t1 = new Date().getTime();
+        var t = 0;
+        var sends = setInterval(function(){
+            t += 1;
+            if(t>=500){
+                console.log(msg)
+                // target.innerHTML = render(tpl,list);
+                clearInterval(sends);
+                console.log("chat3:" + (new Date().getTime() - t1));
+            }
+            var msg = Math.random();
+            var _data = {"msg":msg, "pic":pic, "name":name};
+            // var item = document.createElement("li");
+                // item.innerHTML = render(tpl,_data);
+            // target.insertBefore(item,target.firstChild);
+            list = [_data].concat(list);
+            target.innerHTML = render(tpl,list);
+        },50);       
+    }
+})();
+</script>
+
+
+
+
+
+
+
+
+<div class="list" id="list4">
+    <ol id="msglist4">
+        
+    </ol>
+    <input type="button" id="push4" value="增量更新 发消息4">
+</div>
+<script>
+(function(){
+    var tpl = ['<li>',
+                '    <img src="{{this.pic}}" alt="">',
+                '   <p>{{this.name}}<br>',
+                '        <span>{{this.msg}}</span></p>',
+                '</li>'].join("");
+    var list = [
+        {"msg":1},
+        {"msg":2},
+        {"msg":3},
+        {"msg":4},
+        {"msg":5},
+        {"msg":6},
+        {"msg":7},
+        {"msg":8}
+    ];
+
+    var pic = "http://7xogjk.com1.z0.glb.clouddn.com/FrMzQAt-JEJIwnYWRc885UEGB6il";
+    var name = "水色4";
+    for(var i=0,len=list.length;i<len;i++){
+        list[i].name = list[i].name || name;
+        list[i].pic = list[i].pic || pic;
+    }
+
+    var target = document.getElementById("msglist4")
+    target.innerHTML = render(tpl,list);
+    
+
+    var _push = document.getElementById("push4");
+    _push.onclick = function(){
+        var t1 = new Date().getTime();
+        var t = 0;
+        var sends = setInterval(function(){
+            t += 1;
+            if(t>=500){
+                console.log(msg)
+                // target.innerHTML = render(tpl,list);
+                clearInterval(sends);
+                console.log("chat4:" + (new Date().getTime() - t1));
+            }
+            var msg = Math.random();
+            var _data = {"msg":msg, "pic":pic, "name":name};
+            var item = document.createElement("li");
+                item.innerHTML = render(tpl,_data);
+            target.insertBefore(item,target.firstChild);
+            list = [_data].concat(list);
+            // target.innerHTML = render(tpl,list);
+        },50);       
+    }
+})();
+</script>
+
+
+
+<div class="list" id="list5">
+    <ol id="msglist5">
+        <li v-for="item in list">
+            <img v-bind:src="item.pic" alt="">
+           <p>{{item.name}}<br>
+                <span>{{item.msg}}</span></p>
+        </li>
+    </ol>
+    <input type="button" id="push5" value="vue2.0.3 发消息5">
+</div>
+<script>
+// (function(){
+    var list = [
+        {"msg":1},
+        {"msg":2},
+        {"msg":3},
+        {"msg":4},
+        {"msg":5},
+        {"msg":6},
+        {"msg":7},
+        {"msg":8}
+    ];
+
+    var pic = "http://7xogjk.com1.z0.glb.clouddn.com/FrMzQAt-JEJIwnYWRc885UEGB6il";
+    var name = "水色5";
+    for(var i=0,len=list.length;i<len;i++){
+        list[i].name = list[i].name || name;
+        list[i].pic = list[i].pic || pic;
+    }
+
+    var vm = new Vue({
+        el : "#list5",
+        data : {
+            list : list,
+            msg : "msg"
+        }
+    });
+    
+
+    var _push = document.getElementById("push5");
+        _push.onclick = function(){
+            var t1 = new Date().getTime();
+            var t = 0;
+            var sends = setInterval(function(){
+                t += 1;
+                // console.log(t);
+                if(t>=50){
+                    clearInterval(sends);
+                    console.log("chat5:" + (new Date().getTime() - t1));
+                }
+                var msg = Math.random();
+                vm.$data.msg = msg;
+                
+                var _data = {"msg":msg, "pic":pic, "name":name};
+                var _list = vm.$data.list;
+                    _list = [_data].concat(_list);
+
+                // console.log(_list.length)
+                vm.$data.list = [_list];
+
+                vm.$set(vm.$data,"list",_list);
+
+                // console.log(vm.$data.list)
+            },50);      
+        }
+// })();
+</script>
+
+
+
+
+
+</body>
+</html>
