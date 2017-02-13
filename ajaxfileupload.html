@@ -29,6 +29,10 @@
 	background:skyblue;
 	color:#fff;
 }
+
+.t a{
+	background:red;
+}
 </style>
 
 <div class="t">
@@ -41,10 +45,14 @@
 
 
 <script>
-addfileUpload(document.getElementById("upload"));
-addfileUpload(document.getElementById("upload2"));
+addfileUpload(document.getElementById("upload"),function(url){
+	alert(url);
+});
+addfileUpload(document.getElementById("upload2"),function(url){
+	alert(url);
+});
 
-function addfileUpload(target){
+function addfileUpload(target,callback){
 	var w = target.offsetWidth;
 	var h = target.offsetHeight;
 	var _file = document.createElement("input");
@@ -54,7 +62,8 @@ function addfileUpload(target){
 		// target.appendChild(_file);
 
 		_file.onchange = function(){
-			alert(this.value);
+			// alert(this.value);
+			callback && callback("https://developer.rongcloud.cn/ticket/create");
 			return false;
 			// fileupload(this);
 		}
