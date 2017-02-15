@@ -74,7 +74,8 @@ h1,h2{
 }
 </style>
 
-<script src="//cdn.ronghub.com/RongIMLib-2.2.4.min.js"></script>
+<!-- <script src="//cdn.ronghub.com/RongIMLib-dev-1.0.2.js"></script> -->
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
 <script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
@@ -367,10 +368,10 @@ function sendTextMessage(){
 	*/
 
 	var content = {
-		content:"hello " + encodeURIComponent('π，α，β'),
+		// content:"hello " + encodeURIComponent('π，α，β'),
+		content:"hello " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ',
 		extra:"RongCloud"
 	};
-
 
 	var msg = new RongIMLib.TextMessage(content);
 
@@ -391,9 +392,10 @@ function sendImageMessage(){
 	/*
 	文档：http://www.rongcloud.cn/docs/api/js/ImageMessage.html
 
-	需要自行解决文件上传、获取base64码的缩略图，建议不大于100K
+	需要自行解决文件上传、获取base64码的缩略图，
+	单条消息整体不得大于128K，建议不大于100K
 
-	单条消息整体不得大于128K
+	upload组件：https://github.com/rongcloud/rongcloud-web-im-upload
 	*/
 
 	var content = {
@@ -417,6 +419,9 @@ function sendImageMessage(){
 }
 
 function sendFileMessage(){
+	/*
+	upload组件：https://github.com/rongcloud/rongcloud-web-im-upload
+	*/
 	var content = {
 	    name: 'log_wx', // 文件名称
 	    size: '20k', // 文件大小，单位自己约定
@@ -599,7 +604,7 @@ function getHistroyMessage(){
 		onSuccess: function(list, hasMsg) {
 			//可通过sort订制其他顺序
 			list.sort(function(a,b){
-				return a.sentTime > b.sentTime;
+				return a.sentTime < b.sentTime;
 			});
 
             showTips("获取历史消息成功");
@@ -858,14 +863,14 @@ function quitDiscussion(){
 
 	instance.quitDiscussion(discussionId,{
 	    onSuccess:function(){
-            showTips("退出讨论组成功");
+            showTips("退出讨论组 成功");
             // showResult("讨论组踢人成功",null,start);
 
             getDiscussionInfo(discussionId, start);
 	    },
 	    onError:function(error){
-	    	showTips("退出讨论组失败");
-	    	showResult("讨论组加人失败",error,start);
+	    	showTips("退出讨论组 失败");
+	    	showResult("退出讨论组 失败",error,start);
 	    }
 	});
 }
