@@ -104,6 +104,11 @@ function showResult(title,code,start){
 					+ '</h3>' 
 					+ JSON.stringify(code,null,"\t");
 }
+
+function getTimer(begin){
+	var now = new Date().getTime();
+	return " time:" + (now - begin) + " ms";
+}
 </script>
 
 <!-- 
@@ -146,6 +151,8 @@ var usersInfo = {
 
 var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
 
+var begin = 0;
+
 function init(){
 	appKey = document.getElementById("appkey").value;
 	token = document.getElementById("token").value;
@@ -165,6 +172,7 @@ function init(){
 
 	showTips();
 
+	begin = new Date().getTime()
 
 	/*
 	文档：http://www.rongcloud.cn/docs/web.html
@@ -174,15 +182,15 @@ function init(){
 	// RongIMLib.RongIMClient.init(appKey, null, config);
 	RongIMLib.RongIMClient.init(appKey);
 	instance = RongIMClient.getInstance();
-	showTips("初始化 应用");
+	showTips("初始化 应用 " + getTimer(begin));
 
 
 	RongIMLib.RongIMEmoji.init();
-	showTips("初始化 表情库");
+	showTips("初始化 表情库 " + getTimer(begin));
 
 
 	RongIMLib.RongIMVoice.init();
-	showTips("初始化 声音库");
+	showTips("初始化 声音库 " + getTimer(begin));
 
 
 	// 连接状态监听器
@@ -190,7 +198,7 @@ function init(){
 		onChanged: function (status) {
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
-		            showTips("链接成功");
+		            showTips("链接成功 "  + getTimer(begin));
 		            afterConnected();
 		            break;
 		        case RongIMLib.ConnectionStatus.CONNECTING:
@@ -334,10 +342,10 @@ function disconnect(){
  */
 function reconnect(){
 	//docs   http://www.rongcloud.cn/docs/api/js/RongIMClient.html
-
+	begin = new Date().getTime();
 	RongIMClient.reconnect({
 		onSuccess: function(userId) {
-			showTips("重新链接成功，用户id：" + userId);
+			showTips("重新链接成功，用户id：" + userId + "; " + getTimer(begin));
 		},
 		onTokenIncorrect: function() {
 			//console.log('token无效');
