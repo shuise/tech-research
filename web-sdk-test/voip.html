@@ -34,7 +34,7 @@
 	<input type="button" value="视频通话" onclick="vedioConversation()">
 	<input type="button" value="通话转音频" onclick="audioConversation()">
 	<input type="button" value="静音" onclick="muteConversation()">
-	<input type="button" value="接通" id="btn" onclick="accept()">
+	<input type="button" value="接通" id="btn" onclick="acceptConversation()">
 </div>
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
@@ -94,7 +94,7 @@ RongIMClient.setOnReceiveMessageListener({
 			case RongIMClient.MessageType.InviteMessage:
 				//receive invite,show accept btn;
 				console.log("InviteMessage");
-				btn.style.display = "block";
+				btn.style.display = "inline-block";
 			break;
 			case RongIMClient.MessageType.SummaryMessage:
 				console.log("SummaryMessage");
@@ -141,7 +141,7 @@ function vedioConversation(){
 	});
 }
 
-function accept(){
+function acceptConversation(){
 	WebIM.joinCall(mediaType,{
 	   onSuccess:function(){
 	     console.log("joinCall Successfully");
