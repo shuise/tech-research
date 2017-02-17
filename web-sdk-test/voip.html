@@ -92,20 +92,22 @@ RongIMClient.setOnReceiveMessageListener({
         switch (message.messageType) {
 			case RongIMClient.MessageType.InviteMessage:
 				//receive invite,show accept btn;
+				console.log("InviteMessage");
 				btn.style.display = "block";
 			break;
 			case RongIMClient.MessageType.SummaryMessage:
-
+				console.log("SummaryMessage");
 			break;
 			case RongIMClient.MessageType.RingingMessage:
-
+				console.log("RingingMessage");
 			break;
 			case RongIMClient.MessageType.AcceptMessage:
 				//accept, show end;
+				console.log("AcceptMessage");
 				btn.value = "挂断";
 				btn.onclick = endConversation();
 			case RongIMClient.MessageType.MediaModifyMessage:
-
+				console.log("MediaModifyMessage");
 			break;
         }
     }
