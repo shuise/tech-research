@@ -16,6 +16,9 @@
 	height:300px;
 	position:relative;
 	margin-bottom:20px;
+}
+#btn{
+	display:none;
 }	
 .small{
 	position:absolute;
@@ -31,12 +34,14 @@
 	<input type="button" value="视频通话" onclick="vedioConversation()">
 	<input type="button" value="通话转音频" onclick="audioConversation()">
 	<input type="button" value="静音" onclick="muteConversation()">
-	<input type="button" value="挂断" onclick="endConversation()">
+	<input type="button" value="接通" id="btn" onclick="accept()">
 </div>
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
 <script src="//cdn.ronghub.com/RongCallLib-2.2.0.min.js"></script>
 <script>
+var btn = document.getElementById("btn");
+
 var tokens = {
 	"22" : "wauJbncZeKNovpWspFfQjj9mhd99ZpWeKnnjvyii9624oCw+lkizZZk2cDm5E0mmTc83XNfC9mhiO52BDGatrQ==",
 	"11" : "4PvJGtvvu3ljOOfnBEKXSN35nVOQAyW8ozA3fv/v/QPNYFH1OgiiSObsbNy2zw0xIn/9dEDeXIac2fD1lhG7pQ=="
@@ -75,7 +80,7 @@ RongIMClient.connect(tokens[userId], {
 //状态监听
 RongIMClient.setConnectionStatusListener({
     onChanged: function(status) {
-    	console.log(status);
+    	//console.log(status);
     }
 });
 
@@ -86,7 +91,8 @@ RongIMClient.setOnReceiveMessageListener({
         console.log(message);
         switch (message.messageType) {
 			case RongIMClient.MessageType.InviteMessage:
-				//onReceiveInvite();
+				//receive invite,show accept btn;
+				btn.style.display = "block";
 			break;
 			case RongIMClient.MessageType.SummaryMessage:
 
@@ -95,7 +101,9 @@ RongIMClient.setOnReceiveMessageListener({
 
 			break;
 			case RongIMClient.MessageType.AcceptMessage:
-
+				//accept, show end;
+				btn.value = "挂断";
+				btn.onclick = endConversation();
 			case RongIMClient.MessageType.MediaModifyMessage:
 
 			break;
@@ -128,6 +136,17 @@ function vedioConversation(){
 	  onError:function(err){
 	     // => startCall error
 	  }
+	});
+}
+
+function accept(){
+	WebIM.joinCall(mediaType,{
+	   onSuccess:function(){
+	     console.log("joinCall Successfully");
+	   },
+	   onError:function(err){
+	       console.log("joinCall err",err);
+	   }
 	});
 }
 
