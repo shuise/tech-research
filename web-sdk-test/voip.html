@@ -59,11 +59,12 @@ var options = {
 RongIMLib.RongCallLib.init(options);
 
 var userId = "11";
-var invertUserIds = ["22"];
+var invertUserIds = "22";
 if(location.search.indexOf("userId") > -1){
 	userId = "22";
-	invertUserIds = ["11"];
+	invertUserIds = "11";
 }
+var targetId = invertUserIds;
 
 //链接
 RongIMClient.connect(tokens[userId], {
@@ -126,12 +127,11 @@ var mediaType = RongIMLib.VoIPMediaType.MEDIA_VEDIO; //视频通话
 //var mediaType = RongIMLib.VoIPMediaType.MEDIA_AUDIO; //音频通话
 
 var converType = RongIMLib.ConversationType.PRIVATE;
-var targetId = "targetId";
 var extra = "";
 
 //开始通话
 function vedioConversation(){
-	WebIM.startCall(converType,targetId,invertUserIds,mediaType,extra,{
+	WebIM.startCall(converType,targetId,[invertUserIds],mediaType,extra,{
 	  onSuccess:function(){
 	     // => startCall successfully
 	  },
