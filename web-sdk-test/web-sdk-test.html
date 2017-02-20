@@ -691,9 +691,9 @@ function getConversationList(){
 			// 	// console.log(e);
 			// 	console.log($(e));
 			// });
-
-            showTips("获取会话成功");
-            showResult("获取会话成功",list,start);
+			var title = "成功获取 " + list.length + " 个会话";
+            showTips(title);
+            showResult(title,list,start);
 		},
 		onError: function(error) {
             showTips("获取会话失败");
