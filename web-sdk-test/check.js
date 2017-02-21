@@ -22,7 +22,9 @@
 
 
 	//todo more
-
+	function browser(){
+		//above IE8
+	}
 
 	function supportStorage(){
 		var store = window.localStorage;
@@ -40,20 +42,20 @@
 			alert("浏览器禁用了 localStorage，请开启");
 		}
 	}
-	function _isStorageSupported (storage) {
-        var supported = false;
-        if (storage && storage.setItem ) {
-            supported = true;
-            var key = '__' + Math.round(Math.random() * 1e7);
-            try {
-                storage.setItem(key, key);
-                storage.removeItem(key);
-            } catch (err) {
-                supported = false;
-            }
-        }
-        return supported;
-    }
+	// function _isStorageSupported (storage) {
+ //        var supported = false;
+ //        if (storage && storage.setItem ) {
+ //            supported = true;
+ //            var key = '__' + Math.round(Math.random() * 1e7);
+ //            try {
+ //                storage.setItem(key, key);
+ //                storage.removeItem(key);
+ //            } catch (err) {
+ //                supported = false;
+ //            }
+ //        }
+ //        return supported;
+ //    }
 
 	function checkFunctionPure(funcName){
 		var d = document, w = window;

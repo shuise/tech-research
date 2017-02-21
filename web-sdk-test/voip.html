@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VoIP demo</title>
+</head>
+<body>
+
+<style>
+.wrapper{
+	display:none;
+}
+#main{
+	border:1px solid #ccc;
+	width:400px;
+	height:300px;
+	position:relative;
+	margin-bottom:20px;
+}
+#btn{
+	display:none;
+}	
+.small{
+	position:absolute;
+	right:0;
+	top:0;
+}
+</style>
+
+<div class="wrapper">
+	<div id="main">
+	
+	</div>
+	<input type="button" value="视频通话" onclick="vedioConversation()">
+	<input type="button" value="通话转音频" onclick="audioConversation()">
+	<input type="button" value="静音" onclick="muteConversation()">
+	<input type="button" value="接通" id="btn" onclick="acceptConversation()">
+</div>
+
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<script src="//cdn.ronghub.com/RongCallLib-2.2.0.min.js"></script>
+<script>
+var btn = document.getElementById("btn");
+
+var tokens = {
+	"22" : "wauJbncZeKNovpWspFfQjj9mhd99ZpWeKnnjvyii9624oCw+lkizZZk2cDm5E0mmTc83XNfC9mhiO52BDGatrQ==",
+	"11" : "4PvJGtvvu3ljOOfnBEKXSN35nVOQAyW8ozA3fv/v/QPNYFH1OgiiSObsbNy2zw0xIn/9dEDeXIac2fD1lhG7pQ=="
+};
+
+// 初始化 WebSDK 
+RongIMClient.init("0vnjpoadnpisz");
+
+var options = {
+  container : "main",   //主视频容器 id
+  childScreenCls : "small"   //小窗口容器 css 样式
+};
+
+// 初始化 WebCallLib
+RongIMLib.RongCallLib.init(options);
+
+var userId = "11";
+var invertUserIds = "22";
+if(location.search.indexOf("userId") > -1){
+	userId = "22";
+	invertUserIds = "11";
+}
+var targetId = invertUserIds;
+
+//链接
+RongIMClient.connect(tokens[userId], {
+    onSuccess: function(userId) {
+    	connected();
+    	console.log("Login successfully." + userId);
+    },
+    onError:function(errorCode){
+    	console.log(errorCode);
+    }
+});
+
+
+//状态监听
+RongIMClient.setConnectionStatusListener({
+    onChanged: function(status) {
+    	//console.log(status);
+    }
+});
+
+
+//新消息监听
+RongIMClient.setOnReceiveMessageListener({
+    onReceived: function(message) {
+        console.log(message);
+        switch (message.messageType) {
+			case RongIMClient.MessageType.InviteMessage:
+				//receive invite,show accept btn;
+				console.log("InviteMessage");
+				btn.style.display = "inline-block";
+			break;
+			case RongIMClient.MessageType.SummaryMessage:
+				console.log("SummaryMessage");
+			break;
+			case RongIMClient.MessageType.RingingMessage:
+				console.log("RingingMessage");
+			break;
+			case RongIMClient.MessageType.AcceptMessage:
+				//accept, show end;
+				console.log("AcceptMessage");
+				btn.value = "挂断";
+				btn.onclick = endConversation();
+			case RongIMClient.MessageType.MediaModifyMessage:
+				console.log("MediaModifyMessage");
+			break;
+        }
+    }
+});
+
+
+function connected(){
+	var m = document.querySelector(".wrapper");
+		m.style.display = "block";
+}
+
+
+
+var WebIM = RongIMClient.getInstance();
+var mediaType = RongIMLib.VoIPMediaType.MEDIA_VEDIO; //视频通话
+//var mediaType = RongIMLib.VoIPMediaType.MEDIA_AUDIO; //音频通话
+
+var converType = RongIMLib.ConversationType.PRIVATE;
+var extra = "";
+
+//开始通话
+function vedioConversation(){
+	WebIM.startCall(converType,targetId,[invertUserIds],mediaType,extra,{
+	  onSuccess:function(){
+	     // => startCall successfully
+	  },
+	  onError:function(err){
+	     // => startCall error
+	  }
+	});
+}
+
+function acceptConversation(){
+	WebIM.joinCall(mediaType,{
+	   onSuccess:function(){
+	     console.log("joinCall Successfully");
+	   },
+	   onError:function(err){
+	       console.log("joinCall err",err);
+	   }
+	});
+}
+
+function audioConversation(){
+	WebIM.changeMediaType(converType,targetId,mediaType,{
+	    onSuccess:function(){
+	      // => changeMediaType successfully
+	    },
+	    onError:function(err){
+	      // => error
+	    }
+	});
+}
+
+function muteConversation(){
+
+}
+
+function endConversation(){
+	WebIM.hungupCall(converType,targetId,mediaType);
+}
+</script>	
+</body>
+</html>
