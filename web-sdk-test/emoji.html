@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>emoji</title>
+</head>
+<body>
+
+<style>
+.message{
+	border-radius:5px;
+	background:#f5f5f5;
+	padding:5px 15px;
+	display:inline-block;
+}
+</style>
+
+<div class="message" id="message"></div>
+
+
+<script src="//cdn.ronghub.com/RongEmoji-2.2.5.min.js"></script>
+	
+<script>
+/*
+多端同步处理表情的逻辑
+	1: 发消息 ，直接发送 😀 emoji 字符
+	2: 表情会被处理成 \uD83D\uDE00 格式
+	3: 支持(iOS,Android)emoji时 可直接显示，不支持时用 emojiToHTML
+*/ 
+
+RongIMLib.RongIMEmoji.init(); 
+
+var message = "before words 😀 \uD83D\uDE00 \uD83D\uDE01 after words";
+	message = RongIMLib.RongIMEmoji.emojiToHTML(message);
+
+alert(message);
+
+var node = document.getElementById("message");
+	node.innerHTML = message;
+</script>	
+</body>
+</html>
