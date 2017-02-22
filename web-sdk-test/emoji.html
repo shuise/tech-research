@@ -6,6 +6,13 @@
 </head>
 <body>
 
+<!-- 
+https://github.com/maicong/Twitter-Emoji
+http://blog.getemoji.com/post/57054354336/which-browsers-support-emoji
+
+http://caniemoji.com/
+-->
+
 <style>
 .message{
 	border-radius:5px;
@@ -14,7 +21,7 @@
 	display:inline-block;
 }
 </style>
-
+😀
 <div class="message" id="message"></div>
 
 
@@ -33,7 +40,7 @@ RongIMLib.RongIMEmoji.init();
 var message = "before words 😀 \uD83D\uDE00 \uD83D\uDE01 after words";
 	message = RongIMLib.RongIMEmoji.emojiToHTML(message);
 
-alert(message);
+// alert(message);
 
 var node = document.getElementById("message");
 	node.innerHTML = message;
