@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web SDK test</title>
+</head>
+<body>
+
+<div id="show"></div>
+<script>
+function showResult(message){
+	var dom = document.getElementById("show");
+	dom.innerHTML += '<hr><h3>' + message.senderUserId + "-->" +  message.targetId + '</h3>' 
+					+ JSON.stringify(message,null,"\t");
+}	
+</script>
+
+
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+
+<script>
+var tokens = {
+	"user9" : "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==",
+	"user10" : "4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg=="
+};
+
+
+
+function init(token,callback){
+	var appKey = "8w7jv4qb78a9y";
+
+	RongIMLib.RongIMClient.init(appKey);
+	instance = RongIMClient.getInstance();
+
+	// 连接状态监听器
+	RongIMClient.setConnectionStatusListener({
+		onChanged: function (status) {
+			console.log(status);
+		    switch (status) {
+		        case RongIMLib.ConnectionStatus.CONNECTED:
+		            callback && callback(instance);
+		            break;
+		        }
+		}
+	});
+
+
+	RongIMClient.setOnReceiveMessageListener({
+		// 接收到的消息
+		onReceived: function (message) {
+		    // 判断消息类型
+		    console.log("新消息: " + message.targetId);
+            console.log(message);
+            showResult(message);
+		}
+	});
+
+	//开始链接
+	RongIMClient.connect(token, {
+		onSuccess: function(userId) {
+			console.log("链接成功，用户id：" + userId);
+		},
+		onTokenIncorrect: function() {
+			//console.log('token无效');
+		},
+		onError:function(errorCode){
+		  console.log(info);
+		}
+	});
+}
+
+function sendTextMessage(instance,targetId){
+	var content = {
+		content:"hello " + encodeURIComponent('π，α，β'),
+		extra:"RongCloud"
+	};
+
+	var msg = new RongIMLib.TextMessage(content);
+
+	var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            console.log("发送文字消息成功");
+        },
+        onError: function (errorCode,message) {
+            console.log(errorCode);
+        }
+    });
+}
+
+
+//user9
+function init1(){
+	var user = "user9";
+	var targetId = "user10";
+
+	init(tokens[user],function(instance){
+		setInterval(function(){
+			sendTextMessage(instance,targetId);
+		},2000)
+	});
+}
+
+//user10
+function init2(){
+	var user = "user10";
+	var targetId = "user9";
+
+	init(tokens[user],function(instance){
+		setInterval(function(){
+			sendTextMessage(instance,targetId);
+		},2000)
+	});
+}
+</script>
+
+<input type="button" onclick="init1()" value="user9 init" />
+<input type="button" onclick="init2()" value="user10 init" />
+</body>
+</html>
