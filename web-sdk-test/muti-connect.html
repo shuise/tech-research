@@ -5,13 +5,34 @@
 <title>Web SDK test</title>
 </head>
 <body>
+<style>
+body{
+	font-size:100%;
+}
+input{
+	height:30px;
+}	
+.show{
+	width:45%;
+	display:inline-block;
+	overflow:hidden;
+	border:1px solid #ccc;
+}
+.show h3{
+	text-indent:10px;
+}
+.show pre{
+	border-bottom:1px solid #ccc;
+	padding:10px;
+}
+</style>
 
-<div id="show"></div>
 <script>
-function showResult(message){
-	var dom = document.getElementById("show");
-	dom.innerHTML += '<hr><h3>' + message.senderUserId + "-->" +  message.targetId + '</h3>' 
-					+ JSON.stringify(message,null,"\t");
+function showResult(id,message){
+	var dom = document.getElementById(id);
+	dom.innerHTML += '<h3>' + message.senderUserId + "-->" +  message.targetId + '</h3><pre>' 
+					+  message.content.content + '</pre>';
+	//JSON.stringify(message,null,"\t")
 }	
 </script>
 
@@ -24,9 +45,7 @@ var tokens = {
 	"user10" : "4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg=="
 };
 
-
-
-function init(token,callback){
+function init(token,callback,newMessage){
 	var appKey = "8w7jv4qb78a9y";
 
 	RongIMLib.RongIMClient.init(appKey);
@@ -38,7 +57,7 @@ function init(token,callback){
 			console.log(status);
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
-		            callback && callback(instance);
+		            callback(instance);
 		            break;
 		        }
 		}
@@ -51,7 +70,7 @@ function init(token,callback){
 		    // 判断消息类型
 		    console.log("新消息: " + message.targetId);
             console.log(message);
-            showResult(message);
+            newMessage(message);
 		}
 	});
 
@@ -71,7 +90,7 @@ function init(token,callback){
 
 function sendTextMessage(instance,targetId){
 	var content = {
-		content:"hello " + encodeURIComponent('π，α，β'),
+		content:"hello " + new Date().getTime(),
 		extra:"RongCloud"
 	};
 
@@ -81,7 +100,7 @@ function sendTextMessage(instance,targetId){
 
 	instance.sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
-            console.log("发送文字消息成功");
+            console.log("发送消息成功");
         },
         onError: function (errorCode,message) {
             console.log(errorCode);
@@ -98,7 +117,9 @@ function init1(){
 	init(tokens[user],function(instance){
 		setInterval(function(){
 			sendTextMessage(instance,targetId);
-		},2000)
+		},2000);
+	},function(message){
+		showResult("show1",message);
 	});
 }
 
@@ -110,12 +131,24 @@ function init2(){
 	init(tokens[user],function(instance){
 		setInterval(function(){
 			sendTextMessage(instance,targetId);
-		},2000)
+		},2000);
+	},function(message){
+		showResult("show2",message);
 	});
 }
 </script>
 
+
+<h1>Multiple Connect</h1>
+
 <input type="button" onclick="init1()" value="user9 init" />
 <input type="button" onclick="init2()" value="user10 init" />
+
+
+<p></p>
+
+<div class="show" id="show1"></div>
+<div class="show" id="show2"></div>
+
 </body>
 </html>
