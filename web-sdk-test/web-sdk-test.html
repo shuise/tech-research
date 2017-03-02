@@ -415,8 +415,8 @@ function sendImageMessage(){
 	*/
 
 	var content = {
-		content: "http://rongcloud.cn/images/newVersion/log_wx.png", 
-		imageUri: getBase64Image()
+		imageUri: "http://rongcloud.cn/images/newVersion/log_wx.png", 
+		content: getBase64Image()
 	};
 
 	var msg = new RongIMLib.ImageMessage(content);
