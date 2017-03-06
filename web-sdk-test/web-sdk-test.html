@@ -246,8 +246,20 @@ function init(){
 		            */
 		            break;
 		        case RongIMClient.MessageType.VoiceMessage:
-		            // 对声音进行预加载                
-		            // message.content.content 格式为 AMR 格式的 base64 码
+		        	/*
+					引入SDK并初始化请参考文档 http://www.rongcloud.cn/docs/web.html#声音库
+
+					api文档： http://www.rongcloud.cn/docs/api/js/VoiceMessage.html
+
+					var audio = message.content.content //格式为 AMR 格式的 base64 码
+		            var duration = message.content.duration;
+
+					RongIMLib.RongIMVoice.preLoaded(audio,function(){
+					    RongIMLib.RongIMVoice.play(audio,duration);
+					});
+		        	*/
+
+		            
 		            break;
 		        case RongIMClient.MessageType.ImageMessage:
 		           // message.content.content => 图片缩略图 base64。
@@ -476,6 +488,8 @@ function sendVoiceMessage(){
 		 http://www.rongcloud.cn/docs/web.html#8_1、_声音库引用地址
 
 	需自行解决录音和转码问题，要求编码为amr
+
+	接收到后的播放请见消息接收里的 case RongIMClient.MessageType.VoiceMessage
 	*/
 	var content = {
 		content : "声音base64码",
@@ -644,13 +658,14 @@ function getHistroyMessage(){
 		2：timestrap第二次拉取必须为null才能实现循环拉取
 	*/
 
-	var count = 20;  // 2 <= count <= 20
+	var count = 5;  // 2 <= count <= 20
 	var timestrap = null; //0, 1483950413013
 
 	var start = new Date().getTime();
 	instance.getHistoryMessages(conversationtype, targetId, timestrap, count, {
 		onSuccess: function(list, hasMsg) {
 			//可通过sort订制其他顺序
+
 			list.sort(function(a,b){
 				return a.sentTime < b.sentTime;
 			});
