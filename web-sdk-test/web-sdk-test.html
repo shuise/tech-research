@@ -130,10 +130,6 @@ var instance = null;
 var appKey = "";
 var token = "";
 
-var config = {
-	navi: 'nav.cn.ronghub.com'
-};
-
 /*
 消息全部用单聊，user8 -> user9
 */
@@ -177,9 +173,16 @@ function init(){
 	/*
 	文档：http://www.rongcloud.cn/docs/web.html
 	*/
+	
+	/*
+	私有云初始化
+	var config = {
+		navi: 'nav.cn.ronghub.com'
+	};
+	RongIMLib.RongIMClient.init(appKey, null, config);
+	*/
 
-	//初始化
-	// RongIMLib.RongIMClient.init(appKey, null, config);
+	//公有云初始化
 	RongIMLib.RongIMClient.init(appKey);
 	instance = RongIMClient.getInstance();
 	showTips("初始化 应用 " + getTimer(begin));
