@@ -15,10 +15,17 @@ docs：
 -->
 
 <script>
+var env = "test";  //online
+if(location.href.indexOf("?env=online") > -1){
+	env = "online";
+}
 function throwErr(args){
-    args = JSON.stringify(args,null,"\t");
-	throw new Error(args); 
-    // throw args;
+    var info = JSON.stringify(args,null,"\t");
+	if(env == "test"){
+		throw new Error(info); 
+	}else{
+		console.log(info);
+	}
 }	
 </script>
 
