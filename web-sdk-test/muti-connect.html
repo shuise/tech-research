@@ -45,7 +45,7 @@ var tokens = {
 	"user10" : "4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg=="
 };
 
-function init(token,callback,newMessage){
+function init(token,callback,receiveNewMessage){
 	var appKey = "8w7jv4qb78a9y";
 
 	RongIMLib.RongIMClient.init(appKey);
@@ -70,7 +70,7 @@ function init(token,callback,newMessage){
 		    // 判断消息类型
 		    console.log("新消息: " + message.targetId);
             console.log(message);
-            newMessage(message);
+            receiveNewMessage(message);
 		}
 	});
 
@@ -83,6 +83,7 @@ function init(token,callback,newMessage){
 			//console.log('token无效');
 		},
 		onError:function(errorCode){
+		  console.log("=============================================");
 		  console.log(info);
 		}
 	});
