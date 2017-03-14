@@ -1,0 +1,10 @@
+desktop		桌面版代码，doc
+emoji		表情库sdk，doc，demo
+im			im源码
+sdk			sdk源码，单元测试，api调用示例
+server		server源码，doc
+tools		辅助工具，依赖环境监测，网络监测，错误收集
+uploader	上传组件
+voice		声音插件
+voip		实时音视频通话
+widgets		多个页面插件，弹幕，聊天室，直播页面

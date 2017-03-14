@@ -80,6 +80,10 @@ h1,h2{
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
 <!-- <script src="res/pace.js"></script> -->
+
+<!-- 
+check.js是做一些环境监测用的临时代码，仅限开发调试使用
+-->
 <script src="check.js"></script>
 
 <script>
@@ -695,6 +699,7 @@ function getConversationList(){
 		2：只有发过消息才能生成会话
 	*/
 
+	var limit = null; //获取会话的数量，不传或传null为全部
 	var start = new Date().getTime();
 	instance.getConversationList({
 		onSuccess: function(list) {
@@ -719,7 +724,7 @@ function getConversationList(){
             showTips("获取会话失败");
             showResult("获取会话失败",error,start);
 		}
-    },null);
+    },limit);
 }
 
 function getUnreadCount(){
