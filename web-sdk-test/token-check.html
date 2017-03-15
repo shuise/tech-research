@@ -14,7 +14,7 @@ body{
 	width:60px;
 }
 .show{
-	width:90%;
+	width:98%;
 	display:inline-block;
 	overflow:hidden;
 	border:1px solid #ccc;
@@ -24,14 +24,14 @@ body{
 }
 .show pre{
 	border-top:1px dotted #ccc;
-	padding:5px;
+	padding:5px 0 0 10px;
 }
 </style>
 
 <script>
 function showResult(id,message){
 	var dom = document.getElementById(id);
-	dom.innerHTML += '<pre>' +  message.content.content + '</pre>';
+	dom.innerHTML += '<pre>' + message.senderUserId + ":   " +  message.content.content + '</pre>';
 	//JSON.stringify(message,null,"\t")
 }	
 </script>
@@ -65,7 +65,7 @@ function init(params,callback,receiveNewMessage){
 			console.log(status);
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
-		        	alert("链接成功")
+		        	// alert("链接成功")
 		            callback(instance);
 		            break;
 		        }
@@ -86,6 +86,7 @@ function init(params,callback,receiveNewMessage){
 	//开始链接
 	RongIMClient.connect(token, {
 		onSuccess: function(userId) {
+			alert("链接成功，用户id：" + userId);
 			console.log("链接成功，用户id：" + userId);
 		},
 		onTokenIncorrect: function() {
