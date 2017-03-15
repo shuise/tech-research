@@ -107,19 +107,19 @@ var loop = function(arrs, callback){
     }
 };
 
-var conver2Array = function(item){
+var convert2Array = function(item){
     return Array.isArray(item) ? item : [item];
 };
 
 var show = function(node){
-    node = conver2Array(node);
+    node = convert2Array(node);
     loop(node, function(item){
         item.style.display = "block";
     });
 };
 
 var hide = function(node){
-    node = conver2Array(node);
+    node = convert2Array(node);
     loop(node, function(item){
         item.style.display = "none";
     });
@@ -193,6 +193,9 @@ var convertItem = {
 };
 
 convert.onclick = function(){
+   
+   // CallLib.videoToAudio
+   // CallLib.audioToVideo
    var method = convertItem.method;
    CallLib[method](converType, targetId, function(){
      convertItem[method](convert);
