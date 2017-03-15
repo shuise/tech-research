@@ -80,7 +80,11 @@ h1,h2{
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
 <!-- <script src="res/pace.js"></script> -->
-<script src="check.js"></script>
+
+<!-- 
+check.js是做一些环境监测用的临时代码，仅限开发调试使用
+-->
+<script src="env-check.js"></script>
 
 <script>
 function showTips(data){
@@ -130,10 +134,6 @@ var instance = null;
 var appKey = "";
 var token = "";
 
-var config = {
-	navi: 'nav.cn.ronghub.com'
-};
-
 /*
 消息全部用单聊，user8 -> user9
 */
@@ -177,9 +177,16 @@ function init(){
 	/*
 	文档：http://www.rongcloud.cn/docs/web.html
 	*/
+	
+	//私有云初始化
+	// var appkey = "";
+	// var token = "";
+	// var config = {
+	// 	navi : "103.36.xxx.xxx"
+	// }
+	// RongIMLib.RongIMClient.init(appKey,null,config);
 
-	//初始化
-	// RongIMLib.RongIMClient.init(appKey, null, config);
+	//公有云初始化
 	RongIMLib.RongIMClient.init(appKey);
 	instance = RongIMClient.getInstance();
 	showTips("初始化 应用 " + getTimer(begin));
@@ -246,8 +253,20 @@ function init(){
 		            */
 		            break;
 		        case RongIMClient.MessageType.VoiceMessage:
-		            // 对声音进行预加载                
-		            // message.content.content 格式为 AMR 格式的 base64 码
+		        	/*
+					引入SDK并初始化请参考文档 http://www.rongcloud.cn/docs/web.html#声音库
+
+					api文档： http://www.rongcloud.cn/docs/api/js/VoiceMessage.html
+
+					var audio = message.content.content //格式为 AMR 格式的 base64 码
+		            var duration = message.content.duration;
+
+					RongIMLib.RongIMVoice.preLoaded(audio,function(){
+					    RongIMLib.RongIMVoice.play(audio,duration);
+					});
+		        	*/
+
+		            
 		            break;
 		        case RongIMClient.MessageType.ImageMessage:
 		           // message.content.content => 图片缩略图 base64。
@@ -384,7 +403,7 @@ function sendTextMessage(){
 
 	var content = {
 		// content:"hello " + encodeURIComponent('π，α，β'),
-		content:"hello " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ',
+		content:"hello 😊 " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ ',
 		extra:"RongCloud"
 	};
 
@@ -415,8 +434,8 @@ function sendImageMessage(){
 	*/
 
 	var content = {
-		content: "http://rongcloud.cn/images/newVersion/log_wx.png", 
-		imageUri: getBase64Image()
+		imageUri: "http://rongcloud.cn/images/newVersion/log_wx.png", 
+		content: getBase64Image()
 	};
 
 	var msg = new RongIMLib.ImageMessage(content);
@@ -476,6 +495,8 @@ function sendVoiceMessage(){
 		 http://www.rongcloud.cn/docs/web.html#8_1、_声音库引用地址
 
 	需自行解决录音和转码问题，要求编码为amr
+
+	接收到后的播放请见消息接收里的 case RongIMClient.MessageType.VoiceMessage
 	*/
 	var content = {
 		content : "声音base64码",
@@ -644,13 +665,14 @@ function getHistroyMessage(){
 		2：timestrap第二次拉取必须为null才能实现循环拉取
 	*/
 
-	var count = 20;  // 2 <= count <= 20
+	var count = 5;  // 2 <= count <= 20
 	var timestrap = null; //0, 1483950413013
 
 	var start = new Date().getTime();
 	instance.getHistoryMessages(conversationtype, targetId, timestrap, count, {
 		onSuccess: function(list, hasMsg) {
 			//可通过sort订制其他顺序
+
 			list.sort(function(a,b){
 				return a.sentTime < b.sentTime;
 			});
@@ -677,6 +699,7 @@ function getConversationList(){
 		2：只有发过消息才能生成会话
 	*/
 
+	var limit = null; //获取会话的数量，不传或传null为全部
 	var start = new Date().getTime();
 	instance.getConversationList({
 		onSuccess: function(list) {
@@ -701,7 +724,7 @@ function getConversationList(){
             showTips("获取会话失败");
             showResult("获取会话失败",error,start);
 		}
-    },null);
+    },limit);
 }
 
 function getUnreadCount(){
