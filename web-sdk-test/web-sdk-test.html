@@ -84,7 +84,7 @@ h1,h2{
 <!-- 
 check.js是做一些环境监测用的临时代码，仅限开发调试使用
 -->
-<script src="check.js"></script>
+<script src="env-check.js"></script>
 
 <script>
 function showTips(data){
@@ -178,13 +178,13 @@ function init(){
 	文档：http://www.rongcloud.cn/docs/web.html
 	*/
 	
-	/*
-	私有云初始化
-	var config = {
-		navi: 'nav.cn.ronghub.com'
-	};
-	RongIMLib.RongIMClient.init(appKey, null, config);
-	*/
+	//私有云初始化
+	// var appkey = "";
+	// var token = "";
+	// var config = {
+	// 	navi : "103.36.xxx.xxx"
+	// }
+	// RongIMLib.RongIMClient.init(appKey,null,config);
 
 	//公有云初始化
 	RongIMLib.RongIMClient.init(appKey);

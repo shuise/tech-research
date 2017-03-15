@@ -45,5 +45,55 @@ var message = "before words 😀 \uD83D\uDE00 \uD83D\uDE01 after words";
 var node = document.getElementById("message");
 	node.innerHTML = message;
 </script>	
+
+
+
+
+
+<!-- 
+https://medium.com/@thekevinscott/emojis-in-javascript-f693d0eb79fb#.7wvjhr61v
+http://www.2ality.com/2013/09/javascript-unicode.html
+-->
+<div class="message" id="b"></div>
+<script>
+function toUTF16(codePoint) {
+  var TEN_BITS = parseInt('1111111111', 2);
+  function u(codeUnit) {
+    return '\\u'+codeUnit.toString(16).toUpperCase();
+  }
+
+  if (codePoint <= 0xFFFF) {
+    return u(codePoint);
+  }
+  codePoint -= 0x10000;
+
+  // Shift right to get to most significant 10 bits
+  var leadSurrogate = 0xD800 + (codePoint >> 10);
+
+  // Mask to get least significant 10 bits
+  var tailSurrogate = 0xDC00 + (codePoint & TEN_BITS);
+
+  return u(leadSurrogate) + u(tailSurrogate);
+}
+
+// using codePointAt, it's easy to go from emoji
+// to decimal and back.
+// Emoji to decimal representation
+
+// var a = "😀".codePointAt(0);
+var a = 128512;
+
+// Decimal to emoji
+var b = String.fromCodePoint(a)
+
+// going from emoji to hexadecimal is a little
+// bit trickier. To convert from decimal to hexadecimal,
+// we can use toUTF16.
+// Decimal to hexadecimal
+var c = toUTF16(a);	
+
+var node = document.getElementById("b");
+	node.innerHTML = [a,b,c].join(" --------- ");
+</script>
 </body>
 </html>
