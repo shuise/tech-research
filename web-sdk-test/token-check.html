@@ -46,11 +46,13 @@ function init(params,callback,receiveNewMessage){
 	var navi = params.navi;
 
 	if(navi !== ""){
+		//私有云
 		var config = {
 			navi : navi
 		}
 		RongIMLib.RongIMClient.init(appKey,null,config);
 	}else{
+		//公有云
 		RongIMLib.RongIMClient.init(appKey);
 	}
 	
