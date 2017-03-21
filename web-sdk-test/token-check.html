@@ -40,7 +40,7 @@ function showResult(id,message){
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
 
 <script>
-function init(params,callback,receiveNewMessage){
+function init(params,callbacks){	
 	var appKey = params.appKey;
 	var token = params.token;
 	var navi = params.navi;
@@ -55,8 +55,8 @@ function init(params,callback,receiveNewMessage){
 		//公有云
 		RongIMLib.RongIMClient.init(appKey);
 	}
-	
 
+	RongIMLib.RongIMClient.init(appKey);
 	instance = RongIMClient.getInstance();
 
 	// 连接状态监听器
@@ -65,8 +65,7 @@ function init(params,callback,receiveNewMessage){
 			console.log(status);
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
-		        	// alert("链接成功")
-		            callback(instance);
+		            callbacks.getInstance && callbacks.getInstance(instance);
 		            break;
 		        }
 		}
@@ -79,14 +78,14 @@ function init(params,callback,receiveNewMessage){
 		    // 判断消息类型
 		    console.log("新消息: " + message.targetId);
             console.log(message);
-            receiveNewMessage(message);
+            callbacks.receiveNewMessage && callbacks.receiveNewMessage(message);
 		}
 	});
 
 	//开始链接
 	RongIMClient.connect(token, {
 		onSuccess: function(userId) {
-			alert("链接成功，用户id：" + userId);
+			callbacks.getCurrentUser && callbacks.getCurrentUser({userId:userId});
 			console.log("链接成功，用户id：" + userId);
 		},
 		onTokenIncorrect: function() {
@@ -99,30 +98,27 @@ function init(params,callback,receiveNewMessage){
 	});
 }
 
-function start(){
+function startInit(user,targetId){
 	var params = {
 		appKey : getValue("appKey"),
 		token : getValue("token"),
 		navi : getValue("navi")
 	};
 
-	init(params,function(instance){
-		/*
-		发送消息 
-		instance.sendMessage(conversationtype, targetId, msg, {
-	        onSuccess: function (message) {},
-	        onError: function (errorCode,message){}
-	    });
-		
-		http://www.rongcloud.cn/docs/web.html#5_1、发送消息
-		http://rongcloud.cn/docs/api/js/TextMessage.html
-		*/ 
-	},function(message){
-		/*
-		接收新消息
-		*/ 
-		showResult("show1",message);
-	});
+	var callbacks = {
+		getInstance : function(instance){
+			//instance.sendMessage
+		},
+		getCurrentUser : function(userInfo){
+			console.log(userInfo.userId);
+			alert("链接成功；userid=" + userInfo.userId);
+		},
+		receiveNewMessage : function(message){
+			showResult("show1",message);
+		}
+	};
+
+	init(params,callbacks);
 }
 
 function getValue(id){
@@ -147,7 +143,7 @@ function getValue(id){
 	</p>
 	<p>
 		<span>&#160;</span>
-		<input type="button" onclick="start()" value="start check">
+		<input type="button" onclick="startInit()" value="start check">
 	</p>
 </div>
 
