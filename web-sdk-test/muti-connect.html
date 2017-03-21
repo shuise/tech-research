@@ -40,13 +40,21 @@ function showResult(id,message){
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
 
 <script>
-var tokens = {
-	"user9" : "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==",
-	"user10" : "4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg=="
-};
+function init(params,callbacks){	
+	var appKey = params.appKey;
+	var token = params.token;
+	var navi = params.navi;
 
-function init(token,callback,receiveNewMessage){
-	var appKey = "8w7jv4qb78a9y";
+	if(navi !== ""){
+		//私有云
+		var config = {
+			navi : navi
+		}
+		RongIMLib.RongIMClient.init(appKey,null,config);
+	}else{
+		//公有云
+		RongIMLib.RongIMClient.init(appKey);
+	}
 
 	RongIMLib.RongIMClient.init(appKey);
 	instance = RongIMClient.getInstance();
@@ -57,7 +65,7 @@ function init(token,callback,receiveNewMessage){
 			console.log(status);
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
-		            callback(instance);
+		            callbacks.getInstance && callbacks.getInstance(instance);
 		            break;
 		        }
 		}
@@ -70,13 +78,14 @@ function init(token,callback,receiveNewMessage){
 		    // 判断消息类型
 		    console.log("新消息: " + message.targetId);
             console.log(message);
-            receiveNewMessage(message);
+            callbacks.receiveNewMessage && callbacks.receiveNewMessage(message);
 		}
 	});
 
 	//开始链接
 	RongIMClient.connect(token, {
 		onSuccess: function(userId) {
+			callbacks.getCurrentUser && callbacks.getCurrentUser({userId:userId});
 			console.log("链接成功，用户id：" + userId);
 		},
 		onTokenIncorrect: function() {
@@ -110,32 +119,43 @@ function sendTextMessage(instance,targetId){
 }
 
 
+function startInit(user,targetId){
+	var tokens = {
+		"user9" : "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==",
+		"user10" : "4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg=="
+	};
+
+	var params = {
+		appKey : "8w7jv4qb78a9y",
+		token : tokens[user]
+	};
+
+	var callbacks = {
+		getInstance : function(instance){
+			//instance.status = "connected,connecting,disconnect" ?
+			setInterval(function(){
+				sendTextMessage(instance,targetId);
+			},2000);
+		},
+		getCurrentUser : function(userInfo){
+			console.log(userInfo.userId);
+		},
+		receiveNewMessage : function(message){
+			showResult(targetId,message);
+		}
+	};
+
+	init(params,callbacks);
+}
+
 //user9
 function init1(){
-	var user = "user9";
-	var targetId = "user10";
-
-	init(tokens[user],function(instance){
-		setInterval(function(){
-			sendTextMessage(instance,targetId);
-		},2000);
-	},function(message){
-		showResult("show1",message);
-	});
+	startInit("user9","user10");
 }
 
 //user10
 function init2(){
-	var user = "user10";
-	var targetId = "user9";
-
-	init(tokens[user],function(instance){
-		setInterval(function(){
-			sendTextMessage(instance,targetId);
-		},2000);
-	},function(message){
-		showResult("show2",message);
-	});
+	startInit("user9","user10");
 }
 </script>
 
@@ -148,8 +168,8 @@ function init2(){
 
 <p></p>
 
-<div class="show" id="show1"></div>
-<div class="show" id="show2"></div>
+<div class="show" id="user9"></div>
+<div class="show" id="user10"></div>
 
 </body>
 </html>
