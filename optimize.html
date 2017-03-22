@@ -84,8 +84,9 @@ var data = {
 }
 var url2 = subs(urlFormat,data);
 
-alert(url)
-alert(url == url2)
+console.log(url)
+console.log(url2)
+console.log(url == url2)
 
 function subs(temp, data, regexp){
 	if(!(Object.prototype.toString.call(data) === "[object Array]")) data = [data];
@@ -128,7 +129,7 @@ function JsonP(url, callback){
 	url += joinSymbol + "callBack=" + funcName + "&t=" + new Date().getTime();
 	
 	//演示效果罢了，这两行多余
-	alert(url);
+	console.log(url);
 	return;
 
 	window[funcName] = callback; //通过临时全局变量处理，更加灵活
