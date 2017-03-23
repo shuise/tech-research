@@ -9,8 +9,6 @@
 <h1>声音库</h1>
 <h2><a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a></h2>
 
-<video src="" controls id="a"></video>
-<audio src="" controls id="b"></audio>
 
 <script src="//cdn.ronghub.com/Libamr-2.2.5.min.js"></script>
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.5.min.js"></script>
@@ -29,21 +27,6 @@ function play(){
 	RongIMVoice.preLoaded(voice,function(){
 	    RongIMVoice.play(voice,duration);
 	});
-}
-
-// alert(getBlobUrl(voice));
-function getBlobUrl(file){
-  var url = "";
-  if(window.createObjectURL){
-    url = window.createObjectURL(file);
-  }else if(window.createBlobURL){
-    url = window.createBlobURL(file);
-  }else if(window.URL && window.URL.createObjectURL){
-    url = window.URL.createObjectURL(file);     //chrome,firefox
-  }else if(window.webkitURL && window.webkitURL.createObjectURL){
-    url = window.webkitURL.createObjectURL(file);   //safari
-  } 
-  return url;
 }
 </script>
 
