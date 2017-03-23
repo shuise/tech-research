@@ -127,9 +127,15 @@ function getTimer(begin){
 
 
 -->
-<!-- 
+<!--
+开发环境 
+	默认appkey = 8w7jv4qb78a9y，已上线
 	当前用户：user8
 	对象用户：user9,user10 
+
+生产环境
+	82hegw5uh8ktx
+	rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==
 -->
 <script>
 var instance = null;
@@ -405,7 +411,7 @@ function sendTextMessage(){
 
 	var content = {
 		// content:"hello " + encodeURIComponent('π，α，β'),
-		content:"hello 😊 " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ ',
+		content:"阿拉伯语：الشرق الأوسط ，希伯来语：המזרח התיכון。 ，，，，hello 😊 " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ ',
 		extra:"RongCloud"
 	};
 
@@ -693,6 +699,7 @@ function getConversationList(){
 	/*
 	文档：http://www.rongcloud.cn/docs/web_api_demo.html#会话接口
 		 http://www.rongcloud.cn/docs/web.html#5_2、同步会话列表
+		 http://www.rongcloud.cn/docs/api/js/RongIMClient.html
 
 	历史消息云存储开通位置：https://developer.rongcloud.cn/service/roam/rXxI4IAJjxRAD72SpQ==
 
@@ -701,7 +708,8 @@ function getConversationList(){
 		2：只有发过消息才能生成会话
 	*/
 
-	var limit = null; //获取会话的数量，不传或传null为全部
+	var conversationTypes = null;  //具体格式设置需要补充
+	var limit = 10; //获取会话的数量，不传或传null为全部，暂不支持分页
 	var start = new Date().getTime();
 	instance.getConversationList({
 		onSuccess: function(list) {
@@ -726,7 +734,7 @@ function getConversationList(){
             showTips("获取会话失败");
             showResult("获取会话失败",error,start);
 		}
-    },limit);
+    },conversationTypes,limit);
 }
 
 function clearConversation(){
@@ -1030,6 +1038,133 @@ function quitDiscussion(){
 	});
 }
 
+
+/*
+公众号
+RongIMLib.ConversationType = {
+	APP_PUBLIC_SERVICE : "应用服务平台 mc",
+	PUBLIC_SERVICE : "公众服务平台 mp"
+};
+*/
+
+var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
+var publicServiceId = "test1";
+var searchType = 1; //[0-exact 1-fuzzy]
+var keywords = "Rong";
+// var keywords = "test";
+
+function getPublicServiceList(){
+	/* 
+	getRemotePublicServiceList = function (mpId, conversationType, pullMessageTime, callback)  
+	*/ 
+	var start = new Date().getTime();
+
+	instance.getPublicServiceList({
+	    onSuccess:function(list){
+            showTips("获取已关注公众号 成功");
+            showResult("获取已关注公众号 成功",list,start);
+	    },
+	    onError:function(error){
+	    	showTips("获取已关注公众号 失败");
+	    	showResult("搜索获取已关注公众号公众号 失败",error,start);
+	    }
+	});
+}
+
+function searchPublicService(){
+	console.log(searchPublicService);
+	/*
+	WebAPI文档：http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+	iOS文档：http://www.rongcloud.cn/docs/ios_imlib.html#公众服务
+	*/ 
+	var start = new Date().getTime();
+
+	instance.searchPublicService(searchType, keywords, {
+	    onSuccess:function(list){
+            showTips("搜索公众号 成功");
+            showResult("搜索公众号 成功",list,start);
+	    },
+	    onError:function(error){
+	    	showTips("搜索公众号 失败");
+	    	showResult("搜索公众号 失败",error,start);
+	    }
+	});
+}
+
+// function searchPublicServiceByType(){
+// 	var start = new Date().getTime();
+
+// 	instance.searchPublicServiceByType(publicServiceType, searchType, keywords, {
+// 	    onSuccess:function(list){
+//             showTips("搜索公众号by type 成功");
+//             showResult("搜索公众号by type 成功",list,start);
+// 	    },
+// 	    onError:function(error){
+// 	    	showTips("搜索公众号by type 失败");
+// 	    	showResult("搜索公众号by type 失败",error,start);
+// 	    }
+// 	});
+// }
+
+function subscribePublicService(){
+	/*
+	http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+
+	*/
+	var start = new Date().getTime();
+
+	instance.subscribePublicService(publicServiceType, publicServiceId, {
+	    onSuccess:function(list){
+            showTips("订阅公众号 成功");
+            showResult("订阅公众号 成功",list,start);
+	    },
+	    onError:function(error){
+	    	showTips("订阅公众号 失败");
+	    	showResult("订阅公众号 失败",error,start);
+	    }
+	});
+}
+
+function unsubscribePublicService(){
+	/*
+	http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+	
+	*/
+	var start = new Date().getTime();
+
+	instance.unsubscribePublicService(publicServiceType, publicServiceId, {
+	    onSuccess:function(list){
+            showTips("取消订阅公众号 成功");
+            showResult("取消订阅公众号 成功",list,start);
+	    },
+	    onError:function(error){
+	    	showTips("取消订阅公众号 失败");
+	    	showResult("取消订阅公众号 失败",error,start);
+	    }
+	});
+}
+
+function getPublicServiceProfile(){
+	/*
+	http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+
+	必须是已经关注的公众号，才能获取到详情
+	*/
+	var start = new Date().getTime();
+
+	instance.getPublicServiceProfile(publicServiceType, publicServiceId, {
+		onSuccess:function(profile){
+            showTips("获取公众号详情 成功");
+            showResult("获取公众号详情 成功",profile,start);
+  			console.log(profile);
+		},
+	  	onError:function(){
+	  		cosnole.log("获取公众号详情 error");
+	  	}
+	});
+}
+
+
 function showRecentContact(){
 	//获取最近会话，获得会话对象id 
 
@@ -1087,14 +1222,19 @@ function getBase64Image(){
 <div class="panel" id="panel">
 	<p>
 		<span>appkey</span>
-		<input type="text" id="appkey" size="20" value="8w7jv4qb78a9y">
+		<input type="text" id="appkey" size="20" value="82hegw5uh8ktx">
 	</p>
 	<p>
 		<span>token</span>
-		<input type="text" id="token" size="110" value="qyN3mb4PjM+ZXDOdW4f8KpltMLEfik9DxpqXaALr0RGROd6gPSiwQtBYfRPwWMBLjb+Q/sj37frDI5cUnfVAKg==">
+		<input type="text" id="token" size="110" value="rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==">
 		<!-- 
 		user9	ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==
 		user10	4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg== 
+		-->
+
+		<!-- 
+		82hegw5uh8ktx
+		rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==
 		-->
 	</p>
 	<p>
@@ -1158,6 +1298,17 @@ function getBase64Image(){
 	<input type="button" value="讨论组加人" onclick="addMemberToDiscussion();"> 
 	<input type="button" value="讨论组踢人" onclick="removeMemberFromDiscussion();"> 
 	<input type="button" value="退出讨论组" onclick="quitDiscussion();"> 
+
+	<br>
+
+	公众服务：
+	<input type="button" value="获取已关注公众号" onclick="getPublicServiceList();"> 
+	<input type="button" value="查找公众号" onclick="searchPublicService();"> 
+	<!-- <input type="button" value="查找公众号 byType" onclick="searchPublicServiceByType();">  -->
+	<input type="button" value="订阅公众号" onclick="subscribePublicService();"> 
+	<input type="button" value="取消订阅公众号" onclick="unsubscribePublicService();"> 
+	<input type="button" value="获取公众号信息" onclick="getPublicServiceProfile();"> 
+	
 
 	<br>
 
