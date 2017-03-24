@@ -252,6 +252,7 @@ function init(){
 		    showTips("新消息，类型为：" + message.messageType);
             // showResult("新消息",message,start);
 
+            console.log(message);
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
 		        	/*
@@ -1048,10 +1049,16 @@ RongIMLib.ConversationType = {
 */
 
 var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
-var publicServiceId = "test1";
+var publicServiceId = "shuise"; //RongCloud
 var searchType = 1; //[0-exact 1-fuzzy]
 var keywords = "Rong";
 // var keywords = "test";
+
+/*
+用户给公众号发消息
+var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
+var targetId = publicServiceId
+*/
 
 function getPublicServiceList(){
 	/* 
@@ -1081,12 +1088,12 @@ function searchPublicService(){
 
 	instance.searchPublicService(searchType, keywords, {
 	    onSuccess:function(list){
-            showTips("搜索公众号 成功");
-            showResult("搜索公众号 成功",list,start);
+            showTips("查找公众号 成功");
+            showResult("查找公众号 成功",list,start);
 	    },
 	    onError:function(error){
-	    	showTips("搜索公众号 失败");
-	    	showResult("搜索公众号 失败",error,start);
+	    	showTips("查找公众号 失败");
+	    	showResult("查找公众号 失败",error,start);
 	    }
 	});
 }
@@ -1222,12 +1229,13 @@ function getBase64Image(){
 <div class="panel" id="panel">
 	<p>
 		<span>appkey</span>
-		<input type="text" id="appkey" size="20" value="82hegw5uh8ktx">
+		<input type="text" id="appkey" size="20" value="8w7jv4qb78a9y">
 	</p>
 	<p>
 		<span>token</span>
-		<input type="text" id="token" size="110" value="rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==">
+		<input type="text" id="token" size="110" value="ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==">
 		<!-- 
+		8w7jv4qb78a9y
 		user9	ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==
 		user10	4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg== 
 		-->
