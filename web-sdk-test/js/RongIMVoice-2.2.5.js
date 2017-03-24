@@ -7,11 +7,11 @@ var RongIMLib;
                 var div = document.createElement("div");
                 div.setAttribute("id", "flashContent");
                 document.body.appendChild(div);
-                var script = document.createElement("script");
-                script.src = (RongIMLib.RongIMClient && RongIMLib.RongIMClient._memoryStore && RongIMLib.RongIMClient._memoryStore.depend && RongIMLib.RongIMClient._memoryStore.depend.voiceSwfobjct) || "//cdn.ronghub.com/swfobject-2.0.0.min.js";
-                var header = document.getElementsByTagName("head")[0];
-                header.appendChild(script);
-                script.onload = script.onreadystatechange = function() {
+                // var script = document.createElement("script");
+                // script.src = (RongIMLib.RongIMClient && RongIMLib.RongIMClient._memoryStore && RongIMLib.RongIMClient._memoryStore.depend && RongIMLib.RongIMClient._memoryStore.depend.voiceSwfobjct) || "//cdn.ronghub.com/swfobject-2.0.0.min.js";
+                // var header = document.getElementsByTagName("head")[0];
+                // header.appendChild(script);
+                // script.onload = script.onreadystatechange = function() {
                     var swfVersionStr = "11.4.0";
                     var flashvars = {};
                     var params = {};
@@ -25,7 +25,7 @@ var RongIMLib;
                     attributes.name = "player";
                     attributes.align = "middle";
                     swfobject.embedSWF((RongIMLib.RongIMClient && RongIMLib.RongIMClient._memoryStore && RongIMLib.RongIMClient._memoryStore.depend && RongIMLib.RongIMClient._memoryStore.depend.voicePlaySwf) || "//cdn.ronghub.com/player-2.0.2.swf", "flashContent", "1", "1", swfVersionStr, null, flashvars, params, attributes)
-                }
+                // }
             }
             this.isInit = true
         };
