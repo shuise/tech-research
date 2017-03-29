@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>voice</title>
+<script src="//cdn.ronghub.com/swfobject-2.0.0.min.js"></script>
 </head>
 <body>
 
 <h1>声音库</h1>
 <h2><a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a></h2>
 
-
 <script src="//cdn.ronghub.com/Libamr-2.2.5.min.js"></script>
-<script src="//cdn.ronghub.com/RongIMVoice-2.2.5.min.js"></script>
+<!-- <script src="//cdn.ronghub.com/RongIMVoice-2.2.5.min.js"></script> -->
+<script src="js/RongIMVoice-2.2.5.js"></script>
 
-<!-- 引入base64编码的mar音频数据 -->
+<!-- 引入base64编码的arm音频数据 -->
 <script src="./res/voice-amr-base64.json"></script>
 <script>
 var RongIMVoice = RongIMLib.RongIMVoice;
@@ -23,10 +24,8 @@ RongIMVoice.init();
 function play(){
 	// 音频持续大概时间(秒)
 	var duration = voice.length/1024;
-
-	RongIMVoice.preLoaded(voice,function(){
-	    RongIMVoice.play(voice,duration);
-	});
+    RongIMVoice.preLoaded(voice);
+    RongIMVoice.play(voice,duration);
 }
 </script>
 
