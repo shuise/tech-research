@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>optimize</title>
+</head>
+<body>
+<style>
+pre{
+	font-family:arial;
+	width:90%;
+	border:1px solid #ccc;
+	padding:10px;
+	background:#f5f5f5;
+	font-size:12px;
+	line-height:2;
+}	
+</style>
+<pre>var url = "/navi.js" + "?appId=" + appId + "&token=" + encodeURIComponent(token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+</pre>
+
+<pre>var urlFormat2 = "/navi.js?appId={appId}&token={token}";
+
+var data2 = {
+	appId : appId,
+	token : encodeURIComponent(token)
+}
+var url3 = subs(urlFormat2,data2);
+JsonP(url3);
+
+function JsonP(url, callback){
+	if (!url) {
+		return false;
+	}
+	var funcName = 'Rong-' + (Math.random() * (1 << 30)).toString(16).replace('.', '');
+	
+	var joinSymbol = "&";
+	if(url.indexOf("?") == -1){
+		joinSymbol = "?"
+	}
+	//为了避免与subs耦合，保持了独立处理，在同一个背景下，可以复用subs
+	url += joinSymbol + "callBack=" + funcName + "&t=" + new Date().getTime();
+	
+	//演示效果罢了，这两行多余
+	alert(url);
+	return;
+	……………………………………………………
+}
+
+function subs(temp, data, regexp){
+	if(!(Object.prototype.toString.call(data) === "[object Array]")) data = [data];
+	var ret = [];
+	……………………………………………………
+}	
+</pre>
+
+
+<div style="height:100px;"></div>
+
+
+<script>
+/*
+例子1 问题：
+	1. url格式不明确
+	2. 数据模型不明确
+	3. 非常难以扩展
+	4. callBack的大小写问题
+*/
+var appId = "appid";
+var token = "token";
+
+var url = "/navi.js" + "?appId=" + appId + "&token=" + encodeURIComponent(token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+
+/*
+优化结果
+*/
+var urlFormat = "/navi.js?appId={appId}&token={token}&callBack={callBack}&t={t}";
+
+var data = {
+	appId : appId,
+	token : encodeURIComponent(token),
+	callBack : "getServerEndpoint",  //这个方法应该通过JsonP自动处理
+	t : new Date().getTime()  //这个参数也是
+}
+var url2 = subs(urlFormat,data);
+
+console.log(url)
+console.log(url2)
+console.log(url == url2)
+
+function subs(temp, data, regexp){
+	if(!(Object.prototype.toString.call(data) === "[object Array]")) data = [data];
+	var ret = [];
+	for(var i=0,j=data.length;i<j;i++){
+		ret.push(replaceAction(data[i]));
+	}
+	return ret.join("");
+	function replaceAction(object){
+		return temp.replace(regexp || (/\\?\{([^}]+)\}/g), function(match, name){
+			if (match.charAt(0) == '\\') return match.slice(1);
+			return (object[name] != undefined) ? object[name] : '';
+		});
+	}
+}
+
+/*
+继续优化
+*/
+var urlFormat2 = "/navi.js?appId={appId}&token={token}";
+
+var data2 = {
+	appId : appId,
+	token : encodeURIComponent(token)
+}
+var url3 = subs(urlFormat2,data2);
+JsonP(url3);
+
+function JsonP(url, callback){
+	if (!url) {
+		return false;
+	}
+	var funcName = 'Rong-' + (Math.random() * (1 << 30)).toString(16).replace('.', '');
+	
+	var joinSymbol = "&";
+	if(url.indexOf("?") == -1){
+		joinSymbol = "?"
+	}
+	//为了避免与subs耦合，保持了独立处理，在同一个背景下，可以复用subs
+	url += joinSymbol + "callBack=" + funcName + "&t=" + new Date().getTime();
+	
+	//演示效果罢了，这两行多余
+	console.log(url);
+	return;
+
+	window[funcName] = callback; //通过临时全局变量处理，更加灵活
+	var node = document.createElement('script');
+	node.src = url;
+	document.getElementsByTagName('head')[0].appendChild(node);
+}
+</script>
+
+
+
+
+
+
+<pre>function a(){}
+a.prototype.encode = function () {
+    return JSON.stringify(RongIMLib.ModelUtil.modelClone(this));
+};	
+
+function b(){}
+b.prototype.encode = function () {
+    return JSON.stringify(RongIMLib.ModelUtil.modelClone(this));
+};
+
+function c(){}
+c.prototype.encode = function () {
+    return JSON.stringify(RongIMLib.ModelUtil.modelClone(this));
+};</pre>
+
+<pre>function common(){}
+common.prototype.encode = function () {
+	var data = RongIMLib.ModelUtil.modelClone(this);
+    return JSON.stringify(data);
+};
+
+function d(){
+	d.call(this,w,h);
+}
+d.prototype = new common();
+d.prototype.constructor = d;</pre>
+<script>
+/*
+例子2，用了prototype，但没有充分利用它的有点
+*/ 
+
+function a(){}
+a.prototype.encode = function () {
+    return JSON.stringify(RongIMLib.ModelUtil.modelClone(this));
+};	
+
+function b(){}
+b.prototype.encode = function () {
+    return JSON.stringify(RongIMLib.ModelUtil.modelClone(this));
+};
+
+function c(){}
+c.prototype.encode = function () {
+    return JSON.stringify(RongIMLib.ModelUtil.modelClone(this));
+};
+
+
+/*
+优化结果
+具体细节参考 犀牛书 第9章
+*/
+
+function common(){}
+common.prototype.encode = function () {
+	var data = RongIMLib.ModelUtil.modelClone(this);
+    return JSON.stringify(data);
+};
+
+function d(){
+	d.call(this,w,h);
+}
+d.prototype = new common();
+d.prototype.constructor = d;
+</script>	
+	
+</body>
+</html>

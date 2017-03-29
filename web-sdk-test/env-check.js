@@ -7,7 +7,7 @@
 	(function(){
 		var url = location.href;
 		if(url.indexOf("http://") == -1 && url.indexOf("https://") == -1){
-			alert("集成页面一定要在http(s)协议下运行");
+			alert("页面必须运行在 http(s) 协议下");
 		}else{
 			console.log("location.protocal ok");
 		}
@@ -29,33 +29,20 @@
 	function supportStorage(){
 		var store = window.localStorage;
 		if(!store){
-			alert("浏览器不支持 localStorage")
+			alert("localStorage 不支持.")
 			return false;
 		}
 		
 		var key = "test" + new Date().getTime();
-		store[key] = "test";
-		if(store[key] == "test"){
-			store.removeItem(key);
-			console.log("localStorage ok");
-		}else{
-			alert("浏览器禁用了 localStorage，请开启");
-		}
+
+		try {
+            store.setItem(key, key);
+            store.removeItem(key);
+        } catch (err) {
+        	alert("localStorage 被禁用.");
+        }
 	}
-	// function _isStorageSupported (storage) {
- //        var supported = false;
- //        if (storage && storage.setItem ) {
- //            supported = true;
- //            var key = '__' + Math.round(Math.random() * 1e7);
- //            try {
- //                storage.setItem(key, key);
- //                storage.removeItem(key);
- //            } catch (err) {
- //                supported = false;
- //            }
- //        }
- //        return supported;
- //    }
+
 
 	function checkFunctionPure(funcName){
 		var d = document, w = window;
