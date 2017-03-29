@@ -13,6 +13,19 @@ http://blog.getemoji.com/post/57054354336/which-browsers-support-emoji
 http://caniemoji.com/
 -->
 
+
+<!--
+源码：https://shuise.github.io/tech-research/web-sdk-test/emoji.js 
+
+请注意 RongIMEmoji.supportEmoji = false;  这个逻辑
+
+之前做过判断，探测环境做emoji的支持，如果支持，会用原生字符渲染，这种情况下会因为设备的不同而不同，如果不支持，会用背景图来处理，在所有不支持的设备里，都是一个样。
+
+你可以用这个代码和逻辑测试，最后选一个能满足你要求的方案。
+
+特殊说明：emoji图片提供的是一个质量很差的版本，因为版权问题，如果要商用，请自行解决版权问题。
+-->
+
 <style>
 .message{
 	border-radius:5px;

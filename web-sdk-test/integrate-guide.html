@@ -14,30 +14,51 @@
 		<div class="steps">
 			<h2>1. 准备工作</h2>
 			<div class="content">
-				<p>了解结构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html#架构介绍">http://www.rongcloud.cn/docs/quick_start.html#架构介绍</a></p>
+				<p>架构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html#架构介绍">http://www.rongcloud.cn/docs/quick_start.html#架构介绍</a></p>
+				<p>应用服务器必须要处理的有：</p>
+				<ol>
+					<li>1. 维护用户信息，群组信息，好友关系，并提供对应接口供集成使用</li>
+					<li>2. 获取并存储token</li>
+					<li>3. 系统消息，通知等</li>
+				</ol>
+
 				<p>
+					开发文档  <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a> <br>
 					搭建应用服务器：
-					<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a> <br>
-					Server开发文档  <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a>
+					<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a> 
 				</p>
 			</div>
 		</div>
 
 		<div class="steps">
-			<h2>2. 自行设计UI并做好页面</h2>
+			<h2>2. 自行设计并UI界面</h2>
 			<div class="content">
-				接下来以介绍 “会话列表”和“聊天窗口”的具体实现
-<pre>&lt;script id="conversation" type="template">
-&lt;div class="conversationItem">
-{avatar} {name} {leatestMesage}
-&lt;/div>
-&lt;/script>
-</pre>
+				<p>集成的思路：</p>
+				<ol>
+					<li>1. 根据功能选择SDK里对应的API</li>
+					<li>2. 应用服务器提供其他API之外所有的数据和功能支持</li>
+					<li>3. 合并两部分数据，通过模板渲染呈现（为了实时响应数据变化，建议使用双向绑定）</li>
+					<li>4. 注册对应的事件，包括API的方法（比如发送消息等）或者自行实现的业务方法（注册登录等）</li>
+				</ol>
+				<br>
+
+				<p>SDK的API</p>
+				<ol>
+					<li>1. 链接相关</li>
+					<li>2. 收发消息</li>
+					<li>3. 群组相关</li>
+					<li>4. 聊天室相关</li>
+					<li>5. 公众服务相关</li>
+				</ol>
+				<br>
+
+				<br>
+				<p>接下来主要介绍“<a href="">登录</a>”、“<a href="">会话列表</a>”和“<a href="">聊天窗口</a>”的实现</p>
 			</div>
 		</div>
 
 		<div class="steps">
-			<h2>3. 引入SDK，并完成初始化，链接融云服务器</h2>
+			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
 			<div class="content">
 				文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
 				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/token-check.html">https://shuise.github.io/tech-research/web-sdk-test/token-check.html</a>
@@ -45,12 +66,41 @@
 		</div>
 
 		<div class="steps">
-			<h2>4. 会话列表的实现</h2>
+			<h2>4. 登录的实现</h2>
+			<div class="content">
+				<p>可以根据业务需要设计用户名和密码规则，具体的流程：</p>
+				<ul>
+					<li>1. 应用服务器处理注册及登录校验</li>
+					<li>2. 成功登录后，通过应用服务器返回token</li>
+					<li>3. 端上使用token链接云端</li>
+					<li>4. 用户的在线状态</li>
+				</ul>
+				<pre>login, init+connect</pre>
+			</div>
+		</div>
+
+		<div class="steps">
+			<h2>4. 好友关系，群组</h2>
+			<div class="content">
+				<p>在应用服务器维护数据，并同步至融云：</p>
+				<p>文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
+				<ul>
+					<li>1. 添加好友</li>
+					<li>2. 创建并加入群组</li>
+					<li>3. 禁言及黑名单</li>
+					<li>4. 无用户身份处理</li>
+				</ul>
+				<pre>code todo</pre>
+			</div>
+		</div>
+
+		<div class="steps">
+			<h2>6. 会话列表的实现</h2>
 			<div class="content">
 				文档：<a href="http://www.rongcloud.cn/docs/web.html#同步会话列表">http://www.rongcloud.cn/docs/web.html#同步会话列表</a> （请注意一定要开启 历史消息云存储功能） <br>
 				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html">https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html</a>
 				<p>
-					会话列表的数据分两部分，一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据；
+					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
 					另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
 				</p>
 <pre>var conversation = [
@@ -103,11 +153,25 @@ conversation.forEach(function(item){
 		</div>
 
 		<div class="steps">
-			<h2>5. 聊天窗口的实现</h2>
+			<h2>7. 聊天窗口的实现</h2>
 			<div class="content">
-				文档： http://www.rongcloud.cn/docs/web.html#获取历史消息
-						http://www.rongcloud.cn/docs/web.html#发送消息
 				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
+
+				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a> <br>
+				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
+				<pre>
+					
+				</pre>
+			</div>
+		</div>
+
+		<div class="steps">
+			<h2>8. 发送消息的功能增强</h2>
+			<div class="content">
+				<p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
+				<p>自动回复，</p>
+
+				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
 				<pre>
 					
 				</pre>
