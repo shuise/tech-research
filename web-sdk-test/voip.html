@@ -8,7 +8,7 @@
 
 <style>
 .wrapper{
-	display:none;
+    display:none;
 }
 
 .wrapper input{
@@ -16,13 +16,13 @@
 }
 
 #main{
-	border:1px solid #ccc;
-	width:850px;
+    border:1px solid #ccc;
+    width:850px;
     height:300px;
-	position:relative;
-	margin-bottom:20px;
+    position:relative;
+    margin-bottom:20px;
 }
-	
+    
 .small{
     height: 150px !important;
     width: 200px !important;
@@ -30,6 +30,30 @@
     position:absolute;
     right:5px;
     top:5px;
+}
+
+.big{
+    height: 300px !important;
+    width: 400px !important;
+    border:1px solid #ccc;
+    position:absolute;
+    left:225px;
+    top:5px;
+}
+
+.mainSmall{
+    align-items: right !important;
+    justify-content: flex-end !important;
+}
+.mainSmall canvas{
+    height: 150px !important;
+    width: 200px !important;
+}
+
+.notice{
+    font-size: 12px;
+    color: blue;
+    margin-top: 50px;
 }
 .warn{
     font-size: 12px;
@@ -57,12 +81,15 @@
     display: none;
 }
 
+#exchangeWin{
+    display: none;
+}
+
 </style>
 
 <div class="wrapper">
-	<div id="main">
-	
-	</div>
+    <div id="main">
+    </div>
 
     <input type="button" value="视频通话" id="video">
     <input type="button" value="音频通话" id="audio">
@@ -77,33 +104,70 @@
     <input type="button" value="接通视频" id="acceptVideo">
     <input type="button" value="接通音频" id="acceptAudio">
     <input type="button" value="挂断" id="hungup">
+    <input type="button" value="窗口切换" id="exchangeWin">
+
 </div>
+<!--     <div id="main2" style="background: blue">
+       <div>
+         sadfasdfasdf
+         <canvas style="background: red; width:100px; height: 100px"></canvas>
+       </div>
+       
+    </div> -->
+
+<ul class="notice">
+    <li>主叫访问地址: <a href='http://web.hitalk.im/demo/voip.html'>http://web.hitalk.im/demo/voip.html</a></li><br>
+    <li>被叫访问地址: <a href='http://web.hitalk.im/demo/voip.html?userId=receiver'>http://web.hitalk.im/demo/voip.html?userId=receiver</a></li><br>
+    <li>双方的通讯过程如下</li><br>
+    <ol>
+      <li>A 发给 B 视频请求 (startCall)</li>
+      <li>A 收到响铃 [RingingMessage],意为等待对方接通中</li>
+      <li>B 收到音视频请求消息 [InviteMessage]</li>
+      <li>B 同意接通视频 (joinCall)</li>
+      <li>A 收到同意接收音视频请求的消息 [AcceptMessage]</li>
+      <li>视频连接成功</li>
+    </ol>
+</ul>
 
 <div class="warn">
 注意事项：<br>
-    1、安装并启动 Agora Web Agent。<br>
-    2、使用 Chrome 浏览器。<br>
+    1、系统要求及浏览器要求参考 <a href='http://www.rongcloud.cn/docs/web_calllib.html' target="_blank">http://www.rongcloud.cn/docs/web_calllib.html</a><br>
+    2、安装并启动 Agora Web Agent<br>
+    3、发起视频聊天的按钮可放在聊天界面的工具栏中
+
+
 </div>
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
-<script src="RongCallLib.js"></script>
+<script src="js/RongCallLib.js"></script>
+<script src="js/jquery-1.9.0.min.js"></script>
 <script>
 /*
 音视频流量问题，声网提供了具体数据：
 时间单位每分钟：音频 40kbps,   SD 200-400 kbsp, HD  500-1000kbps HD+ >1000kpbs
 */ 
 
-var $ = function(id){
-    return document.getElementById(id);
-};
+var changeWin = function(){
+       var myScreen, otherScreen, canvas;
+    if($("#main > div:first").attr('id') === undefined){
+        myScreen = $("#main > div:first");
+        otherScreen = $("#main > div:eq(1)");
+    } else {
+        myScreen = $("#main > div:eq(1)");
+        otherScreen = $("#main > div:first");
+    }
+    myScreen.toggleClass('mainSmall');
+    otherScreen.toggleClass('big');
+}
 
-var video = $('video'),
-    audio = $('audio'),
-    mute = $('mute'),
-    convert = $('convert'),
-    acceptVideo = $('acceptVideo'),
-    acceptAudio = $('acceptAudio'),
-    hungup = $('hungup');
+var video = $('#video'),
+    audio = $('#audio'),
+    mute = $('#mute'),
+    convert = $('#convert'),
+    acceptVideo = $('#acceptVideo'),
+    acceptAudio = $('#acceptAudio'),
+    hungup = $('#hungup');
+    exchangeWin = $('#exchangeWin');
 
 var loop = function(arrs, callback){
     for(var i = 0, len = arrs.length; i<len; i++){
@@ -111,151 +175,46 @@ var loop = function(arrs, callback){
     }
 };
 
-var conver2Array = function(item){
+var convert2Array = function(item){
     return Array.isArray(item) ? item : [item];
 };
 
 var show = function(node){
-    node = conver2Array(node);
+    node = convert2Array(node);
     loop(node, function(item){
-        item.style.display = "block";
+        item.show();
     });
 };
 
 var hide = function(node){
-    node = conver2Array(node);
+    node = convert2Array(node);
     loop(node, function(item){
-        item.style.display = "none";
+        item.hide();
     });
 };
-
-var tokens = {
-    "22" : "wauJbncZeKNovpWspFfQjj9mhd99ZpWeKnnjvyii9624oCw+lkizZZk2cDm5E0mmTc83XNfC9mhiO52BDGatrQ==",
-    "11" : "4PvJGtvvu3ljOOfnBEKXSN35nVOQAyW8ozA3fv/v/QPNYFH1OgiiSObsbNy2zw0xIn/9dEDeXIac2fD1lhG7pQ=="
-};
+var appKey = 'e0x9wycfx7flq';
 
 // 初始化 WebSDK 
-RongIMClient.init("0vnjpoadnpisz");
+RongIMClient.init(appKey, null, { navi: '119.254.111.49:9100'});
+// RongIMClient.init(appKey);
 
-var options = {
-  container : "main",   //主视频容器 id
-  childScreenCls : "small"   //小窗口容器 css 样式
+//两个测试用户
+var tokens = {
+    "caller" : "6Nfr4wWEhEC8Z0hU1dohXirK8Rr8pkWuYi+Vm55bC3/mp0mDMWy3z6bKscj+DH2B38on1H8Ab/0WGgqrkqF+7Q==",
+    "receiver" : "m1SVJY0xW995MNf5xm7I9cLg1HgVe6BNpEIHZDy7fhJi0RZX/cc0aq7Nsbx+lznkm34Mqhi605fFQIGTDxnA6A=="
 };
+//默认主叫方用户id
+var userId = "caller";
 
-// 初始化 WebCallLib
-RongIMLib.RongCallLib.init(options);
+//默认被叫放用户id,可以多个
+var inviteUserIds = "receiver";
 
-var userId = "11";
-var inviteUserIds = "22";
+//为了方便演示,根据访问地址呼唤主叫方和被叫方
 if(location.search.indexOf("userId") > -1){
-    userId = "22";
-    inviteUserIds = "11";
+    userId = "receiver";
+    inviteUserIds = "caller";
 }
 var targetId = inviteUserIds;
-
-var CallLib = RongIMLib.RongCallLib.getInstance();
-var mediaVideo = RongIMLib.VoIPMediaType.MEDIA_VEDIO; //视频通话
-var mediaAudio = RongIMLib.VoIPMediaType.MEDIA_AUDIO; //音频通话
-var ErrorCode = RongIMLib.ErrorCode;
-
-var converType = RongIMLib.ConversationType.PRIVATE;
-var extra = "";
-
-var startConversation = function(converType, targetId, inviteUserIds, mediaType, extra){
-    CallLib.startCall(converType, targetId, inviteUserIds, mediaType, extra, {
-      onSuccess:function(){
-         show(hungup);
-         hide([video, audio]);
-      },
-      onError:function(err){
-         console.log('startCall error', error);
-      }
-    });
-};
-
-// 发起视频通话
-video.onclick = function(){
-    startConversation(converType, targetId, [inviteUserIds], mediaVideo, extra);
-};
-
-// 发起音频通话
-audio.onclick = function(){
-    startConversation(converType, targetId, [inviteUserIds], mediaAudio, extra);
-};
-
-// 音视频互转 TODO 功能未调通
-var convertItem = {
-    method: 'videoToAudio',
-    videoToAudio: function(btn){
-        btn.value = '音频转视频';
-        this.method = 'audioToVideo';
-    },
-    audioToVideo: function(btn){
-        btn.value = '视频转音频';
-        this.method = 'videoToAudio';
-    }
-};
-
-convert.onclick = function(){
-   var method = convertItem.method;
-   CallLib[method](converType, targetId, function(){
-     convertItem[method](convert);
-   });
-};
-
-// 静音、取消静音
-var muteItem = {
-    method:'mute',
-    mute: function(btn){
-        btn.value = '取消静音';
-        this.method = 'unmute';
-    },
-    unmute: function(btn){
-        btn.value = '静音';
-        this.method = 'mute';
-    }
-};
-mute.onclick = function(){
-    var method = muteItem.method;
-    CallLib[method](function(){
-        muteItem[method](mute);
-    });
-};
-// 接听视频
-acceptVideo.onclick = function(){
-    CallLib.joinCall(mediaVideo,{
-       onSuccess:function(){
-         show([mute, convert]);     
-         hide([video, audio, acceptVideo]);   
-       },
-       onError:function(err){
-         console.log("acceptVideo err ",err);
-       }
-    });
-};
-
-// 仅接听音频
-acceptAudio.onclick = function(){
-    CallLib.joinCall(mediaAudio,{
-       onSuccess:function(){
-         show([muteAudio, convert]); 
-         hide([video, audio, acceptAudio]);       
-       },
-       onError:function(err){
-         console.log("acceptVideo err ",err);
-       }
-    });
-};
-
-// 挂断
-hungup.onclick = function(){
-    CallLib.hungupCall(converType,targetId, ErrorCode.HANGUP);
-};
-
-var connected = function(){
-    var m = document.querySelector(".wrapper");
-        m.style.display = "block";
-};
 
 //链接
 RongIMClient.connect(tokens[userId], {
@@ -267,6 +226,9 @@ RongIMClient.connect(tokens[userId], {
         console.log(errorCode);
     }
 });
+var connected = function(){
+    $(".wrapper").show();
+};
 
 //状态监听
 RongIMClient.setConnectionStatusListener({
@@ -284,6 +246,7 @@ RongIMClient.setOnReceiveMessageListener({
         console.log(message);
         switch (message.messageType) {
             case RongIMClient.MessageType.InviteMessage:
+                console.log("InviteMessage");
                 var isVideo = message.content.mediaType == mediaVideo;
                 var node = isVideo ? acceptVideo : acceptAudio;
                 show([node, hungup]);
@@ -293,7 +256,7 @@ RongIMClient.setOnReceiveMessageListener({
             case RongIMClient.MessageType.SummaryMessage:
                 // 通话信息，挂断收到此消息
                 console.log("SummaryMessage");
-                hide([hungup, convert, acceptAudio, acceptVideo, mute]);
+                hide([hungup, convert, acceptAudio, acceptVideo, mute, exchangeWin]);
                 show([video, audio]);
             break;
             
@@ -304,7 +267,7 @@ RongIMClient.setOnReceiveMessageListener({
           
             case RongIMClient.MessageType.AcceptMessage:
                 console.log("AcceptMessage");
-                show([convert, mute, hungup]);
+                show([convert, mute, hungup, exchangeWin]);
                 hide([audio, video]);
             break;
 
@@ -315,6 +278,120 @@ RongIMClient.setOnReceiveMessageListener({
         }
     }
 });
-</script>	
+
+var options = {
+  container : "main",   //主视频容器 id
+  childScreenCls : "small"   //小窗口容器 css 样式
+};
+
+// 初始化 WebCallLib
+RongIMLib.RongCallLib.init(options);
+
+var CallLib = RongIMLib.RongCallLib.getInstance();
+var mediaVideo = RongIMLib.VoIPMediaType.MEDIA_VEDIO; //视频通话
+var mediaAudio = RongIMLib.VoIPMediaType.MEDIA_AUDIO; //音频通话
+var ErrorCode = RongIMLib.ErrorCode;
+
+var converType = RongIMLib.ConversationType.PRIVATE;
+//消息体中的附加信息,用于消息的扩展
+var extra = "";  
+
+var startConversation = function(converType, targetId, inviteUserIds, mediaType, extra){
+    CallLib.startCall(converType, targetId, inviteUserIds, mediaType, extra, {
+      onSuccess:function(){
+         show(hungup);
+         hide([video, audio]);
+      },
+      onError:function(err){
+         console.log('startCall error', err);
+      }
+    });
+};
+
+// 发起视频通话
+video.click(function(){
+    startConversation(converType, targetId, [inviteUserIds], mediaVideo, extra);
+});
+
+// 发起音频通话
+audio.click(function(){
+    startConversation(converType, targetId, [inviteUserIds], mediaAudio, extra);
+});
+
+// 音视频互转 TODO 功能未调通
+var convertItem = {
+    method: 'videoToAudio',
+    videoToAudio: function(btn){
+        btn.val('音频转视频');
+        this.method = 'audioToVideo';
+    },
+    audioToVideo: function(btn){
+        btn.val('视频转音频');
+        this.method = 'videoToAudio';
+    }
+};
+
+convert.click(function(){
+   var method = convertItem.method;
+   CallLib[method](converType, targetId, function(){
+     convertItem[method](convert);
+   });
+});
+
+exchangeWin.click(function(){
+   changeWin();
+});
+
+// 静音、取消静音
+var muteItem = {
+    method:'mute',
+    mute: function(btn){
+        btn.val('取消静音');
+        this.method = 'unmute';
+    },
+    unmute: function(btn){
+        btn.val('静音');
+        this.method = 'mute';
+    }
+};
+mute.click(function(){
+    var method = muteItem.method;
+    CallLib[method](function(){
+        muteItem[method](mute);
+    });
+});
+
+// 接听视频
+acceptVideo.click(function(){
+    CallLib.joinCall(mediaVideo,{
+       onSuccess:function(){
+         show([mute, convert, exchangeWin]);     
+         hide([video, audio, acceptVideo]);   
+       },
+       onError:function(err){
+         console.log("acceptVideo err ",err);
+       }
+    });
+});
+
+// 仅接听音频
+acceptAudio.click(function(){
+    CallLib.joinCall(mediaAudio,{
+       onSuccess:function(){
+         show([mute, convert, exchangeWin]); 
+         hide([video, audio, acceptAudio]);       
+       },
+       onError:function(err){
+         console.log("acceptVideo err ",err);
+       }
+    });
+});
+
+// 挂断
+hungup.click(function(){
+    CallLib.hungupCall(converType,targetId, ErrorCode.HANGUP);
+});
+
+</script>   
 </body>
 </html>
