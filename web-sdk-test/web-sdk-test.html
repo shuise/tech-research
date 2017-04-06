@@ -138,6 +138,7 @@ function getTimer(begin){
 	rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==
 -->
 <script>
+"use strict";
 var instance = null;
 var appKey = "";
 var token = "";
@@ -169,7 +170,7 @@ function init(){
 		alert("必须提供appkey和token");
 	}
 
-	targetIds = document.getElementById("targetId").value;
+	var targetIds = document.getElementById("targetId").value;
 	if(targetIds == ""){
 		alert("必须提供两个的有效targetId");
 	}
@@ -413,7 +414,14 @@ function sendTextMessage(){
 	var content = {
 		// content:"hello " + encodeURIComponent('π，α，β'),
 		content:"阿拉伯语：الشرق الأوسط ，希伯来语：המזרח התיכון。 ，，，，hello 😊 " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ ',
-		extra:"RongCloud"
+		user : {
+			"company" : "易车",
+			"depart" : "易车网"
+		},
+		extra:{
+			"name":"name",
+			"age" : 12
+		}
 	};
 
 	var msg = new RongIMLib.TextMessage(content);
