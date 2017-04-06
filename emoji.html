@@ -37,6 +37,15 @@ http://www.2ality.com/2013/09/javascript-unicode.html
 版权  CC
 -->
 
+<style>
+#a{
+    font-size:26px;
+    vertical-align:baseline;
+} 
+#a img{
+    height:24px;
+}
+</style>
 <div id="a"></div>
 <script src="libs/jquery-3.1.1.min.js"></script>
 <script>
@@ -181,14 +190,17 @@ var emojis = {
 var dom = $("#a");
 
 for(var key in emojis){
-	key = key.replace("u","0x");
+	key = key.replace("u","");
+    var _emoji = "0x" + key;
 
-	var emoji = String.fromCodePoint(key);
+	var emoji = String.fromCodePoint(_emoji);
 
-	console.log(key + "--------" + emoji);
+	console.log(_emoji + "--------" + emoji);
 
 	var item = emoji + " "; 
 	dom.html(dom.html() + item);
+    dom.append('<img src="emoji/svg/' + key.toLowerCase() + '.svg"> ');
+    dom.append('<img src="emoji/png_64/' + key.toLowerCase() + '.png"> <br>');
 }
 </script>
 	
