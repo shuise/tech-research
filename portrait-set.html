@@ -83,9 +83,13 @@
 	top:2px;
 	margin-left:-5px;
 }
+#result img{
+	border:1px solid red;
+	margin:5px;
+}
 </style>	
 <div class="rong-portrait">
-	<input type="file" class="rong-portrait-mask" accept="image/*">
+	<div class="rong-portrait-mask"></div>
 	<img src="1.jpg" alt="" style="left:0;top:0;">
 	<div class="rong-portrait-btn">
 		<span class="rong-portrait-zoomin">-</span>
@@ -93,6 +97,8 @@
 		<span class="rong-portrait-zoomout">+</span>
 	</div>
 </div>
+
+<input type="file" id="select" value="select"  accept="image/*">
 <input type="button" id="save" value="save">
 
 <div id="result"></div>
@@ -106,13 +112,14 @@
 	var zoomin = $(".rong-portrait-zoomin");
 	var zoomout = $(".rong-portrait-zoomout");
 
+	var select = $("#select");
 
 	var dx = 0, dy = 0;
 	var width = 0,height = 0;
 	var left = 0, top = 0;
 
 	//获取本地图片
-	mask.on("change",function(){
+	select.on("change",function(){
 		var file = this.files[0];
 		var reader = new FileReader();
 		reader.readAsDataURL(file);
@@ -124,9 +131,15 @@
 			height = portrait.height();
 
 			//todo size+position
+			if(width >= height){
+				var left = 200 - width*200/height;
+				portrait.css({height:"100%",width:"auto",top:0,left:left/2});
+			}else{
+				var top = 200 - height*200/width;
+				portrait.css({height:"auto",width:"100%",top:top/2,left:0});
+			}
 		}
 	});
-
 
 	//移动并获取偏移量
 	mask.on("mousedown",function(event){
@@ -147,7 +160,7 @@
 			dy = y2 - y1;
 
 			left = _left + dx;
-			tpp = _top + dy;
+			top = _top + dy;
 
 			_portrait.style.left = left + "px";
 			_portrait.style.top = top + "px";
