@@ -80,48 +80,48 @@
                     获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#获取_Token_方法">http://www.rongcloud.cn/docs/server.html#获取_Token_方法</a>
                     <br>
                     使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a>
-                    <pre>
-			function login(){
-				// app逻辑
-			}
-			//注册成功之后 获取token
+<pre>
+function login(){
+	// app逻辑
+}
+//注册成功之后 获取token
 
-			//用户登录成功后，链接融云服务器
-			// 初始化。
-			RongIMClient.init(appKey);
-			var token = "";
+//用户登录成功后，链接融云服务器
+// 初始化。
+RongIMClient.init(appKey);
+var token = "";
 
-			// 连接融云服务器。
-			RongIMClient.connect(token, {
-			onSuccess: function(userId) {
-			  console.log("Login successfully." + userId);
-			},
-			onTokenIncorrect: function() {
-			  console.log('token无效');
-			},
-			onError:function(errorCode){
-				  var info = '';
-				  switch (errorCode) {
-					case RongIMLib.ErrorCode.TIMEOUT:
-					  info = '超时';
-					  break;
-					case RongIMLib.ErrorCode.UNKNOWN_ERROR:
-					  info = '未知错误';
-					  break;
-					case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
-					  info = '不可接受的协议版本';
-					  break;
-					case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
-					  info = 'appkey不正确';
-					  break;
-					case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
-					  info = '服务器不可用';
-					  break;
-				  }
-				  console.log(errorCode);
-				}
-			});
-			</pre>
+// 连接融云服务器。
+RongIMClient.connect(token, {
+onSuccess: function(userId) {
+  console.log("Login successfully." + userId);
+},
+onTokenIncorrect: function() {
+  console.log('token无效');
+},
+onError:function(errorCode){
+	  var info = '';
+	  switch (errorCode) {
+		case RongIMLib.ErrorCode.TIMEOUT:
+		  info = '超时';
+		  break;
+		case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+		  info = '未知错误';
+		  break;
+		case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+		  info = '不可接受的协议版本';
+		  break;
+		case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+		  info = 'appkey不正确';
+		  break;
+		case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+		  info = '服务器不可用';
+		  break;
+	  }
+	  console.log(errorCode);
+	}
+});
+</pre>
                 </div>
             </div>
         </div>
@@ -209,58 +209,58 @@ conversation.forEach(function(item){
                 获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a>
                 <br>
                 发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
-                <pre>
-		//获取历史消息
-		RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
-				onSuccess: function (list, hasMsg) {
-						list.length && renderHistoryMessages(list, hasMsg);
-						// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
-						// list 为拉取到的历史消息列表
-						// renderHistoryMessages 为自定义的渲染页面方法
-				},
-				onError: function (error) {
-						console.log('获取历史消息error' + error);
-						// APP未开启消息漫游或处理异常
-						// throw new ERROR ......
-				}
-		});
+<pre>
+//获取历史消息
+RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
+		onSuccess: function (list, hasMsg) {
+				list.length && renderHistoryMessages(list, hasMsg);
+				// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+				// list 为拉取到的历史消息列表
+				// renderHistoryMessages 为自定义的渲染页面方法
+		},
+		onError: function (error) {
+				console.log('获取历史消息error' + error);
+				// APP未开启消息漫游或处理异常
+				// throw new ERROR ......
+		}
+});
 
-		//发送消息
-		RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
-			 // 发送消息成功
-			 onSuccess: function (message) {
-					 //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
-					 console.log("Send successfully");
-			 },
-			 onError: function (errorCode,message) {
-					 var info = '';
-					 switch (errorCode) {
-							 case RongIMLib.ErrorCode.TIMEOUT:
-									 info = '超时';
-									 break;
-							 case RongIMLib.ErrorCode.UNKNOWN_ERROR:
-									 info = '未知错误';
-									 break;
-							 case RongIMLib.ErrorCode.REJECTED_BY_BLACKLIST:
-									 info = '在黑名单中，无法向对方发送消息';
-									 break;
-							 case RongIMLib.ErrorCode.NOT_IN_DISCUSSION:
-									 info = '不在讨论组中';
-									 break;
-							 case RongIMLib.ErrorCode.NOT_IN_GROUP:
-									 info = '不在群组中';
-									 break;
-							 case RongIMLib.ErrorCode.NOT_IN_CHATROOM:
-									 info = '不在聊天室中';
-									 break;
-							 default :
-									 info = x;
-									 break;
-					 }
-					 console.log('发送失败:' + info);
+//发送消息
+RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+	 // 发送消息成功
+	 onSuccess: function (message) {
+			 //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+			 console.log("Send successfully");
+	 },
+	 onError: function (errorCode,message) {
+			 var info = '';
+			 switch (errorCode) {
+					 case RongIMLib.ErrorCode.TIMEOUT:
+							 info = '超时';
+							 break;
+					 case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+							 info = '未知错误';
+							 break;
+					 case RongIMLib.ErrorCode.REJECTED_BY_BLACKLIST:
+							 info = '在黑名单中，无法向对方发送消息';
+							 break;
+					 case RongIMLib.ErrorCode.NOT_IN_DISCUSSION:
+							 info = '不在讨论组中';
+							 break;
+					 case RongIMLib.ErrorCode.NOT_IN_GROUP:
+							 info = '不在群组中';
+							 break;
+					 case RongIMLib.ErrorCode.NOT_IN_CHATROOM:
+							 info = '不在聊天室中';
+							 break;
+					 default :
+							 info = x;
+							 break;
 			 }
-		 });
-		</pre>
+			 console.log('发送失败:' + info);
+	 }
+ });
+</pre>
             </div>
         </div>
 
