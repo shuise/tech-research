@@ -9,7 +9,7 @@
 
 <div class="wrap">
 	<h1>WebIM 集成引导</h1>
-	
+
 	<div class="guide">
 		<div class="steps">
 			<h2>1. 准备工作</h2>
@@ -24,8 +24,7 @@
 
 				<p>
 					开发文档  <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a> <br>
-					搭建应用服务器：
-					<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a> 
+					搭建应用服务器：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a>
 				</p>
 			</div>
 		</div>
@@ -70,12 +69,57 @@
 			<div class="content">
 				<p>可以根据业务需要设计用户名和密码规则，具体的流程：</p>
 				<ul>
-					<li>1. 应用服务器处理注册及登录校验</li>
-					<li>2. 成功登录后，通过应用服务器返回token</li>
-					<li>3. 端上使用token链接云端</li>
+					<li>1. 应用服务器处理用户的注册及校验，注册成功后，通过应用服务器访问融云服务器获取用户token并存储在应用服务器</li>
+					<li>2. 用户成功登录后，通过应用服务器返回token</li>
+					<li>3. 端上用户使用token链接融云服务器</li>
 					<li>4. 用户的在线状态</li>
 				</ul>
-				<pre>login, init+connect</pre>
+				<div class="content">
+					获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#获取_Token_方法">http://www.rongcloud.cn/docs/server.html#获取_Token_方法</a> <br>
+					使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a>
+					<pre>
+						function login(){
+							// app逻辑
+						}
+						//注册成功之后 获取token
+
+						//用户登录成功后，链接融云服务器
+						// 初始化。
+						RongIMClient.init(appKey);
+						var token = "";
+
+						// 连接融云服务器。
+			      RongIMClient.connect(token, {
+			        onSuccess: function(userId) {
+			          console.log("Login successfully." + userId);
+			        },
+			        onTokenIncorrect: function() {
+			          console.log('token无效');
+			        },
+			        onError:function(errorCode){
+			              var info = '';
+			              switch (errorCode) {
+			                case RongIMLib.ErrorCode.TIMEOUT:
+			                  info = '超时';
+			                  break;
+			                case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+			                  info = '未知错误';
+			                  break;
+			                case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+			                  info = '不可接受的协议版本';
+			                  break;
+			                case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+			                  info = 'appkey不正确';
+			                  break;
+			                case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+			                  info = '服务器不可用';
+			                  break;
+			              }
+			              console.log(errorCode);
+			            }
+			      });
+					</pre>
+				</div>
 			</div>
 		</div>
 
@@ -155,12 +199,62 @@ conversation.forEach(function(item){
 		<div class="steps">
 			<h2>7. 聊天窗口的实现</h2>
 			<div class="content">
-				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
+				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessages，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
 
 				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a> <br>
 				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
 				<pre>
-					
+					//获取历史消息
+					RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
+							onSuccess: function (list, hasMsg) {
+									list.length && renderHistoryMessages(list, hasMsg);
+									// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+									// list 为拉取到的历史消息列表
+									// renderHistoryMessages 为自定义的渲染页面方法
+							},
+							onError: function (error) {
+									console.log('获取历史消息error' + error);
+									// APP未开启消息漫游或处理异常
+									// throw new ERROR ......
+							}
+					});
+
+					//发送消息
+					RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+							 // 发送消息成功
+							 onSuccess: function (message) {
+									 //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+									 console.log("Send successfully");
+							 },
+							 onError: function (errorCode,message) {
+									 var info = '';
+									 switch (errorCode) {
+											 case RongIMLib.ErrorCode.TIMEOUT:
+													 info = '超时';
+													 break;
+											 case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+													 info = '未知错误';
+													 break;
+											 case RongIMLib.ErrorCode.REJECTED_BY_BLACKLIST:
+													 info = '在黑名单中，无法向对方发送消息';
+													 break;
+											 case RongIMLib.ErrorCode.NOT_IN_DISCUSSION:
+													 info = '不在讨论组中';
+													 break;
+											 case RongIMLib.ErrorCode.NOT_IN_GROUP:
+													 info = '不在群组中';
+													 break;
+											 case RongIMLib.ErrorCode.NOT_IN_CHATROOM:
+													 info = '不在聊天室中';
+													 break;
+											 default :
+													 info = x;
+													 break;
+									 }
+									 console.log('发送失败:' + info);
+							 }
+					 }
+			 );
 				</pre>
 			</div>
 		</div>
@@ -171,10 +265,11 @@ conversation.forEach(function(item){
 				<p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
 				<p>自动回复，</p>
 
-				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
-				<pre>
-					
-				</pre>
+				发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#发送消息">http://www.rongcloud.cn/docs/web_api_demo.html#发送消息</a>
+				语音消息：<a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a>
+				表情消息：<a href="http://www.rongcloud.cn/docs/web.html#表情库">http://www.rongcloud.cn/docs/web.html#表情库</a>
+				自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息">http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息</a>
+	
 			</div>
 		</div>
 	</div>
@@ -182,7 +277,7 @@ conversation.forEach(function(item){
 
 
 
-<!--  
+<!--
 1：架构说明，收费服务说明，两个链接
 		AppServer https://github.com/sealtalk/sealtalk-server
 		Server开发文档  http://www.rongcloud.cn/docs/server.html
