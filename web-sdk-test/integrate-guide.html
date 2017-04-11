@@ -81,9 +81,10 @@
                     <br>
                     使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a>
 <pre>
-function login(){
-	// app逻辑
+function login() {
+    // app逻辑
 }
+
 //注册成功之后 应用服务器访问融云服务器接口获取token
 
 //用户登录成功后，链接融云服务器
@@ -119,30 +120,11 @@ RongIMClient.setOnReceiveMessageListener({
             case RongIMClient.MessageType.TextMessage:
                 //接收到文本消息
                 break;
-
         }
     }
 });
-// 连接融云服务器。
-RongIMClient.connect(token, {
-    onSuccess: function (userId) {
-        console.log("Login successfully." + userId);
-
-        //同步会话列表
-        RongIMClient.getInstance().getConversationList({
-            onSuccess: function (list) {
-                //渲染列表
-                renderConversationList(list);
-            },
-            onError: function (error) {
-                // do something...
-            }
-        }, null);
-
-
-    }
-});
 </pre>
+
                 </div>
             </div>
         </div>
@@ -227,6 +209,7 @@ conversation.forEach(function(item){
             <div class="content">
                 <p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessages，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
 
+
                 获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a>
                 <br>
                 发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
@@ -250,6 +233,9 @@ RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
 	 }
  });
 </pre>
+
+
+
             </div>
         </div>
 
@@ -262,6 +248,7 @@ RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
                 发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#发送消息">http://www.rongcloud.cn/docs/web_api_demo.html#发送消息</a><br>
                 语音消息：<a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a><br>
                 表情消息：<a href="http://www.rongcloud.cn/docs/web.html#表情库">http://www.rongcloud.cn/docs/web.html#表情库</a><br>
+
 <pre>
 //获取全部表情
 var emojis = RongIMLib.RongIMEmoji.emojis;
@@ -274,6 +261,7 @@ var emojiItem=emojis[nth].innerHTML;
 var reg=/name="([[\w\W]+])"/;
 emojiContent= reg.exec(emojiItem)[1];
 </pre>
+
                 自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息">http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息</a>
 
             </div>
