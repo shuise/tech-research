@@ -687,14 +687,15 @@ function getHistroyMessage(){
 		2：timestrap第二次拉取必须为null才能实现循环拉取
 	*/
 
-	var count = 5;  // 2 <= count <= 20
+	var count = 10;  // 2 <= count <= 20
 	var timestrap = null; //0, 1483950413013
 
 	var start = new Date().getTime();
 	instance.getHistoryMessages(conversationtype, targetId, timestrap, count, {
 		onSuccess: function(list, hasMsg) {
 			//可通过sort订制其他顺序
-
+			console.log(list.length);
+			console.log(hasMsg);
 			list.sort(function(a,b){
 				return a.sentTime < b.sentTime;
 			});
