@@ -252,11 +252,11 @@ RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
 <pre>
 //获取全部表情
 var emojis = RongIMLib.RongIMEmoji.emojis;
-    //把表情循环添加进表情框中，这里假设是body
+//把表情循环添加进表情框中，这里假设是body
 emojis.forEach(function(item){document.body.append(item)})
-    //给每个表情绑定点击事件 获取当前点击表情的序号，这里随机假设是nth
+//给每个表情绑定点击事件 获取当前点击表情的序号，这里随机假设是nth
 var nth = Math.round((emojis.length-1) * Math.random());
-    //获取点击表情的内容，添加在用户输入框中
+//获取点击表情的内容，添加在用户输入框中
 var emojiItem=emojis[nth].innerHTML;
 var reg=/name="([[\w\W]+])"/;
 emojiContent= reg.exec(emojiItem)[1];
