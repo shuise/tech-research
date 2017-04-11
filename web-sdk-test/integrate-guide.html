@@ -80,7 +80,7 @@
 		</div>
 
 		<div class="steps">
-			<h2>4. 好友关系，群组</h2>
+			<h2>5. 好友关系，群组</h2>
 			<div class="content">
 				<p>在应用服务器维护数据，并同步至融云：</p>
 				<p>文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
@@ -174,6 +174,33 @@ conversation.forEach(function(item){
 				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
 				<pre>
 					
+				</pre>
+			</div>
+		</div>
+
+		<div class="steps">
+			<h2>9. 公众号</h2>
+			<div class="content">
+				<p>搜搜，关注，取消关注公众号，接收公众号推送</p>
+				<p>给公众号留言</p>
+
+				
+				<pre>/*
+公众号
+RongIMLib.ConversationType = {
+	APP_PUBLIC_SERVICE : "应用服务平台 mc",
+	PUBLIC_SERVICE : "公众服务平台 mp"
+};
+*/
+
+var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
+var publicServiceId = "shuise"; //RongCloud
+var searchType = 1; //[0-exact 1-fuzzy]
+var keywords = "Rong";
+
+//用户给公众号发消息
+var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
+var targetId = publicServiceId
 				</pre>
 			</div>
 		</div>
