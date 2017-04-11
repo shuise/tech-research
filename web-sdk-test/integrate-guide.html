@@ -1,109 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>集成 引导</title>
+    <meta charset="UTF-8">
+    <title>集成 引导</title>
 </head>
 <link rel="stylesheet" href="res/integrate.css">
 <body>
 
 <div class="wrap">
-	<h1>WebIM 集成引导</h1>
-	
-	<div class="guide">
-		<div class="steps">
-			<h2>1. 准备工作</h2>
-			<div class="content">
-				<p>架构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html#架构介绍">http://www.rongcloud.cn/docs/quick_start.html#架构介绍</a></p>
-				<p>应用服务器必须要处理的有：</p>
-				<ol>
-					<li>1. 维护用户信息，群组信息，好友关系，并提供对应接口供集成使用</li>
-					<li>2. 获取并存储token</li>
-					<li>3. 系统消息，通知等</li>
-				</ol>
+    <h1>WebIM 集成引导</h1>
 
-				<p>
-					开发文档  <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a> <br>
-					搭建应用服务器：
-					<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a> 
-				</p>
-			</div>
-		</div>
+    <div class="guide">
+        <div class="steps">
+            <h2>1. 准备工作</h2>
+            <div class="content">
+                <p>架构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html#架构介绍">http://www.rongcloud.cn/docs/quick_start.html#架构介绍</a>
+                </p>
+                <p>应用服务器必须要处理的有：</p>
+                <ol>
+                    <li>1. 维护用户信息，群组信息，好友关系，并提供对应接口供集成使用</li>
+                    <li>2. 获取并存储token</li>
+                    <li>3. 系统消息，通知等</li>
+                </ol>
 
-		<div class="steps">
-			<h2>2. 自行设计并UI界面</h2>
-			<div class="content">
-				<p>集成的思路：</p>
-				<ol>
-					<li>1. 根据功能选择SDK里对应的API</li>
-					<li>2. 应用服务器提供其他API之外所有的数据和功能支持</li>
-					<li>3. 合并两部分数据，通过模板渲染呈现（为了实时响应数据变化，建议使用双向绑定）</li>
-					<li>4. 注册对应的事件，包括API的方法（比如发送消息等）或者自行实现的业务方法（注册登录等）</li>
-				</ol>
-				<br>
+                <p>
+                    开发文档 <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a>
+                    <br>
+                    搭建应用服务器：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a>
+                </p>
+            </div>
+        </div>
 
-				<p>SDK的API</p>
-				<ol>
-					<li>1. 链接相关</li>
-					<li>2. 收发消息</li>
-					<li>3. 群组相关</li>
-					<li>4. 聊天室相关</li>
-					<li>5. 公众服务相关</li>
-				</ol>
-				<br>
+        <div class="steps">
+            <h2>2. 自行设计并UI界面</h2>
+            <div class="content">
+                <p>集成的思路：</p>
+                <ol>
+                    <li>1. 根据功能选择SDK里对应的API</li>
+                    <li>2. 应用服务器提供其他API之外所有的数据和功能支持</li>
+                    <li>3. 合并两部分数据，通过模板渲染呈现（为了实时响应数据变化，建议使用双向绑定）</li>
+                    <li>4. 注册对应的事件，包括API的方法（比如发送消息等）或者自行实现的业务方法（注册登录等）</li>
+                </ol>
+                <br>
 
-				<br>
-				<p>接下来主要介绍“<a href="">登录</a>”、“<a href="">会话列表</a>”和“<a href="">聊天窗口</a>”的实现</p>
-			</div>
-		</div>
+                <p>SDK的API</p>
+                <ol>
+                    <li>1. 链接相关</li>
+                    <li>2. 收发消息</li>
+                    <li>3. 群组相关</li>
+                    <li>4. 聊天室相关</li>
+                    <li>5. 公众服务相关</li>
+                </ol>
+                <br>
 
-		<div class="steps">
-			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
-			<div class="content">
-				文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
-				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/token-check.html">https://shuise.github.io/tech-research/web-sdk-test/token-check.html</a>
-			</div>
-		</div>
+                <br>
+                <p>接下来主要介绍“<a href="">登录</a>”、“<a href="">会话列表</a>”和“<a href="">聊天窗口</a>”的实现</p>
+            </div>
+        </div>
 
-		<div class="steps">
-			<h2>4. 登录的实现</h2>
-			<div class="content">
-				<p>可以根据业务需要设计用户名和密码规则，具体的流程：</p>
-				<ul>
-					<li>1. 应用服务器处理注册及登录校验</li>
-					<li>2. 成功登录后，通过应用服务器返回token</li>
-					<li>3. 端上使用token链接云端</li>
-					<li>4. 用户的在线状态</li>
-				</ul>
-				<pre>login, init+connect</pre>
-			</div>
-		</div>
+        <div class="steps">
+            <h2>3. 引入SDK，并完成初始化、链接云端</h2>
+            <div class="content">
+                文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
+                参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/token-check.html">https://shuise.github.io/tech-research/web-sdk-test/token-check.html</a>
+            </div>
+        </div>
 
-		<div class="steps">
-			<h2>4. 好友关系，群组</h2>
-			<div class="content">
-				<p>在应用服务器维护数据，并同步至融云：</p>
-				<p>文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
-				<ul>
-					<li>1. 添加好友</li>
-					<li>2. 创建并加入群组</li>
-					<li>3. 禁言及黑名单</li>
-					<li>4. 无用户身份处理</li>
-				</ul>
-				<pre>code todo</pre>
-			</div>
-		</div>
+        <div class="steps">
+            <h2>4. 登录的实现</h2>
+            <div class="content">
+                <p>可以根据业务需要设计用户名和密码规则，具体的流程：</p>
+                <ul>
+                    <li>1. 应用服务器处理用户的注册及校验，注册成功后，通过应用服务器访问融云服务器获取用户token并存储在应用服务器</li>
+                    <li>2. 用户成功登录后，通过应用服务器返回token</li>
+                    <li>3. 端上用户使用token链接融云服务器</li>
+                    <li>4. 用户的在线状态</li>
+                </ul>
+                <div class="content">
+                    获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#获取_Token_方法">http://www.rongcloud.cn/docs/server.html#获取_Token_方法</a>
+                    <br>
+                    使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a>
+<pre>
+function login(){
+	// app逻辑
+}
+//注册成功之后 应用服务器访问融云服务器接口获取token
 
-		<div class="steps">
-			<h2>6. 会话列表的实现</h2>
-			<div class="content">
-				文档：<a href="http://www.rongcloud.cn/docs/web.html#同步会话列表">http://www.rongcloud.cn/docs/web.html#同步会话列表</a> （请注意一定要开启 历史消息云存储功能） <br>
-				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html">https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html</a>
-				<p>
-					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
-					另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
-				</p>
-<pre>var conversation = [
+//用户登录成功后，链接融云服务器
+
+// 初始化。
+RongIMClient.init(appKey);
+
+//初始化 Emoji
+RongIMLib.RongIMEmoji.init();
+
+
+//初始化 声音库
+RongIMLib.RongIMVoice.init(appKey);
+
+// 连接融云服务器。
+RongIMClient.connect(token, {});
+
+// 连接状态监听器
+RongIMClient.setConnectionStatusListener();
+
+//获取是否含有未读消息
+RongIMClient.getInstance().hasRemoteUnreadMessages(token, {})
+
+// 消息监听器
+RongIMClient.setOnReceiveMessageListener({
+    // 接收到的消息
+    onReceived: function (message) {
+        // 判断消息类型
+        switch (message.messageType) {
+            case RongIMClient.MessageType.TypingStatusMessage:
+                //接收到输入状态
+                break;
+            case RongIMClient.MessageType.TextMessage:
+                //接收到文本消息
+                break;
+
+        }
+    }
+});
+// 连接融云服务器。
+RongIMClient.connect(token, {
+    onSuccess: function (userId) {
+        console.log("Login successfully." + userId);
+
+        //同步会话列表
+        RongIMClient.getInstance().getConversationList({
+            onSuccess: function (list) {
+                //渲染列表
+                renderConversationList(list);
+            },
+            onError: function (error) {
+                // do something...
+            }
+        }, null);
+
+
+    }
+});
+</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="steps">
+            <h2>4. 好友关系，群组</h2>
+            <div class="content">
+                <p>在应用服务器维护数据，并同步至融云：</p>
+                <p>文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a>
+                </p>
+                <ul>
+                    <li>1. 添加好友</li>
+                    <li>2. 创建并加入群组</li>
+                    <li>3. 禁言及黑名单</li>
+                    <li>4. 无用户身份处理</li>
+                </ul>
+                <pre>code todo</pre>
+            </div>
+        </div>
+
+        <div class="steps">
+            <h2>6. 会话列表的实现</h2>
+            <div class="content">
+                文档：<a href="http://www.rongcloud.cn/docs/web.html#同步会话列表">http://www.rongcloud.cn/docs/web.html#同步会话列表</a>
+                （请注意一定要开启 历史消息云存储功能） <br>
+                参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html">https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html</a>
+                <p>
+                    会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
+                    另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
+                </p>
+                <pre>var conversation = [
 	{
 		"conversationTitle": "",
 		"conversationType": 1,
@@ -149,40 +219,70 @@ conversation.forEach(function(item){
 	item["userInfo"] = userInfos[item.latestMessage.senderUserId]
 });
 </pre>
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div class="steps">
-			<h2>7. 聊天窗口的实现</h2>
-			<div class="content">
-				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
+        <div class="steps">
+            <h2>7. 聊天窗口的实现</h2>
+            <div class="content">
+                <p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessages，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
 
-				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a> <br>
-				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
-				<pre>
-					
-				</pre>
-			</div>
-		</div>
+                获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a>
+                <br>
+                发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
+<pre>
+//获取历史消息
+RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
+		onSuccess: function (list, hasMsg) {
+				list.length && renderHistoryMessages(list, hasMsg);
+				// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+				// list 为拉取到的历史消息列表
+				// renderHistoryMessages 为自定义的渲染页面方法
+		}
+});
 
-		<div class="steps">
-			<h2>8. 发送消息的功能增强</h2>
-			<div class="content">
-				<p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
-				<p>自动回复，</p>
+//发送消息
+RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+	 // 发送消息成功
+	 onSuccess: function (message) {
+			 //发消息成功 渲染到消息列表
+			 renderMyMessage();
+	 }
+ });
+</pre>
+            </div>
+        </div>
 
-				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
-				<pre>
-					
-				</pre>
-			</div>
-		</div>
-	</div>
+        <div class="steps">
+            <h2>8. 发送消息的功能增强</h2>
+            <div class="content">
+                <p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
+                <p>自动回复，</p>
+
+                发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#发送消息">http://www.rongcloud.cn/docs/web_api_demo.html#发送消息</a><br>
+                语音消息：<a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a><br>
+                表情消息：<a href="http://www.rongcloud.cn/docs/web.html#表情库">http://www.rongcloud.cn/docs/web.html#表情库</a><br>
+<pre>
+//获取全部表情
+var emojis = RongIMLib.RongIMEmoji.emojis;
+    //把表情循环添加进表情框中，这里假设是body
+emojis.forEach(function(item){document.body.append(item)})
+    //给每个表情绑定点击事件 获取当前点击表情的序号，这里随机假设是nth
+var nth = Math.round((emojis.length-1) * Math.random());
+    //获取点击表情的内容，添加在用户输入框中
+var emojiItem=emojis[nth].innerHTML;
+var reg=/name="([[\w\W]+])"/;
+emojiContent= reg.exec(emojiItem)[1];
+</pre>
+                自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息">http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息</a>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 
-
-<!--  
+<!--
 1：架构说明，收费服务说明，两个链接
 		AppServer https://github.com/sealtalk/sealtalk-server
 		Server开发文档  http://www.rongcloud.cn/docs/server.html
