@@ -33,7 +33,8 @@
 	})();
 
 
-	function play(){
+    //callback(progress)
+	function play(file,callback){
 
 	}
 
