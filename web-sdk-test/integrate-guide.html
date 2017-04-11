@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>集成 引导</title>
 </head>
-<link rel="stylesheet" href="res/integrate.css">
+<link rel="stylesheet" href="res/integrate.css?2">
 <body>
 
 <div class="wrap">
@@ -61,7 +61,15 @@
 			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
 			<div class="content">
 				文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
-				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/token-check.html">https://shuise.github.io/tech-research/web-sdk-test/token-check.html</a>
+				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/token-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a>
+
+				<div class="helps">
+					<h3>常见问题：</h3>
+					<ol>
+						<li><a href="https://rongcloud.github.io/websdk-demo/require.html">项目已使用require或其他模块化加载，应该如何初始化？</a></li>
+						<li><a href="https://rongcloud.github.io/websdk-demo/connect-check.html">私有部署 如何初始化？</a></li>
+					</ol>
+				</div>
 			</div>
 		</div>
 
@@ -75,6 +83,14 @@
 					<li>3. 端上使用token链接云端</li>
 					<li>4. 用户的在线状态</li>
 				</ul>
+
+				<div class="helps">
+					<h3>常见问题：</h3>
+					<ol>
+						<li><a href="#">如何实现游客无需注册登录聊天？</a></li>
+					</ol>
+				</div>
+
 				<pre>login, init+connect</pre>
 			</div>
 		</div>
@@ -103,6 +119,15 @@
 					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
 					另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
 				</p>
+
+				<div class="helps">
+					<h3>常见问题：</h3>
+					<ol>
+						<li><a href="#">会话的分页问题</a></li>
+					</ol>
+				</div>
+
+				
 <pre>var conversation = [
 	{
 		"conversationTitle": "",
@@ -168,10 +193,20 @@ conversation.forEach(function(item){
 		<div class="steps">
 			<h2>8. 发送消息的功能增强</h2>
 			<div class="content">
-				<p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
-				<p>自动回复，</p>
+				<p>图片消息，文件消息，语音消息，地理位置消息，自定义消息</p>
+				<p>emoji表情、自定义表情</p>
+				<p>自动回复</p>
 
 				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
+
+				<div class="helps">
+					<h3>常见问题：</h3>
+					<ol>
+						<li><a href="#">emoji的发送、接收、解码与显示处理逻辑</a></li>
+					</ol>
+				</div>
+
+				
 				<pre>
 					
 				</pre>
@@ -183,6 +218,15 @@ conversation.forEach(function(item){
 			<div class="content">
 				<p>搜搜，关注，取消关注公众号，接收公众号推送</p>
 				<p>给公众号留言</p>
+
+				<div class="helps">
+					<h3>常见问题：</h3>
+					<ol>
+						<li><a href="#">公众号账号的维护添加</a></li>
+					</ol>
+				</div>
+
+				
 
 				
 				<pre>/*
