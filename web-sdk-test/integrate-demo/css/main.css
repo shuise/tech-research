@@ -21,15 +21,31 @@ html,body{
     color: #fff;
 }
 .header .title{
-    font-size: 0.31rem;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0.45rem;
 }
 #publicPage em{
     font-style: normal;
 }
 
+.icons{
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: transparent;
+    background-image: url(../images/icons.png);
+    background-size: 1.2rem auto;
+    background-repeat: no-repeat;
+    background-position: 0 -0.7rem;
+}
 
 /* 公众号列表页 */
-
+.icon-return{
+    position: absolute;
+    top: 0.3rem;
+    left: 0.5rem;
+}
 .public-list-content{
     margin-top: 1.16rem;
     overflow-y: auto;
@@ -104,10 +120,14 @@ html,body{
 .public-add-btn{
     position: absolute;
     top: 0;
-    right: 0.3rem;
+    right: 0.5rem;
     color: #fff;
     margin-top: 0.23rem;
-    font-size: 0.31rem;
+    border: none;
+    font-size: 0;
+}
+.icon-search{
+    background-position: 0 -1.82rem;
 }
 
 /* 公众号搜索页 */
