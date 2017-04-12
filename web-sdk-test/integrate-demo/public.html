@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no">
+    <title>web-sdk</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/RongIMLib-2.2.5.min.js"></script>
+    <script src="js/RongEmoji-2.2.5.min.js"></script>
+    <script src="js/Libamr-2.2.5.min.js"></script>
+    <script src="js/RongIMVoice-2.2.5.min.js"></script>
+
+
+    <script src="js/initRong.js"></script>
+
+    <script src="js/public-chat.js"></script>
+    <script src="js/public-info.js"></script>
+    <script src="js/public-list.js"></script>
+    <script src="js/public-search.js"></script>
+</head>
+<body>
+    <div id="publicPage">
+        <!--公众号搜索页->搜索
+        公众号列表页
+        公众号信息页->搜索结果 点击关注 取消关注公众号
+        公众号消息详情页->接收公众号推送-->
+        <keep-alive>
+            <component :is="stat.currentView" :stat="stat"></component>
+        </keep-alive>
+
+    </div>
+</body>
+<script type="text/javascript">
+    function initVue(){
+        var publicPage=new Vue({
+            el: '#publicPage',
+            data: {
+                stat: {
+                    currentView: 'publicList',
+                    publicList:['公众号'],
+                    searchVal:'',
+                    searchList:[],
+                    searchResult:true,
+                    currentPublic:{}
+
+                }
+            },
+            components: {
+                publicChat: getPublicChat(),
+                publicInfo: getPublicInfo(),
+                publicList: getPublicList(),
+                publicSearch: getPublicSearch()
+            },
+            methods: {
+
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,321 @@
+@charset "utf-8";
+
+html,body{
+    height: 100%;
+}
+.hide {
+    display: none!important;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.16rem;
+    line-height: 1.16rem;
+    background: #0099ff;
+    z-index: 99;
+    text-align: center;
+    padding: 0 0.618rem;
+    color: #fff;
+}
+.header .title{
+    font-size: 0.31rem;
+}
+#publicPage em{
+    font-style: normal;
+}
+
+
+/* 公众号列表页 */
+
+.public-list-content{
+    margin-top: 1.16rem;
+    overflow-y: auto;
+}
+.public-list-item{
+    height: 1.6405rem;
+    line-height: 1.0685rem;;
+    background: #F5F5F5;
+    padding: 0.286rem;
+    font-size: 0.386rem;
+}
+.public-list-item.item-without{
+    text-align: center;
+}
+.public-list-item:nth-child(n+1) {
+    border-top: 1px solid #e1e1e1;
+}
+.rong-conversation-aside {
+    float: left;
+    position: relative;
+    width: 1.4475rem;
+    min-height: 1.0615rem;
+}
+.rong-item-main {
+    line-height: 1.4;
+    overflow: hidden;
+}
+.rong-conversation-time {
+    float: right;
+    color: #777;
+    font-size: 0.386rem;
+}
+.rong-conversation-name {
+    height: 0.5615rem;
+    margin-right: 40px;
+    font-size: 0.386rem;
+}
+.rong-conversation-name em {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+}
+.rong-conversation-name em, .rong-conversation-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.rong-conversation-message {
+    max-width: 75%;
+    color: #777;
+    font-size: 0.386rem;
+}
+.rong-avatar {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.1rem;
+    width: 1.0615rem;
+    height: 1.0615rem;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background: #0099FF 0 0/1.0615rem auto no-repeat;
+}
+.rong-avatar > img {
+    display: block;
+}
+.rong-avatar-bd {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.public-add-btn{
+    position: absolute;
+    top: 0;
+    right: 0.3rem;
+    color: #fff;
+    margin-top: 0.23rem;
+    font-size: 0.31rem;
+}
+
+/* 公众号搜索页 */
+.public-search-wrap{
+    margin-top: 1.16rem;
+    overflow-y: auto;
+    padding: 0.3rem;
+}
+.public-search-field{
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    font-size: 0.4rem;
+    width: 80%;
+    height: 0.9rem;
+    text-indent: 0.2rem;
+}
+.public-search-btn{
+    display: inline-block;
+    width: 1.2rem;
+    height: 0.9rem;
+    vertical-align: top;
+    font-size: 0.4rem;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    background: transparent;
+    margin-left: 0.3rem;
+}
+
+.public-search-item{
+    height: 1.6405rem;
+    line-height: 1.0685rem;;
+    background: #F5F5F5;
+    padding: 0.286rem;
+    font-size: 0.386rem;
+}
+.public-search-item:nth-child(n+1) {
+    border-top: 1px solid #e1e1e1;
+}
+
+/* 公众号信息页面 */
+.public-info-con{
+    margin-top: 1.16rem;
+    overflow-y: auto;
+    padding: 0.3rem;
+}
+.public-introduction{
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.5rem;
+}
+.subscribePublic,
+.enterPublic,
+.unsubscribePublic{
+    display: inline-block;
+    padding: 0 0.3rem;
+    height: 0.9rem;
+    vertical-align: top;
+    font-size: 0.4rem;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    background: transparent;
+}
+.public-info-btns{
+    margin-top: 0.3rem;
+}
+
+/* 公众号消息页面 */
+.chat-content{
+    position: absolute;
+    z-index: 1;
+    top: 1.09rem;
+    bottom: 1.21rem;
+    left: 0;
+    width: 100%;
+    overflow-y: scroll;
+}
+.chat-content .message-wrapper{
+    padding: 0 0.24rem;
+}
+.message-item {
+    position: relative;
+    padding-left: 1.39rem;
+    word-wrap: break-word;
+    word-break: break-all;
+    border-spacing: 1px;
+}
+.message-item:nth-child(n+1){
+    margin-top: 0.29rem;
+}
+
+.message-item-portrait{
+    position: absolute;
+    margin-left: -1.39rem;
+    width: 1rem;
+    height: 1rem;
+    background: #0099FF 0 0/1rem auto no-repeat;
+    border-radius: 50%;
+    font-size: 0;
+}
+.message-item.my-msg .message-item-portrait{
+    display: none;
+}
+.message-body{
+    position: relative;
+    font-size: 0.2895rem;
+    color: #444;
+}
+.message-body .image-message{
+    max-width: 100%;
+    max-height: 200px;
+}
+.message-item.my-msg .message-body {
+    text-align: right;
+    margin-right: 0.386rem;
+}
+.message-text{
+    display: inline-block;
+    max-width: 100%;
+}
+.arrow-dialog{
+    width: 0;
+    height: 0;
+    border-top: 0.0965rem solid transparent;
+    border-bottom: 0.0965rem solid transparent;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 0.4825rem;
+    margin-top: -0.0965rem;
+}
+.message-item.your-msg .arrow-dialog {
+    border-right: 0.14475rem solid #f0f4f7;
+    left: -0.14475rem;
+}
+.message-item.my-msg .arrow-dialog {
+    border-left: 0.14475rem solid #c7edfc;
+    right: -0.14475rem;
+}
+.user-msg {
+    padding: 0.2895rem 0.2123rem;
+    margin: 0;
+    line-height: 0.426rem;
+    color: rgb(68, 68, 68);
+    word-break: break-all;
+    word-wrap: break-word;
+    border: none;
+    border-radius: 0.0772rem;
+    white-space: pre-wrap;
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-size: 0.386rem;
+}
+.message-item.your-msg .user-msg{
+    float: left;
+    margin-right: 0.386rem;
+    background: #f0f4f7;
+}
+.message-item.my-msg .user-msg{
+    float: right;
+    background: #c7edfc;
+}
+.footer{
+    display:flex;
+    height: 1.20625rem;
+    line-height: 1.20625rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 99;
+    background-color: #f8f8f8;
+}
+
+.footer .message-wrap {
+    flex: 1;
+    overflow: hidden;
+    padding: 0.321538rem 0;
+}
+.footer .message-content {
+    padding: 0 0.386rem;
+    width: 100%;
+    background-color: #f8f8f8;
+    resize: none;
+    line-height: 0.6369rem;
+    border: none;
+    font-size: 0.375rem;
+}
+.footer .send-emoji{
+    border-left: 1px solid #f1f1f1;
+    width: 2rem;
+    height: 1.20625rem;
+    line-height: 1.20625rem;
+    font-size: 0.386rem;
+}
+.footer .send-btn,
+.footer .send-img,
+.footer .send-voice,
+.upload-img{
+    width: 1.544rem;
+    height: 1.20625rem;
+    line-height: 1.20625rem;
+    font-size: 0.386rem;
+    overflow: hidden;
+}
+.upload-img{
+    opacity: 0;
+    position: absolute;
+    right: 5.2rem;
+}
