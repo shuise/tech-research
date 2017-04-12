@@ -1,0 +1,15 @@
+<div class="public-list">
+    <header class="header"><h2 class="title">公众号</h2><button type="button" class="public-add-btn" @touchend="publicAdd">添加</button></header>
+    <ul class="public-list-content">
+        <li v-if="stat.publicList.length == 0" class="public-list-item item-without">请添加公众号</li>
+        <li v-else class="public-list-item" v-for="item in stat.publicList">
+            <div class="rong-conversation-aside">
+                <div class="rong-avatar"><img src="http://7xogjk.com1.z0.glb.clouddn.com/FkBCtoZaB59QryXD1d8h3tFmSNV9" class="rong-avatar-bd">  <!----> </div>  <!----></div>
+            <div class="rong-item-main">
+                <div class="rong-conversation-time">周一</div>
+                <div class="rong-conversation-name"><em>赵福运</em>  <!----></div>
+                <div class="rong-conversation-message"><!----> <!----> <!----> <span>消息展示说明</span></div>
+            </div>
+        </li>
+    </ul>
+</div>
