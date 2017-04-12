@@ -1,5 +1,9 @@
 #随手demo，完全公开
 
+WebSDK API test：[https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html](https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html)
+
+
+
 
 
 MIT License
