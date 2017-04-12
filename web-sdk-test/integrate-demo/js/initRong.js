@@ -1,6 +1,6 @@
 function init(){
-    appKey = "8w7jv4qb78a9y";
-    token = "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==";
+    appKey = "82hegw5u8mqwx";
+    token = "pQn8OduE596/gGzLZVUheTCvQwRQ4mI0ws9X674LamI4CpgvufNZRf5krbtH6T1AuPrNawarRocdJ9HGgnMMVA==";
 
 
     var targetIds = "user9,user10";

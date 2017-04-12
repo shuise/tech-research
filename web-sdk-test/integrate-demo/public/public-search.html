@@ -6,7 +6,7 @@
     <ul class="public-search-list">
         <li v-if="stat.searchList.length !== 0" class="public-search-item" v-for="item in stat.searchList" @touchend="goPublicInfo(item)">
             <div class="rong-conversation-aside">
-                <div class="rong-avatar"><img src="{{item.portraitUri}}" class="rong-avatar-bd">  <!----> </div>  <!----></div>
+                <div class="rong-avatar"><img :src="item.portraitUri" class="rong-avatar-bd">  <!----> </div>  <!----></div>
             <div class="rong-item-main">
                 <div class="rong-conversation-name"><em>{{item.name}}</em>  <!----></div>
                 <div class="rong-conversation-message"><!----> <!----> <!----> <span>{{item.introduction}}</span></div>
