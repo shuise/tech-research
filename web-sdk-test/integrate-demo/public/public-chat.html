@@ -1,5 +1,8 @@
 <div class="public-chat">
-    <header class="header"><h2 class="title">融融公众号</h2></header>
+    <header class="header">
+        <i class="icons icon-return" @touchend="goPublicList"></i>
+        <h2 class="title">{{stat.currentPublic.name}}</h2>
+    </header>
 
     <div class="chat-content">
         <div class="message-wrapper">

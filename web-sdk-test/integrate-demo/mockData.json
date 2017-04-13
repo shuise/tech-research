@@ -1,0 +1,78 @@
+{
+  "publicList": [
+    {
+      "conversationType": 7,
+      "introduction": "",
+      "name": "Rong_shuise_nick",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise",
+      "hasFollowed": true,
+      "isGlobal": true
+    },
+    {
+      "conversationType": 7,
+      "introduction": "",
+      "name": "Rong_shuise_nick2",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise2",
+      "hasFollowed": true,
+      "isGlobal": true
+    },
+    {
+      "conversationType": 7,
+      "introduction": "",
+      "name": "Rong_shuise_nick3",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise3",
+      "hasFollowed": true,
+      "isGlobal": true
+    },
+    {
+      "conversationType": 7,
+      "introduction": "",
+      "name": "Rong_shuise_nick4",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise4",
+      "hasFollowed": true,
+      "isGlobal": true
+    }
+  ],
+  "searchList":[
+    {
+      "conversationType": 7,
+      "introduction": "我们对这些结果并不满意。们接受了调查结果，并没有使悬而未决的领海问题进一步恶化。们接受了调查结果，并没有使悬而未决的领海问题进一步恶化。",
+      "name": "Rong_shuise_nick",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise",
+      "hasFollowed": true,
+      "isGlobal": true
+    },
+    {
+      "conversationType": 7,
+      "introduction": "我们得到了许多测量结果",
+      "name": "Rong_shuise_nick2",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise2",
+      "hasFollowed": true,
+      "isGlobal": true
+    },
+    {
+      "conversationType": 7,
+      "introduction": "他对材料做了检验并送出了检验结果。",
+      "name": "Rong_shuise_nick3",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise3",
+      "hasFollowed": true,
+      "isGlobal": true
+    },
+    {
+      "conversationType": 7,
+      "introduction": "我检查了一下图表，结果发现我错删了东西。",
+      "name": "Rong_shuise_nick4",
+      "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
+      "publicServiceId": "Rong_shuise4",
+      "hasFollowed": true,
+      "isGlobal": true
+    }
+  ]
+}

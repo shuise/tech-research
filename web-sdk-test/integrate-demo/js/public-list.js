@@ -10,6 +10,11 @@ function getPublicList(_options) {
                 /*
                  getRemotePublicServiceList = function (mpId, conversationType, pullMessageTime, callback)
                  */
+                $.getJSON('mockData.json',function (data) {
+                    console.log(data);
+                    that.stat.publicList=data.publicList;
+                    return false;
+                });
                 var that=this;
                 RongIMClient.getInstance().getPublicServiceList({
                     onSuccess: function (list) {
