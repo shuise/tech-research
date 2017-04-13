@@ -6,7 +6,12 @@ function getPublicChat(_options) {
         props:['stat'],
         template: 'public/public-chat.html',
         methods: {
-            // ...
+            goPublicList:function () {
+                this.stat.currentView='publicList';
+            },
+            goPublicInfo:function () {
+                this.stat.currentView='publicInfo';
+            }
         }
     };
     return common.getComponent(options);

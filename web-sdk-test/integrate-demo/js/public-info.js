@@ -6,7 +6,7 @@ function getPublicInfo(_options) {
         props:['stat'],
         template: 'public/public-info.html',
         methods: {
-            enterPublic:function () {
+            goPublicChat:function () {
                 this.stat.currentView='publicChat';
             },
             unsubscribePublic:function () {
@@ -34,6 +34,9 @@ function getPublicInfo(_options) {
                         console.log("订阅公众号 失败");
                     }
                 });
+            },
+            goPublicSearch:function () {
+                this.stat.currentView='publicSearch';
             }
         }
     };

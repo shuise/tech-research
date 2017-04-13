@@ -1,11 +1,22 @@
 <div class="public-info">
-    <header class="header"><h2 class="title">{{stat.currentPublic.name}}</h2></header>
+    <header class="header">
+        <i class="icons icon-return" @touchend="goPublicSearch"></i>
+        <h2 class="title">详情资料</h2>
+    </header>
     <div class="public-info-con">
-        <p class="public-introduction">简介：{{stat.currentPublic.introduction}}</p>
-        <hr>
+        <div class="public-info-avatar">
+            <div class="rong-avatar"><img :src="stat.currentPublic.portraitUri" class="rong-avatar-bd"></div>
+            <div class="public-info-name">{{stat.currentPublic.name}}</div>
+        </div>
+        <div class="public-info-intro">
+            <span class="title">功能介绍</span>
+            <div class="public-introduction">
+                {{stat.currentPublic.introduction}}
+            </div>
+        </div>
 
         <div v-if="stat.currentPublic.hasFollowed" class="public-info-btns">
-            <button type="button" class="enterPublic" @touchend="enterPublic">进入公众号</button>
+            <button type="button" class="enterPublic" @touchend="goPublicChat">进入公众号</button>
             <br>
             <button type="button" class="unsubscribePublic" @touchend="unsubscribePublic">取消订阅公众号</button>
         </div>

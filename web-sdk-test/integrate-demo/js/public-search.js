@@ -7,6 +7,7 @@ function getPublicSearch(_options) {
         template: 'public/public-search.html',
         methods: {
             publicSearch:function () {
+
                 console.log(this.stat);
                 var that=this;
                 var keywords=this.stat.searchVal;
@@ -30,10 +31,18 @@ function getPublicSearch(_options) {
             goPublicInfo:function (item) {
                 this.stat.currentView = 'publicInfo';
                 this.stat.currentPublic = item;
+            },
+            goPublicList:function(){
+                this.stat.currentView="publicList";
             }
         },
         mounted:function () {
-
+            var that=this;
+            $.getJSON('mockData.json',function (data) {
+                console.log(data);
+                that.stat.searchList=data.searchList;
+                return false;
+            });
         }
     };
     return common.getComponent(options);
