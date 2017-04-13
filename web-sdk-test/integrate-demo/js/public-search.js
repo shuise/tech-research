@@ -8,6 +8,13 @@ function getPublicSearch(_options) {
         methods: {
             publicSearch:function () {
 
+                var that=this;
+                $.getJSON('mockData.json',function (data) {
+                    console.log(data);
+                    that.stat.searchList=data.searchList;
+                    return false;
+                });
+                return false;
                 console.log(this.stat);
                 var that=this;
                 var keywords=this.stat.searchVal;
@@ -37,12 +44,7 @@ function getPublicSearch(_options) {
             }
         },
         mounted:function () {
-            var that=this;
-            $.getJSON('mockData.json',function (data) {
-                console.log(data);
-                that.stat.searchList=data.searchList;
-                return false;
-            });
+
         }
     };
     return common.getComponent(options);

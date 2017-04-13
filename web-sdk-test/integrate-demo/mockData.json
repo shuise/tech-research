@@ -4,37 +4,45 @@
       "conversationType": 7,
       "introduction": "",
       "name": "Rong_shuise_nick",
+      "time": "12:00",
       "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
       "publicServiceId": "Rong_shuise",
       "hasFollowed": true,
-      "isGlobal": true
+      "isGlobal": true,
+      "latestMessage":"我们对这些结果并不满意。们接受了调查结果，并没有使悬而未决的领海问题进一步恶化。们接受了调查结果，并没有使悬而未决的领海问题进一步恶化。"
     },
     {
       "conversationType": 7,
       "introduction": "",
       "name": "Rong_shuise_nick2",
+      "time": "11:00",
       "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
       "publicServiceId": "Rong_shuise2",
       "hasFollowed": true,
-      "isGlobal": true
+      "isGlobal": true,
+      "latestMessage":"我们得到了许多测量结果"
     },
     {
       "conversationType": 7,
       "introduction": "",
       "name": "Rong_shuise_nick3",
+      "time": "9:00",
       "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
       "publicServiceId": "Rong_shuise3",
       "hasFollowed": true,
-      "isGlobal": true
+      "isGlobal": true,
+      "latestMessage":"他对材料做了检验并送出了检验结果。"
     },
     {
       "conversationType": 7,
       "introduction": "",
       "name": "Rong_shuise_nick4",
+      "time": "7:00",
       "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
       "publicServiceId": "Rong_shuise4",
       "hasFollowed": true,
-      "isGlobal": true
+      "isGlobal": true,
+      "latestMessage":"我检查了一下图表，结果发现我错删了东西。"
     }
   ],
   "searchList":[
@@ -44,7 +52,7 @@
       "name": "Rong_shuise_nick",
       "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
       "publicServiceId": "Rong_shuise",
-      "hasFollowed": true,
+      "hasFollowed": false,
       "isGlobal": true
     },
     {
@@ -53,7 +61,7 @@
       "name": "Rong_shuise_nick2",
       "portraitUri": "https://rongcloud-res.cn.ronghub.com/cbee177bcbb099f81320855faa2865b4?imageView2/2/w/80/h/80",
       "publicServiceId": "Rong_shuise2",
-      "hasFollowed": true,
+      "hasFollowed": false,
       "isGlobal": true
     },
     {
