@@ -28,6 +28,10 @@ function getPublicList(_options) {
             },
             publicAdd:function(){
                 this.stat.currentView="publicSearch";
+            },
+            goPublicChat:function(item){
+                this.stat.currentView = 'publicChat';
+                this.stat.currentPublic = item;
             }
         },
         mounted:function () {

@@ -40,7 +40,7 @@ html,body{
     width: 1.16rem;
     height: 1.16rem;
     background-color: transparent;
-    background-image: url(../images/icons.png);
+    background-image: url(../images/icons.png?11);
     background-size: 1.2rem auto;
     background-repeat: no-repeat;
     background-position: 0.35rem 0.35rem;
@@ -64,20 +64,46 @@ html,body{
     background-position: 0.35rem -0.8rem
 }
 .icon-add{
-    background-position: 0.35rem -3.02rem
+    background-position: 0.35rem -3.02rem;
+    margin-right: 0.1rem;
+}
+.public-search-btn{
+    display: inline-block;
+    width: 1.4rem;
+    height: 0.7rem;
+    font-size: 0.4rem;
+    color: #fff;
+    border: 1px solid #179e16;
+    border-radius: 3px;
+    background-color: #1aad19;
+
 }
 /* 公众号列表页 */
 .public-list-content{
     margin-top: 1.16rem;
     overflow-y: auto;
 }
-
+.public-list-item{
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    font-size: 0.4rem;
+    border-top: 1px solid #dfdfdf;
+}
 .public-list-item.item-without{
     text-align: center;
     background: none;
     margin-top: 2rem;
     font-size: 0.42rem;
     border: 0;
+}
+.public-list-item .rong-avatar{
+    border-radius: 0;
+    border: 0;
+}
+.rong-item-main{
+    overflow: hidden;
+    width: 100%;
 }
 .public-letter-title{
     width: 100%;
@@ -107,11 +133,28 @@ html,body{
 .rong-avatar img{
     width: 100%;
 }
-.rong-conversation-name{
+.rong-conversation-attr{
     margin-left: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.rong-conversation-name{
+    color: #363636;
+    font-size: 0.4rem;
+}
+.rong-conversation-time{
+    color: #bbbbbb;
+    font-size: 0.25rem;
 }
 .rong-conversation-message{
     margin-left: 0.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    padding-right: 1.5rem;
+    color: #989898;
+    font-size: 0.35rem;
+    margin-top: 0.05rem;
 }
 /*
 .public-item-content:nth-child(n+1) {
@@ -158,9 +201,21 @@ html,body{
     padding: 0.3rem;
     font-size: 0.4rem;
     border-top:1px solid #dfdfdf;
+    overflow: hidden;
 }
 .public-search-item .rong-avatar {
     border: 0;
+}
+
+.public-search-item .rong-conversation-message {
+    padding-right: 0;
+    display: -webkit-box;
+    overflow: hidden;
+    white-space:normal;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 /* 公众号信息页面 */
@@ -190,9 +245,8 @@ html,body{
 
 .public-info-intro{
     display: flex;
-    align-items: center;
     background-color: #fff;
-    padding: 0.2rem 0.4rem;
+    padding: 0.4rem 0.4rem;
 }
 .public-info-intro .title{
     font-size: 0.45rem;
@@ -200,9 +254,7 @@ html,body{
     white-space: nowrap;
 }
 .public-introduction{
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-    font-size: 0.36rem;
+    font-size: 0.4rem;
     margin-left: 0.4rem;
     color: #999999;
 }
@@ -227,6 +279,11 @@ html,body{
 }
 
 /* 公众号消息页面 */
+.public-info-btn{
+    font-size: 0;
+    border: 0;
+    background-position: 0.25rem -4.2rem;
+}
 .chat-content{
     position: absolute;
     z-index: 1;
