@@ -458,11 +458,17 @@ html, body {
 }
 
 .footer .send-btn {
-    width: 1.544rem;
-    height: 1.20625rem;
-    line-height: 1.20625rem;
-    font-size: 0.386rem;
-    overflow: hidden;
+    display: inline-block;
+    width: 1.4rem;
+    height: 0.7rem;
+    font-size: 0.4rem;
+    color: #fff;
+    border: 1px solid #179e16;
+    border-radius: 3px;
+    background-color: #1aad19;
+    line-height: 0.7rem;
+    margin-top: 0.25rem;
+    margin-right: 0.4rem;
 }
 
 /* 公众号文章页面 */
