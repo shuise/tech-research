@@ -1,0 +1,19 @@
+<html>
+
+<script>
+document.domain='rce.com';
+
+function reqeust(params,callback){
+	var api = params.api;
+	var id = params.id;
+
+	var data = {
+		id : id,
+		name : "name"
+	}
+
+	window.parent && window.parent(data);
+}
+</script>
+
+</html>
