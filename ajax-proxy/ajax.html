@@ -4,12 +4,19 @@
 <meta charset="UTF-8">
 <title>upload</title>
 </head>
+
+<!--
+page url = http://im.ice.com/ajax.html
+-->
+
 <script>
-document.domain = "rce.com";
+document.domain='rce.com'; //same domain with ajax.html
 </script>
 <body>
 
-<iframe src="proxy.html" id="proxy" frameborder="0"></iframe>
+
+
+<iframe src="http://api.rce.com/proxy.html" id="proxy" frameborder="0"></iframe>
 <script>
 function callback(data){
 	alert(data);

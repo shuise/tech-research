@@ -1,18 +1,26 @@
 <html>
 
+<!--
+page url = http://api.rce.com/proxy.html
+
+same domain with server
+-->
+
 <script>
-document.domain='rce.com';
+document.domain='rce.com'; //same domain with ajax.html
 
 function reqeust(params,callback){
 	var api = params.api;
 	var id = params.id;
 
+	//request,get data
+
 	var data = {
 		id : id,
 		name : "name"
-	}
+	};
 
-	window.parent && window.parent(data);
+	window.parent.callback(data);
 }
 </script>
 
