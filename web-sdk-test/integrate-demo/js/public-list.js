@@ -3,38 +3,38 @@
  */
 function getPublicList(_options) {
     var options = {
-        props:['stat'],
+        props: ['stat'],
         template: 'public/public-list.html',
         methods: {
             getPublicServiceList: function () {
                 /*
                  getRemotePublicServiceList = function (mpId, conversationType, pullMessageTime, callback)
                  */
-                $.getJSON('mockData.json',function (data) {
+                $.getJSON('mockData.json', function (data) {
                     console.log(data);
-                    that.stat.publicList=data.publicList;
+                    that.stat.publicList = data.publicList;
                     return false;
                 });
-                var that=this;
+                var that = this;
                 RongIMClient.getInstance().getPublicServiceList({
                     onSuccess: function (list) {
                         console.log("获取已关注公众号 成功");
-                        that.stat.publicList=list;
+                        that.stat.publicList = list;
                     },
                     onError: function (error) {
                         console.log("获取已关注公众号 失败");
                     }
                 });
             },
-            publicAdd:function(){
-                this.stat.currentView="publicSearch";
+            publicAdd: function () {
+                this.stat.currentView = "publicSearch";
             },
-            goPublicChat:function(item){
+            goPublicChat: function (item) {
                 this.stat.currentView = 'publicChat';
                 this.stat.currentPublic = item;
             }
         },
-        mounted:function () {
+        mounted: function () {
             this.getPublicServiceList();
         }
     };

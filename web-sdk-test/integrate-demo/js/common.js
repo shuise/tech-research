@@ -1,7 +1,7 @@
 /**
  * Created by wangchengkuo on 17/4/12.
  */
-(function(window){
+(function (window) {
     "use strict";
 
     function getComponent(options) {
@@ -16,7 +16,7 @@
         };
     }
 
-    window.common={
-        getComponent:getComponent
+    window.common = {
+        getComponent: getComponent
     };
 })(window);
