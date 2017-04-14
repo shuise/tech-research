@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>upload</title>
+</head>
+<script>
+document.domain = "rce.com";
+</script>
+<body>
+
+<iframe src="proxy.html" id="proxy" frameborder="0"></iframe>
+<script>
+function callback(data){
+	alert(data);
+}
+
+var child = document.getElementById("proxy").contentWindow;
+var request = child.request;
+
+var params = {
+	api : "url",
+	id : "s1"
+};
+
+request(params,callback)
+</script>
+
+</body>
+</html>
