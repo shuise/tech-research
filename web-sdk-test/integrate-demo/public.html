@@ -26,31 +26,33 @@
     <script src="js/public-info.js"></script>
     <script src="js/public-list.js"></script>
     <script src="js/public-search.js"></script>
+    <script src="js/public-article.js"></script>
 </head>
 <body>
-    <div id="publicPage">
-        <!--公众号搜索页->搜索
-        公众号列表页
-        公众号信息页->搜索结果 点击关注 取消关注公众号
-        公众号消息详情页->接收公众号推送-->
-        <keep-alive>
-            <component :is="stat.currentView" :stat="stat"></component>
-        </keep-alive>
+<div id="publicPage">
+    <!--公众号搜索页->搜索
+    公众号列表页
+    公众号信息页->搜索结果 点击关注 取消关注公众号
+    公众号消息详情页->接收公众号推送-->
+    <keep-alive>
+        <component :is="stat.currentView" :stat="stat"></component>
+    </keep-alive>
 
-    </div>
+</div>
 </body>
 <script type="text/javascript">
-    function initVue(){
-        var publicPage=new Vue({
+    function initVue() {
+        var publicPage = new Vue({
             el: '#publicPage',
             data: {
                 stat: {
                     currentView: 'publicList',
-                    publicList:[],
-                    searchVal:'',
-                    searchList:[],
-                    searchResult:true,
-                    currentPublic:{}
+                    publicList: [],
+                    searchVal: '',
+                    searchList: [],
+                    searchResult: true,
+                    currentPublic: {},
+                    sendMsgVal: ''
 
                 }
             },
@@ -58,11 +60,10 @@
                 publicChat: getPublicChat(),
                 publicInfo: getPublicInfo(),
                 publicList: getPublicList(),
-                publicSearch: getPublicSearch()
+                publicSearch: getPublicSearch(),
+                publicArticle: getPublicArticle()
             },
-            methods: {
-
-            }
+            methods: {}
         });
     }
 </script>

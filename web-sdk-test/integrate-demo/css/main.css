@@ -367,9 +367,11 @@ html, body {
 
 .message-multi-first .material-cover-img img {
     height: 4rem;
+    width: 100%;
 }
 
 .message-multi-first .material-title {
+    display: -webkit-box;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -378,9 +380,15 @@ html, body {
     line-height: 1.4;
     color: #fff;
     font-size: 0.36rem;
-    background-color: #000;
-    opacity: 0.6;
-    padding: 0.1rem 0.2rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0.9;
+    padding: 0.15rem 0.2rem;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 
 }
 
@@ -455,4 +463,48 @@ html, body {
     line-height: 1.20625rem;
     font-size: 0.386rem;
     overflow: hidden;
+}
+
+/* 公众号文章页面 */
+.public-article-content {
+    margin-top: 1.16rem;
+    padding: 0.5rem;
+}
+
+.article-title {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    font-weight: 400;
+    font-size: 0.6rem;
+    color: #000;
+}
+
+.article-attr {
+    display: flex;
+    margin-bottom: 0.6rem;
+}
+
+.article-time {
+    font-size: 0.4rem;
+    color: #8c8c8c;
+    margin-right: 0.3rem;
+}
+
+.article-author {
+    font-size: 0.4rem;
+    color: #0099ff;
+}
+
+.rich_media_content {
+    font-size: 0.4rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.rich_media_content * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+    word-wrap: break-word !important;
+    font-size: 0.4rem;
 }

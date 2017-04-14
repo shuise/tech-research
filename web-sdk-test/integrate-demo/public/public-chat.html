@@ -7,29 +7,29 @@
 
     <div class="chat-content">
         <div class="message-wrapper">
-            <div class="message-item message-multi">
+            <div class="message-item message-multi" @touchend="goPublicArticle">
                 <div class="message-multi-first">
                     <div class="material-cover-img">
-                        <img src="http://7xi6ox.com1.z0.glb.clouddn.com/4efcd415fed9d8a7436a3c796de5d8c9">
+                        <img src="http://mmbiz.qpic.cn/mmbiz/I3ujV0JnQKgtKrTFPDPicO0QKrptFP6WjQy9HsLA7sBAFYsb19ibCVHEAZdounBeY5bnbdgicY4kKsV270aLFURQg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
                     </div>
                     <div class="material-title">
-                        111111
+                        如果你来过了北京，就等于去了全世界！
                     </div>
                 </div>
                 <div class="message-multi-second">
                     <div class="material-title">
-                            2222fffff2222fffff2222fffff2222fffff2222...
+                        厉害了，北京交通又将大爆发，全国都羡慕！
                     </div>
                     <div class="material-cover-img">
-                        <img src="http://7xi6ox.com1.z0.glb.clouddn.com/4efcd415fed9d8a7436a3c796de5d8c9?imageView/0/w/200/h/170">
+                        <img src="http://mmbiz.qpic.cn/mmbiz_jpg/71NlVbrNxxibMKqKzNbuha3JpKLGBqFe0P4MeE9JPxKDjia5kaGndF7iaee7KN4QtqlUum9sTqRRRlN6g5SaBuJpw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
                     </div>
                 </div>
                 <div class="message-multi-second">
                     <div class="material-title">
-                            2222fffff2222fffff2222fffff2222fffff2222...
+                        走过帝都这几座古桥，你已经历了宋朝，度过了明朝 ...
                     </div>
                     <div class="material-cover-img">
-                        <img src="http://7xi6ox.com1.z0.glb.clouddn.com/4efcd415fed9d8a7436a3c796de5d8c9?imageView/0/w/200/h/170">
+                        <img src="http://mmbiz.qpic.cn/mmbiz_png/nBmZibkLGb1oflc5jNVujj9NUOIppAjMEQPJO7d6dRqt0gHqOn1DvIxqsvVEevpb3jxAyWWJmmia1FZ6Nqibg7wZQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
                     </div>
                 </div>
             </div>
@@ -37,7 +37,8 @@
     </div>
 
     <footer class="footer">
-        <div class="message-wrap"><textarea id="message-content" placeholder="请输入文字..." class="message-content"></textarea></div>
-        <span class="send-btn">发送</span>
+        <div class="message-wrap"><textarea v-model="stat.sendMsgVal" id="message-content" placeholder="请输入文字..."
+                                            class="message-content"></textarea></div>
+        <span class="send-btn" @touchend="sendMsg">发送</span>
     </footer>
 </div>

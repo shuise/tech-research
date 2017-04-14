@@ -1,17 +1,17 @@
-function init(){
+function init() {
     appKey = "8w7jv4qb78a9y";
     token = "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==";
 
 
     var targetIds = "user9,user10";
-    if(targetIds == ""){
+    if (targetIds == "") {
         alert("必须提供两个的有效targetId");
     }
 
     targetIds = targetIds.split("，").join(",").split(",");
     targetId = targetIds[0];
     targetId2 = targetIds[1];
-    
+
 
     /*
      文档：http://www.rongcloud.cn/docs/web.html
@@ -28,9 +28,9 @@ function init(){
     //公有云初始化
     RongIMLib.RongIMClient.init(appKey);
     instance = RongIMClient.getInstance();
-    
+
     RongIMLib.RongIMEmoji.init();
-    
+
     RongIMLib.RongIMVoice.init();
 
 
@@ -79,7 +79,7 @@ function init(){
             // showResult("新消息",message,start);
 
             console.log(message);
-            switch(message.messageType){
+            switch (message.messageType) {
                 case RongIMClient.MessageType.TextMessage:
                     /*
                      显示消息方法：
@@ -146,13 +146,13 @@ function init(){
 
     //开始链接
     RongIMClient.connect(token, {
-        onSuccess: function(userId) {
+        onSuccess: function (userId) {
             console.log("链接成功，用户id：" + userId);
         },
-        onTokenIncorrect: function() {
+        onTokenIncorrect: function () {
             //console.log('token无效');
         },
-        onError:function(errorCode){
+        onError: function (errorCode) {
             var info = '';
             switch (errorCode) {
                 case RongIMLib.ErrorCode.TIMEOUT:
