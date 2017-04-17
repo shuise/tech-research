@@ -12,6 +12,9 @@ function getPublicInfo(_options) {
             unsubscribePublic: function () {
                 var that=this;
                 var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
+                if(this.stat.currentPublic.conversationType == 8){
+                    publicServiceType = RongIMLib.ConversationType.PUBLIC_SERVICE
+                }
                 var publicServiceId = this.stat.currentPublic.publicServiceId;
                 RongIMClient.getInstance().unsubscribePublicService(publicServiceType, publicServiceId, {
                     onSuccess: function (list) {
@@ -21,17 +24,16 @@ function getPublicInfo(_options) {
                     },
                     onError: function (error) {
                         console.log("取消订阅公众号 失败");
-                        if ( error ==39001){
-                            console.log("默认订阅公众号 不能被取消");
-                        }
-
-
                     }
                 });
             },
             subscribePublic: function () {
                 var that=this;
+
                 var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
+                if(this.stat.currentPublic.conversationType == 8){
+                    publicServiceType = RongIMLib.ConversationType.PUBLIC_SERVICE
+                }
                 var publicServiceId = this.stat.currentPublic.publicServiceId;
                 RongIMClient.getInstance().subscribePublicService(publicServiceType, publicServiceId, {
                     onSuccess: function (list) {

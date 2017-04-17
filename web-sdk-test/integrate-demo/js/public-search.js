@@ -25,17 +25,18 @@ function getPublicSearch(_options) {
                 RongIMClient.getInstance().searchPublicService(searchType, keywords, {
                     onSuccess: function (list) {
                         console.log("查找公众号 成功");
-                        if (list.length === 0) {
-                            that.stat.searchResult = false;
-                        } else {
-                            that.stat.searchResult = true;
-                            var listUnFollowed = [];
-                            $(list).each(function () {
-                                this.hasFollowed == false && listUnFollowed.push(this);
-                            });
 
+                        var listUnFollowed = [];
+                        $(list).each(function () {
+                            this.hasFollowed == false && listUnFollowed.push(this);
+                        });
+                        if(listUnFollowed.length == 0){
+                            that.stat.searchResult = false;
+                        }else {
+                            that.stat.searchResult = true;
                             that.stat.searchList = listUnFollowed;
                         }
+
 
                     },
                     onError: function (error) {
