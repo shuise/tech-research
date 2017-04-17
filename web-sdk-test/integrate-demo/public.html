@@ -14,7 +14,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/RongIMLib-2.2.5.min.js"></script>
+    <script src="js/RongIMLib-2.2.5.js"></script>
     <script src="js/RongEmoji-2.2.5.min.js"></script>
     <script src="js/Libamr-2.2.5.min.js"></script>
     <script src="js/RongIMVoice-2.2.5.min.js"></script>
@@ -34,9 +34,9 @@
     公众号列表页
     公众号信息页->搜索结果 点击关注 取消关注公众号
     公众号消息详情页->接收公众号推送-->
-    <keep-alive>
-        <component :is="stat.currentView" :stat="stat"></component>
-    </keep-alive>
+
+    <component :is="stat.currentView" :stat="stat"></component>
+
 
 </div>
 </body>
@@ -48,7 +48,7 @@
                 stat: {
                     currentView: 'publicList',
                     publicList: [],
-                    searchVal: '北京',
+                    searchVal: '小',
                     searchList: [],
                     searchResult: true,
                     currentPublic: {},

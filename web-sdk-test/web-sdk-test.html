@@ -87,7 +87,7 @@ check.js是做一些环境监测用的临时代码，仅限开发调试使用
 <script src="env-check.js"></script>
 
 <!-- <script src="//cdn.ronghub.com/RongIMLib-dev-1.0.2.js"></script> -->
-<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<!--<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>-->
 <script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
@@ -1063,9 +1063,9 @@ RongIMLib.ConversationType = {
 */
 
 var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
-var publicServiceId = "shuise"; //RongCloud
+var publicServiceId = "xiaoxpkuo"; //RongCloud
 var searchType = 1; //[0-exact 1-fuzzy]
-var keywords = "Rong";
+var keywords = "小";
 // var keywords = "test";
 
 /*
@@ -1081,6 +1081,28 @@ function getPublicServiceList(){
 	var start = new Date().getTime();
 
 	instance.getPublicServiceList({
+        /*[
+            {
+                "conversationType": 7,
+                "introduction": "",
+                "menu": [],
+                "name": "小阔",
+                "portraitUri": "https://rongcloud-res.cn.ronghub.com/746b958d9336e8d0069ac00c47dbb52e?imageView2/2/w/80/h/80",
+                "publicServiceId": "xiaoxpkuo",
+                "hasFollowed": true,
+                "isGlobal": false
+            },
+    {
+        "conversationType": 7,
+        "introduction": "",
+        "menu": [],
+        "name": "小阔3",
+        "portraitUri": "https://rongcloud-res.cn.ronghub.com/2a41f642247eec101ac8b427232e4326?imageView2/2/w/80/h/80",
+        "publicServiceId": "xiaoxpkuo3",
+        "hasFollowed": true,
+        "isGlobal": true
+    }
+	]*/
 	    onSuccess:function(list){
             showTips("获取已关注公众号 成功");
             showResult("获取已关注公众号 成功",list,start);
@@ -1101,6 +1123,35 @@ function searchPublicService(){
 	var start = new Date().getTime();
 
 	instance.searchPublicService(searchType, keywords, {
+        /*[
+            {
+                "conversationType": 7,
+                "introduction": "",
+                "name": "小阔",
+                "portraitUri": "https://rongcloud-res.cn.ronghub.com/746b958d9336e8d0069ac00c47dbb52e?imageView2/2/w/80/h/80",
+                "publicServiceId": "xiaoxpkuo",
+                "hasFollowed": true,
+                "isGlobal": false
+            },
+    {
+        "conversationType": 7,
+        "introduction": "",
+        "name": "小阔2",
+        "portraitUri": "https://rongcloud-res.cn.ronghub.com/674852f076c4e4ecd4f959de447d348f?imageView2/2/w/80/h/80",
+        "publicServiceId": "xiaoxpkuo2",
+        "hasFollowed": false,
+        "isGlobal": false
+    },
+    {
+        "conversationType": 7,
+        "introduction": "",
+        "name": "小阔3",
+        "portraitUri": "https://rongcloud-res.cn.ronghub.com/2a41f642247eec101ac8b427232e4326?imageView2/2/w/80/h/80",
+        "publicServiceId": "xiaoxpkuo3",
+        "hasFollowed": true,
+        "isGlobal": true
+    }
+]*/
 	    onSuccess:function(list){
             showTips("查找公众号 成功");
             showResult("查找公众号 成功",list,start);
@@ -1174,6 +1225,16 @@ function getPublicServiceProfile(){
 	var start = new Date().getTime();
 
 	instance.getPublicServiceProfile(publicServiceType, publicServiceId, {
+    /*{
+        "conversationType": 7,
+        "introduction": "",
+        "menu": [],
+        "name": "小阔",
+        "portraitUri": "https://rongcloud-res.cn.ronghub.com/746b958d9336e8d0069ac00c47dbb52e?imageView2/2/w/80/h/80",
+        "publicServiceId": "xiaoxpkuo",
+        "hasFollowed": true,
+        "isGlobal": false
+    }*/
 		onSuccess:function(profile){
             showTips("获取公众号详情 成功");
             showResult("获取公众号详情 成功",profile,start);

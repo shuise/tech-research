@@ -9,7 +9,7 @@ function getPublicSearch(_options) {
             publicSearch: function () {
 
                 var that = this;
-                $.getJSON('mockData.json', function (data) {
+                /*$.getJSON('mockData.json', function (data) {
                     var listUnFollowed = [];
                     $(data.searchList).each(function () {
                         this.hasFollowed == false && listUnFollowed.push(this);
@@ -18,7 +18,7 @@ function getPublicSearch(_options) {
                     that.stat.searchList = listUnFollowed;
 
                 });
-                return false;
+                return false;*/
 
                 var keywords = this.stat.searchVal;
                 var searchType = 1; //[0-exact 1-fuzzy]
@@ -29,10 +29,12 @@ function getPublicSearch(_options) {
                             that.stat.searchResult = false;
                         } else {
                             that.stat.searchResult = true;
-                            var listUnFollowed = $(list).filter(function (index) {
-                                return $('strong', this).length == 1;
+                            var listUnFollowed = [];
+                            $(list).each(function () {
+                                this.hasFollowed == false && listUnFollowed.push(this);
                             });
-                            that.stat.searchList = list;
+
+                            that.stat.searchList = listUnFollowed;
                         }
 
                     },
