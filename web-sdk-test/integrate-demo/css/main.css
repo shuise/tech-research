@@ -100,7 +100,7 @@ html, body {
 }
 
 .public-list-item.item-without {
-    text-align: center;
+    justify-content: center;
     background: none;
     margin-top: 2rem;
     font-size: 0.42rem;
