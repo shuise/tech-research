@@ -59,6 +59,10 @@ function getPublicChat(_options) {
                     }
                 );
             }
+        },
+        mounted:function () {
+            console.log(this.stat.currentPublic.menu);
+
         }
     };
     return common.getComponent(options);
