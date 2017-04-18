@@ -349,7 +349,7 @@ html, body {
 }
 .message-text{
     display: flex;
-    padding: 0.3rem 0;
+    /*padding: 0.3rem 0;*/
     font-size: 0.4rem;
 }
 .message-text.my-msg{
