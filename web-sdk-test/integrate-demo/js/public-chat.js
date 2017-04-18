@@ -16,8 +16,8 @@ function getPublicChat(_options) {
                 this.stat.currentView = 'publicArticle';
             },
             sendMsg: function () {
+                var that=this;
                 var text = this.stat.sendMsgVal || 'hello';
-                this.stat.sendMsgVal = '';
                 var msg = new RongIMLib.TextMessage({content: text, extra: "公众号"});
                 var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
                 var targetId = this.stat.currentPublic.publicServiceId;
@@ -26,8 +26,9 @@ function getPublicChat(_options) {
                         onSuccess: function (message) {
                             //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
                             console.log("Send successfully");
-                            $('#message-content').val('');
-                            renderMsg('my-msg', text);
+                            that.stat.msgList.push(message);
+                            that.stat.sendMsgVal = '';
+                            that.$nextTick(that.scrollEnd);
                         },
                         onError: function (errorCode, message) {
                             var info = '';
@@ -58,10 +59,52 @@ function getPublicChat(_options) {
                         }
                     }
                 );
+            },
+            renderHistoryMessages:function (targetId, callback) {
+                //获取历史消息
+                RongIMClient.getInstance().getHistoryMessages(RongIMLib.ConversationType.PUBLIC_SERVICE, targetId, 0, 20, {
+                    onSuccess: function (list, hasMsg) {
+                        //console.log(arguments);
+                        callback(list, hasMsg);
+                        // hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+                        // list 为拉取到的历史消息列表
+                    },
+                    onError: function (error) {
+                        console.log('获取历史消息error' + error);
+                        // APP未开启消息漫游或处理异常
+                        // throw new ERROR ......
+                    }
+                });
+            },
+            scrollEnd:function () {
+                //添加完消息 跳转到最后一条
+                var list=document.querySelectorAll('.message-item');
+                if(list.length && list.length-1){
+                    var last=list[list.length-1];
+                    last.scrollIntoView();
+                }
+
+
             }
         },
         mounted:function () {
-            console.log(this.stat.currentPublic.menu);
+            //console.log(this.stat.currentPublic.menu);
+            var that=this;
+            var targetId=this.stat.currentPublic.publicServiceId;
+            //渲染历史消息
+            this.renderHistoryMessages(targetId,function (list,hasMsg) {
+                if (list.length) {
+                    that.stat.msgList=list;
+                    console.log(list)
+                }
+                that.$nextTick(that.scrollEnd);
+            });
+
+            //获取用户info
+            $.getJSON('mockData.json',function (data) {
+                var userInfo = data.userInfo;
+                that.stat.userInfo = userInfo;
+            })
 
         }
     };
