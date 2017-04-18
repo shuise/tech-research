@@ -48,11 +48,13 @@
                 stat: {
                     currentView: 'publicList',
                     publicList: [],
-                    searchVal: '小',
+                    searchVal: 'e',
                     searchList: [],
                     searchResult: true,
                     currentPublic: {},
-                    sendMsgVal: ''
+                    sendMsgVal: '',
+                    msgList:[],
+                    userInfo:''
 
                 }
             },
@@ -65,6 +67,14 @@
             },
             methods: {}
         });
+
+        //转换emoji表情
+        Vue.filter('transEmoji',function (input) {
+            return RongIMLib.RongIMEmoji.symbolToEmoji(input)
+        });
+
+        return publicPage;
     }
+
 </script>
 </html>
