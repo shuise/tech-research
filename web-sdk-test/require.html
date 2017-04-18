@@ -40,7 +40,7 @@ if(isSupportSocket){
 	});
 
 	require(['RongIMLib'], function(RongIMLib) {
-	    showInfo("require done");
+	    alert("require done");
 
 	    var RongIMClient = RongIMLib.RongIMClient;
 
@@ -61,7 +61,7 @@ function init(RongIMLib,RongIMClient){
 	// 连接状态监听器
 	RongIMClient.setConnectionStatusListener({
 		onChanged: function (status) {
-			console.info(status)
+			// console.info(status)
 		    switch (status) {
 		        case RongIMLib.ConnectionStatus.CONNECTED:
 		            console.log("链接成功");
@@ -150,10 +150,10 @@ function init(RongIMLib,RongIMClient){
 	//开始链接
 	RongIMClient.connect(token, {
 		onSuccess: function(userId) {
-			console.log("链接成功，用户id：" + userId);
+			alert("链接成功，用户id：" + userId);
 		},
 		onTokenIncorrect: function() {
-			console.log('token无效');
+			alert('token无效');
 		},
 		onError:function(errorCode){
 		  var info = '';
