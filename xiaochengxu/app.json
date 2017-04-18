@@ -1,6 +1,6 @@
 {
   "pages":[
-    "pages/index/index"
+    "pages/sdk/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
