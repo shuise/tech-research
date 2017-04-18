@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+</head>
+<body>
+
+<style>
+#show{
+	position:fixed;
+	right:30px;
+	top:80px;
+	z-index:10000;
+}	
+</style>	
+<div id="show"></div>	
+
+<script src="qrcode.js"></script>	
+<script src="rongcloud-qrcode.js"></script>	
+<script>
+RongCloudQcode(function(canvas){
+	var p = document.getElementById("show");
+	p.appendChild(canvas);
+});	
+</script>
+</body>
+</html>
