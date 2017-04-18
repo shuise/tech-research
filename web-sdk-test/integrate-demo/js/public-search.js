@@ -9,7 +9,7 @@ function getPublicSearch(_options) {
             publicSearch: function () {
 
                 var that = this;
-                $.getJSON('mockData.json', function (data) {
+                /*$.getJSON('mockData.json', function (data) {
                     var listUnFollowed = [];
                     $(data.searchList).each(function () {
                         this.hasFollowed == false && listUnFollowed.push(this);
@@ -18,22 +18,25 @@ function getPublicSearch(_options) {
                     that.stat.searchList = listUnFollowed;
 
                 });
-                return false;
+                return false;*/
 
                 var keywords = this.stat.searchVal;
                 var searchType = 1; //[0-exact 1-fuzzy]
                 RongIMClient.getInstance().searchPublicService(searchType, keywords, {
                     onSuccess: function (list) {
                         console.log("查找公众号 成功");
-                        if (list.length === 0) {
+
+                        var listUnFollowed = [];
+                        $(list).each(function () {
+                            this.hasFollowed == false && listUnFollowed.push(this);
+                        });
+                        if(listUnFollowed.length == 0){
                             that.stat.searchResult = false;
-                        } else {
+                        }else {
                             that.stat.searchResult = true;
-                            var listUnFollowed = $(list).filter(function (index) {
-                                return $('strong', this).length == 1;
-                            });
-                            that.stat.searchList = list;
+                            that.stat.searchList = listUnFollowed;
                         }
+
 
                     },
                     onError: function (error) {
