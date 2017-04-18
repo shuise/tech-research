@@ -54,6 +54,18 @@
                 </div>
             </div>
 
+            <div class="message-item message-text" v-for="msg in stat.msgList" :class="[msg.targetId == stat.currentPublic.publicServiceId ? 'my-msg' : 'your-msg']">
+
+                <div class="rong-avatar"><!--:src="item.portraitUri"-->
+                    <img v-if="msg.targetId == stat.currentPublic.publicServiceId" :src="stat.userInfo.user1.portraitUri" class="rong-avatar-bd">
+                    <img v-else :src="stat.currentPublic.portraitUri" class="rong-avatar-bd">
+                </div>
+                <div class="message-body">
+                    <pre class="user-msg" v-if="msg.content.messageName == 'TextMessage'">{{msg.content.content | transEmoji}}</pre>
+                    <img class="image-message" :src="msg.content.imageUri" alt="image" v-if="msg.content.messageName == 'ImageMessage'">
+                </div>
+            </div>
+
 
         </div>
     </div>

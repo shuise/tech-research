@@ -85,5 +85,14 @@
       "hasFollowed": false,
       "isGlobal": true
     }
-  ]
+  ],
+  "userInfo":{
+    "user1": {
+      "appKey": "82hegw5u8mqwx",
+      "userId": "1",
+      "userToken": "pQn8OduE596/gGzLZVUheTCvQwRQ4mI0ws9X674LamI4CpgvufNZRf5krbtH6T1AuPrNawarRocdJ9HGgnMMVA==",
+      "userName": "user1",
+      "portraitUri": "http://img.duoziwang.com/2016/12/08/18594927932.jpg"
+    }
+  }
 }

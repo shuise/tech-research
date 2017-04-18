@@ -1,9 +1,10 @@
 function init() {
-    appKey = "82hegw5u8mqwx";
-    token = "pQn8OduE596/gGzLZVUheTCvQwRQ4mI0ws9X674LamI4CpgvufNZRf5krbtH6T1AuPrNawarRocdJ9HGgnMMVA==";
+    appKey = "e0x9wycfeazyq";
+    token = "RMmWBeca3K1iQ4yVKrWy6OKSeuOyOAQ/XPr4sUlvw/p2OWJL0P5SG28RhmHYnEOOK2NQ8457HM0=";
 
-    // appKey = "e0x9wycfx7flq";
-    // token = "VNyTg28RIm0xchPG2DHVVcLg1HgVe6BNpEIHZDy7fhL03AR3WyG/Ec/c+dIDZXrupSMx3C/s+e4=";
+    /*appKey = "e0x9wycfx7flq";
+    token = "VNyTg28RIm0xchPG2DHVVcLg1HgVe6BNpEIHZDy7fhL03AR3WyG/Ec/c+dIDZXrupSMx3C/s+e4=";*/
+
 
 
     var targetIds = "2,3";
@@ -29,12 +30,13 @@ function init() {
     // RongIMLib.RongIMClient.init(appKey,null,config);
 
     //公有云初始化
-    RongIMLib.RongIMClient.init(appKey,null);
-    /*
-    RongIMLib.RongIMClient.init(appKey,null,{
+
+    RongIMLib.RongIMClient.init(appKey);
+
+    /*RongIMLib.RongIMClient.init(appKey,null,{
         	navi : "119.254.111.49:9100"
-    });
-    */
+    });*/
+
     instance = RongIMClient.getInstance();
 
     RongIMLib.RongIMEmoji.init();
@@ -42,13 +44,14 @@ function init() {
     RongIMLib.RongIMVoice.init();
 
 
+    var publicVue='';
     // 连接状态监听器
     RongIMClient.setConnectionStatusListener({
         onChanged: function (status) {
             switch (status) {
                 case RongIMLib.ConnectionStatus.CONNECTED:
                     console.log("链接成功 ");
-                    initVue();
+                    publicVue=initVue();
                     break;
                 case RongIMLib.ConnectionStatus.CONNECTING:
                     console.log('正在链接');
@@ -87,6 +90,42 @@ function init() {
             // showResult("新消息",message,start);
 
             console.log(message);
+            /*{
+                content:TextMessage
+                conversationType:8
+                extra:undefined
+                isLocalMessage:undefined
+                messageDirection:2
+                messageId:"8_16466799"
+                messageType:"TextMessage"
+                messageUId:"5DO0-N1IE-5000-001H"
+                objectName:"RC:TxtMsg"
+                offLineMessage:false
+                receiptResponse:undefined
+                receivedStatus:0
+                receivedTime:1492507177712
+                senderUserId:"Ddaijia"
+                sentStatus:undefined
+                sentTime:1492507177585
+                targetId:"Ddaijia"
+            }*/
+            /*{
+                "content": {
+                "messageName": "TextMessage",
+                    "content": "111",
+                    "extra": "公众号"
+                },
+                "conversationType": 8,
+                "objectName": "RC:TxtMsg",
+                "messageDirection": 1,
+                "messageId": 5,
+                "senderUserId": "1",
+                "sentStatus": 30,
+                "sentTime": 1492511558616,
+                "targetId": "testing",
+                "messageType": "TextMessage",
+                "messageUId": "5DO1-7OBR-12LJ-ECGG"
+            }*/
             switch (message.messageType) {
                 case RongIMClient.MessageType.TextMessage:
                     /*
@@ -94,6 +133,7 @@ function init() {
                      消息里是 原生emoji
                      RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
                      */
+                    publicVue.stat.msgList.push(message);
                     break;
                 case RongIMClient.MessageType.VoiceMessage:
                     /*
