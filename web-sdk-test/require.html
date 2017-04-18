@@ -15,7 +15,7 @@
 
 var isSupportSocket = (function(ws){
 	return ws.toString() == "function WebSocket() { [native code] }";
-})(window.WebSocket);
+})(window.WebSocket || function(){});
 
 if(isSupportSocket){
 	require.config({
