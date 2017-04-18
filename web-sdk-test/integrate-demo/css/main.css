@@ -344,12 +344,76 @@ html, body {
 .chat-content .message-wrapper {
     padding: 0 0.5rem;
 }
+.message-item:nth-child(n+1) {
+    margin-top: 0.4rem;
+}
+.message-text{
+    display: flex;
+    padding: 0.3rem 0;
+    font-size: 0.4rem;
+}
+.message-text.my-msg{
+    flex-direction: row-reverse;
+}
+.message-text.you-msg{
+    padding-left: 1.39rem;
+}
+.message-text .rong-avatar{
+    border-radius: 0;
+    border: 0;
+}
+.message-text .message-body{
+    position: relative;
+    color: #353535;
+    padding: 0.25rem;
+    max-width: 100%;
+    min-height: 1em;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+.message-text.my-msg .message-body{
+    margin-right: 0.25rem;
+    background: #b2e281;
+}
+.message-text.my-msg .message-body:after{
+    position: absolute;
+    top: 0.32rem;
+    right: -0.3rem;
+    border: 0.2rem solid transparent;
+    content: " ";
+    border-left-color: #b2e281;
+    border-left-width: 0.15rem;
+}
+.message-text.your-msg .message-body{
+    margin-left: 0.25rem;
+    background: #fff;
+}
+.message-text.your-msg .message-body:before{
+    position: absolute;
+    top: 0.32rem;
+    left: -0.3rem;
+    border: 0.2rem solid transparent;
+    content: " ";
+    border-right-color: #fff;
+    border-right-width: 0.15rem;
+
+}
+
+
+
+
+
+
 
 .message-multi {
     background-color: #fff;
     border: 1px solid #d2d2d2;
     padding: 0.4rem;
-    margin-top: 0.5rem;
     font-size: 0.4rem;
 }
 

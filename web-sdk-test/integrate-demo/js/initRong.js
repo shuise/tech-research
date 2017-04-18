@@ -2,6 +2,9 @@ function init() {
     appKey = "82hegw5u8mqwx";
     token = "pQn8OduE596/gGzLZVUheTCvQwRQ4mI0ws9X674LamI4CpgvufNZRf5krbtH6T1AuPrNawarRocdJ9HGgnMMVA==";
 
+    // appKey = "e0x9wycfx7flq";
+    // token = "VNyTg28RIm0xchPG2DHVVcLg1HgVe6BNpEIHZDy7fhL03AR3WyG/Ec/c+dIDZXrupSMx3C/s+e4=";
+
 
     var targetIds = "2,3";
     if (targetIds == "") {
@@ -26,7 +29,12 @@ function init() {
     // RongIMLib.RongIMClient.init(appKey,null,config);
 
     //公有云初始化
-    RongIMLib.RongIMClient.init(appKey);
+    RongIMLib.RongIMClient.init(appKey,null);
+    /*
+    RongIMLib.RongIMClient.init(appKey,null,{
+        	navi : "119.254.111.49:9100"
+    });
+    */
     instance = RongIMClient.getInstance();
 
     RongIMLib.RongIMEmoji.init();
