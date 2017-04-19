@@ -51,7 +51,7 @@ function getPublicInfo(_options) {
             }
         },
         mounted: function () {
-
+            $('title').text(this.stat.currentView);
         }
     };
     return common.getComponent(options);
