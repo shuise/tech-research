@@ -39,6 +39,7 @@ function getPublicList(_options) {
         },
         mounted: function () {
             this.getPublicServiceList();
+            $('title').text(this.stat.currentView);
         }
     };
     return common.getComponent(options);
