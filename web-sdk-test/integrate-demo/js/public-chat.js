@@ -114,6 +114,8 @@ function getPublicChat(_options) {
                 that.stat.msgList = msgList;
             });
 
+            $('title').text(this.stat.currentView);
+
         }
     };
     return common.getComponent(options);

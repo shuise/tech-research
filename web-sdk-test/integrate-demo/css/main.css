@@ -369,6 +369,7 @@ html, body {
 }
 
 .message-text .message-body {
+    flex: 1;
     position: relative;
     color: #353535;
     padding: 0.25rem;
@@ -381,7 +382,9 @@ html, body {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
-
+.message-text .message-body pre{
+    white-space: normal;
+}
 .my-msg .message-text .message-body {
     margin-right: 0.25rem;
     background: #b2e281;
