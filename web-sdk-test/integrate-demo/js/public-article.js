@@ -9,6 +9,9 @@ function getPublicArticle(_options) {
             goPublicChat: function () {
                 this.stat.currentView = 'publicChat';
             }
+        },
+        mounted:function () {
+            $('title').text(this.stat.currentView);
         }
     };
     return common.getComponent(options);
