@@ -1,89 +1,66 @@
 {
   "publicList": [
     {
-      "conversationType": 7,
-      "introduction": "北京旅游官方微信，订门票，查攻略，品美食，给您推荐京郊哪好玩儿，周末去哪玩儿，还有免费门票大派送！是玩货们必备的公众号！",
-      "name": "北京旅游",
-      "time": "12:00",
-      "portraitUri": "images/bjly.jpeg",
-      "publicServiceId": "beijinglvyou",
-      "hasFollowed": true,
-      "isGlobal": true,
-      "latestMessage":"嗨，我们终于见面了，我们一直知道，您可能会迟到，但一定不会缺席！欢迎关注北京旅游官方微信！"
-    },
-    {
-      "conversationType": 7,
-      "introduction": "认准大脸头像的啊！！！其余都是山寨！！！",
-      "name": "吃喝玩乐在北京",
-      "time": "11:00",
-      "portraitUri": "images/chwl.jpeg",
-      "publicServiceId": "beijingchihe",
-      "hasFollowed": true,
-      "isGlobal": true,
-      "latestMessage":"长得好看的人都关注我了~最新视频【试吃】福利来了！5家超级给力美食试吃！！报名回复【超大号】"
-    },
-    {
-      "conversationType": 7,
+      "conversationType": 8,
       "introduction": "北京吃货--专注北京本地美食推荐、分享、试吃、活动。配合探店、线下活动、爆料等。【北京吃货】北京地区第一美食微信平台！",
       "name": "北京吃货",
-      "time": "9:00",
+      "menu": [],
       "portraitUri": "images/bjch.jpeg",
       "publicServiceId": "beijingchihuo",
       "hasFollowed": true,
-      "isGlobal": true,
-      "latestMessage":"欢迎关注北京吃货--北京地区最大的美食生活服务类全媒体社交平台。"
+      "isGlobal": false
     },
     {
-      "conversationType": 7,
+      "conversationType": 8,
       "introduction": "认准仅此一号！！其余都是山寨！！！我们致力于打造成为北京地区最具影响力和最有价值的新媒体。新浪微博@北京全攻略 唯一公众平台。",
       "name": "北京全攻略",
-      "time": "7:00",
+      "menu": [],
       "portraitUri": "images/bjqgl.jpeg",
       "publicServiceId": "beijingquangonglv",
       "hasFollowed": true,
-      "isGlobal": true,
-      "latestMessage":"点此关注北京土著，点此关注吃喝玩乐一条龙。"
+      "isGlobal": false
     }
   ],
   "searchList":[
     {
-      "conversationType": 7,
+      "conversationType": 8,
       "introduction": "北京旅游官方微信，订门票，查攻略，品美食，给您推荐京郊哪好玩儿，周末去哪玩儿，还有免费门票大派送！是玩货们必备的公众号！",
       "name": "北京旅游",
+      "menu": [],
       "portraitUri": "images/bjly.jpeg",
       "publicServiceId": "beijinglvyou",
       "hasFollowed": false,
-      "isGlobal": true
+      "isGlobal": false
     },
     {
-      "conversationType": 7,
+      "conversationType": 8,
       "introduction": "认准大脸头像的啊！！！其余都是山寨！！！",
       "name": "吃喝玩乐在北京",
-      "time": "11:00",
+      "menu": [],
       "portraitUri": "images/chwl.jpeg",
       "publicServiceId": "beijingchihe",
-      "hasFollowed": true,
-      "isGlobal": true
+      "hasFollowed": false,
+      "isGlobal": false
     },
     {
-      "conversationType": 7,
+      "conversationType": 8,
       "introduction": "北京吃货--专注北京本地美食推荐、分享、试吃、活动。配合探店、线下活动、爆料等。【北京吃货】北京地区第一美食微信平台！",
       "name": "北京吃货",
-      "time": "9:00",
+      "menu": [],
       "portraitUri": "images/bjch.jpeg",
       "publicServiceId": "beijingchihuo",
       "hasFollowed": true,
-      "isGlobal": true
+      "isGlobal": false
     },
     {
-      "conversationType": 7,
+      "conversationType": 8,
       "introduction": "认准仅此一号！！其余都是山寨！！！我们致力于打造成为北京地区最具影响力和最有价值的新媒体。新浪微博@北京全攻略 唯一公众平台。",
       "name": "北京全攻略",
-      "time": "7:00",
+      "menu": [],
       "portraitUri": "images/bjqgl.jpeg",
       "publicServiceId": "beijingquangonglv",
-      "hasFollowed": false,
-      "isGlobal": true
+      "hasFollowed": true,
+      "isGlobal": false
     }
   ],
   "userInfo":{
