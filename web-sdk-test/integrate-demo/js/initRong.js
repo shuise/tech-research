@@ -186,11 +186,17 @@ function init() {
                 case RongIMClient.MessageType.UnknownMessage:
                     // do something...
                     break;
+                case "PublicServiceMultiRichContentMessage":
+                    // do something...
+                    publicVue.stat.msgList.push(message);
+                    break;
                 default:
                 // do something...
             }
         }
     });
+
+   /* "{"content":{"messageName":"PublicServiceMultiRichContentMessage","richContentMessages":{"articles":[{"digest":"","picurl":"http://7xi6ox.com1.z0.glb.clouddn.com/22c7962d13ca81da353f003e4af42347","title":"如果你来过了北京，就等于去了全世界!","url":"http://public.rongcloud.cn/view/5F3DBDAAEE94639438CC1AFF2601A035"},{"digest":"","picurl":"http://7xi6ox.com1.z0.glb.clouddn.com/8ec356a230c8f83e42a51bc6dcfc74a6","title":"厉害了，北京交通又将大爆发，全国都羡慕！","url":"http://public.rongcloud.cn/view/95B92A7E6DA604E6AADDE20A8110067E"}],"extra":"","user":{"id":"","name":"","portrait":""}}},"conversationType":8,"objectName":"RC:PSMultiImgTxtMsg","messageDirection":2,"messageId":"8_2526138","receivedStatus":0,"receivedTime":1492566484293,"senderUserId":"Ddaijia","sentTime":1492566483541,"targetId":"Ddaijia","messageType":"PublicServiceMultiRichContentMessage","messageUId":"5DO7-P929-L2KP-MC3I","offLineMessage":false}"   */
 
     //开始链接
     RongIMClient.connect(token, {
