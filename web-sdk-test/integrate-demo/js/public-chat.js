@@ -12,11 +12,12 @@ function getPublicChat(_options) {
             goPublicInfo: function () {
                 this.stat.currentView = 'publicInfo';
             },
-            goPublicArticle: function () {
+            goPublicArticle: function (url) {
                 this.stat.currentView = 'publicArticle';
+                this.stat.articleUrl = url;
             },
             sendMsg: function () {
-                var that=this;
+                var that = this;
                 var text = this.stat.sendMsgVal || 'hello';
                 var msg = new RongIMLib.TextMessage({content: text, extra: "公众号"});
                 var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
@@ -60,7 +61,7 @@ function getPublicChat(_options) {
                     }
                 );
             },
-            renderHistoryMessages:function (targetId, callback) {
+            renderHistoryMessages: function (targetId, callback) {
                 //获取历史消息
                 RongIMClient.getInstance().getHistoryMessages(RongIMLib.ConversationType.PUBLIC_SERVICE, targetId, 0, 20, {
                     onSuccess: function (list, hasMsg) {
@@ -76,35 +77,42 @@ function getPublicChat(_options) {
                     }
                 });
             },
-            scrollEnd:function () {
+            scrollEnd: function () {
                 //添加完消息 跳转到最后一条
-                var list=document.querySelectorAll('.message-item');
-                if(list.length && list.length-1){
-                    var last=list[list.length-1];
+                var list = document.querySelectorAll('.message-item');
+                if (list.length && list.length - 1) {
+                    var last = list[list.length - 1];
                     last.scrollIntoView();
                 }
 
 
             }
         },
-        mounted:function () {
+        mounted: function () {
             //console.log(this.stat.currentPublic.menu);
-            var that=this;
-            var targetId=this.stat.currentPublic.publicServiceId;
-            //渲染历史消息
-            this.renderHistoryMessages(targetId,function (list,hasMsg) {
-                if (list.length) {
-                    that.stat.msgList=list;
-                    console.log(list)
-                }
-                that.$nextTick(that.scrollEnd);
-            });
+            var that = this;
+            var targetId = this.stat.currentPublic.publicServiceId;
 
+
+            //渲染历史消息
+            /*this.renderHistoryMessages(targetId,function (list,hasMsg) {
+             if (list.length) {
+             that.stat.msgList=list;
+             console.log(list)
+             }
+             that.$nextTick(that.scrollEnd);
+             });*/
+
+
+            //模拟获取历史消息
             //获取用户info
-            $.getJSON('mockData.json',function (data) {
+            $.getJSON('mockData.json?11', function (data) {
+                console.log(data);
                 var userInfo = data.userInfo;
                 that.stat.userInfo = userInfo;
-            })
+                var msgList = data.msgList;
+                that.stat.msgList = msgList;
+            });
 
         }
     };
