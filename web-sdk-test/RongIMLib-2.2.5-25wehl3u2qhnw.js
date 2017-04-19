@@ -2694,24 +2694,10 @@ var RongIMLib;
             var me = this;
             RongIMClient._dataAccessProvider.getConversationList({
                 onSuccess: function (data) {
-                    if (conversationTypes || RongIMClient._dataAccessProvider) {
-                        setTimeout(function () {
-                            callback.onSuccess(data);
-                        });
-                    }
-                    else {
-                        setTimeout(function () {
-                            callback.onSuccess(RongIMClient._memoryStore.conversationList);
-                        });
-                    }
+                    callback.onSuccess(data);
                 },
                 onError: function (error) {
-                    if (error === RongIMLib.ErrorCode.TIMEOUT) {
-                        callback.onError(error);
-                    }
-                    else {
-                        callback.onSuccess([]);
-                    }
+                    callback.onError(error);
                 }
             }, conversationTypes, count, isGetHiddenConvers);
         };
@@ -7797,7 +7783,7 @@ var RongIMLib;
                     if (RongIMLib.RongIMClient.MessageParams[msg.messageType].msgTag.getMessageTag() == 3) {
                         var cacheConversation = RongIMLib.RongIMClient._memoryStore.converStore;
                         cacheConversation.latestMessage = msg;
-						cacheConversation.sentStatus = RongIMLib.SentStatus.SENT;
+                        cacheConversation.sentStatus = RongIMLib.SentStatus.SENT;
                         me.updateConversation(cacheConversation);
                         RongIMLib.RongIMClient._dataAccessProvider.addMessage(conversationType, targetId, msg, {
                             onSuccess: function (ret) {
@@ -7807,19 +7793,19 @@ var RongIMLib;
                                 msg.sentStatus = RongIMLib.SentStatus.SENT;
                                 msg.messageId = data.messageId;
                                 RongIMLib.RongIMClient._dataAccessProvider.updateMessage(msg);
-								setTimeout(function () {
-									msg.sentTime = data.timestamp;
-									sendCallback.onSuccess(msg);
-								});
+                                setTimeout(function () {
+                                    msg.sentTime = data.timestamp;
+                                    sendCallback.onSuccess(msg);
+                                });
                             },
                             onError: function () { }
                         });
                     }else{
-						setTimeout(function () {
-							msg.sentTime = data.timestamp;
-							sendCallback.onSuccess(msg);
-						});
-					}
+                        setTimeout(function () {
+                            msg.sentTime = data.timestamp;
+                            sendCallback.onSuccess(msg);
+                        });
+                    }
                    
                 },
                 onError: function (errorCode) {
@@ -7982,6 +7968,7 @@ var RongIMLib;
             callback.onSuccess(conver);
         };
         ServerDataProvider.prototype.getConversationList = function (callback, conversationTypes, count, isHidden) {
+             RongIMLib.RongIMClient._memoryStore.conversationList.length = 0;
              RongIMLib.RongIMClient.getInstance().getRemoteConversationList({
                     onSuccess: function (list) {
                         if (RongIMLib.MessageUtil.supportLargeStorage()) {
@@ -8223,7 +8210,7 @@ var RongIMLib;
             /**
             ConnectionStatus_TokenIncorrect = 31004,
             ConnectionStatus_Connected = 0,
-            ConnectionStatus_KickedOff = 6,	// 其他设备登录
+            ConnectionStatus_KickedOff = 6, // 其他设备登录
             ConnectionStatus_Connecting = 10,// 连接中
             ConnectionStatus_SignUp = 12, // 未登录
             ConnectionStatus_NetworkUnavailable = 1, // 连接断开
@@ -10305,7 +10292,7 @@ var RongIMLib;
                     JSON.rx_escapable = new RegExp('[\\\"\\\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]', "g");
                     JSON.meta = {
                         "\b": "\\b",
-                        "	": "\\t",
+                        "   ": "\\t",
                         "\n": "\\n",
                         "\f": "\\f",
                         "\r": "\\r",

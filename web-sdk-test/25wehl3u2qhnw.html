@@ -47,14 +47,16 @@ require(['protobuf','RongIMLib'], function(protobuf,RongIMLib) {
 
  		//删除会话
         var sessionDel = function (flag) {
-        	var targetId = "b989e97c-77ba-4bae-8f16-f7182743937a";
+        	var targetId = "1d2bd981-f6e5-4798-a55b-f1dc5c7cac87";
         	var conversationType = 2;
             ins.removeConversation(conversationType,targetId,{
                 onSuccess:function(bool){
                     // 删除成功之后重新获取会话列表
                     console.log("get after delete");
                     if(flag){
-	                    getSessionList();
+	                   setTimeout(function(){
+                            getSessionList();
+                       },0);
 	                }
                 },
                 onError:function(error){
