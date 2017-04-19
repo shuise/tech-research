@@ -53,8 +53,9 @@
                     searchResult: true,
                     currentPublic: {},
                     sendMsgVal: '',
-                    msgList:[],
-                    userInfo:''
+                    msgList: [],
+                    userInfo: '',
+                    articleUrl: ''
 
                 }
             },
@@ -69,7 +70,7 @@
         });
 
         //转换emoji表情
-        Vue.filter('transEmoji',function (input) {
+        Vue.filter('transEmoji', function (input) {
             return RongIMLib.RongIMEmoji.symbolToEmoji(input)
         });
 
