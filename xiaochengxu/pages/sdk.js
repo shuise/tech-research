@@ -1,5 +1,6 @@
 'use strict';
 
+var Modules = require("protobuf-2.1.6.js").protobuf;
 
 module.exports = (function(wx){
 
@@ -830,6 +831,9 @@ var tools = {
         wx.onSocketMessage(callbacks.message);
 
         wx.onSocketClose(callbacks.close);
+
+        return wx;
+
     }
 };
 
@@ -1810,7 +1814,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (!RongIMClient._instance) {
                 RongIMClient._instance = new RongIMClient();
             }
-            var protocol = "https://", wsScheme = 'ws://';
+            var protocol = "https://", wsScheme = 'wss://';
 
             var isPolling = false;
             
@@ -3430,6 +3434,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return Channel;
     }());
     RongIMLib.Channel = Channel;
+
     var Socket = (function () {
         function Socket() {
             this.socket = null;
@@ -3459,12 +3464,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return transport;
         };
         Socket.prototype.getTransport = function (transportType) {
-            if (transportType == Socket.XHR_POLLING) {
-                this.socket = new RongIMLib.PollingTransportation(this);
-            }
-            else if (transportType == Socket.WEBSOCKET) {
-                this.socket = new RongIMLib.SocketTransportation(this);
-            }
+            this.socket = new RongIMLib.SocketTransportation(this);
             return this;
         };
         Socket.prototype.send = function (data) {
@@ -3546,7 +3546,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         };
         //消息通道常量，所有和通道相关判断均用 XHR_POLLING WEBSOCKET两属性
-        Socket.XHR_POLLING = "xhr-polling";
         Socket.WEBSOCKET = "websocket";
         return Socket;
     }());
@@ -4324,97 +4323,18 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         ConnectAck.prototype.process = function (status, userId, timestamp) {
             this.readTimeOut();
+            var self = this;
             if (status == 0) {
-                if (RongIMLib.RongIMClient._memoryStore.depend.isPrivate) {
-                    var date = new Date();
-                    var qryOpt, dateStr = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
-                    if (RongIMLib.MessageUtil.supportLargeStorage()) {
-                        qryOpt = RongIMLib.RongIMClient._storageProvider.getItem("RongQryOpt" + dateStr);
-                    }
-                    else {
-                        qryOpt = RongIMLib.RongIMClient._storageProvider.getItem("RongQryOpt" + dateStr);
-                    }
-                    if (!qryOpt) {
-                        var modules = new Modules.GetUserInfoInput();
-                        modules.setNothing(0);
-                        RongIMLib.RongIMClient.bridge.queryMsg("qryCfg", RongIMLib.MessageUtil.ArrayForm(modules.toArrayBuffer()), userId, {
-                            onSuccess: function (data) {
-                                if (!data)
-                                    return;
-                                var naviArrs = RongIMLib.RongIMClient._memoryStore.depend.navi.split('//');
-                                new RongIMLib.RongAjax({
-                                    url: "https://stats.cn.ronghub.com/active.json",
-                                    appKey: RongIMLib.RongIMClient._memoryStore.appKey,
-                                    deviceId: Math.floor(Math.random() * 10000),
-                                    timestamp: new Date().getTime(),
-                                    deviceInfo: "",
-                                    type: 1,
-                                    privateInfo: {
-                                        code: encodeURIComponent(data.name),
-                                        ip: RongIMLib.RongIMClient._storageProvider._host,
-                                        customId: data.id,
-                                        nip: naviArrs.length > 1 ? naviArrs[1] : ""
-                                    }
-                                }).send(function () {
-                                    if (RongIMLib.MessageUtil.supportLargeStorage()) {
-                                        qryOpt = RongIMLib.RongIMClient._storageProvider.setItem("RongQryOpt" + dateStr, dateStr);
-                                    }
-                                    else {
-                                        qryOpt = RongIMLib.RongIMClient._storageProvider.setItem("RongQryOpt" + dateStr, dateStr);
-                                    }
-                                });
-                            },
-                            onError: function () { }
-                        }, "GroupInfo");
-                    }
-                }
-                var naviStr = RongIMLib.RongIMClient._storageProvider.getItem(RongIMLib.RongIMClient._storageProvider.getItemKey("navi"));
-                var naviKey = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
-                var arr = decodeURIComponent(naviStr).split(",");
-                if (!arr[1]) {
-                    naviStr = encodeURIComponent(naviStr) + userId;
-                    RongIMLib.RongIMClient._storageProvider.setItem(naviKey, naviStr);
-                }
-                this._client.userId = userId;
-                var self = this, temp = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
-                var naviServer = RongIMLib.RongIMClient._storageProvider.getItem(temp);
-                // TODO  判断拆分 naviServer 后的数组长度。
-                var naviPort = naviServer.split(",")[0].split(":")[1];
-                if (!RongIMLib.RongIMClient._memoryStore.depend.isPolling && RongIMLib.RongIMClient._memoryStore.isFirstPingMsg && naviPort.length < 4) {
-                    RongIMLib.Bridge._client.checkSocket({
-                        onSuccess: function () {
-                            if (!RongIMLib.RongIMClient.isNotPullMsg) {
-                                self._client.syncTime(undefined, undefined, undefined, true);
-                            }
-                        },
-                        onError: function () {
-                            RongIMLib.RongIMClient._memoryStore.isFirstPingMsg = false;
-                            RongIMLib.RongIMClient.getInstance().disconnect();
-                            var temp = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
-                            var server = RongIMLib.RongIMClient._storageProvider.getItem("RongBackupServer");
-                            var arrs = server.split(",");
-                            if (arrs.length < 2) {
-                                throw new Error("navi server is empty");
-                            }
-                            RongIMLib.RongIMClient._storageProvider.setItem(temp, RongIMLib.RongIMClient._storageProvider.getItem("RongBackupServer"));
-                            var url = RongIMLib.Bridge._client.channel.socket.currentURL;
-                            RongIMLib.Bridge._client.channel.socket.currentURL = arrs[0] + url.substring(url.indexOf("/"), url.length);
-                            RongIMLib.RongIMClient.connect(RongIMLib.RongIMClient._memoryStore.token, RongIMLib.RongIMClient._memoryStore.callback);
-                        }
-                    });
-                }
-                else {
-                    if (!RongIMLib.RongIMClient.isNotPullMsg) {
-                        self._client.syncTime(undefined, undefined, undefined, true);
-                    }
-                }
                 if (this._client.reconnectObj.onSuccess) {
                     this._client.reconnectObj.onSuccess(userId);
                     delete this._client.reconnectObj.onSuccess;
                 }
                 else {
-                    var me = this;
-                    setTimeout(function () { me._cb(userId); }, 500);
+                    self._cb(userId);
+                }
+
+                if (!RongIMLib.RongIMClient.isNotPullMsg) {
+                    self._client.syncTime(undefined, undefined, undefined, true);
                 }
                 RongIMLib.Bridge._client.channel.socket.fire("StatusChanged", 0);
                 RongIMLib.RongIMClient._memoryStore.connectAckTime = timestamp;
@@ -4463,28 +4383,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     var md5 = RongIMLib.md5;
     var Navigation = (function () {
         function Navigation() {
-            var getServerEndpoint = function (x) {
-                //把导航返回的server字段赋值给CookieHelper._host，因为flash widget需要使用 decodeURIComponent
-                RongIMLib.RongIMClient._storageProvider._host = Navigation.Endpoint.host = x["server"];
-                RongIMLib.RongIMClient._storageProvider.setItem("RongBackupServer", x["backupServer"] + "," + (x.userId || ""));
-                //设置当前用户 Id 只有 comet 使用。
-                Navigation.Endpoint.userId = x["userId"];
-                if (x["voipCallInfo"]) {
-                    var callInfo = JSON.parse(x["voipCallInfo"]);
-                    RongIMLib.RongIMClient._memoryStore.voipStategy = callInfo.strategy;
-                    RongIMLib.RongIMClient._storageProvider.setItem("voipStrategy", callInfo.strategy);
-                }
-                //替换本地存储的导航信息 
-                // var temp = RongIMClient._storageProvider.getItemKey("navi");
-                // temp !== null && RongIMClient._storageProvider.removeItem(temp);
-                // 注：以上两行代码废弃，试用后删除。
-                var md5Token = md5(RongIMLib.Bridge._client.token).slice(8, 16), openMp = x['openMp'] == 0 ? 0 : 1;
-                RongIMLib.RongIMClient._storageProvider.setItem("navi" + md5Token, x["server"] + "," + (x.userId || ""));
-                RongIMLib.RongIMClient._storageProvider.setItem('openMp' + md5Token, openMp);
-                if (!openMp) {
-                    RongIMLib.RongIMClient._memoryStore.depend.openMp = false;
-                }
-            };
         }
         Navigation.prototype.connect = function (appId, token, callback) {
             var oldAppId = RongIMLib.RongIMClient._storageProvider.getItem("appId");
@@ -4523,7 +4421,31 @@ var __extends = (this && this.__extends) || function (d, b) {
                 }
             }
 
-            var url = RongIMLib.RongIMClient._memoryStore.depend.navi + (RongIMLib.RongIMClient._memoryStore.depend.isPolling ? "/cometnavi.js" : "/navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint";
+            var requestNaviCallback = function (x) {
+                //把导航返回的server字段赋值给CookieHelper._host，因为flash widget需要使用 decodeURIComponent
+                RongIMLib.RongIMClient._storageProvider._host = Navigation.Endpoint.host = x["server"];
+                RongIMLib.RongIMClient._storageProvider.setItem("RongBackupServer", x["backupServer"] + "," + (x.userId || ""));
+                //设置当前用户 Id 只有 comet 使用。
+                Navigation.Endpoint.userId = x["userId"];
+                if (x["voipCallInfo"]) {
+                    var callInfo = JSON.parse(x["voipCallInfo"]);
+                    RongIMLib.RongIMClient._memoryStore.voipStategy = callInfo.strategy;
+                    RongIMLib.RongIMClient._storageProvider.setItem("voipStrategy", callInfo.strategy);
+                }
+                //替换本地存储的导航信息 
+                // var temp = RongIMClient._storageProvider.getItemKey("navi");
+                // temp !== null && RongIMClient._storageProvider.removeItem(temp);
+                // 注：以上两行代码废弃，试用后删除。
+                var md5Token = md5(RongIMLib.Bridge._client.token).slice(8, 16), openMp = x['openMp'] == 0 ? 0 : 1;
+                RongIMLib.RongIMClient._storageProvider.setItem("navi" + md5Token, x["server"] + "," + (x.userId || ""));
+                RongIMLib.RongIMClient._storageProvider.setItem('openMp' + md5Token, openMp);
+                if (!openMp) {
+                    RongIMLib.RongIMClient._memoryStore.depend.openMp = false;
+                }
+                _onsuccess();
+            };
+
+            var url = RongIMLib.RongIMClient._memoryStore.depend.navi + (RongIMLib.RongIMClient._memoryStore.depend.isPolling ? "/cometnavi.json" : "/navi.json") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint";
 
             tools.request({
                 url: url, //仅为示例，并非真实的接口地址
@@ -4532,9 +4454,9 @@ var __extends = (this && this.__extends) || function (d, b) {
                     t : new Date().getTime()
                 }
             },{
-                success: function(){
-                    console.log("ok")
-                    _onsuccess();
+                success: function(result){
+                    requestNaviCallback(result.data);
+
                 },
                 fail: function(){
                     _onerror(RongIMLib.ConnectionState.TOKEN_INCORRECT);
@@ -4547,8 +4469,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     RongIMLib.Navigation = Navigation;
 })(RongIMLib || (RongIMLib = {}));
 // TODO: 统一变量、方法等命名规范
-
-
 
 // var RongIMLib;
 (function (RongIMLib) {
@@ -5571,16 +5491,37 @@ var __extends = (this && this.__extends) || function (d, b) {
         /**
          * [createTransport 创建WebScoket对象]
          */
-        SocketTransportation.prototype.createTransport = function (url, method) {
+        SocketTransportation.prototype.createTransport = function (url) {
             if (!url) {
                 throw new Error("URL can't be empty");
             }
-            ;
+
+            var me = this;
+            url = RongIMLib.RongIMClient._memoryStore.depend.wsScheme + url;
             this.url = url;
-            this.socket = new WebSocket(RongIMLib.RongIMClient._memoryStore.depend.wsScheme + url);
-            this.socket.binaryType = "arraybuffer";
-            this.addEvent();
-            return this.socket;
+            var option = {
+                url: url
+            };
+            var callbacks = {
+                open: function(){
+                    me.connected = true;
+                    me.isClose = false;
+                    me._socket.fire("connect");
+                },
+                error: function(){
+                    me.onError();
+                },
+                message: function(res){
+                    me.onData(res.data);
+                },
+                close: function(res){
+                    me.onClose(res);
+                }
+            };
+
+            this.socket = tools.socket(option, callbacks);
+            console.log(this.socket);
+
         };
         /**
          * [send 传送消息流]
@@ -5600,7 +5541,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             msg.writeMessage(data);
             var val = stream.getBytesArray(true);
             var binary = new Int8Array(val);
-            this.socket.send(binary.buffer);
+            this.socket.sendSocketMessage({data: binary.buffer});
             return this;
         };
         /**
@@ -5625,6 +5566,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             me.socket = this.empty;
             RongIMLib.Bridge._client.clearHeartbeat();
             if (ev.code == 1006 && !this._status) {
+                // me._socket.fire("StatusChanged", RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE);
                 me._socket.fire("StatusChanged", RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE);
             }
             else {
@@ -5641,34 +5583,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         /**
          * [addEvent 为通道绑定事件]
          */
-        SocketTransportation.prototype.addEvent = function () {
-            var self = this;
-            self.socket.onopen = function () {
-                self.connected = true;
-                self.isClose = false;
-                //通道可以用后，调用发送队列方法，把所有等得发送的消息发出
-                self.doQueue();
-                self._socket.fire("connect");
-            };
-            self.socket.onmessage = function (ev) {
-                //判断数据是不是字符串，如果是字符串那么就是flash传过来的。
-                if (typeof ev.data == "string") {
-                    self.onData(ev.data.split(","));
-                }
-                else {
-                    self.onData(ev.data);
-                }
-            };
-            self.socket.onerror = function (ev) {
-                self.onError(ev);
-            };
-            self.socket.onclose = function (ev) {
-                self.onClose(ev);
-            };
-        };
-        /**
-         * [doQueue 消息队列，把队列中消息发出]
-         */
+
         SocketTransportation.prototype.doQueue = function () {
             var self = this;
             for (var i = 0, len = self.queue.length; i < len; i++) {
@@ -5680,13 +5595,11 @@ var __extends = (this && this.__extends) || function (d, b) {
          */
         SocketTransportation.prototype.disconnect = function (status) {
             var me = this;
-            if (me.socket.readyState) {
-                me.isClose = true;
-                if (status) {
-                    me._status = status;
-                }
-                this.socket.close();
+            me.isClose = true;
+            if (status) {
+                me._status = status;
             }
+            this.socket.closeSocket();
         };
         /**
          * [reconnect 重新连接]
@@ -5699,9 +5612,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     RongIMLib.SocketTransportation = SocketTransportation;
 })(RongIMLib || (RongIMLib = {}));
-
-
-
 
 // var RongIMLib;
 (function (RongIMLib) {
@@ -5893,7 +5803,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     RongIMLib.PollingTransportation = PollingTransportation;
 })(RongIMLib || (RongIMLib = {}));
 
-
 //objectname映射
 var typeMapping = {
     "RC:TxtMsg": "TextMessage",
@@ -6071,17 +5980,16 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
             }
             //映射为具体消息对象
             if (objectName in typeMapping) {
-                var str = "new RongIMLib." + typeMapping[objectName] + "(de)";
-                message.content = eval(str);
+                message.content = new RongIMLib[typeMapping[objectName]](de);
                 message.messageType = typeMapping[objectName];
             }
             else if (objectName in registerMessageTypeMapping) {
-                var str = "new RongIMLib.RongIMClient.RegisterMessage." + registerMessageTypeMapping[objectName] + "(de)";
+                var content = new RongIMLib.RongIMClient.RegisterMessage[registerMessageTypeMapping[objectName]](de);
                 if (isUseDef) {
-                    message.content = eval(str).decode(de);
+                    message.content = content.decode(de);
                 }
                 else {
-                    message.content = eval(str);
+                    message.content = content;
                 }
                 message.messageType = registerMessageTypeMapping[objectName];
             }

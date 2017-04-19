@@ -1,93 +1,43 @@
-var RongIMLib = require("../sdk.js");
-var RongIMClient = RongIMLib.RongIMClient;
+var utils = require("../../utils/util.js");
 
+var appkey = '8luwapkvucoil';
 
-function init(callbacks){	
-    var appKey = "8w7jv4qb78a9y";
-    var token = "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==";
-
-    console.log("begin 8w7jv4qb78a9y");
-
-
-	//公有云
-	RongIMLib.RongIMClient.init(appKey);
-	var instance = RongIMClient.getInstance();
-
-	// 连接状态监听器
-	RongIMClient.setConnectionStatusListener({
-		onChanged: function (status) {
-			console.log(status);
-			console.log("setConnectionStatusListener");
-		    switch (status) {
-		        case RongIMLib.ConnectionStatus.CONNECTED:
-		            callbacks.getInstance && callbacks.getInstance(instance);
-		            break;
-		        }
-		}
-	});
-
-
-	RongIMClient.setOnReceiveMessageListener({
-		// 接收到的消息
-		onReceived: function (message) {
-		    // 判断消息类型
-		    console.log("新消息: " + message.targetId);
-            console.log(message);
-            callbacks.receiveNewMessage && callbacks.receiveNewMessage(message);
-		}
-	});
-
-	//开始链接
-	RongIMClient.connect(token, {
-		onSuccess: function(userId) {
-			callbacks.getCurrentUser && callbacks.getCurrentUser({userId:userId});
-			console.log("链接成功，用户id：" + userId);
-		},
-		onTokenIncorrect: function() {
-			//console.log('token无效');
-		},
-		onError:function(errorCode){
-		  console.log("=============================================");
-		  console.log(errorCode);
-		}
-	});
-}
-
+var tester1 = '';
+var tester2 = '';
 
 var app = getApp()
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {
-        id : "not init",
-        name : "name"
+    motto: 'RongCloud',
+    icon: 'http://7xogjk.com1.z0.glb.clouddn.com/Tp6nLyUKX1466570117209114014',
+    appkey: appkey,
+
+    tester1: {
+      token: 'G1cgTtWLZ0tijNlrkVZA5220V27XsDF2Dx+bgnMVAZh1TCNfZRDk/zFt049K+CeupVho6nIQ4rU5gAHyBuzlHg9TIq6kcYNI',
+      targetId: 'tester2'
+    },
+
+    tester2: {
+      token: 'ecphvouqF0rUu/48mSBguW20V27XsDF2Dx+bgnMVAZh1TCNfZRDk/4zXSvMRRLRO/X7/kENIB25S/KS4CyGL7w9TIq6kcYNI',
+      targetId: 'tester1'
     }
+  
   },
   //事件处理函数
-  bindViewTap: function() {
-    // wx.navigateTo({
-    //   url: '../logs/logs'
-    // })
-  },
-  onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    init({
-        getInstance : function(instance){
+  naviTo: function(e) {
+    
+    var data = e.target.dataset;
 
-        },
-        getCurrentUser: function(userInfo){
-            //更新数据
-            that.setData({
-                userInfo:{
-                    id : userInfo.userId
-                }
-            })
-        },
-        receiveNewMessage : function(message){
+    var appkey = data.appkey,
+        token = data.token,
+        targetId = data.targetId;
 
-        }
+    var urlTpl = './chat/chat?appkey={0}&token={1}&targetId={2}',
+        url = utils.stringFormat(urlTpl, [appkey, token, targetId]);
+
+    wx.redirectTo({
+      url: url
     });
+
   }
 })

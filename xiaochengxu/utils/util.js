@@ -212,7 +212,16 @@ module.exports = (function(wx){
             return result;
         }
 
+        function removeAll(){
+            var res = wx.getStorageInfoSync();
+            var keys = res.keys;
+            keys.forEach(function(key){
+                remove(key);
+            });
+        }
+
         return{
+            removeAll:removeAll,
             set : set,
             get : get,
             search : search,
@@ -224,7 +233,17 @@ module.exports = (function(wx){
         return 'Rong' + (Math.random() * (1 << 30)).toString(16).replace('.', '');
     }
 
+    function stringFormat(str, vals) {
+        for (var i = 0, len = vals.length; i < len; i++) {
+            var val = vals[i],
+                reg = new RegExp("\\{" + (i) + "\\}", "g");
+            str = str.replace(reg, val);
+        }
+        return str;
+    };
+
     return {
+        stringFormat: stringFormat,
         getUid : getUid,
         request : request,
         socket : socket,
