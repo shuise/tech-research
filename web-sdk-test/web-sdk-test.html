@@ -1081,28 +1081,6 @@ function getPublicServiceList(){
 	var start = new Date().getTime();
 
 	instance.getPublicServiceList({
-        /*[
-            {
-                "conversationType": 7,
-                "introduction": "",
-                "menu": [],
-                "name": "小阔",
-                "portraitUri": "https://rongcloud-res.cn.ronghub.com/746b958d9336e8d0069ac00c47dbb52e?imageView2/2/w/80/h/80",
-                "publicServiceId": "xiaoxpkuo",
-                "hasFollowed": true,
-                "isGlobal": false
-            },
-    {
-        "conversationType": 7,
-        "introduction": "",
-        "menu": [],
-        "name": "小阔3",
-        "portraitUri": "https://rongcloud-res.cn.ronghub.com/2a41f642247eec101ac8b427232e4326?imageView2/2/w/80/h/80",
-        "publicServiceId": "xiaoxpkuo3",
-        "hasFollowed": true,
-        "isGlobal": true
-    }
-	]*/
 	    onSuccess:function(list){
             showTips("获取已关注公众号 成功");
             showResult("获取已关注公众号 成功",list,start);
@@ -1123,35 +1101,7 @@ function searchPublicService(){
 	var start = new Date().getTime();
 
 	instance.searchPublicService(searchType, keywords, {
-        /*[
-            {
-                "conversationType": 7,
-                "introduction": "",
-                "name": "小阔",
-                "portraitUri": "https://rongcloud-res.cn.ronghub.com/746b958d9336e8d0069ac00c47dbb52e?imageView2/2/w/80/h/80",
-                "publicServiceId": "xiaoxpkuo",
-                "hasFollowed": true,
-                "isGlobal": false
-            },
-    {
-        "conversationType": 7,
-        "introduction": "",
-        "name": "小阔2",
-        "portraitUri": "https://rongcloud-res.cn.ronghub.com/674852f076c4e4ecd4f959de447d348f?imageView2/2/w/80/h/80",
-        "publicServiceId": "xiaoxpkuo2",
-        "hasFollowed": false,
-        "isGlobal": false
-    },
-    {
-        "conversationType": 7,
-        "introduction": "",
-        "name": "小阔3",
-        "portraitUri": "https://rongcloud-res.cn.ronghub.com/2a41f642247eec101ac8b427232e4326?imageView2/2/w/80/h/80",
-        "publicServiceId": "xiaoxpkuo3",
-        "hasFollowed": true,
-        "isGlobal": true
-    }
-]*/
+
 	    onSuccess:function(list){
             showTips("查找公众号 成功");
             showResult("查找公众号 成功",list,start);
@@ -1225,16 +1175,7 @@ function getPublicServiceProfile(){
 	var start = new Date().getTime();
 
 	instance.getPublicServiceProfile(publicServiceType, publicServiceId, {
-    /*{
-        "conversationType": 7,
-        "introduction": "",
-        "menu": [],
-        "name": "小阔",
-        "portraitUri": "https://rongcloud-res.cn.ronghub.com/746b958d9336e8d0069ac00c47dbb52e?imageView2/2/w/80/h/80",
-        "publicServiceId": "xiaoxpkuo",
-        "hasFollowed": true,
-        "isGlobal": false
-    }*/
+
 		onSuccess:function(profile){
             showTips("获取公众号详情 成功");
             showResult("获取公众号详情 成功",profile,start);
