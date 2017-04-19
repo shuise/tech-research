@@ -2,21 +2,6 @@ function init() {
     appKey = "e0x9wycfeazyq";
     token = "RMmWBeca3K1iQ4yVKrWy6OKSeuOyOAQ/XPr4sUlvw/p2OWJL0P5SG28RhmHYnEOOK2NQ8457HM0=";
 
-    /*appKey = "e0x9wycfx7flq";
-    token = "VNyTg28RIm0xchPG2DHVVcLg1HgVe6BNpEIHZDy7fhL03AR3WyG/Ec/c+dIDZXrupSMx3C/s+e4=";*/
-
-
-
-    var targetIds = "2,3";
-    if (targetIds == "") {
-        alert("必须提供两个的有效targetId");
-    }
-
-    targetIds = targetIds.split("，").join(",").split(",");
-    targetId = targetIds[0];
-    targetId2 = targetIds[1];
-
-
     /*
      文档：http://www.rongcloud.cn/docs/web.html
      */
@@ -33,9 +18,6 @@ function init() {
 
     RongIMLib.RongIMClient.init(appKey);
 
-    /*RongIMLib.RongIMClient.init(appKey,null,{
-        	navi : "119.254.111.49:9100"
-    });*/
 
     instance = RongIMClient.getInstance();
 
@@ -90,42 +72,7 @@ function init() {
             // showResult("新消息",message,start);
 
             console.log(message);
-            /*{
-                content:TextMessage
-                conversationType:8
-                extra:undefined
-                isLocalMessage:undefined
-                messageDirection:2
-                messageId:"8_16466799"
-                messageType:"TextMessage"
-                messageUId:"5DO0-N1IE-5000-001H"
-                objectName:"RC:TxtMsg"
-                offLineMessage:false
-                receiptResponse:undefined
-                receivedStatus:0
-                receivedTime:1492507177712
-                senderUserId:"Ddaijia"
-                sentStatus:undefined
-                sentTime:1492507177585
-                targetId:"Ddaijia"
-            }*/
-            /*{
-                "content": {
-                "messageName": "TextMessage",
-                    "content": "111",
-                    "extra": "公众号"
-                },
-                "conversationType": 8,
-                "objectName": "RC:TxtMsg",
-                "messageDirection": 1,
-                "messageId": 5,
-                "senderUserId": "1",
-                "sentStatus": 30,
-                "sentTime": 1492511558616,
-                "targetId": "testing",
-                "messageType": "TextMessage",
-                "messageUId": "5DO1-7OBR-12LJ-ECGG"
-            }*/
+
             switch (message.messageType) {
                 case RongIMClient.MessageType.TextMessage:
                     /*
@@ -196,7 +143,6 @@ function init() {
         }
     });
 
-   /* "{"content":{"messageName":"PublicServiceMultiRichContentMessage","richContentMessages":{"articles":[{"digest":"","picurl":"http://7xi6ox.com1.z0.glb.clouddn.com/22c7962d13ca81da353f003e4af42347","title":"如果你来过了北京，就等于去了全世界!","url":"http://public.rongcloud.cn/view/5F3DBDAAEE94639438CC1AFF2601A035"},{"digest":"","picurl":"http://7xi6ox.com1.z0.glb.clouddn.com/8ec356a230c8f83e42a51bc6dcfc74a6","title":"厉害了，北京交通又将大爆发，全国都羡慕！","url":"http://public.rongcloud.cn/view/95B92A7E6DA604E6AADDE20A8110067E"}],"extra":"","user":{"id":"","name":"","portrait":""}}},"conversationType":8,"objectName":"RC:PSMultiImgTxtMsg","messageDirection":2,"messageId":"8_2526138","receivedStatus":0,"receivedTime":1492566484293,"senderUserId":"Ddaijia","sentTime":1492566483541,"targetId":"Ddaijia","messageType":"PublicServiceMultiRichContentMessage","messageUId":"5DO7-P929-L2KP-MC3I","offLineMessage":false}"   */
 
     //开始链接
     RongIMClient.connect(token, {
