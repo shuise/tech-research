@@ -24,9 +24,9 @@ function getPublicSearch(_options) {
                 var searchType = 1; //[0-exact 1-fuzzy]
                 RongIMClient.getInstance().searchPublicService(searchType, keywords, {
                     onSuccess: function (list) {
-                        console.log("查找公众号 成功");
-                        that.stat.searchList=list;
-                        /*var listUnFollowed = [];
+                        //console.log("查找公众号 成功");
+                        //that.stat.searchList=list;
+                        var listUnFollowed = [];
                         $(list).each(function () {
                             this.hasFollowed == false && listUnFollowed.push(this);
                         });
@@ -36,7 +36,7 @@ function getPublicSearch(_options) {
                         }else {
                             that.stat.searchResult = true;
                             that.stat.searchList = listUnFollowed;
-                        }*/
+                        }
 
 
                     },

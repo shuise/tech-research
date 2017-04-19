@@ -344,25 +344,31 @@ html, body {
 .chat-content .message-wrapper {
     padding: 0 0.5rem;
 }
+
 .message-item:nth-child(n+1) {
     margin-top: 0.4rem;
 }
-.message-text{
+
+.message-text {
     display: flex;
     /*padding: 0.3rem 0;*/
     font-size: 0.4rem;
 }
-.message-text.my-msg{
+
+.my-msg .message-text {
     flex-direction: row-reverse;
 }
-.message-text.you-msg{
+
+.you-msg .message-text {
     padding-left: 1.39rem;
 }
-.message-text .rong-avatar{
+
+.message-text .rong-avatar {
     border-radius: 0;
     border: 0;
 }
-.message-text .message-body{
+
+.message-text .message-body {
     position: relative;
     color: #353535;
     padding: 0.25rem;
@@ -376,11 +382,12 @@ html, body {
     -webkit-border-radius: 3px;
 }
 
-.message-text.my-msg .message-body{
+.my-msg .message-text .message-body {
     margin-right: 0.25rem;
     background: #b2e281;
 }
-.message-text.my-msg .message-body:after{
+
+.my-msg .message-text .message-body:after {
     position: absolute;
     top: 0.32rem;
     right: -0.3rem;
@@ -389,11 +396,13 @@ html, body {
     border-left-color: #b2e281;
     border-left-width: 0.15rem;
 }
-.message-text.your-msg .message-body{
+
+.your-msg .message-text .message-body {
     margin-left: 0.25rem;
     background: #fff;
 }
-.message-text.your-msg .message-body:before{
+
+.your-msg .message-text .message-body:before {
     position: absolute;
     top: 0.32rem;
     left: -0.3rem;
@@ -403,12 +412,6 @@ html, body {
     border-right-width: 0.15rem;
 
 }
-
-
-
-
-
-
 
 .message-multi {
     background-color: #fff;
@@ -457,9 +460,10 @@ html, body {
 }
 
 .message-multi-second {
+    display: flex;
+    flex-direction: row-reverse;
     border-top: 1px solid #d8d8d8;
     padding: 0.3rem 0;
-    display: flex;
 }
 
 .message-multi-second .material-cover-img {
@@ -536,9 +540,14 @@ html, body {
 }
 
 /* 公众号文章页面 */
+.public-article {
+    height: 100%;
+}
+
 .public-article-content {
+    height: 100%;
     margin-top: 1.16rem;
-    padding: 0.5rem;
+    /*padding: 0.5rem;*/
 }
 
 .article-title {
