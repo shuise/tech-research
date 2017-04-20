@@ -34,51 +34,137 @@
 		return window.Audio + "" == "function HTMLAudioElement() { [native code] }";
 	})();
 
+    if(!isSupportAudio && !isSupportFlash){
+        alert("浏览器不支持Audio，也不支持flash，请安装flash");
+        return;
+    }
 
-    //callback(progress)
-	function play(file,callback){
 
-	}
+    var id = "rongcloud-player";
+    var containter = "rongcloud-flashContent";
+    
+    var swfobject = "//cdn.ronghub.com/swfobject-2.0.0.min.js";
+    var playerSWF = "//cdn.ronghub.com/player-2.0.2.swf";
 
-	function stop(){
+    var element = {};
 
-	}
+    var player = null;
 
-	function preLoad(base64Data, callback) {
-        var str = base64Data.substr(-10),
-            me = this;
-        if (me.element[str]) {
-            callback && callback();
-            return
+    function init(callback) {
+        if (!isSupportAudio && isSupportFlash) {
+            var node = document.createElement("div");
+                node.setAttribute("id", containter);
+            document.body.appendChild(node);
+            
+            var swfVersionStr = "11.4.0";
+
+            var params = {
+                quality : "high",
+                bgcolor : "#ffffff",
+                allowscriptaccess : "always",
+                allowScriptAccess : "always",
+                allowfullscreen : "true"
+            };
+
+            var attributes = {
+                id : id,
+                name : id,
+                align : "middle"
+            };
+
+            swfobject.embedSWF(playerSWF, containter, "1", "1", swfVersionStr, null, {}, params, attributes,function(){
+                    var player = eval("window['" + id + "']")
+                    callback(player);
+            }); //异步
+
+        }else{
+            callback();
         }
-        if (/android/i.test(navigator.userAgent) && /MicroMessenger/i.test(navigator.userAgent)) {
+    }
+
+	function play(data, duration) {
+        if (isSupportAudio) {
+            player.doAction("init", data)
+        } else {
+            var key = data.substr(-10);
+            if (element[key]) {
+                element[key].play();
+            }
+            onCompleted(duration);
+        }
+    };
+
+	function stop(base64Data) {
+        if (isSupportAudio) {
+            player.doAction("stop");
+        } else {
+            if (base64Data) {
+                var key = base64Data.substr(-10);
+                if (element[key]) {
+                    element[key].pause();
+                    element[key].currentTime = 0;
+                }
+            } else {
+                for (var key_1 in element) {
+                    element[key_1].pause();
+                    element[key_1].currentTime = 0;
+                }
+            }
+        }
+    }
+    
+    function preLoaded(base64Data, callback) {
+        var str = base64Data.substr(-10);
+        if (element[str]) {
+            callback && callback();
+            return;
+        }
+        if(/android/i.test(navigator.userAgent) && /MicroMessenger/i.test(navigator.userAgent)) {
             var audio = new Audio();
             audio.src = "data:audio/amr;base64," + base64Data;
-            me.element[str] = audio;
+            element[str] = audio;
             callback && callback()
-        } else {
-            if (!me.notSupportH5) {
-                if (str in me.element) {
-                    return
-                }
-                var blob = base64ToBlob(base64Data, "audio/amr");
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var data = new Uint8Array(e.target.result);
-                    var samples = AMR.decode(data);
-                    var pcm = PCMData.encode({
-                        sampleRate: 8000,
-                        channelCount: 1,
-                        bytesPerSample: 2,
-                        data: samples
-                    });
-                    var audio = new Audio();
-                    audio.src = "data:audio/wav;base64," + btoa(pcm);
-                    me.element[str] = audio;
-                    callback && callback()
-                };
-                reader.readAsArrayBuffer(blob)
+        }else if (isSupportAudio) {
+            if (str in element) {
+                return;
             }
+            var blob = base64ToBlob(base64Data, "audio/amr");
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = new Uint8Array(e.target.result);
+                var samples = AMR.decode(data);
+                var pcm = PCMData.encode({
+                    sampleRate: 8000,
+                    channelCount: 1,
+                    bytesPerSample: 2,
+                    data: samples
+                });
+                var audio = new Audio();
+                audio.src = "data:audio/wav;base64," + btoa(pcm);
+                element[str] = audio;
+                callback && callback();
+            };
+            reader.readAsArrayBuffer(blob);
+        }else{
+
+        }
+    }
+    
+    function onprogress() {
+    }
+
+
+    function onCompleted(duration) {
+        var count = 0;
+        var timer = setInterval(function() {
+            count++;
+            onprogress();
+            if (count >= duration) {
+                clearInterval(timer)
+            }
+        }, 1000);
+        if (isSupportAudio) {
+            player.doAction("play")
         }
     }
 
@@ -108,8 +194,15 @@
     }
 
 	return {
-		play : play,
-		stop : stop,
-		preLoad : preLoad
+		init : function(callback){ 
+            init(function(player){
+                player = player;
+                callback({
+                    play : play,
+                    stop : stop,
+                    preLoad : preLoaded
+                });
+            });
+        }
 	};
-}, "RongIM")
+}, "RongIMVoice")
