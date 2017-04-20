@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>require</title>
+</head>
+<body>
+
+<h1>require demo</h1>
+<!-- <h2>请打开控制台查看运行结果</h2> -->
+
+<div id="show"</div>
+
+
+
+<script src="res/require.js"></script>
+	
+<script>
+"use strict";
+require.config({
+    paths: {
+    	protobuf: '//cdn.ronghub.com/protobuf-2.1.5.min',
+    	RongIMLib: 'RongIMLib-2.2.5-25wehl3u2qhnw'
+    }
+});
+
+require(['protobuf','RongIMLib'], function(protobuf,RongIMLib) {
+    console.log("require done");
+
+    var RongIMClient = RongIMLib.RongIMClient;
+
+    init(RongIMLib,RongIMClient,function(){
+    	/*同步会话列表*/
+    	var ins = RongIMClient.getInstance();
+        
+        var getSessionList = function () {
+            var self = this;
+            ins.getConversationList({
+                onSuccess: function(list) {
+                    console.log(list.length + "个会话");
+                    console.log(list);
+                },
+                onError: function(error) {
+                }
+            },null);
+        }
+
+ 		//删除会话
+        var sessionDel = function (flag) {
+        	var targetId = "1d2bd981-f6e5-4798-a55b-f1dc5c7cac87";
+        	var conversationType = 2;
+            ins.removeConversation(conversationType,targetId,{
+                onSuccess:function(bool){
+                    // 删除成功之后重新获取会话列表
+                    console.log("get after delete");
+                    if(flag){
+	                   setTimeout(function(){
+                            getSessionList();
+                       },0);
+	                }
+                },
+                onError:function(error){
+                }
+            });
+        }
+
+
+        //test
+        getSessionList();
+        sessionDel(true);
+    });
+});
+
+
+
+
+function init(RongIMLib,RongIMClient,callback){
+	var appKey = "8w7jv4qb78a9y";
+	var token = "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==";
+
+	//初始化
+	RongIMClient.init(appKey);
+
+	// 连接状态监听器
+	RongIMClient.setConnectionStatusListener({
+		onChanged: function (status) {
+			console.info(status)
+		    switch (status) {
+		        case RongIMLib.ConnectionStatus.CONNECTED:
+		            console.log("链接成功");
+		            // afterConnected();
+		            callback();
+		            break;
+		        case RongIMLib.ConnectionStatus.CONNECTING:
+		            console.log('正在链接');
+		            break;
+		        case RongIMLib.ConnectionStatus.DISCONNECTED:
+		            console.log('断开连接');
+		            break;
+		        case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+		            console.log('其他设备登录');
+		            break;
+		          case RongIMLib.ConnectionStatus.DOMAIN_INCORRECT:
+		            console.log('域名不正确');
+		            break;
+		        case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+		        	console.log('网络不可用');
+		        	break;
+		        }
+		}
+	});
+	
+	RongIMClient.setOnReceiveMessageListener({
+		// 接收到的消息
+		onReceived: function (message) {
+		    // 判断消息类型
+		    // showTips("新消息，类型为：" + message.messageType);
+            // showResult("新消息",message,start);
+
+		    switch(message.messageType){
+		        case RongIMClient.MessageType.TextMessage:
+		        	/*
+		        	显示消息方法： 
+		        	消息里是 原生emoji
+		        	RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
+		            */
+		            break;
+		        case RongIMClient.MessageType.VoiceMessage:
+		            // 对声音进行预加载                
+		            // message.content.content 格式为 AMR 格式的 base64 码
+		            break;
+		        case RongIMClient.MessageType.ImageMessage:
+		           // message.content.content => 图片缩略图 base64。
+		           // message.content.imageUri => 原图 URL。
+		           break;
+		        case RongIMClient.MessageType.DiscussionNotificationMessage:
+		           // message.content.extension => 讨论组中的人员。
+		           break;
+		        case RongIMClient.MessageType.LocationMessage:
+		           // message.content.latiude => 纬度。
+		           // message.content.longitude => 经度。
+		           // message.content.content => 位置图片 base64。
+		           break;
+		        case RongIMClient.MessageType.RichContentMessage:
+		           // message.content.content => 文本消息内容。
+		           // message.content.imageUri => 图片 base64。
+		           // message.content.url => 原图 URL。
+		           break;
+		        case RongIMClient.MessageType.InformationNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.ContactNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.ProfileNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.CommandNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.CommandMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.UnknownMessage:
+		            // do something...
+		           break;
+		        default:
+		            // do something...
+		    }
+		}
+	});
+	
+	
+	//开始链接
+	RongIMClient.connect(token, {
+		onSuccess: function(userId) {
+			console.log("链接成功，用户id：" + userId);
+		},
+		onTokenIncorrect: function() {
+			console.log('token无效');
+		},
+		onError:function(errorCode){
+		  var info = '';
+		  switch (errorCode) {
+		    case RongIMLib.ErrorCode.TIMEOUT:
+		      info = '超时';
+		      break;
+		    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+		      info = '未知错误';
+		      break;
+		    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+		      info = '不可接受的协议版本';
+		      break;
+		    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+		      info = 'appkey不正确';
+		      break;
+		    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+		      info = '服务器不可用';
+		      break;
+		  }
+		  console.log(info);
+		}
+	});
+}
+</script>
+</body>
+</html>

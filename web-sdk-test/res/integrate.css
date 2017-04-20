@@ -28,6 +28,19 @@ body{
 	color:#333;
 	margin-left:1em;
 }
+.helps{
+	margin-top:1em;
+	border:1px solid skyblue;
+	background:skyblue;
+	padding:10px;
+}
+.helps h3{
+	font-weight:400;
+	font-size:14px;
+}
+.helps ol{
+	margin-left:2em;
+}
 pre{
 	font-family:verdana;
 	border:1px solid #ccc;

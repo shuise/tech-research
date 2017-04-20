@@ -53,7 +53,7 @@
 .notice{
     font-size: 12px;
     color: blue;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .warn{
     font-size: 12px;
@@ -81,6 +81,10 @@
     display: none;
 }
 
+#exchangeWin{
+    display: none;
+}
+
 </style>
 
 <div class="wrapper">
@@ -103,17 +107,17 @@
     <input type="button" value="窗口切换" id="exchangeWin">
 
 </div>
-<!--     <div id="main2" style="background: blue">
-       <div>
-         sadfasdfasdf
-         <canvas style="background: red; width:100px; height: 100px"></canvas>
-       </div>
-       
-    </div> -->
+<div class="notice">
+demo 运行指南：<br>
+    1、修改 appKey 和 users[至少要有两个用户]<br>
+    2、根据实际访问地址和 userid 修改 主叫访问地址 和 被叫访问地址<br>
+    3、一台 PC1 用主叫访问地址登录,另一台 PC2 用被叫访问地址登录<br>
+    4、PC1 发起 视频通话请求, PC2 接通视频, 视频通话建立成功
+</div>
 
 <ul class="notice">
-    <li>主叫访问地址: <a href='http://web.hitalk.im/demo/voip.html'>http://web.hitalk.im/demo/voip.html</a></li><br>
-    <li>被叫访问地址: <a href='http://web.hitalk.im/demo/voip.html?userId=receiver'>http://web.hitalk.im/demo/voip.html?userId=receiver</a></li><br>
+    <li>主叫访问地址: <a href='http://yourhost/demo/voip.html'>http://yourhost/demo/voip.html</a></li><br>
+    <li>被叫访问地址: <a href='http://yourhost/demo/voip.html?userId=receiver'>http://yourhost/demo/voip.html?userId=receiver</a></li><font color='red'>[此处 receiver 需要根据实际 userId修改]</font><br><br>
     <li>双方的通讯过程如下</li><br>
     <ol>
       <li>A 发给 B 视频请求 (startCall)</li>
@@ -129,15 +133,18 @@
 注意事项：<br>
     1、系统要求及浏览器要求参考 <a href='http://www.rongcloud.cn/docs/web_calllib.html' target="_blank">http://www.rongcloud.cn/docs/web_calllib.html</a><br>
     2、安装并启动 Agora Web Agent<br>
-    3、发起视频聊天的按钮可放在聊天界面的工具栏中
-
-
+    3、请确保您后台已开通音视频服务
+    4、发起视频聊天的按钮可放在聊天界面的工具栏中
 </div>
 
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
-<script src="js/RongCallLib.js"></script>
+<script src="//cdn.ronghub.com/RongCallLib-2.2.0.min.js"></script>
 <script src="js/jquery-1.9.0.min.js"></script>
 <script>
+/*
+音视频流量问题，声网提供了具体数据：
+时间单位每分钟：音频 40kbps,   SD 200-400 kbsp, HD  500-1000kbps HD+ >1000kpbs
+*/ 
 
 var changeWin = function(){
        var myScreen, otherScreen, canvas;
@@ -167,49 +174,62 @@ var loop = function(arrs, callback){
     }
 };
 
-var conver2Array = function(item){
+var convert2Array = function(item){
     return Array.isArray(item) ? item : [item];
 };
 
 var show = function(node){
-    node = conver2Array(node);
+    node = convert2Array(node);
     loop(node, function(item){
         item.show();
     });
 };
 
 var hide = function(node){
-    node = conver2Array(node);
+    node = convert2Array(node);
     loop(node, function(item){
         item.hide();
     });
 };
-var appKey = '0vnjpoadnpisz';
+var appKey = 'yourAppKey';
 
 // 初始化 WebSDK 
 // RongIMClient.init(appKey, null, { navi: '119.254.111.49:9100'});
 RongIMClient.init(appKey);
 
 //两个测试用户
-var tokens = {
-    "22" : "wauJbncZeKNovpWspFfQjj9mhd99ZpWeKnnjvyii9624oCw+lkizZZk2cDm5E0mmTc83XNfC9mhiO52BDGatrQ==",
-    "11" : "4PvJGtvvu3ljOOfnBEKXSN35nVOQAyW8ozA3fv/v/QPNYFH1OgiiSObsbNy2zw0xIn/9dEDeXIac2fD1lhG7pQ=="
-};
+var users = [
+    {"userid": "id1***", "token": "*******"}, 
+    {"userid": "id2***", "token": "*******"}
+];
+//注意根据上述users 修改页面被叫访问地址中参数值
+
 //默认主叫方用户id
-var userId = "11";
+var userId = users[0].userid;
 
 //默认被叫放用户id,可以多个
-var inviteUserIds = "22";
+var inviteUserIds = users[1].userid;
+var userToken = users[0].token;
 
 //为了方便演示,根据访问地址呼唤主叫方和被叫方
 if(location.search.indexOf("userId") > -1){
-    userId = "22";
-    inviteUserIds = "11";
+    userId = users[1].userid;
+    inviteUserIds = users[0].userid;
+    userToken = users[1].token;
 }
 var targetId = inviteUserIds;
 
+(function(){
+    if(appKey == 'yourAppKey'){
+        alert('注意修改 appKey');
+    }
+    if(users[0].userid == 'id1***' || users[1].userid == 'id2***'){
+        alert('注意修改 users(uerid 和 token)');
+    }
+})();
+
 //链接
-RongIMClient.connect(tokens[userId], {
+RongIMClient.connect(userToken, {
     onSuccess: function(userId) {
         connected();
         console.log("Login successfully." + userId);

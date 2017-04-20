@@ -1,0 +1,86 @@
+demo：https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html
+
+公众号创建流程：
+1：在公众号系统：http://www.rongcloud.cn/public  创建公众号并更新发布
+
+2：登录 开发者管理后台 https://developer.rongcloud.cn/ 通过 “公众服务平台-> 添加私有公众号”给app添加公众号
+
+3：用户可以在2的添加结果里进行搜索和关注操作，https://rongcloud.github.io/websdk-demo/api-test.html  关注后可以通过消息监听接受公众号的推送，用户也可以给公众号留言，具体细节参考页面里的示例代码和注释。
+
+
+
+
+集成流程：
+1：通过搜索寻找公众号  见demo里方法searchPublicService
+2：订阅（取消订阅）		见demo里方法 subscribePublicService/unsubscribePublicServic
+3：用户打开im是通过已关注列表获取数据 见demo里方法getPublicServiceList
+	获取到的公账号数据格式为
+	{
+		//公账号基本数据
+		"conversationType": 8,
+		"introduction": "即时通讯云就是融云!\n融云专注为互联网、移动互联网开发者提供即时通讯云服务。",
+		"name": "融云 RongCloud",
+		"portraitUri": "http://public.rongcloud.cn/static/uploadImage/2016/10/08/rc_80x80_0609dfa8_1475899663.png",
+		"publicServiceId": "RongCloud",
+		"hasFollowed": true,
+		"isGlobal": false,
+
+		//菜单数据
+		"menu": [ 菜单
+			{
+				"children": [
+					{
+						"children": [],
+						"id": "501998f146094bf9ac93858077ae1322",
+						"name": "官方网站",
+						"type": 1,
+						"url": "http://rongcloud.cn/"
+					},
+					{
+						"children": [],
+						"id": "a3ebf3244a66450384bcb5495a60c844",
+						"name": "公司简介",
+						"type": 1,
+						"url": "http://rongcloud.cn/about"
+					},
+					{
+						"children": [],
+						"id": "9213d362cc254fe98b5d2db1bde7e3e9",
+						"name": "媒体报道",
+						"type": 1,
+						"url": "http://rongcloud.cn/reports"
+					},
+					{
+						"children": [],
+						"id": "d0fb504ef5b148f585b9744848bab73f",
+						"name": "开发文档",
+						"type": 1,
+						"url": "http://www.rongcloud.cn/docs/index.html"
+					}
+				],
+				"id": "053db35b22234bc88198d460f0a1ea75",
+				"name": "关于我们",
+				"type": 0,
+				"url": ""
+			},
+			{
+				"children": [],
+				"id": "da6980a6393f4eeda17a3a7d61969db0",
+				"name": "客户案例",
+				"type": 1,
+				"url": "http://rongcloud.cn/showcase"
+			},
+			{
+				"children": [],
+				"id": "0817e80d54bd43e29c2c42db06173795",
+				"name": "融云直播",
+				"type": 2,
+				"url": ""
+			}
+		]
+	}
+4：通过消息监听获取公众号推送的文档，或者回复
+	conversationType = 7, 私有云里只有应用公众服务（MC）
+5：用户给公众号回复，使用sendMessage方法，区别在下面两个参数
+	var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
+	var targetId = publicServiceId
