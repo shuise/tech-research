@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>emoji</title>
+</head>
+<body>
+
+<!-- 
+https://github.com/maicong/Twitter-Emoji
+http://blog.getemoji.com/post/57054354336/which-browsers-support-emoji
+
+http://caniemoji.com/
+-->
+
+
+<!--
+源码：https://shuise.github.io/tech-research/web-sdk-test/emoji.js 
+
+请注意 RongIMEmoji.supportEmoji = false;  这个逻辑
+
+之前做过判断，探测环境做emoji的支持，如果支持，会用原生字符渲染，这种情况下会因为设备的不同而不同，如果不支持，会用背景图来处理，在所有不支持的设备里，都是一个样。
+
+你可以用这个代码和逻辑测试，最后选一个能满足你要求的方案。
+
+特殊说明：emoji图片提供的是一个质量很差的版本，因为版权问题，如果要商用，请自行解决版权问题。
+-->
+
+<style>
+.message{
+    border-radius:5px;
+    background:#f5f5f5;
+    padding:5px 15px;
+    display:inline-block;
+}
+</style>
+😀
+<div class="message" id="message" onclick="alert(this.innerHTML)"></div>
+
+
+<script src="http://cdn.ronghub.com/RongEmoji-2.2.5.min.js"></script> 
+    
+<script>
+/*
+多端同步处理表情的逻辑
+    1: 发消息 ，直接发送 😀 emoji 字符
+    2: 接收消息会表情会被Web SDK转码成 u1F600 格式，具体见 RongIMEmoji.emojiFactory
+    3: RongIMLib.RongIMEmoji.emojiToHTML
+*/ 
+
+RongIMLib.RongIMEmoji.init(); 
+var emojis = RongIMLib.RongIMEmoji.emojis;
+for (var i = emojis.length - 1; i >= 0; i--) {
+     document.body.appendChild(emojis[i]); 
+}
+
+// var message = "before words 😀 \uD83D\uDE00 \uD83D\uDE01 after words";
+//  message = RongIMLib.RongIMEmoji.emojiToHTML(message);
+
+// // alert(message);
+
+// var node = document.getElementById("message");
+//  node.innerHTML = message;
+</script>   
+
+
+
+
+
+<!-- 
+https://medium.com/@thekevinscott/emojis-in-javascript-f693d0eb79fb#.7wvjhr61v
+http://www.2ality.com/2013/09/javascript-unicode.html
+-->
+<div class="message" id="b"></div>
+
+</body>
+</html>
