@@ -24,9 +24,9 @@
                 </ol>
 
                 <p>
-                    开发文档 <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a>
-                    <br>
                     搭建应用服务器：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a>
+                    <br>
+                    开发文档 <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a>
                 </p>
             </div>
         </div>
@@ -54,7 +54,7 @@
 				<br>
 
 				<br>
-				<p>接下来主要介绍“<a href="">登录</a>”、“<a href="">会话列表</a>”和“<a href="">聊天窗口</a>”的实现</p>
+
 			</div>
 		</div>
 
@@ -62,13 +62,13 @@
 			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
 			<div class="content">
 				文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
-				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/token-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a>
+				参考：<a href="https://rongcloud.github.io/websdk-demo/connect-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
 					<ol>
 						<li><a href="https://rongcloud.github.io/websdk-demo/require.html">项目已使用require或其他模块化加载，应该如何初始化？</a></li>
-						<li><a href="https://rongcloud.github.io/websdk-demo/connect-check.html">私有部署 如何初始化？</a></li>
+						<li><a href="https://rongcloud.github.io/websdk-demo/init.js">私有云如何初始化？</a></li>
 					</ol>
 				</div>
 			</div>
@@ -92,52 +92,40 @@
 				<div class="helps">
 					<h3>常见问题：</h3>
 					<ol>
-						<li><a href="#">如何实现游客无需注册登录聊天？</a></li>
+						<li><a href="http://support.rongcloud.cn/search?changetype=1&q=%E6%B8%B8%E5%AE%A2">如何实现游客无需注册登录聊天？</a></li>
 					</ol>
 				</div>
 <pre>
-function login() {
-    // app逻辑
+function login(userInfo,callback) {
+    /*
+    userInfo = {
+		"name" : 13800138000,
+		"password" : "xxxxxxxx",
+	}
+	请求应用服务器并返回
+    */
+
+    callback(function(){
+
+});
 }
 
-//注册成功之后 应用服务器访问融云服务器接口获取token
-
-//用户登录成功后，链接融云服务器
-
-// 初始化。
-RongIMClient.init(appKey);
-
-//初始化 Emoji
-RongIMLib.RongIMEmoji.init();
-
-
-//初始化 声音库
-RongIMLib.RongIMVoice.init(appKey);
-
-// 连接融云服务器。
-RongIMClient.connect(token, {});
-
-// 连接状态监听器
-RongIMClient.setConnectionStatusListener();
-
-//获取是否含有未读消息
-RongIMClient.getInstance().hasRemoteUnreadMessages(token, {})
-
-// 消息监听器
-RongIMClient.setOnReceiveMessageListener({
-    // 接收到的消息
-    onReceived: function (message) {
-        // 判断消息类型
-        switch (message.messageType) {
-            case RongIMClient.MessageType.TypingStatusMessage:
-                //接收到输入状态
-                break;
-            case RongIMClient.MessageType.TextMessage:
-                //接收到文本消息
-                break;
-        }
-    }
-});
+function callback(userInfo){
+    /*
+	请求应用服务器并返回
+    userInfo = {
+    	"id" : "userid",
+		"name" : 13800138000,
+		"portrait" : "http://xxxxxx.jpg",
+		"token" : "4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg………………"
+	}
+    */
+    init({
+		appKey : "appKey",
+		token : userInfo.token,
+		navi : optional
+	},callbacks);
+}
 </pre>
 
 			</div>
