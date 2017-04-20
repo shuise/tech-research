@@ -74,6 +74,11 @@ h1,h2{
 }
 </style>
 
+<script src="RongIMLib-2.2.5.js"></script>
+<!-- <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script> -->
+<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+
 <!-- <script src="res/pace.js"></script> -->
 
 <!-- 
@@ -82,7 +87,7 @@ check.js是做一些环境监测用的临时代码，仅限开发调试使用
 <script src="env-check.js"></script>
 
 <!-- <script src="//cdn.ronghub.com/RongIMLib-dev-1.0.2.js"></script> -->
-<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<!--<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>-->
 <script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
 <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
@@ -138,6 +143,7 @@ function getTimer(begin){
 	rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==
 -->
 <script>
+"use strict";
 var instance = null;
 var appKey = "";
 var token = "";
@@ -169,7 +175,7 @@ function init(){
 		alert("必须提供appkey和token");
 	}
 
-	targetIds = document.getElementById("targetId").value;
+	var targetIds = document.getElementById("targetId").value;
 	if(targetIds == ""){
 		alert("必须提供两个的有效targetId");
 	}
@@ -252,6 +258,7 @@ function init(){
 		    showTips("新消息，类型为：" + message.messageType);
             // showResult("新消息",message,start);
 
+            console.log(message);
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
 		        	/*
@@ -412,7 +419,14 @@ function sendTextMessage(){
 	var content = {
 		// content:"hello " + encodeURIComponent('π，α，β'),
 		content:"阿拉伯语：الشرق الأوسط ，希伯来语：המזרח התיכון。 ，，，，hello 😊 " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ ',
-		extra:"RongCloud"
+		user : {
+			"company" : "易车",
+			"depart" : "易车网"
+		},
+		extra:{
+			"name":"name",
+			"age" : 12
+		}
 	};
 
 	var msg = new RongIMLib.TextMessage(content);
@@ -673,14 +687,15 @@ function getHistroyMessage(){
 		2：timestrap第二次拉取必须为null才能实现循环拉取
 	*/
 
-	var count = 5;  // 2 <= count <= 20
+	var count = 10;  // 2 <= count <= 20
 	var timestrap = null; //0, 1483950413013
 
 	var start = new Date().getTime();
 	instance.getHistoryMessages(conversationtype, targetId, timestrap, count, {
 		onSuccess: function(list, hasMsg) {
 			//可通过sort订制其他顺序
-
+			console.log(list.length);
+			console.log(hasMsg);
 			list.sort(function(a,b){
 				return a.sentTime < b.sentTime;
 			});
@@ -1048,10 +1063,16 @@ RongIMLib.ConversationType = {
 */
 
 var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
-var publicServiceId = "test1";
+var publicServiceId = "xiaoxpkuo"; //RongCloud
 var searchType = 1; //[0-exact 1-fuzzy]
-var keywords = "Rong";
+var keywords = "小";
 // var keywords = "test";
+
+/*
+用户给公众号发消息
+var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
+var targetId = publicServiceId
+*/
 
 function getPublicServiceList(){
 	/* 
@@ -1080,13 +1101,14 @@ function searchPublicService(){
 	var start = new Date().getTime();
 
 	instance.searchPublicService(searchType, keywords, {
+
 	    onSuccess:function(list){
-            showTips("搜索公众号 成功");
-            showResult("搜索公众号 成功",list,start);
+            showTips("查找公众号 成功");
+            showResult("查找公众号 成功",list,start);
 	    },
 	    onError:function(error){
-	    	showTips("搜索公众号 失败");
-	    	showResult("搜索公众号 失败",error,start);
+	    	showTips("查找公众号 失败");
+	    	showResult("查找公众号 失败",error,start);
 	    }
 	});
 }
@@ -1153,6 +1175,7 @@ function getPublicServiceProfile(){
 	var start = new Date().getTime();
 
 	instance.getPublicServiceProfile(publicServiceType, publicServiceId, {
+
 		onSuccess:function(profile){
             showTips("获取公众号详情 成功");
             showResult("获取公众号详情 成功",profile,start);
@@ -1222,12 +1245,13 @@ function getBase64Image(){
 <div class="panel" id="panel">
 	<p>
 		<span>appkey</span>
-		<input type="text" id="appkey" size="20" value="82hegw5uh8ktx">
+		<input type="text" id="appkey" size="20" value="8w7jv4qb78a9y">
 	</p>
 	<p>
 		<span>token</span>
-		<input type="text" id="token" size="110" value="rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==">
+		<input type="text" id="token" size="110" value="ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==">
 		<!-- 
+		8w7jv4qb78a9y
 		user9	ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==
 		user10	4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg== 
 		-->

@@ -1,12 +1,9 @@
 var utils = require("../../utils/util.js");
 
-console.log("utils");
-console.log(utils);
-
 var url1 = "http://www.rongcloud.cn/docs/assets/img/logo_s.png";
 var url2 = "http://rongcloud.cn/images/newVersion/log_wx.png?2016";
 var pageData = {
-    motto: 'test cache ',
+    motto: 'RongCloud Demo',
     userInfo: {
       avatarUrl: url1
     }

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>upload</title>
+</head>
+
+<!--
+page url = http://im.ice.com/ajax.html
+-->
+
+<script>
+document.domain='rce.com'; //same domain with ajax.html
+</script>
+<body>
+
+
+
+<iframe src="http://api.rce.com/proxy.html" id="proxy" frameborder="0"></iframe>
+<script>
+function callback(data){
+	alert(data);
+}
+
+var child = document.getElementById("proxy").contentWindow;
+var request = child.request;
+
+var params = {
+	api : "url",
+	id : "s1"
+};
+
+request(params,callback)
+</script>
+
+</body>
+</html>

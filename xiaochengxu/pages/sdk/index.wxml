@@ -1,0 +1,18 @@
+<view class="userinfo">
+    <image class="usermotto" src="{{icon}}" background-size="cover"></image>
+   <button data-token="{{tester1.token}}" data-appkey="{{appkey}}" data-target-id="{{tester1.targetId}}" bindtap="naviTo" class="btn">使用 Tester1 连接</button>
+   <button data-token="{{tester2.token}}" data-appkey="{{appkey}}" data-target-id="{{tester2.targetId}}" bindtap="naviTo" class="btn">使用 Tester2 连接</button>
+   
+       <view class="memo">
+            <view>注意事项：</view>
+                <view class="item">1、此 Demo 目前只支持二人会话。</view>
+                <view class="item">2、底层 Lib 已支持 WebSDK API，只是 Demo 暂时未实现</view>
+                <view class="item">3、点击 Tester1 或者 Tester2 进行收发消息。</view>
+
+            <view>流程说明：</view>
+                <view class="item">1、点击 Tester1 进入收发消息界面，输入内容、发送消息。</view>
+                <view class="item">2、界面可以看到自己发送的消息。</view>
+                <view class="item">3、点击 [返回] 按钮到首页，使用 Tester2 进入收发消息界面，可以收到 Tester1 发送的消息</view>
+                <view class="item">4、或者使用两台电脑(两部手机)分别使用 Tester1、Tester2 进行测试。</view>
+       </view>
+</view>

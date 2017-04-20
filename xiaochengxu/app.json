@@ -1,11 +1,12 @@
 {
   "pages":[
-    "pages/index/index"
+    "pages/sdk/index",
+    "pages/sdk/chat/chat"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "RongCloud - Demo",
     "navigationBarTextStyle":"black"
   }
 }

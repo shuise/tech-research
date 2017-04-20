@@ -240,11 +240,11 @@ var RongIMLib;
                 stream = me._memorySessions.localStream;
             var item = {
                 disableVideo: function(){
-                    client.disableVideo(stream, function(){});
+                    me._memorySessions.localStream.disableVideo();
                     // me.closeRemoteStream();
                 },
                 enableVideo: function(){
-                    me.initLocalStream(me._memorySessions.uid, info.type);
+                    
                 }
             };
             item[info.method]();            
@@ -437,15 +437,13 @@ var RongIMLib;
                     var modMsg = message.content;
                     if (modMsg.mediaType == RongIMLib.VoIPMediaType.MEDIA_AUDIO) {
                         that._memorySessions.localStream.close();
-                        that.closeRemoteStream();
+                        // that.closeRemoteStream();
                     }else{
-                        // that.initLocalStream(that._memorySessions.uid, RongIMLib.VoIPMediaType.MEDIA_VEDIO);
+                        // that._memorySessions.localStream.play(that._memorySessions.container);
                     }
                     RongIMLib.Channel._ReceiveMessageListener.onReceived(message);
                     break;
-                case RongIMLib.RongIMClient.MessageType["MemberModifyMessage"]:
-                    RongIMLib.Channel._ReceiveMessageListener.onReceived(message);
-                    break;
+               
             }
             return true;
         };
@@ -468,4 +466,3 @@ var RongIMLib;
     }());
     RongIMLib.RongCallLib = RongCallLib;
 })(RongIMLib || (RongIMLib = {}));
-//# sourceMappingURL=RongCallLib.js.map
