@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>voice</title>
+</head>
+<body>
+
+<script src="swfobject-rongcloud-2.0.0.js"></script>	
+<script src="voice.js"></script>	
+
+<script src="./res/voice-amr-base64.json"></script>
+
+<script>
+
+
+function play(){
+	// 音频持续大概时间(秒)
+	RongIMVoice.init(function(player){
+		var duration = voice.length/1024;
+	    // player.preLoaded(voice,function(data){
+	    	var file = voice;
+	    	player.play(voice,duration);
+	    // });
+	});
+}
+</script>
+
+
+<button onclick="play()">播放base64</button>
+
+</body>
+</html>
