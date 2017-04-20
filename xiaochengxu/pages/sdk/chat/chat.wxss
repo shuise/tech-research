@@ -1,6 +1,10 @@
 /* pages/sdk/index.wxss */
 .toolbar{
-    font-size: 10px;
+    font-size: 12px;
+    background:#333;
+    color:#fff;
+    position:relative;
+    z-index:100;
 }
 .send-btn{
     float: right;
@@ -10,11 +14,28 @@
 
 .sent-box{
     border-top: 1px solid gray;
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:5em;
+}
+.sent-box textarea{
+    border:1px solid #dedede;
+    height:3em;
+    width:100%;
+    padding:10px;
+    font-size:12px;
+    line-height:20px;
 }
 
 .mesage-list{
     font-size: 13px;
-    height: 800rpx;
+    min-height: 800rpx;
+    width:100%;
+    position:fixed;
+    left:0;
+    bottom:10em;
 }
 .avater{
     height: 20px;
