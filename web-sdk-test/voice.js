@@ -1,4 +1,6 @@
-(function (global, factory,namespace) {
+"use strict";
+
+;(function (global, factory,namespace) {
     if(typeof exports === 'object' && typeof module !== 'undefined'){
     	module.exports = factory();
     }else if(typeof define === 'function' && define.amd){

@@ -1,4 +1,6 @@
-(function (global, factory,namespace) {
+"use strict";
+
+;(function (global, factory,namespace) {
     if(typeof exports === 'object' && typeof module !== 'undefined'){
     	module.exports = factory();
     }else if(typeof define === 'function' && define.amd){
@@ -12,15 +14,15 @@
         "emoji unicode" : {
             "en" : "english name" //for not support emoji+image
             "cn" : "chinese name" //same as en
-            "background" : "image url"  //for not support emoji-charactor
+            "image" : "image url"  //for not support emoji-charactor
             "position" : "background-position=[10,10],px"
         }
     }
     */
     var emoji = {
-        "u1F600":{"en":"grinning","zh":"\u72DE\u7B11","tag":"\uD83D\uDE00","bp":"0px 0px"},
-        "u1F601":{"en":"grin","zh":"\u9732\u9F7F\u800C\u7B11","tag":"\uD83D\uDE01","bp":"-22px 0px"},
-        "u1F602":{"en":"joy","zh":"\u6B22\u4E50","tag":"\uD83D\uDE02","bp":"-44px 0px"}
+        "u1F600":{"en":"grinning","zh":"\u72DE\u7B11","position":"0px 0px"},
+        "u1F601":{"en":"grin","zh":"\u9732\u9F7F\u800C\u7B11","position":"-22px 0px"},
+        "u1F602":{"en":"joy","zh":"\u6B22\u4E50","position":"-44px 0px"}
     };
 
     /*support emoji list*/
@@ -34,7 +36,7 @@
             "Opera" : true,
             "Safari" : true,
             "QQBrowser" : true,
-            "UCBrowser" : true,
+            "UCBrowser" : true
         },
         "Mac" : {
             "Chrome41+" : true,
@@ -42,11 +44,17 @@
             "Chrome" : false,
             "Firefox" : false,
             "Opera" : true,
-            "Safari" : true,
+            "Safari" : true
         },
-        "Android" : true,
-        "iPhone" : true,
+        "Android" : true,   //小米有问题
+        "iPhone" : true
     };
+
+
+    var isSupportEmoji = (function() {
+        var isSupport = Math.random() > 0.5 ? true : false;
+    })();
+
 
     /*auto detect*/
 	var isSupportEmoji = (function() {
@@ -61,17 +69,17 @@
         return ctx.getImageData(16, 16, 1, 1).data[0] !== 0;
     })();
 
-    /*same as key in data*/
-	function getEN(){
-
-	}
-
-	function getCN(){
+    /*lan = "en/cn" */
+	function getName(emojiUnicode,lan){
 
 	}
 
 	function show(emojiUnicode) {
-
+        /*
+        if(config.show == auto && isSupport){
+            emojiUnicode --> emoji
+        }
+        */
     }
 
     /*
