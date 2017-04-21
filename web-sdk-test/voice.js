@@ -27,11 +27,11 @@
 	            version = VSwf.toLowerCase().split('win').join('').split(',').join('.');
 	        }
 	    }
-	    return version; 
+	    return version != ""; 
 	})();
 
 	var isSupportAudio = (function(){
-		return window.Audio + "" == "function HTMLAudioElement() { [native code] }";
+		return window.Audio + "" !== "function HTMLAudioElement() { [native code] }";
 	})();
 
     if(!isSupportAudio && !isSupportFlash){
@@ -39,49 +39,88 @@
         return;
     }
 
-
-    var id = "rongcloud-player";
-    var containter = "rongcloud-flashContent";
-    
-    var swfobject = "//cdn.ronghub.com/swfobject-2.0.0.min.js";
-    var playerSWF = "//cdn.ronghub.com/player-2.0.2.swf";
+    var isAndroidWeixin = /android/i.test(navigator.userAgent) && /MicroMessenger/i.test(navigator.userAgent);
 
     var element = {};
+    /*
+    voice base64,amr
+    */
 
-    var player = null;
+    var voice = null;
 
-    function init(callback) {
-        if (!isSupportAudio && isSupportFlash) {
-            var node = document.createElement("div");
-                node.setAttribute("id", containter);
-            document.body.appendChild(node);
-            
-            var swfVersionStr = "11.4.0";
-
-            var params = {
-                quality : "high",
-                bgcolor : "#ffffff",
-                allowscriptaccess : "always",
-                allowScriptAccess : "always",
-                allowfullscreen : "true"
-            };
-
-            var attributes = {
-                id : id,
-                name : id,
-                align : "middle"
-            };
-
-            swfobject.embedSWF(playerSWF, containter, "1", "1", swfVersionStr, null, {}, params, attributes,function(){
-                    var player = eval("window['" + id + "']")
-                    callback(player);
-            }); //异步
-
+    function Player(_voice,callback){
+        voice = _voice;
+        if (isSupportAudio) {
+            return createAudioPlayer(callback);
+        }else if(isSupportFlash){
+            return createFlashPlayer(callback);
         }else{
-            callback();
+
         }
     }
 
+    function createFlashPlayer(callback){
+        var id = "rongcloud-player";
+        var containter = "rongcloud-flashContent";
+    
+        // var swfobject = "//cdn.ronghub.com/swfobject-2.0.0.min.js";
+        var playerSWF = "http://cdn.ronghub.com/player-2.0.2.swf";
+
+        var node = document.createElement("div");
+            node.setAttribute("id", containter);
+        document.body.appendChild(node);
+        
+        var swfVersionStr = "11.4.0";
+
+        var params = {
+            quality : "high",
+            bgcolor : "#ffffff",
+            allowscriptaccess : "always",
+            allowScriptAccess : "always",
+            allowfullscreen : "true"
+        };
+
+        var attributes = {
+            id : id,
+            name : id,
+            align : "middle"
+        };
+
+        console.log(swfobject);
+        console.log(swfobject.embedSWF);
+
+        swfobject.embedSWF(playerSWF, containter, "1", "1", swfVersionStr, null, {}, params, attributes,function(){
+                flashPlayer(id,callback);
+        }); //异步
+    }
+
+    function flashPlayer(id,callback){
+        var player = eval("window['" + id + "']");
+        console.log(player);
+        player.play = function(){
+            player.doAction("init", voice);
+        }
+        player.stop = function(){
+            player.doAction("stop");
+        }
+        
+        callback(player);
+    }
+
+
+    function createAudioPlayer(callback) {
+        var player = new Audio();
+        amr2wav(voice,function(voiceWAV){
+            player.src = voiceWAV;
+
+            player.controls = true;
+            document.body.appendChild(player);    
+
+            callback(player);
+        });
+    }
+
+    /*
 	function play(data, duration) {
         if (isSupportAudio) {
             player.doAction("init", data)
@@ -112,47 +151,65 @@
             }
         }
     }
+    */
     
-    function preLoaded(base64Data, callback) {
-        var str = base64Data.substr(-10);
-        if (element[str]) {
-            callback && callback();
-            return;
-        }
-        if(/android/i.test(navigator.userAgent) && /MicroMessenger/i.test(navigator.userAgent)) {
-            var audio = new Audio();
-            audio.src = "data:audio/amr;base64," + base64Data;
-            element[str] = audio;
-            callback && callback()
-        }else if (isSupportAudio) {
-            if (str in element) {
-                return;
-            }
-            var blob = base64ToBlob(base64Data, "audio/amr");
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var data = new Uint8Array(e.target.result);
-                var samples = AMR.decode(data);
-                var pcm = PCMData.encode({
-                    sampleRate: 8000,
-                    channelCount: 1,
-                    bytesPerSample: 2,
-                    data: samples
-                });
-                var audio = new Audio();
-                audio.src = "data:audio/wav;base64," + btoa(pcm);
-                element[str] = audio;
-                callback && callback();
-            };
-            reader.readAsArrayBuffer(blob);
-        }else{
-
-        }
+    function amr2wav(voice,callback){
+        var blob = base64ToBlob(voice, "audio/amr");
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = new Uint8Array(e.target.result);
+            var samples = AMR.decode(data);
+            var pcm = PCMData.encode({
+                sampleRate: 8000,
+                channelCount: 1,
+                bytesPerSample: 2,
+                data: samples
+            });
+            var voice2 = "data:audio/wav;base64," + btoa(pcm);
+            callback(voice2);
+        };
+        reader.readAsArrayBuffer(blob);
     }
+
+    // function preLoaded(base64Data, callback) {
+    //     var str = base64Data.substr(-10);
+    //     if (element[str]) {
+    //         callback && callback();
+    //         return;
+    //     }
+    //     if(isAndroidWeixin) {
+    //         var audio = new Audio();
+    //         audio.src = "data:audio/amr;base64," + base64Data;
+    //         element[str] = audio;
+    //         callback && callback()
+    //     }else if (isSupportAudio) {
+    //         if (str in element) {
+    //             return;
+    //         }
+    //         var blob = base64ToBlob(base64Data, "audio/amr");
+    //         var reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             var data = new Uint8Array(e.target.result);
+    //             var samples = AMR.decode(data);
+    //             var pcm = PCMData.encode({
+    //                 sampleRate: 8000,
+    //                 channelCount: 1,
+    //                 bytesPerSample: 2,
+    //                 data: samples
+    //             });
+    //             var audio = new Audio();
+    //             audio.src = "data:audio/wav;base64," + btoa(pcm);
+    //             element[str] = audio;
+    //             callback && callback();
+    //         };
+    //         reader.readAsArrayBuffer(blob);
+    //     }else{
+
+    //     }
+    // }
     
     function onprogress() {
     }
-
 
     function onCompleted(duration) {
         var count = 0;
@@ -169,11 +226,9 @@
     }
 
     function base64ToBlob(base64Data, type) {
-        var mimeType;
+        var mimeType = {};
         if (type) {
-            mimeType = {
-                type: type
-            }
+            mimeType[type] = type;
         }
         base64Data = base64Data.replace(/^(.*)[,]/, "");
         var sliceSize = 1024;
@@ -194,15 +249,6 @@
     }
 
 	return {
-		init : function(callback){ 
-            init(function(player){
-                player = player;
-                callback({
-                    play : play,
-                    stop : stop,
-                    preLoad : preLoaded
-                });
-            });
-        }
+		Player : Player
 	};
 }, "RongIMVoice")
