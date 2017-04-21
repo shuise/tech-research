@@ -87,7 +87,9 @@
 
 				获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#获取_Token_方法">http://www.rongcloud.cn/docs/server.html#获取_Token_方法</a>
 				<br>
-				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a>
+				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a> <br>
+
+				<a href="./integrate-demo/login/login.html">登录demo</a>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -95,39 +97,7 @@
 						<li><a href="http://support.rongcloud.cn/search?changetype=1&q=%E6%B8%B8%E5%AE%A2">如何实现游客无需注册登录聊天？</a></li>
 					</ol>
 				</div>
-<pre>
-function login(userInfo,callback) {
-    /*
-    userInfo = {
-		"name" : 13800138000,
-		"password" : "xxxxxxxx",
-	}
-	请求应用服务器并返回
-    */
-
-    callback(function(){
-
-});
-}
-
-function callback(userInfo){
-    /*
-	请求应用服务器并返回
-    userInfo = {
-    	"id" : "userid",
-		"name" : 13800138000,
-		"portrait" : "http://xxxxxx.jpg",
-		"token" : "4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg………………"
-	}
-    */
-    init({
-		appKey : "appKey",
-		token : userInfo.token,
-		navi : optional
-	},callbacks);
-}
-</pre>
-
+<pre></pre>
 			</div>
 		</div>
 
@@ -135,14 +105,26 @@ function callback(userInfo){
 			<h2>5. 好友关系，群组</h2>
 			<div class="content">
 				<p>在应用服务器维护数据，并同步至融云：</p>
-				<p>文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
+
 				<ul>
 					<li>1. 添加好友</li>
 					<li>2. 创建并加入群组</li>
 					<li>3. 禁言及黑名单</li>
 					<li>4. 无用户身份处理</li>
 				</ul>
+
+				<p>开发文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
+				<p>应用服务器node版代码：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a></p>
+				<p><a href="integrate-demo/server-api.md">接口文档</a></p>
+
 				<pre>code todo</pre>
+
+				<div class="helps">
+					<h3>常见问题：</h3>
+					<ol>
+						<li>用户与消息通过id关联，userId == message.senderUserId</li>
+					</ol>
+				</div>
 			</div>
 		</div>
 
