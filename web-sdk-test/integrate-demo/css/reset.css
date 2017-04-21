@@ -22,6 +22,14 @@ body, button, input, select, textarea { /* for ie */
     -ms-text-size-adjust: 100%
 }
 
+.button{
+    border-radius:10px;
+    outline:none;
+    padding:5px 20px;
+    margin:10px 0;
+    cursor:pointer;
+}
+
 code, kbd, pre, samp, tt {
     font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
