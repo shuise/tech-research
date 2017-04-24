@@ -12,7 +12,7 @@ function getPublicList(_options) {
                  */
                 var that = this;
 
-                /*$.getJSON('mockData.json', function (data) {
+                /*$.getJSON('public-mock-data.json', function (data) {
                     console.log(data);
                     that.stat.publicList = data.publicList;
                     return false;
