@@ -4,7 +4,7 @@
 function getPublicSearch(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-search.html',
+        template: 'template/public-search.html',
         methods: {
             publicSearch: function () {
 

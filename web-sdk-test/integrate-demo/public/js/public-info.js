@@ -4,7 +4,7 @@
 function getPublicInfo(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-info.html',
+        template: 'template/public-info.html',
         methods: {
             goPublicChat: function () {
                 this.stat.currentView = 'publicChat';

@@ -4,7 +4,7 @@
 function getPublicList(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-list.html',
+        template: 'template/public-list.html',
         methods: {
             getPublicServiceList: function () {
                 /*
