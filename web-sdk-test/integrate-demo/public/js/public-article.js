@@ -4,7 +4,7 @@
 function getPublicArticle(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-article.html',
+        template: 'template/public-article.html',
         methods: {
             goPublicChat: function () {
                 this.stat.currentView = 'publicChat';

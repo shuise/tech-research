@@ -4,12 +4,12 @@
 function getPublicSearch(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-search.html',
+        template: 'template/public-search.html',
         methods: {
             publicSearch: function () {
 
                 var that = this;
-                /*$.getJSON('mockData.json', function (data) {
+                /*$.getJSON('public-mock-data.json', function (data) {
                     var listUnFollowed = [];
                     $(data.searchList).each(function () {
                         this.hasFollowed == false && listUnFollowed.push(this);
