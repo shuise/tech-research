@@ -4,7 +4,7 @@
 function getPublicList(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-list.html',
+        template: 'template/public-list.html',
         methods: {
             getPublicServiceList: function () {
                 /*
@@ -12,7 +12,7 @@ function getPublicList(_options) {
                  */
                 var that = this;
 
-                /*$.getJSON('mockData.json', function (data) {
+                /*$.getJSON('public-mock-data.json', function (data) {
                     console.log(data);
                     that.stat.publicList = data.publicList;
                     return false;

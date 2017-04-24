@@ -4,7 +4,7 @@
 function getPublicChat(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-chat.html',
+        template: 'template/public-chat.html',
         methods: {
             goPublicList: function () {
                 this.stat.currentView = 'publicList';
@@ -106,7 +106,7 @@ function getPublicChat(_options) {
 
             //模拟获取历史消息
             //获取用户info
-            $.getJSON('mockData.json?11', function (data) {
+            $.getJSON('public-mock-data.json?11', function (data) {
                 console.log(data);
                 var userInfo = data.userInfo;
                 that.stat.userInfo = userInfo;
