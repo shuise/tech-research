@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>公众号 集成引导</title>
 </head>
-<link rel="stylesheet" href="../res/integrate.css">
+<link rel="stylesheet" href="../../res/integrate.css">
 <body>
 <script>
     RongIMClient.getInstance().getPublicServiceProfile(8, "Ddaijia", {
@@ -35,7 +35,7 @@
                 <p>
                     调试 demo <a href="https://rongcloud.github.io/websdk-demo/api-test.html">api-test.html</a>
                     <br>
-                    集成 demo：<a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/public.html">public.html</a>
+                    集成 demo：<a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/public/public.html">public.html</a>
                 </p>
             </div>
         </div>
@@ -46,12 +46,12 @@
 				<br>
 				<p>页面分配</p>
 				<ol>
-					<li>0. 公众号模板主页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public.html">public.html</a></li>
-					<li>1. 公众号列表页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-list.html">public-list.html</a></li>
-					<li>2. 公众号搜索页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-search.html">public-search.html</a></li>
-					<li>3. 公众号详情页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-info.html">public-info.html</a></li>
-					<li>4. 公众号聊天页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-chat.html">public-chat.html</a></li>
-					<li>5. 公众号推送文章页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-article.html">public-article.html</a></li>
+					<li>0. 公众号模板主页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public.html">public.html</a></li>
+					<li>1. 公众号列表页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-list.html">public-list.html</a></li>
+					<li>2. 公众号搜索页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-search.html">public-search.html</a></li>
+					<li>3. 公众号详情页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-info.html">public-info.html</a></li>
+					<li>4. 公众号聊天页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-chat.html">public-chat.html</a></li>
+					<li>5. 公众号推送文章页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-article.html">public-article.html</a></li>
 				</ol>
 
 			</div>
@@ -61,7 +61,7 @@
 			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
 			<div class="content">
 				<br>
-				<p>初始化参考：<a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/js/initRong.js">initRong.js</a></p>
+				<p>初始化参考：<a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/initRong.js">initRong.js</a></p>
 
 			</div>
 		</div>
@@ -70,9 +70,9 @@
 			<h2>4. 公众号列表页</h2>
 			<div class="content">
 				<br>
-				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-list.html">public-list.html</a></p>
-				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/js/public-list.js">public-list.js</a></p>
-				<p>公众号列表数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/mockData.json">mockData.json</a> 中的 "publicList"</p>
+				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-list.html">public-list.html</a></p>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-list.js">public-list.js</a></p>
+				<p>公众号列表数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/mockData.json">mockData.json</a> 中的 "publicList"</p>
 				<br>
 				<p>变量解释：</p>
 				<ol>
@@ -103,9 +103,9 @@ RongIMClient.getInstance().getPublicServiceList({
 			<h2>5. 公众号搜索页</h2>
 			<div class="content">
 				<br>
-				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-search.html">public-search.html</a></p>
-				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/js/public-search.js">public-search.js</a></p>
-				<p>公众号搜索数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/mockData.json">mockData.json</a> 中的 "searchList"</p>
+				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-search.html">public-search.html</a></p>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-search.js">public-search.js</a></p>
+				<p>公众号搜索数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/mockData.json">mockData.json</a> 中的 "searchList"</p>
 				<br>
 <pre>
 //根据用户输入关键字搜索未关注公众号
@@ -130,9 +130,9 @@ RongIMClient.getInstance().searchPublicService(searchType, keywords, {
 			<h2>6. 公众号详情页</h2>
 			<div class="content">
 				<br>
-				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-info.html">public-info.html</a></p>
-				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/js/public-info.js">public-info.js</a></p>
-				<p>公众号详情数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/mockData.json">mockData.json</a> "searchList" 中的对象</p>
+				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-info.html">public-info.html</a></p>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-info.js">public-info.js</a></p>
+				<p>公众号详情数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/mockData.json">mockData.json</a> "searchList" 中的对象</p>
 				<br>
 <pre>
 //订阅公众号
@@ -157,10 +157,10 @@ RongIMClient.getInstance().unsubscribePublicService(publicServiceType, publicSer
 			<h2>7. 公众号聊天页</h2>
 			<div class="content">
 				<br>
-				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-chat.html">public-chat.html</a></p>
-				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/js/public-chat.js">public-chat.js</a></p>
+				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-chat.html">public-chat.html</a></p>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-chat.js">public-chat.js</a></p>
 				<p>公众号回复用户消息在 <a href="http://public.rongcloud.cn">公众平台</a> -> 用户回复</p>
-				<p>公众号聊天消息数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/mockData.json">mockData.json</a> "msgList" 中 "messageType" = "TextMessage" 为文本消息，"messageType" = "PublicServiceMultiRichContentMessage"为公众号推送多图文消息</p>
+				<p>公众号聊天消息数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/mockData.json">mockData.json</a> "msgList" 中 "messageType" = "TextMessage" 为文本消息，"messageType" = "PublicServiceMultiRichContentMessage"为公众号推送多图文消息</p>
 				<br>
 				<p>变量解释：</p>
 				<ol>
@@ -190,10 +190,10 @@ RongIMClient.getInstance().sendMessage(conversationtype, publicServiceId, msg, {
 			<h2>8. 公众号推送文章页</h2>
 			<div class="content">
 				<br>
-				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-article.html">public-article.html</a></p>
-				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/js/public-article.js">public-article.js</a></p>
+				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-article.html">public-article.html</a></p>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-article.js">public-article.js</a></p>
 				<p>公众号向用户推送文章在 <a href="http://public.rongcloud.cn">公众平台</a> -> 消息推送</p>
-				<p>公众号推送文章地址为 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/mockData.json">mockData.json</a> "msgList" 中 "messageType" = "PublicServiceMultiRichContentMessage" 公众号推送多图文消息 articles.url</p>
+				<p>公众号推送文章地址为 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/mockData.json">mockData.json</a> "msgList" 中 "messageType" = "PublicServiceMultiRichContentMessage" 公众号推送多图文消息 articles.url</p>
 				<br>
 <pre>
 //文章内容嵌套在 iframe 中

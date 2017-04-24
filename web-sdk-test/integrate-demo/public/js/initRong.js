@@ -23,8 +23,6 @@ function init() {
 
     RongIMLib.RongIMEmoji.init();
 
-    RongIMLib.RongIMVoice.init();
-
 
     var publicVue='';
     // 连接状态监听器

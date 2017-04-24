@@ -4,7 +4,7 @@
 function getPublicChat(_options) {
     var options = {
         props: ['stat'],
-        template: 'public/public-chat.html',
+        template: 'template/public-chat.html',
         methods: {
             goPublicList: function () {
                 this.stat.currentView = 'publicList';
