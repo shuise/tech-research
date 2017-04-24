@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no">
+    <title>conversation list demo</title>
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="conversation-list.css">
+
+    <script src="../lib/jquery-3.1.1.js"></script>
+    <script src="../lib/vue-2.1.4.js"></script>
+    <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+
+
+    <script src="conversation-list-init.js"></script>
+    <script src="conversation-list.js"></script>
+
+</head>
+<body>
+<div id="conversationListPage">
+    <component :is="stat.currentView" :stat="stat"></component>
+</div>
+</body>
+<template id="conversationList">
+    <div class="conversationList">
+        <!--header-->
+        <header class="header">
+            <h2 class="title">当前用户：{{stat.currentUserInfo.name}}</h2>
+        </header>
+        <!--header-->
+        <!--chat-list-->
+        <ul class="chat-list">
+            <li class="chat-item" v-for="item in stat.conversationList">
+                <!--<pre>{{stat.conversationList}}</pre>-->
+                <div class="chat-item-portrait"><img :src="item.userInfo.portraitUri" class="rong-avatar-bd"></div>
+                <div class="chat-item-name">{{item.userInfo.name}} : {{item.latestMessage.content.content || '' }}
+                </div>
+                <div class="unread-count" v-if="item.unreadMessageCount">{{item.unreadMessageCount}}</div>
+            </li>
+        </ul>
+        <!--chat-list-->
+    </div>
+</template>
+<script type="text/javascript">
+    function initVue() {
+        var conversationListPage = new Vue({
+            el: '#conversationListPage',
+            data: {
+                stat: {
+                    currentView: 'conversationList',
+                    currentUserInfo: {},
+                    conversationList: []
+                }
+            },
+            components: {
+                conversationList: {
+                    props: ['stat'],
+                    template: '#conversationList'
+                }
+            }
+        });
+
+        return conversationListPage;
+    }
+
+</script>
+</html>

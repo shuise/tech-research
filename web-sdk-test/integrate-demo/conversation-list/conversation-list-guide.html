@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同步会话列表 集成引导</title>
+</head>
+<link rel="stylesheet" href="../../res/integrate.css">
+<body>
+<div class="wrap">
+    <h1>同步会话列表 集成引导</h1>
+
+    <div class="guide">
+        <div class="steps">
+            <h2>1.用户登录成功后，获取 appKey，token，链接云端</h2>
+            <div class="content">
+				<br>
+				<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.html">conversation-list.html</a></p>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list-init.js">conversation-list-init.js</a></p>
+				<p>模拟的用户及群组信息数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "userInfos,groupInfos"</p>
+				<br>
+
+            </div>
+        </div>
+
+		<div class="steps">
+			<h2>2.调用 getConversationList 方法，获取会话列表，拼接应用服务器提供的用户或群组信息</h2>
+			<div class="content">
+				<br>
+				<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.js">conversation-list.js</a></p>
+				<p>模拟的会话列表数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
+				<p>拼接后会话列表数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
+				<p>API 文档 : <a href="http://www.rongcloud.cn/docs/web_api_demo.html#conversation">API 文档</a></p>
+				<br>
+
+<pre>
+//同步会话列表
+//@param  {ResultCallback} callback 返回值，参数回调
+//@param {array} conversationTypes 可选参数，可以获取指定会话类型的会话，默认请传null
+RongIMClient.getInstance().getConversationList({
+	onSuccess: function (conversation) {
+		if (conversation.length) {
+			conversation.forEach(function (item) {
+				if (item.conversationType === 1) {
+					//私聊
+					item["userInfo"] = infos["userInfos"][item.latestMessage.senderUserId]
+
+				} else if (item.conversationType === 3) {
+					//群组
+					item["userInfo"] = infos["groupInfos"][item.latestMessage.targetId]
+				}
+
+			});
+		}
+	}
+}, null);
+</pre>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+</body>
+</html>
