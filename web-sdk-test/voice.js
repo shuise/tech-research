@@ -31,7 +31,8 @@
 	})();
 
 	var isSupportAudio = (function(){
-		return window.Audio + "" !== "function HTMLAudioElement() { [native code] }";
+		// return window.Audio + "" === "function HTMLAudioElement() { [native code] }";
+        return false;
 	})();
 
     if(!isSupportAudio && !isSupportFlash){
@@ -60,11 +61,11 @@
     }
 
     function createFlashPlayer(callback){
-        var id = "rongcloud-player";
+        var id = "player";
         var containter = "rongcloud-flashContent";
     
         // var swfobject = "//cdn.ronghub.com/swfobject-2.0.0.min.js";
-        var playerSWF = "http://cdn.ronghub.com/player-2.0.2.swf";
+        var playerSWF = "http://web.devtalk.im/tech-research/web-sdk-test/player-2.0.1.swf";
 
         var node = document.createElement("div");
             node.setAttribute("id", containter);
@@ -75,8 +76,7 @@
         var params = {
             quality : "high",
             bgcolor : "#ffffff",
-            allowscriptaccess : "always",
-            allowScriptAccess : "always",
+            allowscriptaccess : "sameDomain",
             allowfullscreen : "true"
         };
 
@@ -90,21 +90,32 @@
         console.log(swfobject.embedSWF);
 
         swfobject.embedSWF(playerSWF, containter, "1", "1", swfVersionStr, null, {}, params, attributes,function(){
-                flashPlayer(id,callback);
+                setTimeout(function(){
+                    flashPlayer(id,callback);
+                }, 2000);
         }); //异步
     }
 
+    window.RongIMLib = {
+        RongIMVoice: function(duration){
+            console.log(duration);
+        }
+    };
     function flashPlayer(id,callback){
-        var player = eval("window['" + id + "']");
-        console.log(player);
-        player.play = function(){
-            player.doAction("init", voice);
-        }
-        player.stop = function(){
-            player.doAction("stop");
-        }
+        // var player = eval("window['" + id + "']");
+        // console.log(player);
+        // player.play = function(){
+        //     player.doAction("init", voice);
+        // }
+        // player.stop = function(){
+        //     player.doAction("stop");
+        // }
         
-        callback(player);
+        // callback(player);
+        console.log('================');
+        window.tmp = document.getElementById(id);
+        tmp.doAction('init', voice);
+        console.log('----------------------');
     }
 
 
