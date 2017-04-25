@@ -68,7 +68,21 @@ RongIMClient.getInstance().getConversationList({
 
 
 <pre>
-
+removeConversation:function (conversationType,targetId,index) {
+	var that=this;
+	RongIMClient.getInstance().removeConversation(conversationType,targetId,{
+		onSuccess:function(bool){
+			//删除会话成功。
+			console.log(bool);
+			//删除本地数据
+			that.stat.conversationList.splice(index,1);
+		},
+		onError:function(error){
+			// error => 删除会话的错误码
+			console.log(error);
+		}
+	});
+}
 </pre>
 			</div>
 		</div>
