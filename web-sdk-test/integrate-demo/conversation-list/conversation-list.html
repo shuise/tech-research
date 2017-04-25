@@ -34,7 +34,7 @@
         <!--header-->
         <!--chat-list-->
         <ul class="chat-list">
-            <li class="chat-item" v-for="item in stat.conversationList">
+            <li class="chat-item" v-for="item in stat.conversationList" @touchend="clearConversation">
                 <!--<pre>{{stat.conversationList}}</pre>-->
                 <div class="chat-item-portrait"><img :src="item.userInfo.portraitUri" class="rong-avatar-bd"></div>
                 <div class="chat-item-name">{{item.userInfo.name}} : {{item.latestMessage.content.content || '' }}
@@ -59,7 +59,34 @@
             components: {
                 conversationList: {
                     props: ['stat'],
-                    template: '#conversationList'
+                    template: '#conversationList',
+                    methods:{
+                        removeConversation:function (targetId) {
+                            RongIMClient.getInstance().removeConversation(RongIMLib.ConversationType.PRIVATE,targetId,{
+                                onSuccess:function(bool){
+                                    // 删除会话成功。
+                                    console.log(bool);
+                                    //dom
+                                },
+                                onError:function(error){
+                                    // error => 删除会话的错误码
+                                    console.log(error);
+                                }
+                            });
+                        },
+                        clearConversation:function () {
+                            var conversationTypes = [RongIMLib.ConversationType.PRIVATE,RongIMLib.ConversationType.GROUP];
+                            RongIMClient.getInstance().clearConversations(conversationTypes,{
+                                onSuccess:function(bool){
+                                    // 清除会话成功
+                                    console.log(bool);
+                                },
+                                onError:function(error){
+                                    // error => 清除会话错误码。
+                                }
+                            });
+                        }
+                    }
                 }
             }
         });
