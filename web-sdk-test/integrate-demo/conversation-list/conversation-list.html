@@ -16,7 +16,7 @@
     <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
 
 
-    <script src="conversation-list-init.js"></script>
+    <script src="../init.js"></script>
     <script src="conversation-list.js"></script>
 
 </head>
@@ -34,20 +34,45 @@
         <!--header-->
         <!--chat-list-->
         <ul class="chat-list">
-            <li class="chat-item" v-for="item in stat.conversationList" @touchend="clearConversation">
+            <li class="chat-item" v-for="(item,index) in stat.conversationList">
                 <!--<pre>{{stat.conversationList}}</pre>-->
                 <div class="chat-item-portrait"><img :src="item.userInfo.portraitUri" class="rong-avatar-bd"></div>
                 <div class="chat-item-name">{{item.userInfo.name}} : {{item.latestMessage.content.content || '' }}
                 </div>
                 <div class="unread-count" v-if="item.unreadMessageCount">{{item.unreadMessageCount}}</div>
+                <div class="remove-conversation" @touchend="removeConversation(item.conversationType,item.latestMessage.targetId , index)">&times;</div>
             </li>
         </ul>
         <!--chat-list-->
     </div>
 </template>
 <script type="text/javascript">
+    //初始化
+    var userInfo={
+        appKey:"82hegw5u8mqwx",
+        token:"oUh0wcHH6E2LiuTpEKp/+jCvQwRQ4mI0ws9X674LamLVDfNK14vl8UoEcZT0otHeuyNsIi1T4wZ8UwVl0ZqyZA=="
+    };
+    var callbacks={
+        CONNECTED:function () {
+
+
+        },
+        Success:function () {
+            var app=initVue();
+            getConversationList(app);
+
+        },
+        Received:function () {
+
+
+        }
+    };
+    init(userInfo,callbacks);
+
+
     function initVue() {
-        var conversationListPage = new Vue({
+
+        return new Vue({
             el: '#conversationListPage',
             data: {
                 stat: {
@@ -61,12 +86,14 @@
                     props: ['stat'],
                     template: '#conversationList',
                     methods:{
-                        removeConversation:function (targetId) {
-                            RongIMClient.getInstance().removeConversation(RongIMLib.ConversationType.PRIVATE,targetId,{
+                        removeConversation:function (conversationType,targetId,index) {
+                            var that=this;
+                            RongIMClient.getInstance().removeConversation(conversationType,targetId,{
                                 onSuccess:function(bool){
-                                    // 删除会话成功。
+                                    //删除会话成功。
                                     console.log(bool);
-                                    //dom
+                                    //删除本地数据
+                                    that.stat.conversationList.splice(index,1);
                                 },
                                 onError:function(error){
                                     // error => 删除会话的错误码
@@ -90,8 +117,6 @@
                 }
             }
         });
-
-        return conversationListPage;
     }
 
 </script>
