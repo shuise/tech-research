@@ -24,7 +24,8 @@
   },
   "groupInfos": {
     "workGroup": {
-      "name": "工作群",
+      "id": "workGroup",
+      "nickname": "工作群",
       "portraitUri": "http://intern.wargaming.net/wp-content/uploads/2016/04/community-icon-01-1.png"
     }
   },
