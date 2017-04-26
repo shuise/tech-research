@@ -85,9 +85,9 @@
                     <li>4. 用户的在线状态</li>
 				</ul>
 
-				获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#获取_Token_方法">http://www.rongcloud.cn/docs/server.html#获取_Token_方法</a>
+				获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#user_get_token">http://www.rongcloud.cn/docs/server.html#user_get_token</a>
 				<br>
-				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#连接服务器">http://www.rongcloud.cn/docs/web.html#连接服务器</a> <br>
+				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#connect">http://www.rongcloud.cn/docs/web.html#connect</a> <br>
 
 				<a href="./integrate-demo/login/login.html">登录demo</a>
 
@@ -131,7 +131,7 @@
 		<div class="steps">
 			<h2>6. 会话列表的实现</h2>
 			<div class="content">
-				文档：<a href="http://www.rongcloud.cn/docs/web.html#同步会话列表">http://www.rongcloud.cn/docs/web.html#同步会话列表</a> （请注意一定要开启 历史消息云存储功能） <br>
+				文档：<a href="http://www.rongcloud.cn/docs/web.html#conversation">http://www.rongcloud.cn/docs/web.html#conversation</a> （请注意一定要开启 历史消息云存储功能） <br>
 				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html">https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html</a>
 				<p>
 					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
@@ -200,8 +200,8 @@ conversation.forEach(function(item){
 			<div class="content">
 				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
 
-				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#获取历史消息">http://www.rongcloud.cn/docs/web.html#获取历史消息</a> <br>
-				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#发送消息">http://www.rongcloud.cn/docs/web.html#发送消息</a>
+				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#history_message">http://www.rongcloud.cn/docs/web.html#history_message</a> <br>
+				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#send_message">http://www.rongcloud.cn/docs/web.html#send_message</a>
 <pre>
 //获取历史消息
 RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
@@ -231,9 +231,9 @@ RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
 				<p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
 				<p>自动回复，</p>
 
-				发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#发送消息">http://www.rongcloud.cn/docs/web_api_demo.html#发送消息</a><br>
-				语音消息：<a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a><br>
-				表情消息：<a href="http://www.rongcloud.cn/docs/web.html#表情库">http://www.rongcloud.cn/docs/web.html#表情库</a><br>
+				发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#send_message">http://www.rongcloud.cn/docs/web_api_demo.html#send_message</a><br>
+				语音消息：<a href="http://www.rongcloud.cn/docs/web.html#voice">http://www.rongcloud.cn/docs/web.html#voice</a><br>
+				表情消息：<a href="http://www.rongcloud.cn/docs/web.html#emoji">http://www.rongcloud.cn/docs/web.html#emoji</a><br>
 
 <pre>
 //获取全部表情
@@ -248,7 +248,7 @@ var reg=/name="([[\w\W]+])"/;
 emojiContent= reg.exec(emojiItem)[1];
 </pre>
 
-				自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息">http://www.rongcloud.cn/docs/web_api_demo.html#自定义消息</a>
+				自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_customize">http://www.rongcloud.cn/docs/web_api_demo.html#message_customize</a>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -310,14 +310,14 @@ var targetId = publicServiceId
 		https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html
 		http://www.rongcloud.cn/docs/api/js/index.html
 	4：各种扩展，组件
-		表情库 http://www.rongcloud.cn/docs/web.html#表情库
-		声音库 http://www.rongcloud.cn/docs/web.html#声音库
-		上传组件 http://www.rongcloud.cn/docs/web.html#上传插件
+		表情库 http://www.rongcloud.cn/docs/web.html#emoji
+		声音库 http://www.rongcloud.cn/docs/web.html#voice
+		上传组件 http://www.rongcloud.cn/docs/web.html#upload_widget
 		商量个约定：技术解决方案都叫组件，业务解决方案才叫插件，行么？
 	5：各种产品demo，插件
-		聊天插件 http://www.rongcloud.cn/docs/web.html#聊天插件
-		客服插件 http://www.rongcloud.cn/docs/web.html#客服插件
-		VoIP  http://www.rongcloud.cn/docs/web.html#音视频服务
+		聊天插件 http://www.rongcloud.cn/docs/web.html#im_widget
+		客服插件 http://www.rongcloud.cn/docs/web.html#custom_service_widget
+		VoIP  http://www.rongcloud.cn/docs/web.html#call
 		IM（Web+PC）
 -->
 

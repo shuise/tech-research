@@ -53,7 +53,7 @@ function init() {
     });
 
     /*
-     文档：http://www.rongcloud.cn/docs/web.html#3、设置消息监听器
+     文档：http://www.rongcloud.cn/docs/web.html#listener
 
      注意事项：
      1：为了看到接收效果，需要另外一个用户向本用户发消息
@@ -82,7 +82,7 @@ function init() {
                     break;
                 case RongIMClient.MessageType.VoiceMessage:
                     /*
-                     引入SDK并初始化请参考文档 http://www.rongcloud.cn/docs/web.html#声音库
+                     引入SDK并初始化请参考文档 http://www.rongcloud.cn/docs/web.html#voice
 
                      api文档： http://www.rongcloud.cn/docs/api/js/VoiceMessage.html
 
