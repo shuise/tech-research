@@ -40,7 +40,7 @@
 		emoji表情
 
 	6. 常见问题
-		token的问题 http://www.rongcloud.cn/docs/web.html#2、获取_Token
+		token的问题 http://www.rongcloud.cn/docs/web.html#get_token
 			一个userId多个token
 			token缓存与过期
 			name和portraitUri的作用、更新问题
