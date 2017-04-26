@@ -5,7 +5,7 @@ function init(userInfo,callbacks) {
 
     //公有云初始化
     RongIMLib.RongIMClient.init(userInfo.appKey);
-
+    var instance = RongIMClient.getInstance();
 
     //连接状态监听器
     RongIMClient.setConnectionStatusListener({
@@ -13,7 +13,7 @@ function init(userInfo,callbacks) {
             switch (status) {
                 case RongIMLib.ConnectionStatus.CONNECTED:
                     console.log("链接成功 ");
-                    callbacks.CONNECTED && callbacks.CONNECTED();
+                    callbacks.CONNECTED && callbacks.CONNECTED(instance);
                     break;
                 case RongIMLib.ConnectionStatus.CONNECTING:
                     console.log('正在链接');
