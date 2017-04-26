@@ -1,24 +1,24 @@
 {
   "userInfos": {
     "user1": {
-      "appKey": "82hegw5u8mqwx",
-      "userId": "user1",
-      "userToken": "oUh0wcHH6E2LiuTpEKp/+jCvQwRQ4mI0ws9X674LamLVDfNK14vl8UoEcZT0otHeuyNsIi1T4wZ8UwVl0ZqyZA==",
-      "name": "产品",
+      "id": "user1",
+      "nickname": "产品",
+      "region": "86",
+      "phone": "13269772701",
       "portraitUri": "http://img.duoziwang.com/2016/12/08/18594927932.jpg"
     },
     "user2": {
-      "appKey": "82hegw5u8mqwx",
-      "userId": "user2",
-      "userToken": "esLjHj/QaSHTMLQBXwGKaTCvQwRQ4mI0ws9X674LamLVDfNK14vl8Rlq07o7i/cwWreFBPT2TOKAGXo99I/APA==",
-      "name": "开发",
+      "id": "user2",
+      "nickname": "开发",
+      "region": "86",
+      "phone": "13269772702",
       "portraitUri": "http://www.tshseo.com/uploads/allimg/141012/21130U347-12.jpg"
     },
     "user3": {
-      "appKey": "82hegw5u8mqwx",
-      "userId": "user3",
-      "userToken": "2Ksj1/iMHPcP+Qxu2cxczjCvQwRQ4mI0ws9X674LamLVDfNK14vl8XDnvliYWu63g+7T5b5QffTB/7k277LKPw==",
-      "name": "测试",
+      "id": "user3",
+      "nickname": "测试",
+      "region": "86",
+      "phone": "13269772703",
       "portraitUri": "http://www.yangshuai.net/wp-content/uploads/2012/01/812.jpg"
     }
   },

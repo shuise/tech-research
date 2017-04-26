@@ -47,77 +47,29 @@
     </div>
 </template>
 <script type="text/javascript">
+
     //初始化
     var userInfo={
         appKey:"82hegw5u8mqwx",
         token:"oUh0wcHH6E2LiuTpEKp/+jCvQwRQ4mI0ws9X674LamLVDfNK14vl8UoEcZT0otHeuyNsIi1T4wZ8UwVl0ZqyZA=="
     };
     var callbacks={
-        CONNECTED:function () {
-
+        CONNECTED:function (instance) { //传入实例参数
+            //获取会话列表
+            instance.getConversationList({
+                onSuccess: function (conversation) {
+                    //处理会话列表
+                    transConversations(conversation,function (conversation) {
+                        //渲染会话列表
+                        renderConversationView(conversation);
+                    })
+                }
+            }, null);
 
         },
-        Success:function () {
-            var app=initVue();
-            getConversationList(app);
-
-        },
-        Received:function () {
-
-
-        }
+        Success:function (id) {},
+        Received:function (message) {}
     };
     init(userInfo,callbacks);
-
-
-    function initVue() {
-
-        return new Vue({
-            el: '#conversationListPage',
-            data: {
-                stat: {
-                    currentView: 'conversationList',
-                    currentUserInfo: {},
-                    conversationList: []
-                }
-            },
-            components: {
-                conversationList: {
-                    props: ['stat'],
-                    template: '#conversationList',
-                    methods:{
-                        removeConversation:function (conversationType,targetId,index) {
-                            var that=this;
-                            RongIMClient.getInstance().removeConversation(conversationType,targetId,{
-                                onSuccess:function(bool){
-                                    //删除会话成功。
-                                    console.log(bool);
-                                    //删除本地数据
-                                    that.stat.conversationList.splice(index,1);
-                                },
-                                onError:function(error){
-                                    // error => 删除会话的错误码
-                                    console.log(error);
-                                }
-                            });
-                        },
-                        clearConversation:function () {
-                            var conversationTypes = [RongIMLib.ConversationType.PRIVATE,RongIMLib.ConversationType.GROUP];
-                            RongIMClient.getInstance().clearConversations(conversationTypes,{
-                                onSuccess:function(bool){
-                                    // 清除会话成功
-                                    console.log(bool);
-                                },
-                                onError:function(error){
-                                    // error => 清除会话错误码。
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        });
-    }
-
 </script>
 </html>
