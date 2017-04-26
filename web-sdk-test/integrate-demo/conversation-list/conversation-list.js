@@ -43,11 +43,13 @@ function transConversations(conversation, callback) {
         });
 
 
+    } else {
+        callback(conversation);
     }
 
 }
 
-function renderConversationView(conversation,instance) {
+function renderConversationView(conversation, instance) {
 
     return new Vue({
         el: '#conversationListPage',
@@ -69,9 +71,9 @@ function renderConversationView(conversation,instance) {
                 props: ['stat'],
                 template: '#conversationList',
                 methods: {
-                    /*removeConversation: function (conversationType, targetId, index) {
+                    removeConversation: function (conversationType, targetId, index) {
                         var that = this;
-                        RongIMClient.getInstance().removeConversation(conversationType, targetId, {
+                        instance.removeConversation(conversationType, targetId, {
                             onSuccess: function (bool) {
                                 //删除会话成功。
                                 console.log(bool);
@@ -83,16 +85,11 @@ function renderConversationView(conversation,instance) {
                                 console.log(error);
                             }
                         });
-                    },*/
-                    removeThisConversation:function (conversationType, targetId, index ) {
-                        var that = this;
-                        removeConversation(instance, conversationType, targetId, index, function () {
-                            that.stat.conversationList.splice(index, 1);
-                        })
                     },
+
                     clearConversation: function () {
                         var conversationTypes = [RongIMLib.ConversationType.PRIVATE, RongIMLib.ConversationType.GROUP];
-                        RongIMClient.getInstance().clearConversations(conversationTypes, {
+                        instance.clearConversations(conversationTypes, {
                             onSuccess: function (bool) {
                                 // 清除会话成功
                                 console.log(bool);
@@ -104,18 +101,6 @@ function renderConversationView(conversation,instance) {
                     }
                 }
             }
-        }
-    });
-}
-
-function removeConversation(instance, conversationType, targetId, index,callback) {
-    instance.removeConversation(conversationType, targetId, {
-        onSuccess: function () {
-            callback();
-        },
-        onError: function (error) {
-            // error => 删除会话的错误码
-            console.log(error);
         }
     });
 }

@@ -40,8 +40,7 @@
                 <div class="chat-item-name">{{item.userInfo.nickname}} : {{item.latestMessage.content.content || '' }}
                 </div>
                 <div class="unread-count" v-if="item.unreadMessageCount">{{item.unreadMessageCount}}</div>
-                <div class="remove-conversation"
-                     @touchend="removeThisConversation(item.conversationType,item.latestMessage.targetId , index)">&times;</div>
+                <div class="remove-conversation" @touchend="removeConversation(item.conversationType,item.latestMessage.targetId , index)">&times;</div>
             </li>
         </ul>
         <!--chat-list-->
