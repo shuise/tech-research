@@ -10,66 +10,63 @@
     <h1>聊天窗口 集成引导</h1>
 
 	<br>
-	<p>API 文档 : <a href="http://www.rongcloud.cn/docs/web_api_demo.html#conversation">conversation</a></p>
-	<p>集成 demo : <a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/conversation-list/conversation-list.html">conversation-list.html</a></p>
+	<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口</p>
+	<p>API 文档 : <a href="http://www.rongcloud.cn/docs/web.html#history_message">history_message</a> <a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_send">message_send</a></p>
+	<p>集成 demo : <a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/chat/chat.html">chat.html</a></p>
 	<br>
     <div class="guide">
         <div class="steps">
-            <h2>1.用户登录成功后，获取 appKey，token，链接云端</h2>
+            <h2>1.历史消息列表</h2>
             <div class="content">
 				<br>
-				<p>模拟的用户及群组信息数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "userInfos,groupInfos"</p>
+				<p>模拟的历史消息数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/chat/chat.json">chat.json</a> 中的 "historyMessage"</p>
 				<br>
-				<p>调用 init() 初始化，链接云端</p>
+<pre>
+/*
+ * getHistoryMessages 拉取本地历史消息记录，如果本地没有历史消息，会自动从融云服务器拉去历史消息。
+ * @param  {ConversationType}          conversationType 会话类型
+ * @param  {string}                    targetId         用户Id
+ * @param  {number|null}               pullMessageTime  拉取历史消息起始位置(格式为毫秒数)，可以为null
+ * @param  {number}                    count            历史消息数量
+ * @param  {ResultCallback<Message[]>} callback         回调函数
+ */
+instance.getHistoryMessages(conversationType, targetId, null, 20, {
+	onSuccess: function (list, hasMsg) {
+		// list 为拉取到的历史消息列表
+		// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+		// renderHistoryMessages 为自定义的渲染页面方法
+		renderHistoryMessages(list, hasMsg, instance);
+	}
+});
+</pre>
             </div>
         </div>
 
 		<div class="steps">
-			<h2>2.获取会话列表，处理会话列表（拼接应用服务器提供的用户或群组信息），渲染会话列表</h2>
+			<h2>2.发送消息窗口</h2>
 			<div class="content">
-				<br>
-				<p>模拟的会话列表数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
-				<p>拼接后会话列表数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
 				<br>
 
 <pre>
-//同步会话列表
-//@param  {ResultCallback} callback 返回值，参数回调
-//@param {array} conversationTypes 可选参数，可以获取指定会话类型的会话，默认请传null
-instance.getConversationList({
-	onSuccess: function (conversation) {
-		//处理会话列表
-		transConversations(conversation, function (conversation) {
-			//渲染会话列表
-			renderConversationView(conversation,instance);
-		})
+/*
+ * sendMessage 发送消息。
+ * @param  {ConversationType}        conversationType 会话类型
+ * @param  {string}                  targetId         目标Id
+ * @param  {MessageContent}          messageContent   消息类型
+ * @param  {SendMessageCallback}     sendCallback
+ * @param  {ResultCallback<Message>} resultCallback   返回值，函数回调
+ */
+instance.sendMessage(conversationType, targetId, msg, {
+		// 发送消息成功
+		onSuccess: function (message) {
+
+		}
 	}
-}, null);
+);
 </pre>
 			</div>
 		</div>
 
-
-		<div class="steps">
-			<h2>3.删除指定会话/清除会话列表</h2>
-			<div class="content">
-				<br>
-
-
-<pre>
-instance.removeConversation(conversationType,targetId,{
-	onSuccess:function(bool){
-		//删除会话成功。
-		console.log(bool);
-	},
-	onError:function(error){
-		// error => 删除会话的错误码
-		console.log(error);
-	}
-});
-</pre>
-			</div>
-		</div>
 	</div>
 
 </div>
