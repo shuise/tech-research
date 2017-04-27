@@ -75,7 +75,7 @@
     var callbacks = {
         CONNECTED: function (instance) { //传入实例参数
             //获取历史消息
-            var conversationType=RongIMLib.ConversationType.PRIVATE;
+            var conversationType = RongIMLib.ConversationType.PRIVATE;
             var targetId = 'user2';
             instance.getHistoryMessages(conversationType, targetId, null, 20, {
                 onSuccess: function (list, hasMsg) {

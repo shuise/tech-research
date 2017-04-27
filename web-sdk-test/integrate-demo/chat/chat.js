@@ -1,4 +1,4 @@
-function renderHistoryMessages(list, hasMsg ,instance) {
+function renderHistoryMessages(list, hasMsg, instance) {
     return new Vue({
         el: '#chatPage',
         data: {
@@ -11,7 +11,7 @@ function renderHistoryMessages(list, hasMsg ,instance) {
                     "phone": "13269772701",
                     "portraitUri": "http://img.duoziwang.com/2016/12/08/18594927932.jpg"
                 },
-                targetUserInfo:{
+                targetUserInfo: {
                     "id": "user2",
                     "nickname": "开发",
                     "region": "86",
@@ -19,7 +19,7 @@ function renderHistoryMessages(list, hasMsg ,instance) {
                     "portraitUri": "http://www.tshseo.com/uploads/allimg/141012/21130U347-12.jpg"
                 },
                 messageList: list,
-                sendMsgVal:''
+                sendMsgVal: ''
             }
         },
         components: {
@@ -27,35 +27,35 @@ function renderHistoryMessages(list, hasMsg ,instance) {
                 props: ['stat'],
                 template: '#chat',
                 methods: {
-                    sendMsg:function () {
+                    sendMsg: function () {
                         var text = this.stat.sendMsgVal;
-                        if (!text){
+                        if (!text) {
                             return false;
                         }
                         var msg = new RongIMLib.TextMessage({content: text, extra: "附加信息"});
-                        var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+                        var conversationType = RongIMLib.ConversationType.PRIVATE; // 私聊
                         var targetId = "user2"; // 目标 Id
-                        var that=this;
-                        instance.sendMessage(conversationtype, targetId, msg, {
+                        var that = this;
+                        instance.sendMessage(conversationType, targetId, msg, {
                                 // 发送消息成功
                                 onSuccess: function (message) {
-                                    that.stat.sendMsgVal='';
+                                    that.stat.sendMsgVal = '';
                                     that.stat.messageList.push(message);
                                     that.$nextTick(that.scrollEnd);
                                 }
                             }
                         );
                     },
-                    scrollEnd:function () {
+                    scrollEnd: function () {
                         //添加完消息 跳转到最后一条
-                        var list=document.querySelectorAll('.message-item');
-                        if(list.length > 1){
-                            var last=list[list.length-1];
+                        var list = document.querySelectorAll('.message-item');
+                        if (list.length > 1) {
+                            var last = list[list.length - 1];
                             last.scrollIntoView();
                         }
                     }
                 },
-                mounted:function () {
+                mounted: function () {
                     this.scrollEnd();
                 }
             }
