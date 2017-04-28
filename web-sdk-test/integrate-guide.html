@@ -14,7 +14,7 @@
         <div class="steps">
             <h2>1. 准备工作</h2>
             <div class="content">
-                <p>架构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html#framework">http://www.rongcloud.cn/docs/quick_start.html#framework</a>
+                <p>架构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html#framework">framework</a>
                 </p>
                 <p>应用服务器必须要处理的有：</p>
                 <ol>
@@ -24,9 +24,9 @@
                 </ol>
 
                 <p>
-                    搭建应用服务器：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a>
+                    搭建应用服务器：<a href="https://github.com/sealtalk/sealtalk-server">sealtalk-server</a>
                     <br>
-                    开发文档 <a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a>
+                    开发文档 <a href="http://www.rongcloud.cn/docs/server.html">server.html</a>
                 </p>
             </div>
         </div>
@@ -61,8 +61,8 @@
 		<div class="steps">
 			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
 			<div class="content">
-				文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
-				参考：<a href="https://rongcloud.github.io/websdk-demo/connect-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a>
+				文档：<a href="http://www.rongcloud.cn/docs/web.html">web.html</a> <br>
+				参考：<a href="https://rongcloud.github.io/websdk-demo/connect-check.html">connect-check.html</a>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -85,9 +85,9 @@
                     <li>4. 用户的在线状态</li>
 				</ul>
 
-				获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#user_get_token">http://www.rongcloud.cn/docs/server.html#user_get_token</a>
+				获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#user_get_token">user_get_token</a>
 				<br>
-				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#connect">http://www.rongcloud.cn/docs/web.html#connect</a> <br>
+				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#connect">connect</a> <br>
 
 				<a href="./integrate-demo/login/login.html">登录demo</a>
 
@@ -113,8 +113,8 @@
 					<li>4. 无用户身份处理</li>
 				</ul>
 
-				<p>开发文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
-				<p>应用服务器node版代码：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a></p>
+				<p>开发文档：<a href="http://www.rongcloud.cn/docs/server.html">server.html</a></p>
+				<p>应用服务器node版代码：<a href="https://github.com/sealtalk/sealtalk-server">sealtalk-server</a></p>
 				<p><a href="integrate-demo/server-api.md">接口文档</a></p>
 
 				<pre>code todo</pre>
@@ -131,67 +131,50 @@
 		<div class="steps">
 			<h2>6. 会话列表的实现</h2>
 			<div class="content">
-				文档：<a href="http://www.rongcloud.cn/docs/web.html#conversation">http://www.rongcloud.cn/docs/web.html#conversation</a> （请注意一定要开启 历史消息云存储功能） <br>
-				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html">https://shuise.github.io/tech-research/web-sdk-test/web-sdk-test.html</a>
+				文档：<a href="http://www.rongcloud.cn/docs/web.html#conversation">conversation</a> （请注意一定要开启 历史消息云存储功能） <br>
+				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/conversation-list/conversation-list.html">conversation-list.html</a>
 				<p>
 					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
 					另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
 				</p>
-
+				<br>
+				<p>获取会话列表，处理会话列表（拼接应用服务器提供的用户或群组信息），渲染会话列表</p>
+				<p>模拟的会话列表数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
+				<p>拼接后会话列表数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
+<pre>
+//同步会话列表
+//@param  {ResultCallback} callback 返回值，参数回调
+//@param {array} conversationTypes 可选参数，可以获取指定会话类型的会话，默认请传null
+instance.getConversationList({
+	onSuccess: function (conversation) {
+		//处理会话列表
+		transConversations(conversation, function (conversation) {
+			//渲染会话列表
+			renderConversationView(conversation,instance);
+		})
+	}
+}, null);
+</pre>
+				<br>
+				<p>删除指定会话/清除会话列表</p>
+<pre>
+instance.removeConversation(conversationType,targetId,{
+	onSuccess:function(bool){
+		//删除会话成功。
+		console.log(bool);
+	},
+	onError:function(error){
+		// error => 删除会话的错误码
+		console.log(error);
+	}
+});
+</pre>
 				<div class="helps">
 					<h3>常见问题：</h3>
 					<ol>
 						<li><a href="#">会话的分页问题</a></li>
 					</ol>
 				</div>
-
-				
-<pre>var conversation = [
-	{
-		"conversationTitle": "",
-		"conversationType": 1,
-		"latestMessage": {
-			"content": {
-				"messageName": "TextMessage",
-				"content": "hello message content",
-				"extra": "RongCloud"
-			},
-			"conversationType": 1,
-			"objectName": "RC:TxtMsg",
-			"messageDirection": 1,
-			"messageId": "1_15814",
-			"receivedStatus": 0,
-			"receivedTime": 1489567579394,
-			"senderUserId": "user8",	//此id对应发送者
-			"sentTime": 1489566164555,
-			"targetId": "user9",
-			"messageType": "TextMessage",
-			"messageUId": "5DD2-3V69-C43A-D3EE",
-			"offLineMessage": true
-		},
-		"latestMessageId": "1_15814",
-		"notificationStatus": 0,
-		"receivedStatus": 0,
-		"receivedTime": 1489567579395,
-		"sentTime": 1489566164555,
-		"targetId": "user9",
-		"unreadMessageCount": 0
-	}
-];
-
-//实际项目里应该从应用服务器获取，群组信息同理
-var userInfos = {
-	"user8" : {
-		"avatar" : "http://rongcloud.cn/images/newVersion/log_wx.png",
-		"name" : "John",
-		"other props" : ""
-	}
-};
-
-conversation.forEach(function(item){
-	item["userInfo"] = userInfos[item.latestMessage.senderUserId]
-});
-</pre>
 			</div>
 		</div>
 
@@ -200,27 +183,43 @@ conversation.forEach(function(item){
 			<div class="content">
 				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
 
-				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#history_message">http://www.rongcloud.cn/docs/web.html#history_message</a> <br>
-				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#send_message">http://www.rongcloud.cn/docs/web.html#send_message</a>
+				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#history_message">history_message</a> <br>
+				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#send_message">send_message</a>
+				<p>集成 demo : <a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/chat/chat.html">chat.html</a></p>
 <pre>
-//获取历史消息
-RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
-		onSuccess: function (list, hasMsg) {
-				list.length && renderHistoryMessages(list, hasMsg);
-				// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
-				// list 为拉取到的历史消息列表
-				// renderHistoryMessages 为自定义的渲染页面方法
-		}
+/*
+ * getHistoryMessages 拉取本地历史消息记录，如果本地没有历史消息，会自动从融云服务器拉去历史消息。
+ * @param  {ConversationType}          conversationType 会话类型
+ * @param  {string}                    targetId         用户Id
+ * @param  {number|null}               pullMessageTime  拉取历史消息起始位置(格式为毫秒数)，可以为null
+ * @param  {number}                    count            历史消息数量
+ * @param  {ResultCallback} callback         回调函数
+ */
+instance.getHistoryMessages(conversationType, targetId, null, 20, {
+	onSuccess: function (list, hasMsg) {
+		// list 为拉取到的历史消息列表
+		// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+		// renderHistoryMessages 为自定义的渲染页面方法
+		renderHistoryMessages(list, hasMsg, instance);
+	}
 });
 
-//发送消息
-RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
-	 // 发送消息成功
-	 onSuccess: function (message) {
-			 //发消息成功 渲染到消息列表
-			 renderMyMessage();
-	 }
- });
+
+/*
+ * sendMessage 发送消息。
+ * @param  {ConversationType}        conversationType 会话类型
+ * @param  {string}                  targetId         目标Id
+ * @param  {MessageContent}          messageContent   消息类型
+ * @param  {SendMessageCallback}     sendCallback
+ * @param  {ResultCallback} resultCallback   返回值，函数回调
+ */
+instance.sendMessage(conversationType, targetId, msg, {
+		// 发送消息成功
+		onSuccess: function (message) {
+
+		}
+	}
+);
 </pre>
 			</div>
 		</div>
@@ -228,14 +227,84 @@ RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
 		<div class="steps">
 			<h2>8. 发送消息的功能增强</h2>
 			<div class="content">
-				<p>图片消息，文件消息，语音消息，地理位置消息，emoji表情及自定义表情，自定义消息</p>
+				<p>图片消息，文件消息，语音消息，地理位置消息，emoji 表情及自定义表情，自定义消息</p>
 				<p>自动回复，</p>
 
-				发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#send_message">http://www.rongcloud.cn/docs/web_api_demo.html#send_message</a><br>
-				语音消息：<a href="http://www.rongcloud.cn/docs/web.html#voice">http://www.rongcloud.cn/docs/web.html#voice</a><br>
-				表情消息：<a href="http://www.rongcloud.cn/docs/web.html#emoji">http://www.rongcloud.cn/docs/web.html#emoji</a><br>
+				发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#send_message">send_message</a><br>
+				语音消息：<a href="http://www.rongcloud.cn/docs/web.html#voice">voice</a><br>
+				表情消息：<a href="http://www.rongcloud.cn/docs/web.html#emoji">emoji</a><br>
+				自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_customize">message_customize</a>
+				<p>集成 demo : <a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/message/message.html">message.html</a></p>
 
-<pre>
+				<div class="steps">
+					<h2>图片消息</h2>
+					<div class="content">
+						<br>
+						<p>模拟接收图片消息的数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "ImageMessage"</p>
+						<p>模拟发送服务器图片：<a href="//developer.rongcloud.cn">开发者站点</a> -> API 调试 -> 发送单聊消息 ->   "objectName" == "RC:ImgMsg"</p>
+						<p>上传本地图片并发送 <a href="http://www.rongcloud.cn/docs/web.html#upload_widget">上传插件文档</a></p>
+						<p>图片上传插件以七牛云为例 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/message/message.js">message.js</a></p>
+						<ol>
+							<li>1. 为上传按钮添加监听事件 watchUpload</li>
+							<li>2. 上传图片后，处理生成图片消息 createMessage</li>
+							<li>3. 调用 sendMessage 发送图片消息</li>
+						</ol>
+						<pre>
+instance.sendMessage(conversationType, targetId, msg, {
+		onSuccess: function (message) {
+			console.log("Send successfully");
+		}
+	}
+);
+</pre>
+
+					</div>
+				</div>
+				<br>
+
+				<div class="steps">
+					<h2>文件消息</h2>
+					<div class="content">
+						<br>
+						<p>模拟接收文件消息的数据 : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "FileMessage"</p>
+						<p>实现方法同图片消息</p>
+					</div>
+				</div>
+				<br>
+
+				<div class="steps">
+					<h2>自定义消息</h2>
+					<div class="content">
+						<br>
+						<p>1. 定义消息类型</p>
+						<pre>
+var messageName = "PersonMessage"; // 消息名称。
+var objectName = "s:person"; // 消息内置名称，请按照此格式命名。
+var mesasgeTag = new RongIMLib.MessageTag(true,true);// 消息是否保存是否计数，true true 保存且计数，false false 不保存不计数。
+var propertys = ["name","age"]; // 消息类中的属性名。
+RongIMClient.registerMessageType(messageName,objectName,mesasgeTag,propertys);
+</pre>
+						<p>2. 发送消息</p>
+						<pre>
+var conversationType = RongIMLib.ConversationType.PRIVATE; //私聊,其他会话选择相应的消息类型即可。
+var msg = new RongIMClient.RegisterMessage.PersonMessage({name:"zhang",age:12});
+instance.sendMessage(conversationType,targetId, msg, {
+    onSuccess: function (message) {
+
+    }
+});
+</pre>
+						<p>3. 接收消息</p>
+						<p>接收消息与其他内置消息一致，在上文中提到的 setOnReceiveMessageListener 中增加 case 将消息予以展示即可。</p>
+					</div>
+				</div>
+				<br>
+
+				<div class="steps">
+					<h2>emoji 表情</h2>
+					<div class="content">
+						<br>
+						<pre>
 //获取全部表情
 var emojis = RongIMLib.RongIMEmoji.emojis;
 //把表情循环添加进表情框中，这里假设是body
@@ -247,8 +316,10 @@ var emojiItem=emojis[nth].innerHTML;
 var reg=/name="([[\w\W]+])"/;
 emojiContent= reg.exec(emojiItem)[1];
 </pre>
+					</div>
+				</div>
+				<br>
 
-				自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_customize">http://www.rongcloud.cn/docs/web_api_demo.html#message_customize</a>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -263,8 +334,187 @@ emojiContent= reg.exec(emojiItem)[1];
 		<div class="steps">
 			<h2>9. 公众号</h2>
 			<div class="content">
-				<p>搜索，关注，取消关注公众号，接收公众号推送</p>
-				<p>给公众号留言</p>
+				<div class="steps">
+					<h2>1. 准备工作</h2>
+					<div class="content">
+						<br>
+						<p>公众号创建流程：</p>
+						<ol>
+							<li>1. 在公众号系统：<a href="http://public.rongcloud.cn">http://public.rongcloud.cn</a>  创建公众号并更新发布</li>
+							<li>2. 登录 开发者管理后台 <a href="https://developer.rongcloud.cn">https://developer.rongcloud.cn</a> 通过 “公众服务平台 -> 添加私有公众号”给 app 添加公众号,添加私有公众号需要应用申请上线，上线后页面右上角出现添加私有公众号按钮（公众号为填写公众平台 -> 公众号设置 -> 公众号，公众号识别码为公众平台 -> APP 接入模式设置 -> 私有模式 -> 当前识别码</li>
+							<li>3. 用户可以在第二步的添加结果里进行搜索和关注操作，关注后可以通过消息监听接受公众号的推送，用户也可以给公众号留言，具体细节参考页面里的示例代码和注释。</li>
+						</ol>
+						<br>
+						<p>
+							调试 demo <a href="https://rongcloud.github.io/websdk-demo/api-test.html">api-test.html</a>
+							<br>
+							集成 demo：<a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/public/public.html">public.html</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>2. 集成的思路</h2>
+					<div class="content">
+						<br>
+						<p>页面分配</p>
+						<ol>
+							<li>0. 公众号模板主页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public.html">public.html</a></li>
+							<li>1. 公众号列表页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-list.html">public-list.html</a></li>
+							<li>2. 公众号搜索页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-search.html">public-search.html</a></li>
+							<li>3. 公众号详情页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-info.html">public-info.html</a></li>
+							<li>4. 公众号聊天页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-chat.html">public-chat.html</a></li>
+							<li>5. 公众号推送文章页 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-article.html">public-article.html</a></li>
+						</ol>
+
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>3. 引入SDK，并完成初始化、链接云端</h2>
+					<div class="content">
+						<br>
+						<p>初始化参考：<a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-init.js">public-init.js</a></p>
+
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>4. 公众号列表页</h2>
+					<div class="content">
+						<br>
+						<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-list.html">public-list.html</a></p>
+						<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-list.js">public-list.js</a></p>
+						<p>公众号列表数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-mock-data.json">public-mock-data.json</a> 中的 "publicList"</p>
+						<br>
+						<p>变量解释：</p>
+						<ol>
+							<li>conversationType : 7, 私有云里只有应用公众服务（MC） 8, 公有公众服务（MP）</li>
+							<li>hasFollowed : 是否关注 </li>
+							<li>introduction : 功能描述</li>
+							<li>isGlobal : 是否全局</li>
+							<li>menu : 自定义菜单</li>
+							<li>name : 昵称</li>
+							<li>portraitUri : 头像 url</li>
+							<li>publicServiceId : 公众号 id</li>
+						</ol>
+						<br>
+						<pre>
+//获取已关注公众号
+RongIMClient.getInstance().getPublicServiceList({
+	onSuccess: function (list) {
+		console.log("获取已关注公众号 成功");
+	}
+});
+</pre>
+
+
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>5. 公众号搜索页</h2>
+					<div class="content">
+						<br>
+						<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-search.html">public-search.html</a></p>
+						<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-search.js">public-search.js</a></p>
+						<p>公众号搜索数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-mock-data.json">public-mock-data.json</a> 中的 "searchList"</p>
+						<br>
+						<pre>
+//根据用户输入关键字搜索未关注公众号
+var keywords = this.stat.searchVal;
+var searchType = 1; //[0-exact 1-fuzzy]
+RongIMClient.getInstance().searchPublicService(searchType, keywords, {
+	onSuccess: function (list) {
+		//console.log("查找公众号 成功");
+		//list 为匹配到的所以结果
+		//that.stat.searchList=list;
+		var listUnFollowed = [];
+		$(list).each(function () {
+			this.hasFollowed == false && listUnFollowed.push(this);
+		});
+	}
+});
+</pre>
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>6. 公众号详情页</h2>
+					<div class="content">
+						<br>
+						<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-info.html">public-info.html</a></p>
+						<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-info.js">public-info.js</a></p>
+						<p>公众号详情数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-mock-data.json">public-mock-data.json</a> "searchList" 中的对象</p>
+						<br>
+						<pre>
+//订阅公众号
+var publicServiceType = RongIMLib.ConversationType.PUBLIC_SERVICE;
+RongIMClient.getInstance().subscribePublicService(publicServiceType, publicServiceId, {
+	onSuccess: function (list) {
+		console.log("订阅公众号 成功");
+	}
+});
+
+//取消订阅公众号
+RongIMClient.getInstance().unsubscribePublicService(publicServiceType, publicServiceId, {
+	onSuccess: function (list) {
+		console.log("取消订阅公众号 成功");
+	}
+});
+</pre>
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>7. 公众号聊天页</h2>
+					<div class="content">
+						<br>
+						<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-chat.html">public-chat.html</a></p>
+						<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-chat.js">public-chat.js</a></p>
+						<p>公众号回复用户消息在 <a href="http://public.rongcloud.cn">公众平台</a> -> 用户回复</p>
+						<p>公众号聊天消息数据模型 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-mock-data.json">public-mock-data.json</a> "msgList" 中 "messageType" = "TextMessage" 为文本消息，"messageType" = "PublicServiceMultiRichContentMessage"为公众号推送多图文消息</p>
+						<br>
+						<p>变量解释：</p>
+						<ol>
+							<li>messageDirection : 1, 发送消息方 2, 接收消息方</li>
+							<li>messageType : 消息类型 </li>
+							<li>articles : 公众号推送图文</li>
+							<li>picurl : 文章预览图 url 地址</li>
+							<li>title : 文章标题</li>
+							<li>url : 文章地址</li>
+						</ol>
+						<br>
+						<pre>
+//发送消息
+var text = this.stat.sendMsgVal ;
+var msg = new RongIMLib.TextMessage({content: text, extra: "公众号"});
+RongIMClient.getInstance().sendMessage(conversationtype, publicServiceId, msg, {
+	onSuccess: function (message) {
+		//发送成功后 渲染已发送消息
+		that.stat.msgList.push(message);
+	}
+});
+</pre>
+					</div>
+				</div>
+
+				<div class="steps">
+					<h2>8. 公众号推送文章页</h2>
+					<div class="content">
+						<br>
+						<p>html : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/template/public-article.html">public-article.html</a></p>
+						<p>js : <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/js/public-article.js">public-article.js</a></p>
+						<p>公众号向用户推送文章在 <a href="http://public.rongcloud.cn">公众平台</a> -> 消息推送</p>
+						<p>公众号推送文章地址为 <a href="https://github.com/shuise/tech-research/blob/master/web-sdk-test/integrate-demo/public/public-mock-data.json">public-mock-data.json</a> "msgList" 中 "messageType" = "PublicServiceMultiRichContentMessage" 公众号推送多图文消息 articles.url</p>
+						<br>
+						<pre>
+//文章内容嵌套在 iframe 中
+&lt;iframe :src="stat.articleUrl">&lt;/iframe>
+</pre>
+					</div>
+
+				</div>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -275,24 +525,6 @@ emojiContent= reg.exec(emojiItem)[1];
 
 				
 
-				
-				<pre>/*
-公众号
-RongIMLib.ConversationType = {
-	APP_PUBLIC_SERVICE : "应用服务平台 mc",
-	PUBLIC_SERVICE : "公众服务平台 mp"
-};
-*/
-
-var publicServiceType = RongIMLib.ConversationType.APP_PUBLIC_SERVICE; //固定值
-var publicServiceId = "shuise"; //RongCloud
-var searchType = 1; //[0-exact 1-fuzzy]
-var keywords = "Rong";
-
-//用户给公众号发消息
-var conversationtype = RongIMLib.ConversationType.PUBLIC_SERVICE;
-var targetId = publicServiceId
-				</pre>
 			</div>
 		</div>
 	</div>

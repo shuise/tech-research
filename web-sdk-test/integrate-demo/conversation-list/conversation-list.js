@@ -26,7 +26,7 @@ function transConversations(conversation, callback) {
         //获取需要查询用户列表
         var conversationUsers = [], userInfos;
         conversation.forEach(function (item) {
-            conversationUsers.push({conversationType: item.conversationType, id: item.latestMessage.targetId});
+            conversationUsers.push({conversationType: item.conversationType, id: item.latestMessage.senderUserId});
         });
 
         //获取用户信息
@@ -35,7 +35,7 @@ function transConversations(conversation, callback) {
 
             conversation.forEach(function (item) {
 
-                item["userInfo"] = userInfos[item.latestMessage.targetId];
+                item["userInfo"] = userInfos[item.latestMessage.senderUserId];
 
             });
 
