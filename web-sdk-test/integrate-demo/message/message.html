@@ -48,9 +48,10 @@
                             <img v-else :src="stat.targetUserInfo.portraitUri" class="rong-avatar-bd">
                         </div>
                         <div class="message-body">
-                            <pre class="user-msg" v-if="msg.content.messageName == 'TextMessage'">{{msg.content.content}}</pre>
+                            <pre class="user-msg">{{msg.content.content}}</pre>
                         </div>
                     </div>
+
                     <div v-if="msg.messageType == 'ImageMessage'" class="message-img">
                         <div class="rong-avatar">
                             <img v-if="msg.messageDirection == 1" :src="stat.currentUserInfo.portraitUri"
@@ -61,6 +62,7 @@
                             <img class="image-message" :src="msg.content.imageUri" alt="image">
                         </div>
                     </div>
+
                     <div v-if="msg.messageType == 'FileMessage'" class="message-file">
                         <div class="rong-avatar">
                             <img v-if="msg.messageDirection == 1" :src="stat.currentUserInfo.portraitUri"
@@ -71,6 +73,17 @@
                             <div class="file-ava"><img ng-src="assets/img/undefined.png" src="http://web.sealtalk.im/assets/img/undefined.png"></div>
                             <div class="file-info"><p class="file-name">{{msg.content.name}}</p><p class="file-size">{{msg.content.size/1000}} K</p></div>
                             <a class="file-download" :href="msg.content.fileUrl" target="_blank">下载</a>
+                        </div>
+                    </div>
+
+                    <div v-if="msg.messageType == 'PersonMessage'" class="message-text">
+                        <div class="rong-avatar">
+                            <img v-if="msg.messageDirection == 1" :src="stat.currentUserInfo.portraitUri"
+                                 class="rong-avatar-bd">
+                            <img v-else :src="stat.targetUserInfo.portraitUri" class="rong-avatar-bd">
+                        </div>
+                        <div class="message-body">
+                            <pre class="user-msg">{{msg.content.content}}（自定义消息）</pre>
                         </div>
                     </div>
                 </div>
@@ -86,6 +99,7 @@
             <span class="send-img"><input type="file" id="upload-img" value="upload-file" class="upload-img">图片</span>
             <span class="send-file"><input type="file" id="upload-file" value="upload-file" class="upload-file">文件</span>
             <span class="send-btn" @touchend="sendMsg">发送</span>
+            <span class="send-btn" @touchend="sendPersonal">自定义</span>
         </footer>
         <!--footer-->
     </div>
@@ -100,6 +114,9 @@
     };
     var callbacks = {
         CONNECTED: function (instance) { //传入实例参数
+            //注册自定义消息
+            registerMessage();
+
             //获取历史消息
             var conversationType = RongIMLib.ConversationType.PRIVATE;
             var targetId = 'user2';
@@ -113,6 +130,7 @@
 
         },
         Success: function (id) {
+
         },
         Received: function (message) {
             console.log(message);
