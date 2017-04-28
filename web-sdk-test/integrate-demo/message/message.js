@@ -69,6 +69,22 @@ function renderHistoryMessages(list, hasMsg, instance) {
                                 }
                             }
                         );
+                    },
+                    sendPersonal:function () {
+                        var text = this.stat.sendMsgVal || 'personalMsg';
+                        var msg = new RongIMClient.RegisterMessage.PersonMessage({content:text,type:"personal"});
+                        var conversationType = RongIMLib.ConversationType.PRIVATE; // 私聊
+                        var targetId = "user2"; // 目标 Id
+                        var that = this;
+                        instance.sendMessage(conversationType, targetId, msg, {
+                                // 发送消息成功
+                                onSuccess: function (message) {
+                                    that.stat.sendMsgVal = '';
+                                    that.stat.messageList.push(message);
+                                    that.$nextTick(that.scrollEnd);
+                                }
+                            }
+                        );
                     }
                 },
                 mounted: function () {
@@ -210,4 +226,20 @@ function watchUpload(im,that){
         var _file = this.files[0];
         initType[getFileType(_file.name)](_file);
     };
+}
+
+
+function registerMessage(opt) {
+    var defaultOpt = {
+        messageName: "PersonMessage",// 消息名称。
+        objectName: "s:person",// 消息内置名称，请按照此格式命名。
+        messageTag: [true, true],// 消息是否保存是否计数，true true 保存且计数，false false 不保存不计数。
+        propertys: ["content", "type"]// 消息类中的属性名。
+    };
+    opt = $.extend(defaultOpt, opt || {});
+    var messageName = opt.messageName;
+    var objectName = opt.objectName;
+    var messageTag = new RongIMLib.MessageTag(opt.messageTag[0],opt.messageTag[1]);
+    var propertys = opt.propertys;
+    RongIMClient.registerMessageType(messageName, objectName, messageTag, propertys);
 }
