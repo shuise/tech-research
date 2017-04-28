@@ -19,7 +19,7 @@
                 <p>应用服务器必须要处理的有：</p>
                 <ol>
                     <li>1. 维护用户信息，群组信息，好友关系，并提供对应接口供集成使用</li>
-                    <li>2. 获取并存储token</li>
+                    <li>2. 获取并存储 token</li>
                     <li>3. 系统消息，通知等</li>
                 </ol>
 
@@ -32,18 +32,18 @@
         </div>
 
 		<div class="steps">
-			<h2>2. 自行设计并UI界面</h2>
+			<h2>2. 自行设计并 UI 界面</h2>
 			<div class="content">
 				<p>集成的思路：</p>
 				<ol>
-					<li>1. 根据功能选择SDK里对应的API</li>
-					<li>2. 应用服务器提供其他API之外所有的数据和功能支持</li>
+					<li>1. 根据功能选择 SDK 里对应的 API</li>
+					<li>2. 应用服务器提供其他 API 之外所有的数据和功能支持</li>
 					<li>3. 合并两部分数据，通过模板渲染呈现（为了实时响应数据变化，建议使用双向绑定）</li>
-					<li>4. 注册对应的事件，包括API的方法（比如发送消息等）或者自行实现的业务方法（注册登录等）</li>
+					<li>4. 注册对应的事件，包括 API 的方法（比如发送消息等）或者自行实现的业务方法（注册登录等）</li>
 				</ol>
 				<br>
 
-				<p>SDK的API</p>
+				<p>SDK 的 API</p>
 				<ol>
 					<li>1. 链接相关</li>
 					<li>2. 收发消息</li>
@@ -59,7 +59,7 @@
 		</div>
 
 		<div class="steps">
-			<h2>3. 引入SDK，并完成初始化、链接云端</h2>
+			<h2>3. 引入 SDK，并完成初始化、链接云端</h2>
 			<div class="content">
 				文档：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a> <br>
 				参考：<a href="https://rongcloud.github.io/websdk-demo/connect-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a>
@@ -67,7 +67,7 @@
 				<div class="helps">
 					<h3>常见问题：</h3>
 					<ol>
-						<li><a href="https://rongcloud.github.io/websdk-demo/require.html">项目已使用require或其他模块化加载，应该如何初始化？</a></li>
+						<li><a href="https://rongcloud.github.io/websdk-demo/require.html">项目已使用 require 或其他模块化加载，应该如何初始化？</a></li>
 						<li><a href="https://rongcloud.github.io/websdk-demo/init.js">私有云如何初始化？</a></li>
 					</ol>
 				</div>
@@ -79,17 +79,17 @@
 			<div class="content">
 				<p>可以根据业务需要设计用户名和密码规则，具体的流程：</p>
 				<ul>
-                    <li>1. 应用服务器处理用户的注册及校验，注册成功后，通过应用服务器访问融云服务器获取用户token并存储在应用服务器</li>
-                    <li>2. 用户成功登录后，通过应用服务器返回token</li>
-                    <li>3. 端上用户使用token链接融云服务器</li>
+                    <li>1. 应用服务器处理用户的注册及校验，注册成功后，通过应用服务器访问融云服务器获取用户 token 并存储在应用服务器</li>
+                    <li>2. 用户成功登录后，通过应用服务器返回 token</li>
+                    <li>3. 端上用户使用 token 链接融云服务器</li>
                     <li>4. 用户的在线状态</li>
 				</ul>
 
-				获取Token文档：<a href="http://www.rongcloud.cn/docs/server.html#user_get_token">http://www.rongcloud.cn/docs/server.html#user_get_token</a>
+				获取 token 文档：<a href="http://www.rongcloud.cn/docs/server.html#user_get_token">http://www.rongcloud.cn/docs/server.html#user_get_token</a>
 				<br>
-				使用token链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#connect">http://www.rongcloud.cn/docs/web.html#connect</a> <br>
+				使用 token 链接融云服务器文档：<a href="http://www.rongcloud.cn/docs/web.html#connect">http://www.rongcloud.cn/docs/web.html#connect</a> <br>
 
-				<a href="./integrate-demo/login/login.html">登录demo</a>
+				<a href="./integrate-demo/login/login.html">登录 demo</a>
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -114,7 +114,7 @@
 				</ul>
 
 				<p>开发文档：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></p>
-				<p>应用服务器node版代码：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a></p>
+				<p>应用服务器 node 版代码：<a href="https://github.com/sealtalk/sealtalk-server">https://github.com/sealtalk/sealtalk-server</a></p>
 				<p><a href="integrate-demo/server-api.md">接口文档</a></p>
 
 				<pre>code todo</pre>
@@ -122,7 +122,7 @@
 				<div class="helps">
 					<h3>常见问题：</h3>
 					<ol>
-						<li>用户与消息通过id关联，userId == message.senderUserId</li>
+						<li>用户与消息通过 id 关联，userId == message.senderUserId</li>
 					</ol>
 				</div>
 			</div>
@@ -131,10 +131,11 @@
 		<div class="steps">
 			<h2>6. 会话列表的实现</h2>
 			<div class="content">
-				文档：<a href="http://www.rongcloud.cn/docs/web.html#conversation">http://www.rongcloud.cn/docs/web.html#conversation</a> （请注意一定要开启 历史消息云存储功能） <br>
+				文档：<a href="http://www.rongcloud.cn/docs/web.html#conversation">http://www.rongcloud.cn/docs/web.html#conversation</a> （请注意一定要开启 单群聊消息云端存储功能
+				<a href="http://www.rongcloud.cn/pricing/#pay">收费详情</a>） <br>
 				参考：<a href="https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/conversation-list/conversation-list.html">https://shuise.github.io/tech-research/web-sdk-test/integrate-demo/conversation-list/conversation-list.html</a>
 				<p>
-					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK提供了 getConversationList方法获取数据； <br>
+					会话列表的数据分两部分，<br>一部分是会话列表（包含最后一条消息），SDK 提供了 getConversationList 方法获取数据； <br>
 					另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
 				</p>
 				<br>
@@ -144,7 +145,7 @@
 <pre>
 //同步会话列表
 //@param  {ResultCallback} callback 返回值，参数回调
-//@param {array} conversationTypes 可选参数，可以获取指定会话类型的会话，默认请传null
+//@param {array} conversationTypes 可选参数，可以获取指定会话类型的会话，默认请传 null
 instance.getConversationList({
 	onSuccess: function (conversation) {
 		//处理会话列表
@@ -181,7 +182,7 @@ instance.removeConversation(conversationType,targetId,{
 		<div class="steps">
 			<h2>7. 聊天窗口的实现</h2>
 			<div class="content">
-				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
+				<p>聊天窗口由两部分组成，历史消息的列表以及发送消息的窗口，SDK 提供了两个对应的方法，getHistroyMessage，sendMessage，消息旁的用户信息与会话列表处理方式一致</p>
 
 				获取历史消息： <a href="http://www.rongcloud.cn/docs/web.html#history_message">http://www.rongcloud.cn/docs/web.html#history_message</a> <br>
 				发送消息：<a href="http://www.rongcloud.cn/docs/web.html#send_message">http://www.rongcloud.cn/docs/web.html#send_message</a>
@@ -191,14 +192,14 @@ instance.removeConversation(conversationType,targetId,{
  * getHistoryMessages 拉取本地历史消息记录，如果本地没有历史消息，会自动从融云服务器拉去历史消息。
  * @param  {ConversationType}          conversationType 会话类型
  * @param  {string}                    targetId         用户Id
- * @param  {number|null}               pullMessageTime  拉取历史消息起始位置(格式为毫秒数)，可以为null
+ * @param  {number|null}               pullMessageTime  拉取历史消息起始位置(格式为毫秒数)，可以为 null
  * @param  {number}                    count            历史消息数量
  * @param  {ResultCallback} callback         回调函数
  */
 instance.getHistoryMessages(conversationType, targetId, null, 20, {
 	onSuccess: function (list, hasMsg) {
 		// list 为拉取到的历史消息列表
-		// hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
+		// hasMsg 为 boolean 值，如果为 true 则表示还有剩余历史消息可拉取，为 false 的话表示没有剩余历史消息可供拉取。
 		// renderHistoryMessages 为自定义的渲染页面方法
 		renderHistoryMessages(list, hasMsg, instance);
 	}
@@ -307,9 +308,9 @@ instance.sendMessage(conversationType,targetId, msg, {
 						<pre>
 //获取全部表情
 var emojis = RongIMLib.RongIMEmoji.emojis;
-//把表情循环添加进表情框中，这里假设是body
+//把表情循环添加进表情框中，这里假设是 body
 emojis.forEach(function(item){document.body.append(item)})
-//给每个表情绑定点击事件 获取当前点击表情的序号，这里随机假设是nth
+//给每个表情绑定点击事件 获取当前点击表情的序号，这里随机假设是 nth
 var nth = Math.round((emojis.length-1) * Math.random());
 //获取点击表情的内容，添加在用户输入框中
 var emojiItem=emojis[nth].innerHTML;
@@ -324,7 +325,7 @@ emojiContent= reg.exec(emojiItem)[1];
 				<div class="helps">
 					<h3>常见问题：</h3>
 					<ol>
-						<li><a href="#">emoji的发送、接收、解码与显示处理逻辑</a></li>
+						<li><a href="#">emoji 的发送、接收、解码与显示处理逻辑</a></li>
 					</ol>
 				</div>
 
