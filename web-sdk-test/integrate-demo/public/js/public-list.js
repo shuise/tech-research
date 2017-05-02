@@ -1,7 +1,7 @@
 /**
  * Created by wangchengkuo on 17/4/12.
  */
-function getPublicList(_options) {
+function getPublicList(instance,_options) {
     var options = {
         props: ['stat'],
         template: 'template/public-list.html',
@@ -19,7 +19,7 @@ function getPublicList(_options) {
                 });*/
 
 
-                RongIMClient.getInstance().getPublicServiceList({
+                instance.getPublicServiceList({
                     onSuccess: function (list) {
                         console.log("获取已关注公众号 成功");
                         that.stat.publicList = list;

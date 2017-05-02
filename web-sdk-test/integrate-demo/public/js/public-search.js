@@ -1,7 +1,7 @@
 /**
  * Created by wangchengkuo on 17/4/12.
  */
-function getPublicSearch(_options) {
+function getPublicSearch(instance,_options) {
     var options = {
         props: ['stat'],
         template: 'template/public-search.html',
@@ -22,7 +22,7 @@ function getPublicSearch(_options) {
 
                 var keywords = this.stat.searchVal;
                 var searchType = 1; //[0-exact 1-fuzzy]
-                RongIMClient.getInstance().searchPublicService(searchType, keywords, {
+                instance.searchPublicService(searchType, keywords, {
                     onSuccess: function (list) {
                         //console.log("查找公众号 成功");
                         //that.stat.searchList=list;

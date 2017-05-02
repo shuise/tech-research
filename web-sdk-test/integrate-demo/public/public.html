@@ -19,7 +19,7 @@
     <script src="//cdn.ronghub.com/RongEmoji-2.2.5.min.js"></script>
 
 
-    <script src="js/public-init.js"></script>
+    <script src="../init.js"></script>
 
     <script src="js/public-chat.js"></script>
     <script src="js/public-info.js"></script>
@@ -40,7 +40,27 @@
 </div>
 </body>
 <script type="text/javascript">
-    function initVue() {
+    //初始化
+    var publicApp;
+    var userInfo = {
+        appKey: "e0x9wycfeazyq",
+        token: "RMmWBeca3K1iQ4yVKrWy6OKSeuOyOAQ/XPr4sUlvw/p2OWJL0P5SG28RhmHYnEOOK2NQ8457HM0="
+    };
+    var callbacks = {
+        CONNECTED: function (instance) { //传入实例参数
+            publicApp=initVue(instance);
+
+        },
+        Success: function (id) {
+        },
+        Received: function (message) {
+            if (message.messageType == RongIMClient.MessageType.TextMessage || message.messageType == "PublicServiceMultiRichContentMessage"){
+                publicApp.stat.msgList.push(message);
+            }
+        }
+    };
+    init(userInfo, callbacks);
+    function initVue(instance) {
         var publicPage = new Vue({
             el: '#publicPage',
             data: {
@@ -59,11 +79,11 @@
                 }
             },
             components: {
-                publicChat: getPublicChat(),
-                publicInfo: getPublicInfo(),
-                publicList: getPublicList(),
-                publicSearch: getPublicSearch(),
-                publicArticle: getPublicArticle()
+                publicChat: getPublicChat(instance),
+                publicInfo: getPublicInfo(instance),
+                publicList: getPublicList(instance),
+                publicSearch: getPublicSearch(instance),
+                publicArticle: getPublicArticle(instance)
             },
             methods: {}
         });

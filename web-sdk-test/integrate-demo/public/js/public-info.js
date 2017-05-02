@@ -1,7 +1,7 @@
 /**
  * Created by wangchengkuo on 17/4/12.
  */
-function getPublicInfo(_options) {
+function getPublicInfo(instance,_options) {
     var options = {
         props: ['stat'],
         template: 'template/public-info.html',
@@ -16,7 +16,7 @@ function getPublicInfo(_options) {
                     publicServiceType = RongIMLib.ConversationType.PUBLIC_SERVICE
                 }
                 var publicServiceId = this.stat.currentPublic.publicServiceId;
-                RongIMClient.getInstance().unsubscribePublicService(publicServiceType, publicServiceId, {
+                instance.unsubscribePublicService(publicServiceType, publicServiceId, {
                     onSuccess: function (list) {
                         console.log("取消订阅公众号 成功");
                         console.log(list);
@@ -35,7 +35,7 @@ function getPublicInfo(_options) {
                     publicServiceType = RongIMLib.ConversationType.PUBLIC_SERVICE
                 }
                 var publicServiceId = this.stat.currentPublic.publicServiceId;
-                RongIMClient.getInstance().subscribePublicService(publicServiceType, publicServiceId, {
+                instance.subscribePublicService(publicServiceType, publicServiceId, {
                     onSuccess: function (list) {
                         console.log("订阅公众号 成功");
                         console.log(list);
