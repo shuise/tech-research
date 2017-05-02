@@ -19,7 +19,6 @@
     	global[namespace] = factory(namespace);
     }
 })(window, function(namespace){
-	
     var isSupportFlash = (function(){
 	    var version = "", n = navigator; 
 	    if (n.plugins && n.plugins.length) {
@@ -30,19 +29,24 @@
 	                  break; 
 	             } 
 	        } 
-	    }else if (ActiveXObject) { 
-	        var swf = new ActiveXObject('ShockwaveFlash.ShockwaveFlash'); 
+	    }else if (window.ActiveXObject) { 
+	        var swf = new window.ActiveXObject('ShockwaveFlash.ShockwaveFlash'); 
 	        if(swf) {
 	            VSwf=swf.GetVariable("$version");
 	            flashVersion=parseInt(VSwf.split(" ")[1].split(",")[0]);
 	            version = VSwf.toLowerCase().split('win').join('').split(',').join('.');
 	        }
 	    }
+
 	    return version != ""; 
 	})();
 
 	var isSupportAudio = (function(){
-		return Audio + "" === "function HTMLAudioElement() { [native code] }";
+        var AudioStr = Audio + "";
+        
+        if( AudioStr.indexOf("[native code") != -1){
+            return true;
+        }
         // return false;
 	})();
 
@@ -113,6 +117,18 @@
             onended: util.noop
         }
     };
+
+
+    //判断是否为微信浏览器
+    var isWeChatBrowser =  function (){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     var getFlashPlayer = function(id){
         return window[id];
@@ -194,10 +210,26 @@
 
     var canPlay = function(audio, data, callbacks){
         audio.onended = callbacks.onended;
-        audio.src = data;
-        audio.play();
+        var isWeChat = isWeChatBrowser();
+        if(isWeChat){  
+            wx.config({
+                // 配置信息
+            });
+            wx.ready(function () {
+                audioPlay(audio,data);
+            });
+        }
+        else{
+           audioPlay(audio,data);
+        }
+       
         callbacks.onplayed();
     };
+
+    var audioPlay = function(audio,data){
+        audio.src = data;
+        audio.play();
+    }
 
     var playProcess = {
         cache: function(audio, base64, callbacks){
@@ -259,8 +291,6 @@
             return createAudioPlayer;
         }else if(isSupportFlash){
             return createFlashPlayer;
-        }else{
-            // TODO 微信
         }
     };
 
