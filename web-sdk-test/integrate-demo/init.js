@@ -1,3 +1,4 @@
+
 function init(userInfo,callbacks) {
     if (!userInfo.appKey || !userInfo.token){
         return false;
