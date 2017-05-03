@@ -8,9 +8,9 @@
 <body>
 <div class="wrap">
     <h1>会话列表 集成引导</h1>
-	<p>API 文档 : <a href="http://www.rongcloud.cn/docs/web_api_demo.html#conversation">http://www.rongcloud.cn/docs/web_api_demo.html#conversation</a>（请注意一定要开启 单群聊消息云端存储功能
+	<p>文档: <a href="http://www.rongcloud.cn/docs/web_api_demo.html#conversation">http://www.rongcloud.cn/docs/web_api_demo.html#conversation</a>（请注意一定要开启 单群聊消息云端存储功能
 		<a href="http://www.rongcloud.cn/pricing/#pay">收费详情</a>）</p>
-	<p>集成 demo : <a href="conversation-list.html">conversation-list.html</a></p>
+	<p>集成 demo: <a href="conversation-list.html">conversation-list.html</a></p>
 	<p>
 		会话列表的数据分两部分，<br>
 		一部分是会话列表（包含最后一条消息），SDK 提供了 getConversationList 方法获取数据；<br>
@@ -20,7 +20,7 @@
         <div class="steps">
             <h2>1.用户登录成功后，获取 appKey，token，链接云端</h2>
             <div class="content">
-				<p>模拟的用户及群组信息数据 : <a href="conversation-list.json">conversation-list.json</a> 中的 "userInfos,groupInfos"</p>
+				<p>模拟的用户及群组信息数据: <a href="conversation-list.json">conversation-list.json</a> 中的 "userInfos,groupInfos"</p>
 				<p>调用 init() 初始化，链接云端</p>
 <pre>
 var userInfo = {
@@ -43,8 +43,8 @@ init(userInfo, callbacks);
 		<div class="steps">
 			<h2>2.获取会话列表，处理会话列表（拼接应用服务器提供的用户或群组信息），渲染会话列表</h2>
 			<div class="content">
-				<p>模拟的会话列表数据 : <a href="conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
-				<p>拼接后会话列表数据 : <a href="conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
+				<p>模拟的会话列表数据: <a href="conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
+				<p>拼接后会话列表数据: <a href="conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
 
 <pre>
 //同步会话列表
