@@ -25,8 +25,11 @@
   "groupInfos": {
     "workGroup": {
       "id": "workGroup",
-      "nickname": "工作群",
-      "portraitUri": "http://intern.wargaming.net/wp-content/uploads/2016/04/community-icon-01-1.png"
+      "name": "工作群",
+      "portraitUri": "http://intern.wargaming.net/wp-content/uploads/2016/04/community-icon-01-1.png",
+      "creatorId": "user1",
+      "memberCount": 3,
+      "maxMemberCount": 500
     }
   },
   "conversation": [
@@ -144,10 +147,10 @@
       "targetId": "user3",
       "unreadMessageCount": 0,
       "userInfo": {
-        "appKey": "82hegw5u8mqwx",
-        "userId": "user3",
-        "userToken": "2Ksj1/iMHPcP+Qxu2cxczjCvQwRQ4mI0ws9X674LamLVDfNK14vl8XDnvliYWu63g+7T5b5QffTB/7k277LKPw==",
-        "name": "测试",
+        "id": "user3",
+        "nickname": "测试",
+        "region": "86",
+        "phone": "13269772703",
         "portraitUri": "http://www.yangshuai.net/wp-content/uploads/2012/01/812.jpg"
       }
     },
@@ -179,10 +182,10 @@
       "targetId": "user2",
       "unreadMessageCount": 0,
       "userInfo": {
-        "appKey": "82hegw5u8mqwx",
-        "userId": "user2",
-        "userToken": "esLjHj/QaSHTMLQBXwGKaTCvQwRQ4mI0ws9X674LamLVDfNK14vl8Rlq07o7i/cwWreFBPT2TOKAGXo99I/APA==",
-        "name": "开发",
+        "id": "user2",
+        "nickname": "开发",
+        "region": "86",
+        "phone": "13269772702",
         "portraitUri": "http://www.tshseo.com/uploads/allimg/141012/21130U347-12.jpg"
       }
     },
@@ -214,8 +217,12 @@
       "targetId": "workGroup",
       "unreadMessageCount": 0,
       "userInfo": {
+        "id": "workGroup",
         "name": "工作群",
-        "portraitUri": "http://intern.wargaming.net/wp-content/uploads/2016/04/community-icon-01-1.png"
+        "portraitUri": "http://intern.wargaming.net/wp-content/uploads/2016/04/community-icon-01-1.png",
+        "creatorId": "user1",
+        "memberCount": 3,
+        "maxMemberCount": 500
       }
     }
   ]

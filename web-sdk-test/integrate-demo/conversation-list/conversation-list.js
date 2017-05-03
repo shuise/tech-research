@@ -19,37 +19,37 @@ function getMockData(url, params, callback) {
 }
 
 
-function transConversations(conversation, callback) {
+function transConversations(conversations, callback) {
 
-    if (conversation.length) {
+    if (conversations.length) {
 
         //获取需要查询用户列表
         var conversationUsers = [], userInfos;
-        conversation.forEach(function (item) {
-            conversationUsers.push({conversationType: item.conversationType, id: item.latestMessage.senderUserId});
+        conversations.forEach(function (item) {
+            conversationUsers.push({conversationType: item.conversationType, id: item.targetId});
         });
 
         //获取用户信息
         getMockData("/user/get_user", conversationUsers, function (data) {
             userInfos = data;
 
-            conversation.forEach(function (item) {
+            conversations.forEach(function (item) {
 
-                item["userInfo"] = userInfos[item.latestMessage.senderUserId];
+                item["userInfo"] = userInfos[item.targetId];
 
             });
 
-            callback(conversation);
+            callback(conversations);
         });
 
 
     } else {
-        callback(conversation);
+        callback(conversations);
     }
 
 }
 
-function renderConversationView(conversation, instance) {
+function renderConversationView(translatedConversations, instance) {
 
     return new Vue({
         el: '#conversationListPage',
@@ -63,7 +63,7 @@ function renderConversationView(conversation, instance) {
                     "phone": "13269772701",
                     "portraitUri": "http://img.duoziwang.com/2016/12/08/18594927932.jpg"
                 },
-                conversationList: conversation
+                conversationList: translatedConversations
             }
         },
         components: {

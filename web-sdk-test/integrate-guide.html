@@ -51,9 +51,6 @@
 					<li>4. 聊天室相关</li>
 					<li>5. 公众服务相关</li>
 				</ol>
-				<br>
-
-				<br>
 
 			</div>
 		</div>
@@ -97,7 +94,6 @@
 						<li><a href="http://support.rongcloud.cn/search?changetype=1&q=%E6%B8%B8%E5%AE%A2">如何实现游客无需注册登录聊天？</a></li>
 					</ol>
 				</div>
-<pre></pre>
 			</div>
 		</div>
 
@@ -138,7 +134,26 @@
 					另外一部分是会话对象（联系人，群等）的基本信息，需要应用服务器提供接口
 				</p>
 				<br>
-				<p>获取会话列表，处理会话列表（拼接应用服务器提供的用户或群组信息），渲染会话列表</p>
+				<p>1.用户登录成功后，获取 appKey，token，链接云端</p>
+				<p>模拟的用户及群组信息数据 : <a href="integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "userInfos,groupInfos"</p>
+				<p>调用 init() 初始化，链接云端</p>
+				<pre>
+var userInfo = {
+	appKey: "",
+	token: ""
+};
+var callbacks = {
+	CONNECTED: function (instance) {
+	},
+	Success: function (id) {
+	},
+	Received: function (message) {
+	}
+};
+init(userInfo, callbacks);
+</pre>
+				<br>
+				<p>2.获取会话列表，处理会话列表（拼接应用服务器提供的用户或群组信息），渲染会话列表</p>
 				<p>模拟的会话列表数据 : <a href="integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
 				<p>拼接后会话列表数据 : <a href="integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
 <pre>
@@ -146,17 +161,17 @@
 //@param  {ResultCallback} callback 返回值，参数回调
 //@param {array} conversationTypes 可选参数，可以获取指定会话类型的会话，默认请传 null
 instance.getConversationList({
-	onSuccess: function (conversation) {
+	onSuccess: function (conversations) {
 		//处理会话列表
-		transConversations(conversation, function (conversation) {
-			//渲染会话列表
-			renderConversationView(conversation,instance);
+		transConversations(conversations, function (translatedConversations) {
+			//处理完成后，渲染会话列表
+			renderConversationView(translatedConversations,instance);
 		})
 	}
 }, null);
 </pre>
 				<br>
-				<p>删除指定会话/清除会话列表</p>
+				<p>3.删除指定会话/清除会话列表</p>
 <pre>
 instance.removeConversation(conversationType,targetId,{
 	onSuccess:function(bool){
@@ -239,7 +254,6 @@ instance.sendMessage(conversationType, targetId, msg, {
 				<div class="steps">
 					<h2>图片消息</h2>
 					<div class="content">
-						<br>
 						<p>模拟接收图片消息的数据 : <a href="integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "ImageMessage"</p>
 						<p>模拟发送服务器图片：<a href="//developer.rongcloud.cn">开发者站点</a> -> API 调试 -> 发送单聊消息 ->   "objectName" == "RC:ImgMsg"</p>
 						<p>上传本地图片并发送 <a href="http://www.rongcloud.cn/docs/web.html#upload_widget">上传插件文档</a></p>
@@ -260,22 +274,18 @@ instance.sendMessage(conversationType, targetId, msg, {
 
 					</div>
 				</div>
-				<br>
 
 				<div class="steps">
 					<h2>文件消息</h2>
 					<div class="content">
-						<br>
 						<p>模拟接收文件消息的数据 : <a href="integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "FileMessage"</p>
 						<p>实现方法同图片消息</p>
 					</div>
 				</div>
-				<br>
 
 				<div class="steps">
 					<h2>自定义消息</h2>
 					<div class="content">
-						<br>
 						<p>1. 定义消息类型</p>
 						<pre>
 var messageName = "PersonMessage"; // 消息名称。
@@ -298,12 +308,10 @@ instance.sendMessage(conversationType,targetId, msg, {
 						<p>接收消息与其他内置消息一致，在上文中提到的 setOnReceiveMessageListener 中增加 case 将消息予以展示即可。</p>
 					</div>
 				</div>
-				<br>
 
 				<div class="steps">
 					<h2>emoji 表情</h2>
 					<div class="content">
-						<br>
 						<pre>
 //获取全部表情
 var emojis = RongIMLib.RongIMEmoji.emojis;
@@ -318,8 +326,6 @@ emojiContent= reg.exec(emojiItem)[1];
 </pre>
 					</div>
 				</div>
-				<br>
-
 
 				<div class="helps">
 					<h3>常见问题：</h3>
@@ -337,14 +343,12 @@ emojiContent= reg.exec(emojiItem)[1];
 				<div class="steps">
 					<h2>1. 准备工作</h2>
 					<div class="content">
-						<br>
 						<p>公众号创建流程：</p>
 						<ol>
 							<li>1. 在公众号系统：<a href="http://public.rongcloud.cn">http://public.rongcloud.cn</a>  创建公众号并更新发布</li>
 							<li>2. 登录 开发者管理后台 <a href="https://developer.rongcloud.cn">https://developer.rongcloud.cn</a> 通过 “公众服务平台 -> 添加私有公众号”给 app 添加公众号,添加私有公众号需要应用申请上线，上线后页面右上角出现添加私有公众号按钮（公众号为填写公众平台 -> 公众号设置 -> 公众号，公众号识别码为公众平台 -> APP 接入模式设置 -> 私有模式 -> 当前识别码</li>
 							<li>3. 用户可以在第二步的添加结果里进行搜索和关注操作，关注后可以通过消息监听接受公众号的推送，用户也可以给公众号留言，具体细节参考页面里的示例代码和注释。</li>
 						</ol>
-						<br>
 						<p>
 							调试 demo <a href="https://rongcloud.github.io/websdk-demo/api-test.html">https://rongcloud.github.io/websdk-demo/api-test.html</a>
 							<br>
@@ -356,7 +360,6 @@ emojiContent= reg.exec(emojiItem)[1];
 				<div class="steps">
 					<h2>2. 集成的思路</h2>
 					<div class="content">
-						<br>
 						<p>页面分配</p>
 						<ol>
 							<li>0. 公众号模板主页 <a href="integrate-demo/public/public.html">public.html</a></li>
@@ -373,7 +376,6 @@ emojiContent= reg.exec(emojiItem)[1];
 				<div class="steps">
 					<h2>3. 引入SDK，并完成初始化、链接云端</h2>
 					<div class="content">
-						<br>
 						<p>初始化参考：<a href="integrate-demo/init.js">init.js</a></p>
 
 					</div>
@@ -382,11 +384,9 @@ emojiContent= reg.exec(emojiItem)[1];
 				<div class="steps">
 					<h2>4. 公众号列表页</h2>
 					<div class="content">
-						<br>
 						<p>html : <a href="integrate-demo/public/template/public-list.html">public-list.html</a></p>
 						<p>js : <a href="integrate-demo/public/js/public-list.js">public-list.js</a></p>
 						<p>公众号列表数据模型 <a href="integrate-demo/public/public-mock-data.json">public-mock-data.json</a> 中的 "publicList"</p>
-						<br>
 						<p>变量解释：</p>
 						<ol>
 							<li>conversationType : 7, 私有云里只有应用公众服务（MC） 8, 公有公众服务（MP）</li>
@@ -398,7 +398,6 @@ emojiContent= reg.exec(emojiItem)[1];
 							<li>portraitUri : 头像 url</li>
 							<li>publicServiceId : 公众号 id</li>
 						</ol>
-						<br>
 						<pre>
 //获取已关注公众号
 RongIMClient.getInstance().getPublicServiceList({
@@ -407,19 +406,15 @@ RongIMClient.getInstance().getPublicServiceList({
 	}
 });
 </pre>
-
-
 					</div>
 				</div>
 
 				<div class="steps">
 					<h2>5. 公众号搜索页</h2>
 					<div class="content">
-						<br>
 						<p>html : <a href="integrate-demo/public/template/public-search.html">public-search.html</a></p>
 						<p>js : <a href="integrate-demo/public/js/public-search.js">public-search.js</a></p>
 						<p>公众号搜索数据模型 <a href="integrate-demo/public/public-mock-data.json">public-mock-data.json</a> 中的 "searchList"</p>
-						<br>
 						<pre>
 //根据用户输入关键字搜索未关注公众号
 var keywords = this.stat.searchVal;
@@ -442,11 +437,9 @@ RongIMClient.getInstance().searchPublicService(searchType, keywords, {
 				<div class="steps">
 					<h2>6. 公众号详情页</h2>
 					<div class="content">
-						<br>
 						<p>html : <a href="integrate-demo/public/template/public-info.html">public-info.html</a></p>
 						<p>js : <a href="integrate-demo/public/js/public-info.js">public-info.js</a></p>
 						<p>公众号详情数据模型 <a href="integrate-demo/public/public-mock-data.json">public-mock-data.json</a> "searchList" 中的对象</p>
-						<br>
 						<pre>
 //订阅公众号
 var publicServiceType = RongIMLib.ConversationType.PUBLIC_SERVICE;
@@ -469,12 +462,10 @@ RongIMClient.getInstance().unsubscribePublicService(publicServiceType, publicSer
 				<div class="steps">
 					<h2>7. 公众号聊天页</h2>
 					<div class="content">
-						<br>
 						<p>html : <a href="integrate-demo/public/template/public-chat.html">public-chat.html</a></p>
 						<p>js : <a href="integrate-demo/public/js/public-chat.js">public-chat.js</a></p>
 						<p>公众号回复用户消息在 <a href="http://public.rongcloud.cn">公众平台</a> -> 用户回复</p>
 						<p>公众号聊天消息数据模型 <a href="integrate-demo/public/public-mock-data.json">public-mock-data.json</a> "msgList" 中 "messageType" = "TextMessage" 为文本消息，"messageType" = "PublicServiceMultiRichContentMessage"为公众号推送多图文消息</p>
-						<br>
 						<p>变量解释：</p>
 						<ol>
 							<li>messageDirection : 1, 发送消息方 2, 接收消息方</li>
@@ -484,7 +475,6 @@ RongIMClient.getInstance().unsubscribePublicService(publicServiceType, publicSer
 							<li>title : 文章标题</li>
 							<li>url : 文章地址</li>
 						</ol>
-						<br>
 						<pre>
 //发送消息
 var text = this.stat.sendMsgVal ;
@@ -502,12 +492,10 @@ RongIMClient.getInstance().sendMessage(conversationtype, publicServiceId, msg, {
 				<div class="steps">
 					<h2>8. 公众号推送文章页</h2>
 					<div class="content">
-						<br>
 						<p>html : <a href="integrate-demo/public/template/public-article.html">public-article.html</a></p>
 						<p>js : <a href="integrate-demo/public/js/public-article.js">public-article.js</a></p>
 						<p>公众号向用户推送文章在 <a href="http://public.rongcloud.cn">公众平台</a> -> 消息推送</p>
 						<p>公众号推送文章地址为 <a href="integrate-demo/public/public-mock-data.json">public-mock-data.json</a> "msgList" 中 "messageType" = "PublicServiceMultiRichContentMessage" 公众号推送多图文消息 articles.url</p>
-						<br>
 						<pre>
 //文章内容嵌套在 iframe 中
 &lt;iframe :src="stat.articleUrl">&lt;/iframe>
