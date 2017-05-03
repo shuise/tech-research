@@ -152,7 +152,6 @@ var callbacks = {
 };
 init(userInfo, callbacks);
 </pre>
-				<br>
 				<p>2.获取会话列表，处理会话列表（拼接应用服务器提供的用户或群组信息），渲染会话列表</p>
 				<p>模拟的会话列表数据 : <a href="integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "conversation"</p>
 				<p>拼接后会话列表数据 : <a href="integrate-demo/conversation-list/conversation-list.json">conversation-list.json</a> 中的 "translate-conversation"</p>
@@ -170,7 +169,6 @@ instance.getConversationList({
 	}
 }, null);
 </pre>
-				<br>
 				<p>3.删除指定会话/清除会话列表</p>
 <pre>
 instance.removeConversation(conversationType,targetId,{
@@ -221,7 +219,6 @@ instance.getHistoryMessages(conversationType, targetId, null, 20, {
 	}
 });
 </pre>
-				<br>
 				<p>2.发送消息窗口</p>
 <pre>
 /*
@@ -245,27 +242,20 @@ instance.sendMessage(conversationType, targetId, msg, {
 		<div class="steps">
 			<h2>8.发送消息的功能增强</h2>
 			<div class="content">
-				<p>图片消息，文件消息，语音消息，地理位置消息，emoji 表情及自定义表情，自定义消息</p>
-				<p>自动回复，</p>
-
-				发送消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#send_message">http://www.rongcloud.cn/docs/web_api_demo.html#send_message</a><br>
-				语音消息：<a href="http://www.rongcloud.cn/docs/web.html#voice">http://www.rongcloud.cn/docs/web.html#voice</a><br>
-				表情消息：<a href="http://www.rongcloud.cn/docs/web.html#emoji">http://www.rongcloud.cn/docs/web.html#emoji</a><br>
-				自定义消息：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_customize">http://www.rongcloud.cn/docs/web_api_demo.html#message_customize</a>
-				<p>集成 demo : <a href="integrate-demo/message/message.html">message.html</a></p>
+				<p>图片消息，文件消息，自定义消息</p>
+				<p>消息接口文档: <a href="http://www.rongcloud.cn/docs/web_api_demo.html#message">http://www.rongcloud.cn/docs/web_api_demo.html#message</a></p>
+				<p>集成 demo: <a href="integrate-demo/message/message.html">message.html</a></p>
 
 				<div class="steps">
-					<h2>图片消息</h2>
+					<h2>1.图片消息</h2>
 					<div class="content">
-						<p>模拟接收图片消息的数据 : <a href="integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "ImageMessage"</p>
-						<p>模拟发送服务器图片：<a href="//developer.rongcloud.cn">开发者站点</a> -> API 调试 -> 发送单聊消息 ->   "objectName" == "RC:ImgMsg"</p>
-						<p>上传本地图片并发送 <a href="http://www.rongcloud.cn/docs/web.html#upload_widget">上传插件文档</a></p>
-						<p>图片上传插件以七牛云为例 <a href="integrate-demo/message/message.js">message.js</a></p>
-						<ol>
-							<li>1.为上传按钮添加监听事件 watchUpload</li>
-							<li>2.上传图片后，处理生成图片消息 createMessage</li>
-							<li>3.调用 sendMessage 发送图片消息</li>
-						</ol>
+						<p>模拟接收图片消息的数据: <a href="integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "ImageMessage"</p>
+						<p>模拟发送服务器图片: <a href="//developer.rongcloud.cn">开发者站点</a> => API 调试 => 发送单聊消息 =>   "objectName" == "RC:ImgMsg"</p>
+						<p>1.上传图片,</p>
+						<p>上传插件文档: <a href="http://www.rongcloud.cn/docs/web.html#upload_widget">http://www.rongcloud.cn/docs/web.html#upload_widget</a></p>
+						<p>图片上传插件以七牛云为例，依次引入 <a href="integrate-demo/message/upload/qiniu.js">qiniu.js</a>，<a href="integrate-demo/message/upload/upload.js">upload.js</a>，<a href="integrate-demo/message/upload/uploadInit.js">uploadInit.js</a>，为上传按钮添加监听事件，<a href="integrate-demo/message/message.js">message.js</a> 中 watchUpload 方法</p>
+						<p>2.上传图片后，生成图片消息 createMessage</p>
+						<p>3.调用 sendMessage 发送图片消息</p>
 						<pre>
 instance.sendMessage(conversationType, targetId, msg, {
 		onSuccess: function (message) {
@@ -279,7 +269,7 @@ instance.sendMessage(conversationType, targetId, msg, {
 				</div>
 
 				<div class="steps">
-					<h2>文件消息</h2>
+					<h2>2.文件消息</h2>
 					<div class="content">
 						<p>模拟接收文件消息的数据 : <a href="integrate-demo/message/message.json">message.json</a> 中的 "messageType" 为 "FileMessage"</p>
 						<p>实现方法同图片消息</p>
@@ -287,7 +277,7 @@ instance.sendMessage(conversationType, targetId, msg, {
 				</div>
 
 				<div class="steps">
-					<h2>自定义消息</h2>
+					<h2>3.自定义消息</h2>
 					<div class="content">
 						<p>1.定义消息类型</p>
 						<pre>
@@ -303,16 +293,15 @@ var conversationType = RongIMLib.ConversationType.PRIVATE; //私聊,其他会话
 var msg = new RongIMClient.RegisterMessage.PersonMessage({name:"zhang",age:12});
 instance.sendMessage(conversationType,targetId, msg, {
     onSuccess: function (message) {
-
     }
 });
 </pre>
 						<p>3.接收消息</p>
-						<p>接收消息与其他内置消息一致，在上文中提到的 setOnReceiveMessageListener 中增加 case 将消息予以展示即可。</p>
+						<p>接收消息与其他内置消息一致，在上文中提到的 setOnReceiveMessageListener 中 onReceived 获取</p>
 					</div>
 				</div>
 
-				<div class="steps">
+				<!--<div class="steps">
 					<h2>emoji 表情</h2>
 					<div class="content">
 						<pre>
@@ -328,7 +317,7 @@ var reg=/name="([[\w\W]+])"/;
 emojiContent= reg.exec(emojiItem)[1];
 </pre>
 					</div>
-				</div>
+				</div>-->
 
 				<div class="helps">
 					<h3>常见问题：</h3>
