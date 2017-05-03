@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>video</title>  
+<style type="text/css"  s="test" >
+.wrap,.thumds {border:5px solid #ccc;background:#000;width:640px;height:480px;overflow:hidden;position:relative;float:left;}
+.wrap em {font-style:normal;}
+.video {width:640px;height:480px;float:left;}
+.bar {background:url(res/pop_bg.png);height:55px;width:100%;position:absolute;left:0;bottom:-55px;padding-left:8px;}
+.bar a {display:block;width:42px;height:42px;overflow:hidden;line-height:400px;margin:5px;background:url(res/icons.png) no-repeat 0 100px;border-radius:29px;}
+.bar a {opacity:0.6}
+.bar a:hover {opacity:1.0}
+.bar a.play {background-position:-80px -2px;}
+.bar a.stop {background-position:-158px -2px;}
+.bar a.shot {background-position:-158px -69px;}
+.bar a,.bar span {float:left;}
+.bar span.prog {width:430px;height:15px;margin:20px 5px;background:#ccc;opacity:0.7;border-radius:5px;overflow:hidden;}
+.bar span.prog em {display:block;height:15px;background:#fff;width:0;border-radius:5px;}
+.bar span.time {margin:20px 5px;font-size:12px;color:#f5f5f5;font-family:verdana;}
+
+.bar_show,.bar_show_off {
+	-webkit-transition-property:bottom;
+	-webkit-transition-duration:0.8;
+	transition-timing-function:ease-out;	
+	}
+.bar_show {bottom:0;}
+.bar_show_off {bottom:-55px;}
+#fullscreen{
+	position:absolute;
+	right:5px;
+	top:5px;
+	background:url(res/fullscreen.png);
+	color:#fff;
+	width:32px;
+	height:32px;
+	font-size:0;
+	border:none;
+	outline:none;
+	cursor:pointer;
+}
+</style>
+</head> 
+ 
+<body style="padding:10px"> 
+
+
+<div class="wrap" id="wrap">
+	<video src="res/1.mp4" id="video" autoplay class="video"></video>
+	<div class="bar">
+		<a href="#paly" class="play" title="暂停">play/stop</a>
+		<span class="prog"><em></em></span>
+		<span class="time">loading</span>
+		<a href="#shot" class="shot" title="截屏">shot</a>
+	</div>
+	<input type="submit" value="fullscreen" id="fullscreen" title="全屏" />
+</div>
+
+<script type="text/javascript">
+;(function(){
+	var wrap = $('#wrap');
+	var video = $('#video');
+	var btn = {
+		bar : $('div.bar',wrap),
+		time : $('span.time',wrap),
+		progbar : $('span.prog',wrap),
+		prog : $('span.prog em',wrap),
+		play : $('a.play',wrap),
+		shot : $('a.shot',wrap),
+		fullscreen : $('#fullscreen')
+	};
+	//video.playbackRate = 0.5;
+	
+	video.addEventListener('loadedmetadata',function(){
+		var time = video.duration;
+		var t1 = video.currentTime;
+		btn.time.innerHTML = timeFormat(t1) + '/' + timeFormat(time);
+		
+		video.addEventListener('timeupdate',function(){
+			var tnew = video.currentTime;
+			btn.time.innerHTML = timeFormat(tnew) + '/' + timeFormat(time);
+			btn.prog.style.width = Math.floor(430*tnew/time) + 'px';
+		});
+		btn.play.onclick = function(){
+			if(this.className.indexOf('stop') == -1){
+				this.className += ' stop';
+				this.title = "播放";
+				video.pause();
+			}else{
+				this.className = 'play';
+				this.title = "暂停";
+				video.play();
+			}
+			return false;
+		}
+		btn.shot.onclick = function(){
+			var canvas = document.createElement('canvas');
+				canvas.width = 100;
+				canvas.height = 70;
+				canvas.style.float = 'right';
+				canvas.style.border = '1px solid #ccc';
+				canvas.style.margin = '0 0 5px 2px';
+			$('body').appendChild(canvas);
+	            context = canvas.getContext('2d');
+		        context.drawImage(video, 0, 0, 100, 75);
+				context.save();
+			return false;
+		}
+		btn.progbar.onclick = function(event){
+			var v1 = getOffsetX(this,event);
+			video.currentTime = time*v1;
+		}
+		
+		wrap.onmouseover = function(event){
+			var	node = event.target;
+			if(node && contains(this,node)){
+				btn.bar.classList.remove('bar_show_off');
+				btn.bar.classList.add('bar_show');
+			}
+		}
+		wrap.onmouseout = function(event){
+			btn.bar.classList.add('bar_show_off');
+		}	
+		btn.fullscreen.onclick = function(){
+			video.webkitEnterFullScreen();
+		}
+	});
+})();
+
+
+function $(selector){
+	return document.querySelectorAll(selector)[0];
+}
+
+function contains(parent,child){
+	var doc = document.documentElement;
+	if(typeof doc.compareDocumentPosition != 'undefined'){
+		return (parent.compareDocumentPosition(child) & 16) !== 0;
+	}else if(typeof doc.contains != 'undefined'){
+		return parent !== child && parent.contains(child);
+	}else{
+	  if (parent === child) return false;
+	  while (parent != child && (child = child.parentNode) != null);
+	  return parent === child;		
+	}
+}
+
+function getOffsetX(obj,event){
+	var event = event || window.event;
+	var w1 = event.offsetX;
+	var w = parseInt(obj.clientWidth);
+	return (w1/w);
+}
+function timeFormat(time){
+	var time = time || 0;
+	var m1 = Math.floor(time/60)+"";
+	if (m1.length<2){m1 = "0" + m1;}
+	var m2 =  Math.floor(time - m1*60)+"";
+	if (m2.length<2){m2 = "0" + m2;}
+	var time = m1 + ":" + m2;
+	return time;
+}
+</script>
+</body> 
+</html>
