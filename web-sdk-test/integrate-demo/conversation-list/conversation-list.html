@@ -37,7 +37,13 @@
             <li class="chat-item" v-for="(item,index) in stat.conversationList">
                 <!--<pre>{{stat.conversationList}}</pre>-->
                 <div class="chat-item-portrait"><img :src="item.userInfo.portraitUri" class="rong-avatar-bd"></div>
-                <div class="chat-item-name">{{item.userInfo.nickname}} : {{item.latestMessage.content.content || '' }}
+                <div class="chat-item-name" v-if="item.conversationType === 1">{{item.userInfo.nickname}} :
+                    {{item.latestMessage.content.content ||
+                    '' }}
+                </div>
+                <div class="chat-item-name" v-if="item.conversationType === 3">{{item.userInfo.name}} :
+                    {{item.latestMessage.content.content ||
+                    '' }}
                 </div>
                 <div class="unread-count" v-if="item.unreadMessageCount">{{item.unreadMessageCount}}</div>
                 <div class="remove-conversation" @touchend="removeConversation(item.conversationType,item.latestMessage.targetId , index)">&times;</div>
@@ -57,11 +63,11 @@
         CONNECTED: function (instance) { //传入实例参数
             //获取会话列表
             instance.getConversationList({
-                onSuccess: function (conversation) {
+                onSuccess: function (conversations) {
                     //处理会话列表
-                    transConversations(conversation, function (conversation) {
+                    transConversations(conversations, function (translatedConversations) {
                         //渲染会话列表
-                        renderConversationView(conversation,instance);
+                        renderConversationView(translatedConversations,instance);
                     })
                 }
             }, null);

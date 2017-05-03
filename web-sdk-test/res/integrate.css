@@ -5,10 +5,14 @@
 }
 h1{
 	font-size:150%;
+	margin-bottom: 0.5em;
 }
 
 h2{
 	font-size:120%;
+}
+p{
+    font-size: 14px;
 }
 body{
 	font-size:100%;
