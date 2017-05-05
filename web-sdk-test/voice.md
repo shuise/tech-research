@@ -5,7 +5,7 @@
 ### 引入声音库
 
 ```
-<script src="http://cdn.ronghub.com/swfobject-2.0.0.min.js"></script>
+<script src="//cdn.ronghub.com/swfobject-2.0.0.min.js"></script>
 <script src="lib/libamr-min-new.js"></script>
 <script src="./voice.js"></script>
 ```
@@ -59,7 +59,7 @@ RongIMVoice.Player.pause();
 如果需要在微信浏览器或者 IOS 的 Safari 浏览器等使用，请参考 voiceComponent.js demo
 
 ```
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="./voiceComponent.js"></script>
 ```
 
