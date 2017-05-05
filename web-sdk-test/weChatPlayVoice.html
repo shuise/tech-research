@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>voice</title>
+</head>
+<body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="//cdn.ronghub.com/Libamr-2.2.5.min.js"></script>
+<script src="//cdn.ronghub.com/RongIMVoice-2.2.5.min.js"></script>
+
+<h1>声音库</h1>
+<h2><a href="http://www.rongcloud.cn/docs/web.html#声音库">http://www.rongcloud.cn/docs/web.html#声音库</a></h2>
+<button onclick="play()" id="play">播放base64</button>
+
+
+
+<!-- 引入base64编码的arm音频数据 -->
+<script src="./res/voice-amr-base64.json"></script>
+
+<script>
+var RongIMVoice = RongIMLib.RongIMVoice;
+    RongIMVoice.init();
+function play(){
+    // 音频持续大概时间(秒)
+    var duration = voice.length/1024;
+    RongIMVoice.preLoaded(voice);
+    RongIMVoice.play(voice,duration);
+}
+
+
+ //判断是否为微信浏览器
+    var isWeChatBrowser =  function (){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    var isWeChat = isWeChatBrowser();
+
+    if(isWeChat) {
+        wx.config({
+            // 配置信息
+        });
+        wx.ready(function () {
+            play(); //播放语音消息方法
+        });
+    }
+</script>
+
+</body>
+</html>
