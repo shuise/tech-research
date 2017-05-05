@@ -193,7 +193,8 @@ instance.removeConversation(conversationType,targetId,{
 				<p>发送消息文档: <a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_send">http://www.rongcloud.cn/docs/web_api_demo.html#message_send</a></p>
 				<p>集成 demo: <a href="integrate-demo/chat/chat.html">chat.html</a></p>
 				<br>
-				<p>1.历史消息列表</p>
+				<p>1.历史消息列表（请注意一定要开启 单群聊消息云端存储功能
+					<a href="http://www.rongcloud.cn/pricing/#pay">收费详情</a>）</p>
 				<p>模拟的历史消息数据: <a href="integrate-demo/chat/chat.json">chat.json</a> 中的 "historyMessage"</p>
 <pre>
 /*
@@ -272,7 +273,9 @@ instance.sendMessage(conversationType, targetId, msg, {
 
 				<div class="steps">
 					<h2>3.自定义消息</h2>
+
 					<div class="content">
+						<p>文档: <a href="http://www.rongcloud.cn/docs/web.html#customize_message">http://www.rongcloud.cn/docs/web.html#customize_message</a></p>
 						<p>1.定义消息类型</p>
 						<pre>
 var messageName = "PersonMessage"; // 消息名称。
