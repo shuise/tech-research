@@ -207,6 +207,10 @@ function watchUpload(im,that){
             });
         }
     };
+    //https 修改config domain
+    if(document.location.protocol.indexOf("https:") > -1){
+        config.domain = "https://upload.qbox.me"
+    }
 
     var initType = {
         file: function(_file){
