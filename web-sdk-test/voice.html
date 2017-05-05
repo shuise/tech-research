@@ -13,17 +13,20 @@
 </style>
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <!-- <script src="lib/swfobject-rongcloud-2.0.0.js"></script>	 -->
-<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js"></script>
 <script src="http://cdn.ronghub.com/swfobject-2.0.0.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="lib/libamr-min-new.js"></script>	
-<script src="./voice.js"></script>	
+<script src="./voice.js"></script>
+
+<script src="./voiceComponent.js"></script>
 
 <script src="./res/voice-amr-base64.json"></script>
-<h1 id="111"></h1>
-<button onclick="play()">播放</button>
+
+<button onclick="play()" id="play">播放</button>
 <button onclick="pause()">停止</button>
+
 <script>
 
 RongIMVoice.init();
@@ -46,5 +49,6 @@ function pause(){
 } 
 
 </script>
+
 </body>
 </html>
