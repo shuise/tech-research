@@ -66,7 +66,7 @@ RongIMVoice.Player.pause();
 ### 微信浏览器播放语音 demo 使用方法
 
 ```
-......
+......（ 判断是否为 微信浏览器 ）
 
 wx.ready(function () {
 
@@ -88,7 +88,7 @@ wx.ready(function () {
 	Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，如果没有得到用户的 action 就播放的话就会被 safri 拦截
 */
 
-......
+......（ 判断是否为 IOS 浏览器 ）
 
 document.getElementById('play').addEventListener("touchstart",function(event){
 
