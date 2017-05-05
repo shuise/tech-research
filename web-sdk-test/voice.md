@@ -70,7 +70,13 @@ RongIMVoice.Player.pause();
 
 wx.ready(function () {
 
-    RongIMVoice.Player.play(voice);  //此处执行的是 播放语音消息 方法
+   document.getElementById('play').addEventListener("touchstart",function(event){
+
+	    RongIMVoice.Player.play(voice); //此处执行的是 播放语音消息 方法
+
+	    window.removeEventListener('touchstart',RongIMVoice.Player.play(voice), false);
+	    event.stopPropagation(); 
+	});
 
 });
 ```

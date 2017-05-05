@@ -20,7 +20,11 @@ window.onload = function(){
             // 配置信息
         });
         wx.ready(function () {
-            play(); //播放语音消息方法
+           document.getElementById('play').addEventListener("touchstart",function(event){
+                play(); //播放语音消息方法
+                window.removeEventListener('touchstart',play, false);
+                event.stopPropagation();
+            });
         });
     }
 
