@@ -404,6 +404,31 @@ var msg = new RongIMLib.ImageMessage(content);
 （3）反过来， APP 发消息，Web 端 是否可以收到消息
 
 
+## 消息体
+
+```
+
+{
+    "content": {
+        "messageName": "TextMessage",
+        "content": "hello",  //消息内容
+        "extra": "RongCloud"
+    },
+    "conversationType": 1,   // 会话类型（单聊、群聊、聊天室等）
+    "objectName": "RC:TxtMsg",  
+    "messageDirection": 1,
+    "messageId": 36,
+    "senderUserId": "user8",    //发送者id
+    "sentStatus": 30,    //消息状态
+    "sentTime": 1484621850284,   //发送时间，自己转化格式
+    "targetId": "user9",    // 目标Id
+    "messageType": "TextMessage",
+    "messageUId": "5CQK-MT6L-G43A-D3EE"   // 消息唯一标示 ，消息Id
+}
+
+```
+
+
 ## 参考文档
 
 （1）SDK 架构：[http://www.rongcloud.cn/docs/quick_start.html](http://www.rongcloud.cn/docs/quick_start.html)
