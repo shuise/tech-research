@@ -1,3 +1,4 @@
+"use strict";
 /*
 使用流程：
     1、引入外部依赖 amr.js 、swfobject-2.0.0.min.js 、weixin-voice.js
@@ -6,19 +7,25 @@
     1、定义暴露 API
     2、抽象 Flash、Audio、各自实现
 
+    swfobject.js : http://blog.deconcept.com/swfobject/
 */
-
-"use strict";
-
 ;(function (global, factory,namespace) {
     if(typeof exports === 'object' && typeof module !== 'undefined'){
     	module.exports = factory();
     }else if(typeof define === 'function' && define.amd){
     	define(factory);
     }else{
+        //namespace = "g.p.c";
     	global[namespace] = factory(namespace);
     }
 })(window, function(namespace){
+    /*
+    参考资料：
+        判断是否支持 flash: http://www.jb51.net/article/53702.htm
+        浏览器支持 Audio 情况： http://caniuse.com/#feat=audio-api
+        base64ToBlob：http://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
+        FileReader：https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader (把文件读入内存，并且读取文件中的数据)
+    */
     var isSupportFlash = (function(){
 	    var version = "", n = navigator; 
 	    if (n.plugins && n.plugins.length) {
@@ -55,9 +62,11 @@
         return;
     }
 
+    
+    /* 工具类 */ 
     var util = {
         noop: function(){},
-        merge: function(source, target){
+        source: function(source, target){
             for(var key in source){
                 target[key] = source[key];
             }
@@ -67,6 +76,9 @@
                 callback(key, obj[key]);
             }
         },
+        /*
+            voice = "IyFBTVIKLNEafAAeef/hgmeAH8AD..."; 音频文件，base64码，AMR格式
+        */
         amr2wav: function(voice,callback){
             var blob = util.base64ToBlob(voice, "audio/amr");
             var reader = new FileReader();
@@ -79,11 +91,16 @@
                     bytesPerSample: 2,
                     data: samples
                 });
-                var voice2 = "data:audio/wav;base64," + btoa(pcm);
-                callback(voice2);
+                var voiceWav = "data:audio/wav;base64," + btoa(pcm);
+                callback(voiceWav);
             };
             reader.readAsArrayBuffer(blob);
         },
+
+        /*
+            base64 = "IyFBTVIKLNEafAAeef/hgmeAH8AD..."; 音频文件，base64码，AMR格式
+            type = "audio/amr";
+        */
         base64ToBlob: function(base64, type) {
             
             var mimeType = {};
@@ -118,18 +135,9 @@
         }
     };
 
-
-    //判断是否为微信浏览器
-    var isWeChatBrowser =  function (){
-        var ua = window.navigator.userAgent.toLowerCase();
-        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
+    /*
+        id = "player";
+    */
     var getFlashPlayer = function(id){
         return window[id];
     };
@@ -208,28 +216,16 @@
         return !!waveData[key];
     };
 
+    /*
+        audio = <audio preload = "auto" src = "data:audio/wav;base64,UklGRqBMAQBXQVZFZm..."></audio>
+        data = "data:audio/wav;base64,UklGRqBMAQBXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YYBMAQAAAAAAA...";
+    */
     var canPlay = function(audio, data, callbacks){
         audio.onended = callbacks.onended;
-        var isWeChat = isWeChatBrowser();
-        if(isWeChat){  
-            wx.config({
-                // 配置信息
-            });
-            wx.ready(function () {
-                audioPlay(audio,data);
-            });
-        }
-        else{
-           audioPlay(audio,data);
-        }
-       
-        callbacks.onplayed();
-    };
-
-    var audioPlay = function(audio,data){
         audio.src = data;
         audio.play();
-    }
+        callbacks.onplayed();
+    };
 
     var playProcess = {
         cache: function(audio, base64, callbacks){
@@ -307,15 +303,14 @@
             }
         });
     };
+
     /*
         base64: 文件类型 AMR
         callbacks.onbeforeplay: 播放之前
         callbacks.onplayed: 开始播放
         callbacks.onended: 播放完成
      */
-
     var play = function(params){
-        
         params.callbacks = params.callbacks || { 
             onbeforeplay: util.noop,
             onplayed: util.noop,
