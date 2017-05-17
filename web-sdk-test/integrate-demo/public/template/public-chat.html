@@ -1,8 +1,8 @@
 <div class="public-chat">
     <header class="header">
-        <i class="icons icon-return" @touchend="goPublicList" @click="goPublicList"></i>
+        <i class="icons icon-return" @touchend="goPublicList"></i>
         <h2 class="title">{{stat.currentPublic.name}}</h2>
-        <button type="button" class="icons public-info-btn" @touchend="goPublicInfo"  @click="goPublicInfo">信息</button>
+        <button type="button" class="icons public-info-btn" @touchend="goPublicInfo">信息</button>
     </header>
 
     <div class="chat-content">
@@ -78,7 +78,7 @@
 
                     <div v-for="(article , index) in msg.content.richContentMessages.articles"
                          :class="index == 0 ? 'message-multi-first' : 'message-multi-second' "
-                         @touchend="goPublicArticle(article.url)" @click="goPublicArticle(article.url)">
+                         @touchend="goPublicArticle(article.url)">
                         <div class="material-cover-img">
                             <img :src="article.picurl">
                         </div>
@@ -122,6 +122,6 @@
     <footer class="footer">
         <div class="message-wrap"><textarea v-model="stat.sendMsgVal" id="message-content" placeholder="请输入文字..."
                                             class="message-content"></textarea></div>
-        <span class="send-btn" @touchend="sendMsg"  @click="sendMsg">发送</span>
+        <span class="send-btn" @touchend="sendMsg" >发送</span>
     </footer>
 </div>

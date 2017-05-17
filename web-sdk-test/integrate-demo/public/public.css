@@ -366,10 +366,10 @@ html, body {
 .message-text .rong-avatar {
     border-radius: 0;
     border: 0;
+    flex-shrink: 0;
 }
 
 .message-text .message-body {
-    flex: 1;
     position: relative;
     color: #353535;
     padding: 0.25rem;

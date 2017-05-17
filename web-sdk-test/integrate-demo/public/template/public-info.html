@@ -1,6 +1,6 @@
 <div class="public-info">
     <header class="header">
-        <i class="icons icon-return" @touchend="goPublicSearch"  @click="goPublicSearch"></i>
+        <i class="icons icon-return" @touchend="goPublicSearch" ></i>
         <h2 class="title">详情资料</h2>
     </header>
     <div class="public-info-con">
@@ -21,13 +21,13 @@
         </div>
 
         <div v-if="stat.currentPublic.hasFollowed" class="public-info-btns">
-            <button type="button" class="enterPublic" @touchend="goPublicChat"  @click="goPublicChat">进入公众号</button>
+            <button type="button" class="enterPublic" @touchend="goPublicChat" >进入公众号</button>
             <br>
-            <button type="button" class="unsubscribePublic" @touchend="unsubscribePublic"  @click="unsubscribePublic">取消订阅公众号</button>
+            <button type="button" class="unsubscribePublic" @touchend="unsubscribePublic" >取消订阅公众号</button>
         </div>
 
         <div v-else class="public-info-btns">
-            <button type="button" class="subscribePublic" @touchend="subscribePublic" @click="subscribePublic">订阅公众号</button>
+            <button type="button" class="subscribePublic" @touchend="subscribePublic" >订阅公众号</button>
         </div>
     </div>
 </div>
