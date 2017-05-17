@@ -5,16 +5,36 @@
 <title>dynamic fav</title>
 <link id="icon" rel="icon" type="image/png" href="res/favicon-32x32.png" _icon="res/favicon-32x32.png">
 </head>
+<style>
+body{
+	font-size:300%;
+}
+div{
+	margin:50px auto;
+	text-indent:2em;
+	font-family:arial;
+}
+#number{
+	color:#cd0000;
+	font-weight:700;
+}	
+</style>
 <body>
+
+<div>
+	未读消息数 <span id="number"></span>
+</div>
 
 <script>
 var t = setInterval(showUnReadCount,1000);
 
 function showUnReadCount(){	
 	var target = document.getElementById("icon");
+	var dom = document.getElementById("number");
 	var icon = target.getAttribute("_icon");
 
 	var unReadCount = Math.floor(Math.random()*10000)%99;
+		dom.innerHTML = unReadCount;
 
 	var img = new Image();
 	img.src  = icon;
