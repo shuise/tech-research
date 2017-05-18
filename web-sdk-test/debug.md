@@ -404,6 +404,96 @@ var msg = new RongIMLib.ImageMessage(content);
 （3）反过来， APP 发消息，Web 端 是否可以收到消息
 
 
+## 音视频问题
+
+
+### web 端音视频支持问题
+
+（1）WebCallLib 只支持两台电脑一对一视频通话
+
+（2）WebCallLib 只支持windows 和 mac 
+
+### 错误代码问题
+
+```
+
+（1）VOIPCLOSE = 24016 
+（2）CLOSE_BEFORE_OPEN = 51001 
+（3）ALREADY_IN_USE = 51002 
+（4）INVALID_CHANNEL_NAME = 51003 
+（5）VIDEU_CONTAINER_IS_NULL = 51004 
+
+```
+
+### 设置视频的清晰度
+
+（1）目前不支持清晰度定制 
+
+### 主叫呼叫后，被叫未接通，主叫挂断，被叫如何获取挂断消息？
+
+（1）挂断时，主叫和被叫都会收到summaryMessage ，监听对方的消息就可以获取挂断消息
+
+（2）demo 主叫： [https://rongcloud.github.io/websdk-demo/voip.html](https://rongcloud.github.io/websdk-demo/voip.html)
+
+（3）demo 被叫： [https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver](https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver)
+
+### 视频聊天步骤
+
+（1）A 向 B 发起音视频请求
+
+（2）B 收到音视频请求 InviteMessage
+
+（3）A 收到响铃消息 RingingMessage
+
+（4）B 接受音视频请求 joincall
+
+（5）A 收到 B 接受视频请求的消息 AcceptMessage 
+
+（6）成功建立视频通话
+
+（7）demo 主叫： [https://rongcloud.github.io/websdk-demo/voip.html](https://rongcloud.github.io/websdk-demo/voip.html)
+
+（8）demo 被叫： [https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver](https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver)
+
+### wss://localhost.agora.io:8921/ 服务器访问不到
+
+（1）确认是否安装 agoraWebAgent 插件并启动 
+
+（2）两台电脑一对一视频通话
+
+（3）windows 插件下载地址：[http://cdn.ronghub.com/AgoraWebAgentSetup.exe](http://cdn.ronghub.com/AgoraWebAgentSetup.exe)
+
+（4）mac 插件下载地址：[http://cdn.ronghub.com/AgoraWebAgent.pkg](http://cdn.ronghub.com/AgoraWebAgent.pkg)
+
+### 发起通话报错 18
+
+（1）[http://www.rongcloud.cn/docs/web_calllib.html#status](http://www.rongcloud.cn/docs/web_calllib.html#status)
+
+（2）VOIP 不可用，确认一下是否开启了音视频服务
+
+（3）音视频开通方式说明：[http://www.rongcloud.cn/docs/call.html#open](http://www.rongcloud.cn/docs/call.html#open)
+
+### 将 VOIP 和 Web 聊天插件结合
+
+（1）在聊天界面中增加发起视频或语音通话按钮（通过修改模板加入新的 dom 节点，赋予相应的 css 做好样式，通过 AngularJS 的双向绑定方式添加相应的事件）
+
+（2）用户点击按钮发起会话 
+
+（3）接收方点击接受，开始通讯
+
+### b._voipProvider is undefind
+
+（1）根据错误提示应该是 音视频 SDK 未初始化
+
+（2）参考文档: [http://www.rongcloud.cn/docs/web_calllib.html](http://www.rongcloud.cn/docs/web_calllib.html)
+
+### 通过 H5 写的 web 型 APP 集成音视频
+
+（1）在 引入 SDK 之前设置 window["SCHEMETYPE"] = "http";
+
+（2）参考文档；[http://www.rongcloud.cn/docs/web_api_demo.html#other](http://www.rongcloud.cn/docs/web_api_demo.html#other)
+
+
 ## 消息体
 
 ```

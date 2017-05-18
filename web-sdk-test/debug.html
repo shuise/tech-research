@@ -461,6 +461,103 @@
         </div>
     </div>
 
+    <!-- 音视频问题 -->
+    <div class="audioServer">
+        <h2>音视频问题</h2>
+        <div class="audioSupport">
+            <h3 class="question">web 端音视频支持问题</h3>
+            <ul class="answer">
+                <li>（1）WebCallLib 只支持两台电脑一对一视频通话</li>
+                <li>（2）WebCallLib 只支持windows 和 mac </li>
+            </ul>
+        </div>
+
+        <div class="errorCode">
+            <h3 class="question">错误代码问题</h3>
+            <ul class="answer">
+                <li>（1）VOIPCLOSE = 24016 </li>
+                <li>（2）CLOSE_BEFORE_OPEN = 51001 </li>
+                <li>（3）ALREADY_IN_USE = 51002 </li>
+                <li>（4）INVALID_CHANNEL_NAME = 51003 </li>
+                <li>（5）VIDEU_CONTAINER_IS_NULL = 51004 </li>
+            </ul>
+        </div>
+
+        <div class="videoClarity">
+            <h3 class="question"> 设置视频的清晰度 </h3>
+            <ul class="answer">
+                <li>（1）目前不支持清晰度定制 </li>
+            </ul>
+        </div>
+
+        <div class="hangUp">
+            <h3 class="question">主叫呼叫后，被叫未接通，主叫挂断，被叫如何获取挂断消息？</h3>
+            <ul class="answer">
+                <li>（1）挂断时，主叫和被叫都会收到summaryMessage ，监听对方的消息就可以获取挂断消息</li>
+                <li>（2）demo 主叫： <a href="https://rongcloud.github.io/websdk-demo/voip.html">https://rongcloud.github.io/websdk-demo/voip.html</a></li>
+                <li>（3）demo 被叫： <a href="https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver ">https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver </a></li>
+            </ul>
+        </div>
+
+        <div class="audioSteps">
+            <h3 class="question"> 视频聊天步骤 </h3>
+            <ul class="answer">
+                <li>（1）A 向 B 发起音视频请求</li>
+                <li>（2）B 收到音视频请求 InviteMessage </li>
+                <li>（3）A 收到响铃消息 RingingMessage </li>
+                <li>（4）B 接受音视频请求 joincall </li>
+                <li>（5）A 收到 B 接受视频请求的消息 AcceptMessage </li>
+                <li>（6）成功建立视频通话 </li>
+                <li>（7）demo 主叫： <a href="https://rongcloud.github.io/websdk-demo/voip.html">https://rongcloud.github.io/websdk-demo/voip.html</a></li>
+                <li>（8）demo 被叫： <a href="https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver ">https://rongcloud.github.io/websdk-demo/voip.html?userId=receiver </a></li>
+            </ul>
+        </div>
+
+        <div class="serverOnError">
+            <h3 class="question"> wss://localhost.agora.io:8921/ 服务器访问不到</h3>
+            <ul class="answer">
+                <li>（1）确认是否安装 agoraWebAgent 插件并启动 </li>
+                <li>（2）两台电脑一对一视频通话 </li>
+                <li>（3）windows 插件下载地址：<a href="http://cdn.ronghub.com/AgoraWebAgentSetup.exe">http://cdn.ronghub.com/AgoraWebAgentSetup.exe</a></li>
+                <li>（4）mac 插件下载地址：<a href="http://cdn.ronghub.com/AgoraWebAgent.pkg">http://cdn.ronghub.com/AgoraWebAgent.pkg</a></li>
+            </ul>
+        </div>
+
+        <div class="callOnError">
+            <h3 class="question">发起通话报错 18</h3>
+            <ul class="answer">
+                <li>（1）<a href="http://www.rongcloud.cn/docs/web_calllib.html#status">http://www.rongcloud.cn/docs/web_calllib.html#status</a></li>
+                <li>（2）VOIP 不可用，确认一下是否开启了音视频服务 </li>
+                <li>（3）音视频开通方式说明：<a href="http://www.rongcloud.cn/docs/call.html#open">http://www.rongcloud.cn/docs/call.html#open</a></li>
+            </ul>
+        </div>
+
+        <div class="fusion">
+            <h3 class="quetion">将 VOIP 和 Web 聊天插件结合</h3>
+            <ul class="answer">
+                <li>（1）在聊天界面中增加发起视频或语音通话按钮（通过修改模板加入新的 dom 节点，赋予相应的 css 做好样式，通过 AngularJS 的双向绑定方式添加相应的事件）</li>
+                <li>（2）用户点击按钮发起会话 </li>
+                <li>（3）接收方点击接受，开始通讯</li>
+            </ul>
+        </div>
+
+        <div class="onError">
+            <h3 class="question">b._voipProvider is undefind</h3>
+            <ul class="answer">
+                <li>（1）根据错误提示应该是 音视频 SDK 未初始化</li>
+                <li>（2）参考文档: <a href="http://www.rongcloud.cn/docs/web_calllib.html">http://www.rongcloud.cn/docs/web_calllib.html</a></li>
+            </ul>
+        </div>
+
+        <div class="integration">
+            <h3 class="question">通过 H5 写的 web 型 APP 集成音视频</h3>
+            <ul class="answer">
+                <li>（1）在 引入 SDK 之前设置 window["SCHEMETYPE"] = "http"; </li>
+                <li>（2）参考文档；<a href="http://www.rongcloud.cn/docs/web_api_demo.html#other">http://www.rongcloud.cn/docs/web_api_demo.html#other</a></li>
+            </ul>
+        </div>
+    </div>
+
     <!-- 参考文档 -->
     <div class="ReferenceDocumentation">
         <h2>参考文档</h2>
