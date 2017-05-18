@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>dynamic fav</title>
+<link id="icon" rel="icon" type="image/png" href="res/favicon-32x32.png" _icon="res/favicon-32x32.png">
+</head>
+<style>
+body{
+	font-size:300%;
+}
+div{
+	margin:50px auto;
+	text-indent:2em;
+	font-family:arial;
+}
+#number{
+	color:#cd0000;
+	font-weight:700;
+}	
+</style>
+<body>
+
+<div>
+	未读消息数 <span id="number"></span>
+</div>
+
+<script>
+var t = setInterval(showUnReadCount,1000);
+
+function showUnReadCount(){	
+	var target = document.getElementById("icon");
+	var dom = document.getElementById("number");
+	var icon = target.getAttribute("_icon");
+
+	var unReadCount = Math.floor(Math.random()*10000)%99;
+		dom.innerHTML = unReadCount;
+
+	var img = new Image();
+	img.src  = icon;
+	img.onload = function(){
+		var fav = createFav(this,unReadCount,icon);
+		target.href = fav;
+	}
+}
+
+function createFav(img,unReadCount,icon){
+	var size = 32;
+	var longer = 20;
+	var canvas = document.createElement("canvas");
+		canvas.width = size;
+		canvas.height = size;
+
+	var context = canvas.getContext('2d');
+
+	//绘制icon
+	context.drawImage(img, longer, 0, size, size);
+
+	//绘制红色圆
+	var r = x = y = longer/2;
+	context.strokeStyle = '#cd0000';
+	context.fillStyle = '#cd0000';
+	context.beginPath();
+	context.arc(x+5,y+5,r*1.5,0,Math.PI*2,false);
+	//arc(x, y, radius, startAngle, endAngle, anticlockwise)
+
+	context.closePath();
+	context.stroke();
+	context.fill();
+
+	//绘制未读数
+	var number = 0;
+	if(unReadCount<10){
+		number = " " + unReadCount;
+	}else{
+		number = "" + unReadCount;
+	}
+	context.font = size*0.6 + "px Arial";    
+	context.textBaseline = 'top';
+	
+	context.fillStyle = "white"; 
+
+	context.fillText(number, 4, 4);
+
+	//返回fav图标
+	return canvas.toDataURL("image/png");
+}
+</script>
+	
+</body>
+</html>
