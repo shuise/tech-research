@@ -20,14 +20,24 @@ li span{
 
 <h1>融云IM产品多版本体验信息</h1>
 
+<!-- <script src="/rce/download/install.json"></script> -->
+<script src="install.json"></script>
+
 <ol>
 	<li><span>管理后台</span> <a target="_blank" href="/rce/admin/index.html">点击进入</a></li>
 	<li><span>WebIM</span> <a target="_blank" href="/rce/im/index.html">点击进入</a></li>
 	<li><span>Android</span> <a href="/rce/download/android.apk">点击下载</a></li>
 	<li><span>iOS</span> <a href="/rce/download/ios.ipa">点击下载</a></li>
+	<li><span>iOS</span> <a target="_blank" href="###" id="ios-install">点击安装</a></li>
+
 	<li><span>Mac</span> <a href="/rce/download/mac.zip">点击下载</a></li>
 	<li><span>Windows</span> <a href="/rce/download/windows.zip">点击下载</a></li>
 </ol>
-	
+<script>
+(function(){
+	var btn = document.getElementById("ios-install");
+	btn.href = links.ios;
+})();	
+</script>	
 </body>
 </html>
