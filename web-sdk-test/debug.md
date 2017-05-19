@@ -404,7 +404,7 @@ var msg = new RongIMLib.ImageMessage(content);
 （3）反过来， APP 发消息，Web 端 是否可以收到消息
 
 
-## 音视频问题
+## 六、音视频问题
 
 
 ### web 端音视频支持问题
