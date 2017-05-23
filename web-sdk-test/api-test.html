@@ -83,18 +83,11 @@ li {
 </style>
 
 
-<!--check.js是做一些环境监测用的临时代码，仅限开发调试使用
--->
-<script src="js/pre-check.js"></script>
 
 
-
-
-<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
-<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
-<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
-
-
+<script src="http://cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<script src="http://cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<script src="http://cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
 <script>
 "use strict";
@@ -1260,20 +1253,20 @@ function getBase64Image(){
 		-->
 	</p>
 	<p>
-		<span>targetIds</span>
-		<input type="text" id="targetId" size="25" value="user9,user10">
-		<em>逗号间隔，至少提供两个</em>
+		<span>targetId</span>
+		<input type="text" id="targetId" size="25" value="user9">
+		<em>接收者id</em>
 	</p>
 	<p>
 		<span>&#160;</span>
 		<input type="button" onclick="init()" value="初始化">  &#160;&#160;<strong>所有业务方法都必须在 链接成功 之后执行</strong>
 	</p>
-	<ul>
+	<ul style="border:1px solid #ccc;background:#f5f5f5;padding:10px;">
 		<li>API 接口调用示例 demo 使用：</li>
 		<li>(1) 请更换使用自己的 appkey 。</li>
 		<li>(2) 请使用 appkey 对应环境下的 token 用户 初始化并登陆。</li>
-		<li>(3) targetIds 是 对话的 userId ，在 demo 中发送消息等 会发送给 targetIds 中第一个 targetId ，targetIds 至少要提供两个，以逗号隔开</li>
-		<li>(4) 消息接收请再次打开本网址，登陆 targetIds 中第一个 targetId 的用户，就可以进行两个用户之间的收发消息。</li>
+		<li>(3) targetId 是 接收方用户 id</li>
+		<li>(4) 消息接收请再次打开本网址，使用targetId的token链接，并将targetId设置为之前链接的用户id，就可以进行两个用户之间的收发消息。</li>
 	</ul>
 
 </div>
@@ -1321,7 +1314,7 @@ function getBase64Image(){
 
 	<br>
 
-	讨论组：
+	<!-- 讨论组：
 	<input type="button" value="讨论组创建" onclick="createDiscussion();"> 
 	<input type="button" value="讨论组改名" onclick="setDiscussionName();"> 
 	<input type="button" value="讨论组状态" onclick="setDiscussionStatus();"> 
@@ -1329,17 +1322,16 @@ function getBase64Image(){
 	<input type="button" value="讨论组踢人" onclick="removeMemberFromDiscussion();"> 
 	<input type="button" value="退出讨论组" onclick="quitDiscussion();"> 
 
-	<br>
+	<br> 
 
 	公众服务：
 	<input type="button" value="获取已关注公众号" onclick="getPublicServiceList();"> 
 	<input type="button" value="查找公众号" onclick="searchPublicService();"> 
-	<!-- <input type="button" value="查找公众号 byType" onclick="searchPublicServiceByType();">  -->
 	<input type="button" value="订阅公众号" onclick="subscribePublicService();"> 
 	<input type="button" value="取消订阅公众号" onclick="unsubscribePublicService();"> 
 	<input type="button" value="获取公众号信息" onclick="getPublicServiceProfile();"> 
 	
-	<br>
+	<br>-->
 	<br>
 </div>
 
