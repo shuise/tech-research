@@ -272,7 +272,7 @@ function init(){
 		// 接收到的消息
 		onReceived: function (message) {
 		    // 判断消息类型
-		    showTips("新消息，类型为：" + message.messageType);
+		    showTips("收到" + message.messageType + "消息, id=" + message.messageUId);
             // showResult("新消息",message,start);
 
             // console.log(message);
