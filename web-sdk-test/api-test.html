@@ -83,7 +83,29 @@ li {
 </style>
 
 <script type="text/javascript">
-	window.WEB_XHR_POLLING = true;
+	function getIEBrowser (){
+		var UA = navigator.userAgent,
+	        isIE = UA.indexOf('MSIE') > -1,
+	        v = isIE ? /\d+/.exec(UA.split(';')[1]) : 'no ie';
+	        return v;
+	} 
+
+	//浏览器版本是否低于IE8
+	var lessThenIE8 = function () {
+	    var v = getIEBrowser();
+	    return v < 8;
+	}();
+
+	//浏览器版本是否低于IE9
+	var lessThenIE9 = function () {
+	    var v = getIEBrowser();
+	    return v < 9;
+	}();
+
+	if(lessThenIE9){
+		window.WEB_XHR_POLLING = true;
+	}
+	
 </script>
 
 
@@ -93,22 +115,6 @@ li {
 
 <script>
 "use strict";
-
-//浏览器版本是否低于IE8
-var lessThenIE8 = function () {
-    var UA = navigator.userAgent,
-        isIE = UA.indexOf('MSIE') > -1,
-        v = isIE ? /\d+/.exec(UA.split(';')[1]) : 'no ie';
-    return v < 8;
-}();
-
-//浏览器版本是否低于IE9
-var lessThenIE9 = function () {
-    var UA = navigator.userAgent,
-        isIE = UA.indexOf('MSIE') > -1,
-        v = isIE ? /\d+/.exec(UA.split(';')[1]) : 'no ie';
-    return v < 9;
-}();
 
 function showTips(data){
 	var dom = document.getElementById("show");
@@ -744,7 +750,7 @@ function getConversationList(){
 	*/
 
 	var conversationTypes = null;  //具体格式设置需要补充
-	var limit = 10; //获取会话的数量，不传或传null为全部，暂不支持分页
+	var limit = null; //获取会话的数量，不传或传null为全部，暂不支持分页
 	var start = new Date().getTime();
 	instance.getConversationList({
 		onSuccess: function(list) {
@@ -1312,7 +1318,7 @@ function getBase64Image(){
 	<input type="button" value="加入聊天室" onclick="enterChatroom();"> 
 	<input type="button" value="聊天室发消息" onclick="sendMessageToChatroom();"> 
 	<input type="button" value="退出聊天室" onclick="quitChatroom();"> 
-	<input type="button" value="获取聊天室信息" onclick="getChatroomInfo();"> 
+	<!-- <input type="button" value="获取聊天室信息" onclick="getChatroomInfo();">  -->
 
 	<br>
 
