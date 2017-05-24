@@ -82,12 +82,14 @@ li {
 }
 </style>
 
+<script type="text/javascript">
+	window.WEB_XHR_POLLING = true;
+</script>
 
 
-
-<script src="http://cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
-<script src="http://cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
-<script src="http://cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
 <script>
 "use strict";
@@ -273,7 +275,7 @@ function init(){
 		    showTips("新消息，类型为：" + message.messageType);
             // showResult("新消息",message,start);
 
-            console.log(message);
+            // console.log(message);
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
 		        	/*
@@ -1254,7 +1256,7 @@ function getBase64Image(){
 	</p>
 	<p>
 		<span>targetId</span>
-		<input type="text" id="targetId" size="25" value="user9">
+		<input type="text" id="targetId" size="25" value="user10">
 		<em>接收者id</em>
 	</p>
 	<p>
