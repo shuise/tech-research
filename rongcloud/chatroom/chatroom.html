@@ -1,0 +1,678 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WebSDK Demo</title>
+<style type="text/css">
+@font-face {
+  font-family: 'iconfont';  /* project id 85294 */
+  src: url('//at.alicdn.com/t/font_z00bdvnt2hloko6r.eot');
+  src: url('//at.alicdn.com/t/font_z00bdvnt2hloko6r.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_z00bdvnt2hloko6r.woff') format('woff'),
+  url('//at.alicdn.com/t/font_z00bdvnt2hloko6r.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_z00bdvnt2hloko6r.svg#iconfont') format('svg');
+}
+body,p{
+	margin: 0;
+}
+a,a:focus{
+	outline: none;
+}
+.main{
+	background-color: #F6F6F6;
+}
+.left{
+	height: 100%;
+	position: fixed;
+	width: 210px;
+	z-index: 10;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #191b2e;
+}
+.left h1{
+	text-align: center;
+	color: #fff;
+}
+.middle{
+	margin-left: 230px;
+	margin-right: 0px;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+.room_content{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding-right: 370px;
+	overflow: auto;
+}
+.right{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 350px;
+	height: 100%;
+	background-color: #fbfbfb;
+	border: 1px solid #ececec;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	bottom: 0;
+}
+
+.room_title{
+	height: 90px;
+	border: 1px solid #ebebeb;
+	border-top-width: 0;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	margin-bottom: 11px;
+}
+.room_video{
+	width: 100%;
+	height: 0;
+	padding: 0;
+	padding-bottom: 56.25% !important;
+	background-color: #000;
+}
+.room_video_tip{
+	margin-bottom: 20px;
+	border: 1px solid #ebebeb;
+	background-color: #fff;
+	height: 83px;
+}
+.room_detail_box{
+	margin-bottom: 20px;
+	padding: 20px 25px;
+	width: 100%;
+	border: 1px solid #ececec;
+	background-color: #fff;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.right_title{
+	padding: 0px 10px;
+	line-height: 30px;
+	font-size: 14px;
+	text-align: center;
+}
+.tab_list{
+	height: 26px;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.tab_list .active{
+	color: #1cd388;
+	background-color: #fff !important;
+}
+.tab_list .active:before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background-color: #1cd388;
+}
+.tab_list .tab{
+	position: relative;
+	float: left;
+	width: 50%;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	font-size: 14px;
+	color: #666;
+	background-color: #ececec;
+	cursor: pointer;
+}
+.tab_content_item{
+	display: none;
+	border-bottom: 1px solid #c8c8c8;
+	height: 102px;
+	padding: 0px 8px;
+}
+.active_content{
+	display: block;
+}
+
+.room_chat_container{
+	position: absolute;
+	top: 158px;
+	left: 0px;
+	right: 0px;
+	bottom: 103px;
+}
+.room_chat_scroller{
+	position: relative;
+	margin: 0 auto;
+	padding: 5px 0px;
+	height: 100%;
+	overflow: auto;
+}
+.room_chat_message{
+	list-style: none;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding-left: 40px;
+	margin: 0;
+}
+.room_chat_item{
+	padding: 0;
+    margin: 5px 11px;
+    line-height: 21px;
+    color: #353535;
+    vertical-align: baseline;
+    word-break: break-all;
+    word-wrap: break-word;
+    list-style: none;
+    font-size: 14px;
+}
+.room_chat_user_name{
+	cursor: pointer;
+	color: #04c073;
+}
+.room_chat_enter_message{
+	color: #F50F0F;
+}
+.room_chat_dispatch{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 103px;
+	background-color: #ededed;
+}
+.room_chat_tools{
+	margin: 10px 20px 12px;
+	height: 20px;
+}
+.room_chat_send{
+
+}
+.room_chat_input{
+	position: absolute;
+    top: 42px;
+    bottom: 11px;
+	left: 20px;
+	right: 86px;
+	background-color: #fff;
+}
+.room_chat_texta{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 8px 9px;
+    border: 1px solid #d8d8d8;
+    border-right-width: 0;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    background: 0 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: none;
+    resize: none;
+    color: #333;
+}
+.room_chat_texta:focus{
+	border-color: #1dd388;
+}
+.room_chat_texta_placeholder{
+    width: 100%;
+    height: 100%;
+    padding: 8px 9px;
+    visibility: inherit;
+    font-size: 12px;
+    color: #c3c3c3;
+}
+.input_chosen{
+	visibility: hidden;
+}
+.room_chat_send_btn{
+	position: absolute;
+    top: 42px;
+    bottom: 11px;
+	right: 20px;
+    width: 66px;
+    font-size: 14px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    background-color: #04c073;
+    cursor: pointer;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    -webkit-transition: all 200ms;
+    transition: all 200ms;
+}
+.room_chat_send_btn:hover{
+    opacity: .7;
+}
+.room_tool_item{
+	font-family: 'iconfont' !important;
+	font-style: normal;
+	font-size: 20px;
+	cursor: pointer;
+	margin-right: 10px;
+	color: #9F9F9F;
+}
+.room_tool_item:hover{
+	color: #04c073;
+}
+.room_tool_active{
+	color: #04c073;
+}
+.body_right{
+	float: right;
+}
+.body_left{
+	float: left;
+}
+.emoji_content{
+	visibility: hidden;
+	padding: 5px;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 103px;
+	width: 310px;
+	height: 180px;
+	background-color: #fff;
+	border: 1px solid #e9e9e9;
+	left: -1px;
+	overflow: auto;
+}
+.emoji_content span{
+	padding: 5px;
+	cursor: pointer;
+}
+.emoji_content span:hover{
+	background-color: rgba(0,0,0,.1);
+	position: relative;
+	top: -2px;
+	/*transform: translateY(-2px);
+	-ms-transform: translateY(-2px);		
+	-webkit-transform: translateY(-2px);	
+	-o-transform: translateY(-2px);		
+	-moz-transform: translateY(-2px);	*/
+}
+.content_active{
+	visibility: visible;
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+	<div class="left">
+		<h1>XX直播</h1>
+	</div>
+	<div class="middle">
+		<div class="room_content">
+			<div class="room_title">
+
+			</div>
+			<div class="room_video">
+
+			</div>
+			<div class="room_video_tip">
+				
+			</div>
+			<div class="room_detail_box">
+				<p class="room_detail_title">直播详情</p>
+			</div>
+		</div>
+		<div class="right">
+			<p class="right_title">直播公告：每周末准时直播</p>
+			<div class="tab_content_list">
+				<div class="tab_list">
+					<a class="tab active" data-rank="1">周榜</a>
+					<a class="tab" data-rank="2">总榜</a>
+				</div>
+				<div class="tab_content_main">
+					<div class="tab_content_item active_content">
+						111
+					</div>
+					<div class="tab_content_item">
+						222
+					</div>
+				</div>
+				<div class="room_chat_container">
+					<div class="room_chat_scroller">
+						<ul class="room_chat_message">
+
+							
+						</ul>
+					</div>
+				</div>
+				<div class="room_chat_dispatch">
+					<div class="room_chat_tools">
+						<div class="room_chat_tool_left body_left">
+							<span class="room_tool_item">&#xe714;</span>
+							<span class="room_tool_item" data-type="emoji">&#xe60b;</span>
+							<span class="room_tool_item">&#xe638;</span>
+							<div class="emoji_content">
+								
+							</div>
+						</div>
+						
+						<div class="room_chat_tool_right body_right">
+							<span class="room_tool_item">&#xe600;</span>
+						</div>
+					</div>
+					<div class="room_chat_send">
+						<div class="room_chat_input">
+							<textarea class="room_chat_texta"></textarea>
+							<div class="room_chat_texta_placeholder">快和大家一起聊天吧</div>
+						</div>
+						<div class="room_chat_send_btn">发送</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tab').on('click',function(){
+		$('.tab').removeClass('active');
+		$(this).addClass('active');
+		var this_rank = $(this).data('rank');
+		$('.tab_content_item').removeClass('active_content');
+		$('.tab_content_item').eq(this_rank-1).addClass('active_content');
+	});
+	$(".room_chat_texta").focus(function(){
+		$('.room_chat_texta_placeholder').addClass('input_chosen');
+	});
+	$(".room_chat_texta").blur(function(){
+		if (!$('.room_chat_texta').val()) {
+			$('.room_chat_texta_placeholder').removeClass('input_chosen');
+		}
+	});
+
+	function btn_ope(){
+		$('.room_chat_send_btn').on('click',function(){
+			var this_message = $('.room_chat_texta').val();
+			console.log(this_message);
+			if (!this_message) {
+				alert('请输入内容');
+				return;
+			}
+			sendMessageToChatroom(this_message);
+			$('.room_chat_texta').val('');
+			$('.room_chat_texta').trigger('blur');
+		});
+		$('.room_chat_texta').bind('keydown', function(e) {
+			if (event.keyCode == "13") {
+				e.preventDefault();
+			}
+		});
+		$('.room_chat_texta').bind('keyup', function(e) {
+			if (event.keyCode == "13") {
+				$('.room_chat_send_btn').trigger('click');
+			}
+		});
+		$('.room_tool_item').on('click',function(){
+			var this_type = $(this).data('type');
+			if (this_type == 'emoji') {
+				if ($('.emoji_content').hasClass('content_active')) {
+					$('.emoji_content').removeClass('content_active');
+					$('.room_tool_item').removeClass('room_tool_active');
+				} else {
+					$('.room_tool_item').removeClass('room_tool_active');
+					$(this).addClass('room_tool_active');
+					$('.emoji_content').addClass('content_active');
+				}
+			};
+		});
+
+	}
+
+	function showMessage(name,message){
+		var li = '<li class="room_chat_item"><span class="room_chat_user_name">'+name+'：</span><span class="room_chat_content">'+message+'</span></li>';
+		$('.room_chat_message').append(li);
+		var this_height = $('.room_chat_message').height();
+		$('.room_chat_scroller').scrollTop(this_height);
+	}
+	function showEnter(name){
+		var li = '<li class="room_chat_item"><span class="room_chat_enter_message">欢迎&nbsp;<span class="room_chat_user_name">'+name+'</span>&nbsp;进入本直播间</span></li>';
+		$('.room_chat_message').append(li);
+		var this_height = $('.room_chat_message').height();
+		$('.room_chat_scroller').scrollTop(this_height);
+	}
+	function showEmoji(emoji){
+		var str_html = '';
+		for (var i = 0; i < emoji.length; i++) {
+			str_html += emoji[i].innerHTML;
+		}
+		$('.emoji_content').append(str_html);
+		$('.emoji_content span').on('click',function(){
+			var this_str = $(this).attr('name');
+			if (!$('.room_chat_texta').val()) {
+				$('.room_chat_texta_placeholder').addClass('input_chosen');
+			}
+			$('.room_chat_texta').val($('.room_chat_texta').val()+this_str);
+			$('.emoji_content').removeClass('content_active');
+			$('.room_tool_item').removeClass('room_tool_active');
+		});
+	}
+
+	var instance = null;
+	var appKey = "x18ywvqfx63cc";
+	var token = "WmQrfWCGssNSw5UQdbREDODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8IsbIkVR7NpJ6pztL3r66PVAA+G5M8oZ2Q==";
+	
+	//加入聊天室后，可以用任意一个发送消息的方法发送消息，只需要conversationType为CHATROOM
+	var chatRoomId = "chatRoomId-001"; // 聊天室 Id,可任意指定，能区分不同聊天室即可
+	var count = 10; //拉取最近的会话内容（最近 n ( n <= 50 )条）
+
+	function init(){
+		//公有云初始化
+		RongIMLib.RongIMClient.init(appKey);
+		instance = RongIMClient.getInstance();
+		//初始化表情库
+		RongIMLib.RongIMEmoji.init();
+		showEmoji(RongIMLib.RongIMEmoji.emojis);
+		// 连接状态监听器
+		RongIMClient.setConnectionStatusListener({
+			onChanged: function (status) {
+			    switch (status) {
+		            //链接成功
+		            case RongIMLib.ConnectionStatus.CONNECTED:
+		                console.log('链接成功');
+		                break;
+		            //正在链接
+		            case RongIMLib.ConnectionStatus.CONNECTING:
+		                console.log('正在链接');
+		                break;
+		            //重新链接
+		            case RongIMLib.ConnectionStatus.DISCONNECTED:
+		                console.log('断开连接');
+		                break;
+		            //其他设备登录
+		            case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+		                console.log('其他设备登录');
+		                break;
+		              //网络不可用
+		            case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+		              console.log('网络不可用');
+		              break;
+		            }	
+			}
+		});
+		// 消息监听器
+	 	RongIMClient.setOnReceiveMessageListener({
+		    // 接收到的消息
+		    onReceived: function (message) {
+		    	console.log("新消息，类型为：" + message.messageType);
+		    	console.log(message);
+		        // 判断消息类型
+		        switch(message.messageType){
+		            case RongIMClient.MessageType.TextMessage:
+		                   // 发送的消息内容将会被打印
+		                console.log(message.content.content);
+		                break;
+		            case RongIMClient.MessageType.VoiceMessage:
+		                // 对声音进行预加载                
+		                // message.content.content 格式为 AMR 格式的 base64 码
+		                RongIMLib.RongIMVoice.preLoaded(message.content.content);
+		                break;
+		            case RongIMClient.MessageType.ImageMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.DiscussionNotificationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.LocationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.RichContentMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.DiscussionNotificationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.InformationNotificationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.ContactNotificationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.ProfileNotificationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.CommandNotificationMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.CommandMessage:
+		                // do something...
+		                break;
+		            case RongIMClient.MessageType.UnknownMessage:
+		                // do something...
+		                break;
+		            default:
+		                // 自定义消息
+		                // do something...
+		        }
+		    }
+		});
+		//开始链接
+		RongIMClient.connect(token, {
+			onSuccess: function(userId) {
+				console.log("链接成功，用户id：" + userId);
+				enterChatroom();
+			},
+			onTokenIncorrect: function() {
+				console.log('token无效');
+			},
+			onError:function(errorCode){
+			  var info = '';
+			  switch (errorCode) {
+			    case RongIMLib.ErrorCode.TIMEOUT:
+			      info = '超时';
+			      break;
+			    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+			      info = '未知错误';
+			      break;
+			    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+			      info = '不可接受的协议版本';
+			      break;
+			    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+			      info = 'appkey不正确';
+			      break;
+			    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+			      info = '服务器不可用';
+			      break;
+			  }
+			  console.log(info);
+			}
+		});
+	}
+
+	function sendMessageToChatroom(message_content){
+		var content = {
+			content:message_content ? RongIMLib.RongIMEmoji.symbolToEmoji(message_content) : '欢迎进入'+chatRoomId+'房间',
+			extra:"RongCloud"
+		};
+
+		var conversationtype = RongIMLib.ConversationType.CHATROOM; // 私聊
+		var msg = new RongIMLib.TextMessage(content);
+
+		var start = new Date().getTime();
+		instance.sendMessage(conversationtype, chatRoomId, msg, {
+	        onSuccess: function (message) {
+	            console.log("发送聊天室消息成功");
+	            var this_name = 'user_id:'+message.senderUserId;
+	            var this_message = message.content.content;
+	            if (message_content) {
+	            	showMessage(this_name,this_message);
+	            } else {
+	            	showEnter(this_name);
+	            }
+	        },
+	        onError: function (errorCode,message) {
+	            console.log(errorCode);
+	            console.log(message);
+	        }
+	    });
+	}
+
+	function enterChatroom(){
+		var count = 2;// 拉取最近聊天最多 50 条。
+		instance.joinChatRoom(chatRoomId, count, {
+			onSuccess: function() {
+	            console.log("加入聊天室成功");
+	            setTimeout(function(){
+	            	sendMessageToChatroom();
+	            },50);
+	            btn_ope();
+			},
+			onError: function(error) {
+	            console.log("加入聊天室失败");
+			}
+		});
+
+		var order = RongIMLib.GetChatRoomType.REVERSE;// 排序方式。
+		var memberCount = 10; // 获取聊天室人数 （范围 0-20 ）
+
+		instance.getChatRoomInfo(chatRoomId, memberCount, order, {
+		  onSuccess: function(chatRoom) {
+				// chatRoom => 聊天室信息。
+				// chatRoom.userInfos => 返回聊天室成员。
+				// chatRoom.userTotalNums => 当前聊天室总人数。
+	            console.log("获取聊天室信息成功");
+	            console.log(chatRoom);
+		  },
+		  onError: function(error) {
+	            console.log("获取聊天室信息失败");
+	            console.log(error);
+		  }
+		});
+	}
+
+
+
+
+	init();
+});
+</script>
+
+
+
+
+
+	
+
+
+</body>
+</html>
