@@ -59,6 +59,7 @@
 		$('.room-chat-texta').on('keyup', function(e) {
 			if (event.keyCode == "13") {
 				$('.room-chat-send-btn').trigger('click');
+				$('.room-chat-texta').trigger('focus');
 			}
 		});
 	}
@@ -114,6 +115,7 @@
 			$('.room-chat-texta').val($('.room-chat-texta').val()+emojiName);
 			$('.emoji-content').removeClass('content-active');
 			$('.room-tool-item').removeClass('room-tool-active');
+			$('.room-chat-texta').trigger('focus');
 		}
 	}
 
@@ -130,9 +132,9 @@
 	        onSuccess: function (message) {
 	            console.log("发送聊天室消息成功");
 	            var userName = 'userId:'+message.senderUserId;
-	            var uaerMessage = message.content.content;
+	            var userMessage = RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
 	            if (messageContent) {
-	            	showMessage(userName,uaerMessage);
+	            	showMessage(userName,userMessage);
 	            } else {
 	            	showMessage(userName);
 	            }
@@ -222,7 +224,8 @@
 		    	console.log(message);
 		    	//接受到的消息打印到聊天室
 		    	var userName = 'userId:'+message.senderUserId;
-	            var uaerMessage = message.content.content;
+		    	console.log(message.content.content);
+	            var uaerMessage = RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
 	            if (uaerMessage) {
 	            	showMessage(userName,uaerMessage);
 	            } else {
