@@ -49,15 +49,10 @@
 			$('.room-chat-texta').val('');
 			$('.room-chat-texta').trigger('blur');
 		});
-		//取消textarea默认的回车另起一行事件
+		//回车出发提交事件
 		$('.room-chat-texta').on('keydown', function(e) {
 			if (event.keyCode == "13") {
 				e.preventDefault();
-			}
-		});
-		//回车出发提交事件
-		$('.room-chat-texta').on('keyup', function(e) {
-			if (event.keyCode == "13") {
 				$('.room-chat-send-btn').trigger('click');
 				$('.room-chat-texta').trigger('focus');
 			}
@@ -328,22 +323,22 @@
 		var newUserId = windowUrl.split('?')[1];
 		var token = null;
 		switch (newUserId) {
-            case '2':
-            	token = 'ZpOI6QzJRXsQIx9eDh6kieDVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8JNtj21L1Z91hhA2a+g3efFAA+G5M8oZ2Q==';
-                break;
-            case '3':
-                token = 'dhl+lY6PXKcpdecQXANjzxhk/uhL8Kv6pF6CR8FvYjFvKXtLRe060pKfJAMYm31+bB1APLKBNSswrFQN00U2qQ==';
-                break;
-            case '4':
-                token = 'lkCc3qWr+ELk1KJggkFFwuDVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8NRc3wdP3qbLUrQYi/7UG4ZAA+G5M8oZ2Q==';
-                break;
-            case '5':
-                token = '9omNnfBQFBr1sCLnI4W9mODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8JO8JDhUWKVlIWt8TjF2WlRAA+G5M8oZ2Q==';
-                break;
-            default:
-            	token = 'WmQrfWCGssNSw5UQdbREDODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8IsbIkVR7NpJ6pztL3r66PVAA+G5M8oZ2Q==';
-            	break;
-        }
+	        case '2':
+	        	token = 'ZpOI6QzJRXsQIx9eDh6kieDVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8JNtj21L1Z91hhA2a+g3efFAA+G5M8oZ2Q==';
+	            break;
+	        case '3':
+	            token = 'dhl+lY6PXKcpdecQXANjzxhk/uhL8Kv6pF6CR8FvYjFvKXtLRe060pKfJAMYm31+bB1APLKBNSswrFQN00U2qQ==';
+	            break;
+	        case '4':
+	            token = 'lkCc3qWr+ELk1KJggkFFwuDVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8NRc3wdP3qbLUrQYi/7UG4ZAA+G5M8oZ2Q==';
+	            break;
+	        case '5':
+	            token = '9omNnfBQFBr1sCLnI4W9mODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8JO8JDhUWKVlIWt8TjF2WlRAA+G5M8oZ2Q==';
+	            break;
+	        default:
+	        	token = 'WmQrfWCGssNSw5UQdbREDODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8IsbIkVR7NpJ6pztL3r66PVAA+G5M8oZ2Q==';
+	        	break;
+	    }
 		var params = {
 			appKey : "x18ywvqfx63cc",
 			token : token
@@ -374,7 +369,6 @@
 
 
 
-	
 
 
 </body>
