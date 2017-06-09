@@ -126,7 +126,7 @@
 		instance.sendMessage(conversationtype, chatRoomId, msg, {
 	        onSuccess: function (message) {
 	            console.log("发送聊天室消息成功");
-	            var userName = 'userId:'+message.senderUserId;
+	            var userName = message.senderUserId;
 	            var userMessage = RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
 	            if (messageContent) {
 	            	showMessage(userName,userMessage);
@@ -218,7 +218,7 @@
 		    	console.log("新消息，类型为：" + message.messageType);
 		    	console.log(message);
 		    	//接受到的消息打印到聊天室
-		    	var userName = 'userId:'+message.senderUserId;
+		    	var userName = message.senderUserId;
 		    	console.log(message.content.content);
 	            var uaerMessage = RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
 	            if (uaerMessage) {
@@ -312,32 +312,42 @@
 
 	function startInit(){
 		user = [
-			{userId:1,name:'小明'},
-			{userId:2,name:'小红'},
-			{userId:3,name:'小刚'},
-			{userId:4,name:'小志'},
-			{userId:5,name:'小强'}
+			{userId:'chatRoomUserId_1',name:'小明'},
+			{userId:'chatRoomUserId_2',name:'小红'},
+			{userId:'chatRoomUserId_3',name:'小刚'},
+			{userId:'chatRoomUserId_4',name:'小志'},
+			{userId:'chatRoomUserId_5',name:'小强'}
 		]
 		
 		var windowUrl = self.location.href;
-		var newUserId = windowUrl.split('?')[1];
+		var newUserInfo = windowUrl.split('?')[1];
+		var newUserPa = newUserInfo.split('=')[0];
+		if (newUserPa != 'userId') {
+			alert('请确认参数名的正确性');
+			return;
+		}
+		var newUserId = newUserInfo.split('=')[1];
+		console.log(newUserId);
 		var token = null;
 		switch (newUserId) {
-	        case '2':
-	        	token = 'ZpOI6QzJRXsQIx9eDh6kieDVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8JNtj21L1Z91hhA2a+g3efFAA+G5M8oZ2Q==';
+	        case 'chatRoomUserId_1':
+	        	token = 'ND0v0vwnsP3kCrvvzXqjgqOKujdAa9vCggP5lhny8RCz9VPw2i1e0/JjIbZxZpIAwIn17FAdyFku+uyhJG5XoAsMJ2SHJOSM+wZMNAUjv6s=';
 	            break;
-	        case '3':
-	            token = 'dhl+lY6PXKcpdecQXANjzxhk/uhL8Kv6pF6CR8FvYjFvKXtLRe060pKfJAMYm31+bB1APLKBNSswrFQN00U2qQ==';
+	        case 'chatRoomUserId_2':
+	        	token = 'Q+0v092amm0gGtmxKqq8d+DVO65TqPEq/oc1GT9tx6adX/Oe4f3Gp7I2KD2o6FJE9KKrgGgremdSlaeAqEHyaKcAxQlrBwmphi5H/jwTuB8=';
 	            break;
-	        case '4':
-	            token = 'lkCc3qWr+ELk1KJggkFFwuDVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8NRc3wdP3qbLUrQYi/7UG4ZAA+G5M8oZ2Q==';
+	        case 'chatRoomUserId_3':
+	            token = 'tEN34xSkH8/NF9knbPyTY+DVO65TqPEq/oc1GT9tx6adX/Oe4f3Gp0g6MiMJ+z83j1RynYAEr3lSlaeAqEHyaKcAxQlrBwmpmxFOoJ6jhB4=';
 	            break;
-	        case '5':
-	            token = '9omNnfBQFBr1sCLnI4W9mODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8JO8JDhUWKVlIWt8TjF2WlRAA+G5M8oZ2Q==';
+	        case 'chatRoomUserId_4':
+	            token = 'iPLWxBaQKGkHVTKmeYvqDqWhm18AYWdL6puaK6TgZz9SFRwU6Ftt6LHK0btIKMoM+kgvn9UhICJhn5GMxBJzPd6kqmBA/YW8qoOtO/fltsI=';
+	            break;
+	        case 'chatRoomUserId_5':
+	            token = 'E0jNuEK43vpasai18FlPfBhk/uhL8Kv6pF6CR8FvYjFvKXtLRe060orFvUyafp9jMOXrC41ec2oeOJIiPVm7tRl5hcF4S2c7S9cAgCPM8f0=';
 	            break;
 	        default:
-	        	token = 'WmQrfWCGssNSw5UQdbREDODVO65TqPEq/oc1GT9tx6Zqx7sEQ9At8IsbIkVR7NpJ6pztL3r66PVAA+G5M8oZ2Q==';
-	        	break;
+	        	alert('userId不存在！');
+	        	return;
 	    }
 		var params = {
 			appKey : "x18ywvqfx63cc",
