@@ -321,15 +321,22 @@
 		
 		var windowUrl = self.location.href;
 		var newUserInfo = windowUrl.split('?')[1];
-		var newUserPa = newUserInfo.split('=')[0];
-		if (newUserPa != 'userId') {
-			alert('请确认参数名的正确性');
-			return;
+		var newUserId = '';
+		if (newUserInfo) {
+			var newUserPa = newUserInfo.split('=')[0];
+			if (newUserPa != 'userId') {
+				alert('请确认参数名的正确性');
+				return;
+			}
+			newUserId = newUserInfo.split('=')[1];
 		}
-		var newUserId = newUserInfo.split('=')[1];
+		
 		console.log(newUserId);
 		var token = null;
 		switch (newUserId) {
+	        case '':
+	        	token = 'ND0v0vwnsP3kCrvvzXqjgqOKujdAa9vCggP5lhny8RCz9VPw2i1e0/JjIbZxZpIAwIn17FAdyFku+uyhJG5XoAsMJ2SHJOSM+wZMNAUjv6s=';
+	            break;
 	        case 'chatRoomUserId_1':
 	        	token = 'ND0v0vwnsP3kCrvvzXqjgqOKujdAa9vCggP5lhny8RCz9VPw2i1e0/JjIbZxZpIAwIn17FAdyFku+uyhJG5XoAsMJ2SHJOSM+wZMNAUjv6s=';
 	            break;
