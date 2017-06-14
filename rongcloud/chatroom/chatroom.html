@@ -10,315 +10,13 @@
 <script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
 <script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script>
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="./static/js/init.js"></script>
+<script src="./static/js/template.js"></script>
+<script src="./static/js/main.js"></script>
 <!-- 这里用到的api有 on() trigger() val() html() hasClass() removeClass() parent() -->
 <script type="text/javascript">
-	var chatRoomHtml = [
-		'<div class="room-chat-container">',
-		'<div class="room-chat-scroller">',
-		'<ul class="room-chat-message">',
-		'</ul>',
-		'</div>',
-		'</div>',
-		'<div class="room-chat-dispatch">',
-		'<div class="room-chat-tools">',
-		'<div class="room-chat-tool-left body-left">',
-		'<span class="room-tool-item room-tool-item-emoji" data-type="emoji" onclick="showEmojiContent()"></span>',
-		'<div class="emoji-content" id="emojiContainer" onclick="chooseEmoji()">',
-		'</div>',
-		'</div>',
-		'</div>',
-		'<div class="room-chat-send">',
-		'<div class="room-chat-input">',
-		'<textarea class="room-chat-texta" id="roomChatTexta" onfocus="changeTextaFocus(true)" onblur="changeTextaFocus(false)"></textarea>',
-		'<div class="room-chat-texta-placeholder" id="roomChatTextaPlaceholder">快和大家一起聊天吧</div>',
-		'</div>',
-		'<div class="room-chat-send-btn">发送</div>',
-		'</div>',
-		'</div>'
-	].join('');
-	$('.room-chat-main').html(chatRoomHtml);
-	//发送的相关操作
-	function sendBtn(chatRoomId){
-		$('.room-chat-send-btn').on('click',function(){
-			var message = $('.room-chat-texta').val();
-			if (!message) {
-				alert('请输入内容');
-				return;
-			}
-			sendMessageToChatroom(chatRoomId,message);
-			$('.room-chat-texta').val('');
-			$('.room-chat-texta').trigger('blur');
-		});
-		//回车出发提交事件
-		$('.room-chat-texta').on('keydown', function(e) {
-			if (event.keyCode == "13") {
-				e.preventDefault();
-				$('.room-chat-send-btn').trigger('click');
-				$('.room-chat-texta').trigger('focus');
-			}
-		});
-	}
-	//控制textarea的placeholder
-	function changeTextaFocus(change){
-		var containerVisibility = 'hidden';
-		if (!change && !$('#roomChatTexta').val()) {
-			containerVisibility = 'visible';
-		}
-		document.getElementById("roomChatTextaPlaceholder").style.visibility = containerVisibility;
-	}
-	//消息显示在页面上
-	function showMessage(name,message){
-		var li = '<li class="room-chat-item"><span class="room-chat-enter-message">欢迎&nbsp;<span class="room-chat-user-name">'+name+'</span>&nbsp;进入本房间</span></li>';
-		if (message) {
-			li = '<li class="room-chat-item"><span class="room-chat-user-name">'+name+'：</span><span class="room-chat-content">'+message+'</span></li>';
-		}
-		$('.room-chat-message').html($('.room-chat-message').html()+li);
-		var height = $('.room-chat-message').height();
-		$('.room-chat-scroller').scrollTop(height);
-	}
-	//表情添加到列表中
-	function showEmoji(emoji){
-		var strHtml = '';
-		for (var i = 0; i < emoji.length; i++) {
-			strHtml += emoji[i].innerHTML;
-		}
-		document.getElementById("emojiContainer").innerHTML = strHtml;
-	}
-	//表情容器的显示与隐藏
-	function showEmojiContent(){
-		var thisTarget = this.event.target || this.event.srcElement;
-		var emojiContainer = $('#emojiContainer');
-		if (emojiContainer.hasClass('content-active')) {
-			emojiContainer.removeClass('content-active');
-			$(thisTarget).removeClass('room-tool-active');
-		} else {
-			emojiContainer.addClass('content-active');
-			$(thisTarget).addClass('room-tool-active');
-		}
-	}
-	//表情的点击事件
-	function chooseEmoji(){
-		var thisTarget = this.event.target || this.event.srcElement;
-		if ($(thisTarget).hasClass('RC_Expression')) {
-			thisTarget = $(thisTarget).parent()[0];
-		}
-		var emojiName = $(thisTarget).attr('name');
-		if (emojiName) {
-			if (!$('.room-chat-texta').val()) {
-				document.getElementById("roomChatTextaPlaceholder").style.visibility = 'hidden';
-			}
-			$('.room-chat-texta').val($('.room-chat-texta').val()+emojiName);
-			$('.emoji-content').removeClass('content-active');
-			$('.room-tool-item').removeClass('room-tool-active');
-			$('.room-chat-texta').trigger('focus');
-		}
-	}
-
-	function sendMessageToChatroom(chatRoomId,messageContent){
-		var content = {
-			content:messageContent ? RongIMLib.RongIMEmoji.symbolToEmoji(messageContent) : '',
-			extra:"RongCloud"
-		};
-
-		var conversationtype = RongIMLib.ConversationType.CHATROOM; // 私聊
-		var msg = new RongIMLib.TextMessage(content);
-
-		instance.sendMessage(conversationtype, chatRoomId, msg, {
-	        onSuccess: function (message) {
-	            console.log("发送聊天室消息成功");
-	            var userName = message.senderUserId;
-	            var userMessage = RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
-	            if (messageContent) {
-	            	showMessage(userName,userMessage);
-	            } else {
-	            	showMessage(userName);
-	            }
-	        },
-	        onError: function (errorCode,message) {
-	            console.log(errorCode);
-	            console.log(message);
-	        }
-	    });
-	}
-
-	function startEnterChatroom(instance,chatRoomId,userInfo,callbacks){
-		var count = 0;// 拉取最近聊天最多 50 条。
-		instance.joinChatRoom(chatRoomId, count, {
-			onSuccess: function() {
-	            console.log("加入聊天室成功");
-	            callbacks.send_message(chatRoomId,userInfo);
-			},
-			onError: function(error) {
-	            console.log("加入聊天室失败");
-			}
-		});
-
-		// var order = RongIMLib.GetChatRoomType.REVERSE;// 排序方式。
-		// var memberCount = 10; // 获取聊天室人数 （范围 0-20 ）
-
-		// instance.getChatRoomInfo(chatRoomId, memberCount, order, {
-		//   onSuccess: function(chatRoom) {
-		// 		// chatRoom => 聊天室信息。
-		// 		// chatRoom.userInfos => 返回聊天室成员。
-		// 		// chatRoom.userTotalNums => 当前聊天室总人数。
-	 //            console.log("获取聊天室信息成功");
-	 //            console.log(chatRoom);
-		//   },
-		//   onError: function(error) {
-	 //            console.log("获取聊天室信息失败");
-	 //            console.log(error);
-		//   }
-		// });
-	}
-
-	function init(params,callbacks){
-		var appKey = params.appKey;
-		var token = params.token;
-		//加入聊天室后，可以用任意一个发送消息的方法发送消息，只需要conversationType为CHATROOM
-		var chatRoomId = "chatRoomId-001"; // 聊天室 Id,可任意指定，能区分不同聊天室即可
-
-		RongIMLib.RongIMClient.init(appKey);
-		//公有云初始化
-		RongIMLib.RongIMClient.init(appKey);
-		instance = RongIMClient.getInstance();
-		//初始化表情库
-		RongIMLib.RongIMEmoji.init();
-		showEmoji(RongIMLib.RongIMEmoji.emojis);
-		// 连接状态监听器
-		RongIMClient.setConnectionStatusListener({
-			onChanged: function (status) {
-			    switch (status) {
-		            //链接成功
-		            case RongIMLib.ConnectionStatus.CONNECTED:
-		                console.log('链接成功');
-		                break;
-		            //正在链接
-		            case RongIMLib.ConnectionStatus.CONNECTING:
-		                console.log('正在链接');
-		                break;
-		            //重新链接
-		            case RongIMLib.ConnectionStatus.DISCONNECTED:
-		                alert('断开连接');
-		                break;
-		            //其他设备登录
-		            case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
-		                alert('其他设备登录');
-		                break;
-		              //网络不可用
-		            case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
-		              alert('网络不可用');
-		              break;
-		            }	
-			}
-		});
-		// 消息监听器
-	 	RongIMClient.setOnReceiveMessageListener({
-		    // 接收到的消息
-		    onReceived: function (message) {
-		    	console.log("新消息，类型为：" + message.messageType);
-		    	console.log(message);
-		    	//接受到的消息打印到聊天室
-		    	var userName = message.senderUserId;
-		    	console.log(message.content.content);
-	            var uaerMessage = RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
-	            if (uaerMessage) {
-	            	showMessage(userName,uaerMessage);
-	            } else {
-	            	showMessage(userName);
-	            }
-
-		        // 判断消息类型
-		        switch(message.messageType){
-		            case RongIMClient.MessageType.TextMessage:
-		                   // 发送的消息内容将会被打印
-		                console.log(message.content.content);
-		                break;
-		            case RongIMClient.MessageType.VoiceMessage:
-		                // 对声音进行预加载                
-		                // message.content.content 格式为 AMR 格式的 base64 码
-		                RongIMLib.RongIMVoice.preLoaded(message.content.content);
-		                break;
-		            case RongIMClient.MessageType.ImageMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.DiscussionNotificationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.LocationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.RichContentMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.DiscussionNotificationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.InformationNotificationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.ContactNotificationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.ProfileNotificationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.CommandNotificationMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.CommandMessage:
-		                // do something...
-		                break;
-		            case RongIMClient.MessageType.UnknownMessage:
-		                // do something...
-		                break;
-		            default:
-		                // 自定义消息
-		                // do something...
-		        }
-		    }
-		});
-		//开始链接
-		RongIMClient.connect(token, {
-			onSuccess: function(userId) {
-				console.log("链接成功，用户id：" + userId);
-				callbacks.enterChatroom(instance,chatRoomId,'userId:'+userId);
-			},
-			onTokenIncorrect: function() {
-				console.log('token无效');
-			},
-			onError:function(errorCode){
-			  var info = '';
-			  switch (errorCode) {
-			    case RongIMLib.ErrorCode.TIMEOUT:
-			      info = '超时';
-			      break;
-			    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
-			      info = '未知错误';
-			      break;
-			    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
-			      info = '不可接受的协议版本';
-			      break;
-			    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
-			      info = 'appkey不正确';
-			      break;
-			    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
-			      info = '服务器不可用';
-			      break;
-			  }
-			  console.log(info);
-			}
-		});
-	}
-
-	function startInit(){
-		// user = [
-		// 	{userId:'chatRoomUser_1',name:'小明'},
-		// 	{userId:'chatRoomUser_2',name:'小红'},
-		// 	{userId:'chatRoomUser_3',name:'小刚'},
-		// 	{userId:'chatRoomUser_4',name:'小志'},
-		// 	{userId:'chatRoomUser_5',name:'小强'}
-		// ]
-		
+	var startInit = function(){
+		$('.room-chat-main').html(chatRoomTem.containerTmp);
 		var windowUrl = self.location.href;
 		var newUserInfo = windowUrl.split('?')[1];
 		var newUserId = '';
@@ -326,59 +24,35 @@
 			var newUserPa = newUserInfo.split('=')[0];
 			if (newUserPa != 'userId') {
 				alert('请确认参数名的正确性');
-				return;
+			} else {
+				newUserId = newUserInfo.split('=')[1];
 			}
-			newUserId = newUserInfo.split('=')[1];
+		}
+				
+		var token = rongConfig.getToken(newUserId);
+		if (!token) {
+			alert('userId不存在！');
+			return;
 		}
 		
-		console.log(newUserId);
-		var token = null;
-		switch (newUserId) {
-	        case '':
-	        	token = 'khUY46zy9YfkCrvvzXqjgqOKujdAa9vCggP5lhny8RB9jESfOeTP3Y4y/hmC0JNtwIn17FAdyFku+uyhJG5XoPj2YmBMtvc0';
-	            break;
-	        case 'chatRoomUser_1':
-	        	token = 'khUY46zy9YfkCrvvzXqjgqOKujdAa9vCggP5lhny8RB9jESfOeTP3Y4y/hmC0JNtwIn17FAdyFku+uyhJG5XoPj2YmBMtvc0';
-	            break;
-	        case 'chatRoomUser_2':
-	        	token = 'SvUb1E4b45p3V1zzGxTpmeDVO65TqPEq/oc1GT9tx6adX/Oe4f3Gpwjs02KbWTaKj1RynYAEr3lSlaeAqEHyaGQ9XN2ZajQ5QAPhuTPKGdk=';
-	            break;
-	        case 'chatRoomUser_3':
-	            token = 'GB/hZ9rV7gYHVTKmeYvqDqWhm18AYWdL6puaK6TgZz9v+zUoMTZfqfpg9lnOG1SC+kgvn9UhICJhn5GMxBJzPcOrMK+I0k+A';
-	            break;
-	        case 'chatRoomUser_4':
-	            token = '7gNQ435kC2X2b7Vsrr8/jhhk/uhL8Kv6pF6CR8FvYjFvKXtLRe060qFXbVw6gUdh3XpcUjT4TkMeOJIiPVm7tTcuYYtqh/qTMKxUDdNFNqk=';
-	            break;
-	        case 'chatRoomUser_5':
-	            token = 'dajAiow5mhExDKDim2Ga2KOKujdAa9vCggP5lhny8RB9jESfOeTP3Y1llrl5eHPswIn17FAdyFku+uyhJG5XoMK72EGdmtYx';
-	            break;
-	        default:
-	        	alert('userId不存在！');
-	        	return;
-	    }
 		var params = {
 			appKey : "x18ywvqfx63cc",
 			token : token
 		};
 
 		var callbacks = {
-			enterChatroom : function(instance,chatRoomId,userInfo){
-				console.log(userInfo);
+			enterChatroom : function(){
 				var chatroomCallBacks = {
-					send_message : function(chatRoomId,userInfo){
-						setTimeout(function(){
-			            	sendMessageToChatroom(chatRoomId,'',userInfo);
-			            },50);
-						sendBtn(chatRoomId);
+					send_message: function(){
+		            	rongConfig.sendMessageToChatroom(' ',temConfig.messageType[1]);
 					}
 				}
-				startEnterChatroom(instance,chatRoomId,userInfo,chatroomCallBacks);
+				rongConfig.startEnterChatroom(chatroomCallBacks);
 			}
 		};
 
 		init(params,callbacks);
 	}
-
 	startInit();
 </script>
 
