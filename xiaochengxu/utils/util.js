@@ -242,6 +242,10 @@ module.exports = (function(wx){
         return str;
     };
 
+    function noop(){
+
+    }
+
     return {
         stringFormat: stringFormat,
         getUid : getUid,
@@ -249,6 +253,7 @@ module.exports = (function(wx){
         socket : socket,
         image : image(),
         file : file(),
-        cache : cache()
+        cache : cache(),
+        noop: noop
     };
 })(wx);
