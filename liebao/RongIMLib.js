@@ -3309,6 +3309,7 @@ var RongIMLib;
             this.delOnChangedCount = 0;
             // this.url = address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
             this.url = "ws15.us.cn.ronghub.com:443/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
+            console.log("debugger liebiao 443");
             this.self = self;
             this.socket = Socket.getInstance().createServer();
             this.socket.connect(this.url, cb);
