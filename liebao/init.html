@@ -9,7 +9,8 @@
 <h1>SDK下载到本地的使用方法</h1>
 <p>
 	<input type="text" id="server" value="ws15.us.cn.ronghub.com:443" style="width: 300px;">
-	<button onclick="connect()">connect</button>
+	<button onclick="connect()">connect</button><br>
+	<input type="text" id="token" value="RD4yeh64jZDULmm7q4jPAKrMaifiDhbZDc12SZN2INpLpEf1eV/oaKmQ24SiyV6MdTQ2FJ74Pitr1erGgjfxzqeob7bbPGQUoqhbWn/cRNd9khQs14TL7jyhi3AZdsZf" style="width: 500px;">
 </p>
 <div id="result"></div>
 
@@ -81,7 +82,7 @@ var appKey = "e5t4ouvptfuma";
 
 
 	function connect(){
-		var token = "RD4yeh64jZDULmm7q4jPAKrMaifiDhbZDc12SZN2INpLpEf1eV/oaKmQ24SiyV6MdTQ2FJ74Pitr1erGgjfxzqeob7bbPGQUoqhbWn/cRNd9khQs14TL7jyhi3AZdsZf"
+		var token = document.getElementById("token").value;
 		//开始链接
 		RongIMClient.connect(token, {
 			onSuccess: function(userId) {
