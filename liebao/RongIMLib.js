@@ -3320,30 +3320,30 @@ var RongIMLib;
                 var me = this;
                 me.socket.on("StatusChanged", function (code) {
                     me.connectionStatus = code;
-                    if (code === RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE) {
-                        var temp = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
-                        var naviServer = RongIMLib.RongIMClient._storageProvider.getItem(temp);
-                        var naviPort = naviServer.split(",")[0].split(":")[1];
-                        naviPort && naviPort.length < 4 || RongIMLib.RongIMClient._storageProvider.setItem("rongSDK", "");
-                        // TODO  åˆ¤æ–­æ‹†åˆ† naviServer åŽçš„æ•°ç»„é•¿åº¦ã€‚
-                        if (!RongIMLib.RongIMClient._memoryStore.depend.isPolling && naviPort && naviPort.length < 4) {
-                            Bridge._client.handler.connectCallback.pauseTimer();
-                            var temp = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
-                            var server = RongIMLib.RongIMClient._storageProvider.getItem("RongBackupServer");
-                            if (server) {
-                                var arrs = server.split(",");
-                                if (arrs.length < 2) {
-                                    throw new Error("navi server is empty,postion:StatusChanged");
-                                }
-                                RongIMLib.RongIMClient._storageProvider.setItem(temp, RongIMLib.RongIMClient._storageProvider.getItem("RongBackupServer"));
-                                var url = RongIMLib.Bridge._client.channel.socket.currentURL;
-                                Bridge._client.channel.socket.currentURL = arrs[0] + url.substring(url.indexOf("/"), url.length);
-                                if (Bridge._client.channel && Bridge._client.channel.connectionStatus != RongIMLib.ConnectionStatus.CONNECTED && Bridge._client.channel.connectionStatus != RongIMLib.ConnectionStatus.CONNECTING) {
-                                    RongIMLib.RongIMClient.connect(RongIMLib.RongIMClient._memoryStore.token, RongIMLib.RongIMClient._memoryStore.callback);
-                                }
-                            }
-                        }
-                    }
+                    // if (code === RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE) {
+                    //     var temp = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
+                    //     var naviServer = RongIMLib.RongIMClient._storageProvider.getItem(temp);
+                    //     var naviPort = naviServer.split(",")[0].split(":")[1];
+                    //     naviPort && naviPort.length < 4 || RongIMLib.RongIMClient._storageProvider.setItem("rongSDK", "");
+                    //     // TODO  åˆ¤æ–­æ‹†åˆ† naviServer åŽçš„æ•°ç»„é•¿åº¦ã€‚
+                    //     if (!RongIMLib.RongIMClient._memoryStore.depend.isPolling && naviPort && naviPort.length < 4) {
+                    //         Bridge._client.handler.connectCallback.pauseTimer();
+                    //         var temp = RongIMLib.RongIMClient._storageProvider.getItemKey("navi");
+                    //         var server = RongIMLib.RongIMClient._storageProvider.getItem("RongBackupServer");
+                    //         if (server) {
+                    //             var arrs = server.split(",");
+                    //             if (arrs.length < 2) {
+                    //                 throw new Error("navi server is empty,postion:StatusChanged");
+                    //             }
+                    //             RongIMLib.RongIMClient._storageProvider.setItem(temp, RongIMLib.RongIMClient._storageProvider.getItem("RongBackupServer"));
+                    //             var url = RongIMLib.Bridge._client.channel.socket.currentURL;
+                    //             Bridge._client.channel.socket.currentURL = arrs[0] + url.substring(url.indexOf("/"), url.length);
+                    //             if (Bridge._client.channel && Bridge._client.channel.connectionStatus != RongIMLib.ConnectionStatus.CONNECTED && Bridge._client.channel.connectionStatus != RongIMLib.ConnectionStatus.CONNECTING) {
+                    //                 RongIMLib.RongIMClient.connect(RongIMLib.RongIMClient._memoryStore.token, RongIMLib.RongIMClient._memoryStore.callback);
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     if (code === RongIMLib.ConnectionStatus.DISCONNECTED && !RongIMLib.RongIMClient._memoryStore.otherDevice) {
                         Channel._ConnectionStatusListener.onChanged(RongIMLib.ConnectionStatus.DISCONNECTED);
                         self.clearHeartbeat();
