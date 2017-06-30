@@ -7,14 +7,16 @@
 <body>
 
 <h1>SDK下载到本地的使用方法</h1>
-
+<p>
+	<input type="text" id="server" value="ws15.us.cn.ronghub.com:443" style="width: 300px;">
+	<button onclick="connect()">connect</button>
+</p>
 <div id="result"></div>
 
 <script src="RongIMLib.js"></script>
 <script>
-(function(){
-	var appKey = "e5t4ouvptfuma";
-	var token = "lt4BhkkuFFUJbsVoBi+WKg79Veb3Dfgphz6rVAUlQFZjy4jgfodXv9WgizWvhyNWEvvJuB0GCcQNAurrqCFKoRNfz+TfTtSk5EbewFumkjQ8oYtwGXbGXw==";
+
+var appKey = "e5t4ouvptfuma";
 	var config = {
         protobuf: "protobuf-2.1.5.min.js",
         navi : "https://navus.cn.ronghub.com"
@@ -40,21 +42,6 @@
 		onReceived: function (message) {
 		    // 判断消息类型
 		    console.log("新消息");
-		}
-	});
-
-	//开始链接
-	RongIMClient.connect(token, {
-		onSuccess: function(userId) {
-            //链接成功后 才可 发送消息
-            document.getElementById("result").innerHTML += "链接成功，用户id：" + userId;
-            sendTextMessage();
-		},
-		onTokenIncorrect: function() {
-			//console.log('token无效');
-		},
-		onError:function(errorCode){
-		  console.log(errorCode);
 		}
 	});
 
@@ -91,7 +78,25 @@
 	        }
 	    });
 	}
-})();	
+
+
+	function connect(){
+		var token = "lt4BhkkuFFUJbsVoBi+WKg79Veb3Dfgphz6rVAUlQFZjy4jgfodXv9WgizWvhyNWEvvJuB0GCcQNAurrqCFKoRNfz+TfTtSk5EbewFumkjQ8oYtwGXbGXw==";
+		//开始链接
+		RongIMClient.connect(token, {
+			onSuccess: function(userId) {
+	            //链接成功后 才可 发送消息
+	            document.getElementById("result").innerHTML += "链接成功，用户id：" + userId;
+	            sendTextMessage();
+			},
+			onTokenIncorrect: function() {
+				//console.log('token无效');
+			},
+			onError:function(errorCode){
+			  console.log(errorCode);
+			}
+		});
+}
 </script>
 
 </body>

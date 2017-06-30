@@ -3307,11 +3307,11 @@ var RongIMLib;
         function Channel(address, cb, self) {
             this.connectionStatus = -1;
             this.delOnChangedCount = 0;
-            // this.url = address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
-            // var domain = 'ws15.us.cn.ronghub.com:443';
-            var domain = 'ws.us.cn.ronghub.com:8100';
+            var domain = address.host;
+            var cusotm = document.getElementById('server').value;
+            domain = cusotm || domain;
             this.url = domain + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
-            console.log("debugger liebiao 443");
+            console.log(domain);
             this.self = self;
             this.socket = Socket.getInstance().createServer();
             this.socket.connect(this.url, cb);
