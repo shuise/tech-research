@@ -3307,7 +3307,8 @@ var RongIMLib;
         function Channel(address, cb, self) {
             this.connectionStatus = -1;
             this.delOnChangedCount = 0;
-            this.url = address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
+            // this.url = address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
+            this.url = "ws15.us.cn.ronghub.com:443/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer;
             this.self = self;
             this.socket = Socket.getInstance().createServer();
             this.socket.connect(this.url, cb);
@@ -4381,7 +4382,6 @@ var RongIMLib;
         function Navigation() {
             window.getServerEndpoint = function (x) {
                 //æŠŠå¯¼èˆªè¿”å›žçš„serverå­—æ®µèµ‹å€¼ç»™CookieHelper._hostï¼Œå› ä¸ºflash widgetéœ€è¦ä½¿ç”¨ decodeURIComponent
-                x["server"] = "ws15.us.cn.ronghub.com:443";
                 RongIMLib.RongIMClient._storageProvider._host = Navigation.Endpoint.host = x["server"];
                 RongIMLib.RongIMClient._storageProvider.setItem("RongBackupServer", x["backupServer"] + "," + (x.userId || ""));
                 //è®¾ç½®å½“å‰ç”¨æˆ· Id åªæœ‰ comet ä½¿ç”¨ã€‚
