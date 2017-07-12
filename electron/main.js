@@ -1,4 +1,5 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain, clipboard} = require('electron')
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -6,7 +7,13 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    'webPreferences': {
+          preload: path.join(__dirname, 'screenshot.js') //111.给页面注入preload.js
+      }
+  })
 
   // and load the index.html of the app.
   win.loadURL(`file://${__dirname}/requirejs-in-node.html`)
@@ -21,12 +28,50 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
+
+
+}
+
+
+//333 screenshot module,mac only
+const path = require('path')
+const screencapture = require('screencaptureDebug.node')
+const appCapture = new screencapture.Main;
+
+//444 screenshot function
+const takeScreenshot = (callback) => {
+    // logger.info('in screenCapture');
+    // if(!appCapture && qt){
+    //     appCapture = new qt.Main
+    // }
+    try{
+        appCapture.screenCapture("", function(base64){
+            if (win && win.webContents) {
+                win.show()
+                //向screenshot.js发送截图结果
+                var clipboardData = clipboard.readImage();
+                win.webContents.send('screenshot', clipboardData.toDataURL())
+            }
+        });
+    } 
+    catch(ex){
+        // logger.error(ex.toString());
+    }
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', function(){
+  //create window
+  createWindow();
+
+  //screen reg
+  //222.接收screenshot指令，来自 preload.js里的 screenShot
+  ipcMain.on('screenshot', () => {
+    takeScreenshot()
+  })
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

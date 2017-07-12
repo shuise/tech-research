@@ -36,6 +36,19 @@ requirejs(['protobuf','RongIMLib'], function(protobuf,RongIMLib) {
     init(RongIMLib,RongIMClient);
 });
 </script>
-	
+
+<script>
+function startShot(){
+    console.log("start screenShot");
+    Electron.screenShot(function(data){
+        var t = document.getElementById("screen");
+        t.src = data;
+    });  
+} 
+
+</script>
+<input type="button" value="screen capture" onclick="startShot()">
+<br>
+<img style="max-width:100px;border:1px solid red;margin:10px;" id="screen" src="http://www.rongcloud.cn/docs/assets/img/index/logo.png" alt="">
 </body>
 </html>
