@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>requirejs in electron</title>
+</head>
+<body>
+<script>
+function showInfo(str){
+	var t = document.getElementById("show");
+		t.innerHTML += "\n" + str;
+}	
+</script>
+<h1>requirejs in electron</h1>
+<p>文档：<a href=" http://requirejs.org/docs/node.html"> http://requirejs.org/docs/node.html</a></p>
+
+<pre id="show"></pre>
+
+<script src="init.js"></script>
+<script>
+var requirejs = require('requirejs');
+
+requirejs.config({
+	nodeRequire: require,
+    paths: {
+    	protobuf: './protobuf-2.1.5.min',
+    	RongIMLib: './RongIMLib-local'
+    }
+});
+
+requirejs(['protobuf','RongIMLib'], function(protobuf,RongIMLib) {
+    showInfo("require done");
+
+    var RongIMClient = RongIMLib.RongIMClient;
+
+    init(RongIMLib,RongIMClient);
+});
+</script>
+	
+</body>
+</html>
