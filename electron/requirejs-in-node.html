@@ -12,23 +12,24 @@ function showInfo(str){
 }	
 </script>
 <h1>requirejs in electron</h1>
-<p>文档：<a href=" http://requirejs.org/docs/node.html"> http://requirejs.org/docs/node.html</a></p>
+<p>文档：<a href="http://requirejs.org/docs/node.html"> http://requirejs.org/docs/node.html</a></p>
 
 <pre id="show"></pre>
 
-<script src="init.js"></script>
+<script src="sdk/init.js"></script>
 <script>
 var requirejs = require('requirejs');
 
 requirejs.config({
-	nodeRequire: require,
+	// nodeRequire: require,
     paths: {
-    	protobuf: './protobuf-2.1.5.min',
-    	RongIMLib: './RongIMLib-local'
+        byteBuffer: './sdk/byteBuffer',
+    	protobuf: './sdk/protobuf-2.1.5.min',
+    	RongIMLib: './sdk/RongIMLib-local'
     }
 });
 
-requirejs(['protobuf','RongIMLib'], function(protobuf,RongIMLib) {
+requirejs(['byteBuffer','protobuf','RongIMLib'], function(byteBuffer,protobuf,RongIMLib) {
     showInfo("require done");
 
     var RongIMClient = RongIMLib.RongIMClient;
@@ -36,6 +37,8 @@ requirejs(['protobuf','RongIMLib'], function(protobuf,RongIMLib) {
     init(RongIMLib,RongIMClient);
 });
 </script>
+
+
 
 <script>
 function startShot(){
