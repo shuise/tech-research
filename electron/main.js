@@ -1,4 +1,5 @@
 const {app, BrowserWindow, ipcMain, clipboard} = require('electron')
+const path = require('path')
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -11,7 +12,7 @@ function createWindow () {
     width: 800, 
     height: 600,
     'webPreferences': {
-          preload: path.join(__dirname, 'screenshot.js') //111.给页面注入preload.js
+          preload: path.join(__dirname, 'node_modules/', 'screenshot/screenshot.render.js') //111.给页面注入preload.js
       }
   })
 
@@ -28,14 +29,14 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
-
-
 }
 
 
-//333 screenshot module,mac only
-const path = require('path')
-const screencapture = require('screencaptureDebug.node')
+/*
+todo 分离到screenshot.main.js
+const {takeScreenshot} = require('./node_modules/screenshot/screenshot.main')
+*/
+const screencapture = require('screenshot/screencaptureDebug.node')
 const appCapture = new screencapture.Main;
 
 //444 screenshot function
@@ -50,6 +51,7 @@ const takeScreenshot = (callback) => {
                 win.show()
                 //向screenshot.js发送截图结果
                 var clipboardData = clipboard.readImage();
+                console.log(clipboardData.toDataURL());
                 win.webContents.send('screenshot', clipboardData.toDataURL())
             }
         });
