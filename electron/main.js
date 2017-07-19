@@ -1,7 +1,6 @@
 const {app, BrowserWindow, ipcMain, clipboard} = require('electron')
 const path = require('path')
 
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -12,12 +11,12 @@ function createWindow () {
     width: 800, 
     height: 600,
     'webPreferences': {
-          preload: path.join(__dirname, 'node_modules/', 'screenshot/screenshot.render.js') //111.给页面注入preload.js
+          preload: path.join(__dirname, 'modules/', 'screenshot/screenshot.render.js') //111.给页面注入preload.js
       }
   })
 
   // and load the index.html of the app.
-  win.loadURL(`file://${__dirname}/requirejs-in-node.html`)
+  win.loadURL(`file://${__dirname}/normal.html`)
 
   // Open the DevTools.
   win.webContents.openDevTools()
@@ -31,35 +30,9 @@ function createWindow () {
   })
 }
 
-
-/*
-todo 分离到screenshot.main.js
-const {takeScreenshot} = require('./node_modules/screenshot/screenshot.main')
-*/
-const screencapture = require('screenshot/screencaptureDebug.node')
-const appCapture = new screencapture.Main;
-
-//444 screenshot function
-const takeScreenshot = (callback) => {
-    // logger.info('in screenCapture');
-    // if(!appCapture && qt){
-    //     appCapture = new qt.Main
-    // }
-    try{
-        appCapture.screenCapture("", function(base64){
-            if (win && win.webContents) {
-                win.show()
-                //向screenshot.js发送截图结果
-                var clipboardData = clipboard.readImage();
-                console.log(clipboardData.toDataURL());
-                win.webContents.send('screenshot', clipboardData.toDataURL())
-            }
-        });
-    } 
-    catch(ex){
-        // logger.error(ex.toString());
-    }
-}
+const {upgrade} = require('./upgrade');
+// todo 分离到screenshot.main.js
+const {takeScreenshot} = require('./modules/screenshot/screenshot.main')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -71,7 +44,16 @@ app.on('ready', function(){
   //screen reg
   //222.接收screenshot指令，来自 preload.js里的 screenShot
   ipcMain.on('screenshot', () => {
-    takeScreenshot()
+    takeScreenshot(function(error, url){
+            if (win && win.webContents) {
+                win.show()
+                win.webContents.send('screenshot', url)
+            }
+    })
+  })
+
+  ipcMain.on('upgrade', (event, updateList) => {
+      upgrade(updateList);
   })
 })
 
