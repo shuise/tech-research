@@ -39,7 +39,6 @@ requirejs(['byteBuffer','protobuf','RongIMLib'], function(byteBuffer,protobuf,Ro
 </script>
 
 
-
 <script>
 function startShot(){
     console.log("start screenShot");
@@ -49,7 +48,13 @@ function startShot(){
     });  
 } 
 
+function zipDir(){
+    RongDesktop.zipDir(function(data){
+        console.log(data);
+    });
+}
 </script>
+<input type="button" value="zip dir" onclick="zipDir()">
 <input type="button" value="screen capture" onclick="startShot()">
 <br>
 <img style="max-width:100px;border:1px solid red;margin:10px;" id="screen" src="http://www.rongcloud.cn/docs/assets/img/index/logo.png" alt="">
