@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>clipboard@html5</title>
 </head>
-<body style="background:url(http://vimg1.ws.126.net/image/snapshot/2013/12/S/S/V9F9K5BSS.jpg);">
+<body>
 	
 <style>
 html,body{
@@ -42,15 +42,24 @@ var target = document.getElementById("content");
 target.addEventListener("paste", function(e) {
     if(e && e.clipboardData && e.clipboardData.types && e.clipboardData.items.length) {
         var clipboardData = e.clipboardData;
-        var	type = clipboardData.types;
+        var	types = clipboardData.types;
 
-        console.log(type);
-        console.log(type.join(","));
-        console.log(clipboardData.items);
-        console.log(clipboardData.items.length);
+        /*
+		excel 内容: "text/plain","text/html","text/rtf","Files"
+		pages,pdf 内容: "text/plain","text/html","text/rtf"
+		字符："text/plain"
+		截图："Files"
+		md,txt,pdf: "text/plain","Files"
+        */
+
+        alert(typeof types);
+        alert(types);
+        // console.log("type,items.length" + clipboardData.items.length);
+        console.log(e);
+        console.log(clipboardData);
 
         //粘贴截图
-        if(type.indexOf("Files") !== -1 && type.indexOf("text/plain") == -1) {
+        if(types.indexOf("Files") !== -1 && types.indexOf("text/plain") == -1) {
             var item = clipboardData.items[0],
                 reader = new FileReader();
         
@@ -66,7 +75,7 @@ target.addEventListener("paste", function(e) {
 
         //粘贴图片
         //对复制图片的处理，非截图 
-        if(type.indexOf("Files") !== -1 && type.indexOf("text/plain") !== -1){
+        if(types.indexOf("Files") !== -1 && types.indexOf("text/plain") !== -1){
         	//get blob object
 	        var _item = clipboardData.items[1];
 	            _item = _item.getAsFile();
