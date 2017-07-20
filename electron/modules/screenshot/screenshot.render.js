@@ -1,7 +1,6 @@
 /*
 https://electron.atom.io/docs/api/ipc-main/
 */
-
 const ipcRenderer = require('electron').ipcRenderer
 
 //暴露方法给页面dom注册调用
@@ -11,6 +10,10 @@ window.Electron = {
         ipcRenderer.send('screenshot', callback);
 
         window.Electron.screenShotCallback = callback;
+    },
+    upgrade: function(params){
+    	var { updateList} = params;
+    	ipcRenderer.send('upgrade', updateList);
     }
 };
 

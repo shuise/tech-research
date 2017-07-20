@@ -1767,7 +1767,7 @@ var RongIMLib;
             if (document.location.protocol == 'https:') {
                 wsScheme = 'wss://';
             }
-            var isPolling = false;
+            var isPolling = true;
             if (typeof WebSocket != 'function') {
                 isPolling = true;
             }
@@ -4418,9 +4418,16 @@ var RongIMLib;
             }
             var client = new RongIMLib.Client(token, appId);
             var me = this;
-            this.getServerEndpoint(token, appId, function () {
-                client.connect(callback);
-            }, callback.onError, true);
+            var cusotm = document.getElementById('server').value;
+            if (cusotm) {
+                RongIMLib.Navigation.Endpoint.host = cusotm;
+                 client.connect(callback);
+             }else{
+                this.getServerEndpoint(token, appId, function () {
+                    client.connect(callback);
+                }, callback.onError, true);
+             }
+            
             return client;
         };
         Navigation.prototype.getServerEndpoint = function (_token, _appId, _onsuccess, _onerror, unignore) {
