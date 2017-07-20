@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "RCE notification",
+  "description": "new messages notifications",
+  "version": "1.0",
+  "icons" : {
+    "16" : "logo.png",
+    "48" : "logo.png",
+    "128" : "logo.png"
+  },
+  "content_scripts": [
+    {
+      "matches" : ["http://*.rongcloud.cn/*","http://*.rongcloud.net/*"],
+      "js": ["background.js"]
+    }
+  ],
+  "permissions": [
+    "tabs","notifications"
+  ]
+}

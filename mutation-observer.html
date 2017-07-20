@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mutation Observer</title>
+</head>
+<body>
+
+<pre>
+文档：http://www.cnblogs.com/jscode/p/3600060.html
+</pre>
+	
+
+<div id="forms">
+<form action="">
+	name: <input type="text" name="name" autocomplete="true"> <br>
+	pasword: <input type="text" name="pasword" > <br>
+	<input type="submit">
+</form>
+</div>
+
+<script>
+// var MutationObserver = window.MutationObserver ||
+//     window.WebKitMutationObserver ||
+//     window.MozMutationObserver;
+
+// // var mutationObserverSupport = !!MutationObserver;
+
+// var observer = new MutationObserver(callback);
+
+
+// 
+
+// var options = {
+//     'childList': true,
+//     'arrtibutes': true
+// };
+
+// observer(forms, options);	
+
+// function callback(data){
+// 	console.log(data);
+// }
+
+
+var callback = function(records) {
+	// console.log(records);
+    records.map(function(record) {
+        console.log(record);
+        // console.log('Mutation type: ' + record.type);
+        // console.log('Mutation target: ' + record.target);
+    });
+};
+
+var mo = new MutationObserver(callback);
+
+var option = {
+    'childList': true,
+    'subtree': true,
+    'attribute': true,
+    'attributeOldValue': true
+};
+
+var _form = document.querySelector('#forms');
+mo.observe(forms, option);
+
+var times = 0;
+var t = setInterval(function(){
+	if(times >= 10){
+		clearInterval(t);
+	}
+	console.log(times);
+	times += 1;
+	var a = document.getElementsByTagName("input");
+	
+	//work
+	a[0].className = "sss";
+	
+	//not work
+	a[0].value = times;
+	
+	//work
+	_form.appendChild(document.createElement("span"));
+},10);
+</script>
+
+</body>
+</html>
