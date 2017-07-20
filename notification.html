@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>notifications replace</title>
+</head>
+<body>
+
+<!-- 
+https://www.w3.org/TR/notifications/
+https://developer.mozilla.org/en-US/docs/Web/API/notification 
+https://paulund.co.uk/html5-notifications
+-->
+<script>
+// Let's check if the browser supports notifications
+if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+}
+
+// Let's check whether notification permissions have already been granted
+else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    sendNitify(20);
+}
+
+// Otherwise, we need to ask the user for permission
+else if (Notification.permission !== "denied") {
+    Notification.requestPermission(function (permission) {
+        // If the user accepts, let's create a notification
+        if (permission === "granted") {
+            sendNitify(20);
+        }
+    });
+}
+
+
+function sendNitify(times){
+    for(var i=0;i<times;i++){
+        setTimeout(newNote,i*200);
+    }
+}
+
+function newNote(){
+    var number = Math.ceil(Math.random()*10000);
+    var title = "提醒id:" + number;
+
+    //相同tag会进行替换
+    var options = {
+        body: "这里显示" + ["偶数","奇数"][number%2],
+        icon: "http://f.rongcloud.cn/res/favicon-32x32.png",
+        tag : "conversationId" + number%2
+    };
+    var notification = new Notification(title,options);
+
+    notification.onclick = function(event) {
+        // event.preventDefault(); // prevent the browser from focusing the Notification's tab
+        window.open('http://rongcloud.cn', '_blank');
+        // location.herf = 'http://project.rongcloud.cn/desktop-client';
+        notification.close();
+    }
+}	
+</script>
+	
+</body>
+</html>
