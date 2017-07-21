@@ -1,0 +1,256 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WebSDK API test</title>
+</head>
+<body>
+
+
+<p></p>
+<p></p>
+<p></p>
+
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.js"></script>
+
+<!-- 
+用户数据，群组数据，好友关系 必须有应用服务器提供
+显示会话信息需要从融云和应用服务器共同获取数据才能完整显示
+
+
+
+开发环境 
+	默认appkey = 8w7jv4qb78a9y，已上线
+	当前用户：user8
+	对象用户：user9,user10 
+
+生产环境
+	82hegw5uh8ktx
+	rybznHwVbrk7upeAMWv8RnHEDKuqy0jJayFPsQ4gP8z+SyAuRRg4uk2hA24NDcnvbl6oswAYXQCdpAbHm4pp9g==
+-->
+<script>
+function showTips(data){
+	console.log(data);
+}
+
+var instance = null;
+var appKey = "8w7jv4qb78a9y";
+var token = "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg==";
+
+/*
+消息全部用单聊，user8 -> user9
+*/
+var targetId = "user9"; // 目标 Id
+var targetId2 = "user10"; // 目标 Id
+//mock数据，实际项目从应用服务器获取
+var usersInfo = {
+	"user9" : {
+		"userId" : "user9",
+		"name" : "张三",
+		"portraitUri" : "http://rongcloud.cn/images/newVersion/log_wx.png"
+
+	}
+};
+
+var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+
+var begin = 0;
+
+function init(){
+	RongIMLib.RongIMClient.init(appKey);
+	instance = RongIMClient.getInstance();
+
+
+	// 连接状态监听器
+	RongIMClient.setConnectionStatusListener({
+		onChanged: function (status) {
+		    switch (status) {
+		        case RongIMLib.ConnectionStatus.CONNECTED:
+		            showTips("链接成功");
+		            afterConnected();
+		            break;
+		        case RongIMLib.ConnectionStatus.CONNECTING:
+		            showTips('正在链接');
+		            break;
+		        case RongIMLib.ConnectionStatus.DISCONNECTED:
+		            showTips('断开连接');
+		            break;
+		        case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+		            showTips('其他设备登录');
+		            break;
+		          case RongIMLib.ConnectionStatus.DOMAIN_INCORRECT:
+		            showTips('域名不正确');
+		            break;
+		        case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+		        	showTips('网络不可用');
+		        	break;
+		        }
+		}
+	});
+
+	/*
+	文档：http://www.rongcloud.cn/docs/web.html#3、设置消息监听器
+
+	注意事项：
+		1：为了看到接收效果，需要另外一个用户向本用户发消息
+		2：判断会话唯一性 ：conversationType + targetId
+		3：显示消息在页面前，需要判断是否属于当前会话，避免消息错乱。
+		4：消息体属性说明可参考：http://rongcloud.cn/docs/api/js/index.html
+	*/
+	var start = new Date().getTime();
+	RongIMClient.setOnReceiveMessageListener({
+		// 接收到的消息
+		onReceived: function (message) {
+		    // 判断消息类型
+		    // showTips("收到" + message.messageType + "消息, id=" + message.messageUId);
+            // showResult("新消息",message,start);
+
+            // console.log(message);
+		    switch(message.messageType){
+		        case RongIMClient.MessageType.TextMessage:
+		        	/*
+		        	显示消息方法： 
+		        	消息里是 原生emoji
+		        	RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
+		            */
+		            break;
+		        case RongIMClient.MessageType.VoiceMessage:
+		        	/*
+					引入SDK并初始化请参考文档 http://www.rongcloud.cn/docs/web.html#声音库
+
+					api文档： http://www.rongcloud.cn/docs/api/js/VoiceMessage.html
+
+					var audio = message.content.content //格式为 AMR 格式的 base64 码
+		            var duration = message.content.duration;
+
+					RongIMLib.RongIMVoice.preLoaded(audio,function(){
+					    RongIMLib.RongIMVoice.play(audio,duration);
+					});
+		        	*/
+
+		            
+		            break;
+		        case RongIMClient.MessageType.ImageMessagee:
+		           // message.content.content => 图片缩略图 base64。
+		           // message.content.imageUri => 原图 URL。
+		           break;
+		        case RongIMClient.MessageType.DiscussionNotificationMessage:
+		           // message.content.extension => 讨论组中的人员。
+		           break;
+		        case RongIMClient.MessageType.LocationMessage:
+		           // message.content.latiude => 纬度。
+		           // message.content.longitude => 经度。
+		           // message.content.content => 位置图片 base64。
+		           break;
+		        case RongIMClient.MessageType.RichContentMessage:
+		           // message.content.content => 文本消息内容。
+		           // message.content.imageUri => 图片 base64。
+		           // message.content.url => 原图 URL。
+		           break;
+		        case RongIMClient.MessageType.InformationNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.ContactNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.ProfileNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.CommandNotificationMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.CommandMessage:
+		            // do something...
+		           break;
+		        case RongIMClient.MessageType.UnknownMessage:
+		            // do something...
+		           break;
+		        default:
+		            // do something...
+		    }
+		}
+	});
+
+	//开始链接
+	RongIMClient.connect(token, {
+		onSuccess: function(userId) {
+			// showTips("链接成功，用户id：" + userId);
+		},
+		onTokenIncorrect: function() {
+			//console.log('token无效');
+		},
+		onError:function(errorCode){
+		  var info = '';
+		  switch (errorCode) {
+		    case RongIMLib.ErrorCode.TIMEOUT:
+		      info = '超时';
+		      break;
+		    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+		      info = '未知错误';
+		      break;
+		    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+		      info = '不可接受的协议版本';
+		      break;
+		    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+		      info = 'appkey不正确';
+		      break;
+		    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+		      info = '服务器不可用';
+		      break;
+		  }
+		  showTips(info);
+		}
+	});
+}
+
+function afterConnected(){
+	//1
+	sendTextMessage(0);
+
+	//2
+	setTimeout(function(){
+		sendTextMessage(1);
+	},400);
+
+	//3
+	setTimeout(function(){
+		sendTextMessage(2);
+	},800);
+}
+
+var results = document.getElementsByTagName("p");
+function sendTextMessage(i){
+	console.log(i)
+	/*
+	文档： http://www.rongcloud.cn/docs/web.html#5_1、发送消息
+		   http://rongcloud.cn/docs/api/js/TextMessage.html
+	1: 单条消息整体不得大于128K
+	2: conversatinType 类型是 number，targetId 类型是 string
+	*/
+
+	var content = {
+		content: i + ""
+	};
+
+	results[i].innerHTML = i + " - 状态: 发送中";
+
+	var msg = new RongIMLib.TextMessage(content);
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            showTips("发送文字消息成功");
+            setTimeout(function(){
+            	results[i].innerHTML = i + ": - 状态: 发送成功";
+            },500);
+        },
+        onError: function (errorCode,message) {
+            showTips(errorCode);
+        }
+    });
+}
+</script>
+
+<input type="button" onclick="init()" value="sendMessage">
+
+</body>
+</html>
