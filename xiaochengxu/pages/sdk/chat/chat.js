@@ -1,7 +1,13 @@
 var RongIMLib = require("../../sdk.js");
+var emoji = require("../../../emoji/emoji.js");
 var RongIMClient = RongIMLib.RongIMClient;
 var utils = require('../../../utils/util.js');
 var config = require('../../config.js');
+
+emoji.init();
+
+console.log(emoji.names);
+var emojis = emoji.emojis;
 
 var FileType = RongIMLib.FileType;
 var JSONUtil = {
@@ -272,6 +278,7 @@ Page({
         });
       },
       receiveNewMessage: function (message) {
+        message.content.content =  emoji.unicodeToEmoji(message.content.content);
         var list = that.data.messageList;
         bindUserInfo(message, that);
         list.push(message);
