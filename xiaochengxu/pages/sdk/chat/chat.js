@@ -364,12 +364,11 @@ Page({
       content: e.detail.value
     });
   },
-  navigateBack: () => {
+  navigateBack: function() {
+    var context = this;
+    context._im.disconnect();
     //删除缓存，临时做法。
     utils.cache.removeAll();
-
-    this._im.disconnect();
-
     var url = '../index';
     wx.redirectTo({
       url: url

@@ -7269,8 +7269,8 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
                                 tempDir = JSON.parse(data);
                                 tempMsg.receiptResponse || (tempMsg.receiptResponse = {});
                                 tempMsg.receiptResponse[tempMsg.messageUId] = tempDir.count;
-                                list[i] = tempMsg;
                             }
+                            list[i] = tempMsg;
                         }
                     }
                     else {
@@ -7587,9 +7587,13 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
             modules.setOrder(order);
             RongIMLib.RongIMClient.bridge.queryMsg("queryChrmI", RongIMLib.MessageUtil.ArrayForm(modules.toArrayBuffer()), chatRoomId, {
                 onSuccess: function (list) {
-                    setTimeout(function () {
-                        callback.onSuccess(list);
-                    });
+                  var userInfos = list.userInfos;
+                  userInfos.forEach(function(item){
+                    item.time = RongIMLib.MessageUtil.int64ToTimestamp(item.time)
+                  });
+                  setTimeout(function () {
+                     callback.onSuccess(list);
+                  });
                 },
                 onError: function (errcode) {
                     callback.onError(errcode);
