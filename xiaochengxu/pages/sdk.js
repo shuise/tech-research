@@ -7263,12 +7263,14 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
                     if (RongIMLib.MessageUtil.supportLargeStorage()) {
                         for (var i = 0, len = list.length; i < len; i++) {
                             tempMsg = RongIMLib.MessageUtil.messageParser(list[i]);
-                            tempDir = JSON.parse(RongIMLib.RongIMClient._storageProvider.getItem(RongIMLib.Bridge._client.userId + tempMsg.messageUId + "SENT"));
+                            var key = RongIMLib.Bridge._client.userId + tempMsg.messageUId + "SENT"; 
+                            var data = RongIMLib.RongIMClient._storageProvider.getItem(key);
                             if (tempDir) {
+                                tempDir = JSON.parse(data);
                                 tempMsg.receiptResponse || (tempMsg.receiptResponse = {});
                                 tempMsg.receiptResponse[tempMsg.messageUId] = tempDir.count;
+                                list[i] = tempMsg;
                             }
-                            list[i] = tempMsg;
                         }
                     }
                     else {
