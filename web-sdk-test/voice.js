@@ -223,6 +223,7 @@
     var canPlay = function(audio, data, callbacks){
         audio.onended = callbacks.onended;
         audio.src = data;
+//      audio.load();
         audio.play();
         callbacks.onplayed();
     };
