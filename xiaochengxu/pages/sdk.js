@@ -4325,6 +4325,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.readTimeOut();
             var self = this;
             if (status == 0) {
+              self._client.userId = userId;
                 if (this._client.reconnectObj.onSuccess) {
                     this._client.reconnectObj.onSuccess(userId);
                     delete this._client.reconnectObj.onSuccess;
@@ -4332,7 +4333,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 else {
                     self._cb(userId);
                 }
-
+                
                 if (!RongIMLib.RongIMClient.isNotPullMsg) {
                     self._client.syncTime(undefined, undefined, undefined, true);
                 }
