@@ -49,6 +49,119 @@ function init(options, callbacks) {
   });
 
 
+  //加入聊天室后，可以用任意一个发送消息的方法发送消息，只需要conversationType为CHATROOM
+  var chatRoomId = "chatRoomId-008"; // 聊天室 Id,可任意指定，能区分不同聊天室即可
+  var count = 10; //拉取最近的会话内容（最近 n ( n <= 50 )条）
+  var conversationtype = RongIMLib.ConversationType.PRIVATE;
+  var targetId = options.targetId;
+
+  var apiTest = { 
+    getConversationList : function(){
+      var conversationTypes = null;  //具体格式设置需要补充
+      var limit = 10; //获取会话的数量
+      RongIMClient.getInstance().getConversationList({
+        onSuccess: function(list) {
+          console.log("getConversationList")
+          console.log(list)
+        },
+        onError: function(error) {
+          console.log("getConversationList error")
+          console.log(error)
+        }
+      },conversationTypes,limit);
+    },
+    getHistroyMessage : function (){
+      var timestrap = null; //0, 1483950413013
+
+      RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, timestrap, count, {
+        onSuccess: function(list, hasMsg) {
+          console.log("获取历史消息成功");
+          console.log(list);
+        },
+        onError: function(error) {
+          console.log("获取历史消息失败");
+          console.log(error);
+        }
+      });
+    },
+    removeConversation : function(){
+      RongIMClient.getInstance().removeConversation(conversationtype, targetId, { 
+        onSuccess:function(result){ 
+          console.log("删除会话成功");
+        }, 
+        onError:function(error){ 
+        // error => 清除会话错误码。 
+          console.log("删除会话失败");
+          console.log(error)
+        } 
+      });
+    },
+    enterChatroom : function (){
+      RongIMClient.getInstance().joinChatRoom(chatRoomId, count, {
+        onSuccess: function() {
+          console.log("加入聊天室成功");
+        },
+        onError: function(error) {
+          console.log("加入聊天室失败");
+          console.log(error)
+        }
+      });
+    },
+    getChatroomInfo : function(){
+      /*
+      需确认 当前用户 已加入聊天室
+      */ 
+      var order = RongIMLib.GetChatRoomType.REVERSE;// 排序方式。
+      var memberCount = 10; // 获取聊天室人数 （范围 0-20 ）
+
+      RongIMClient.getInstance().getChatRoomInfo(chatRoomId, memberCount, order, {
+        onSuccess: function(chatRoom) {
+          // chatRoom => 聊天室信息。
+          // chatRoom.userInfos => 返回聊天室成员。
+          // chatRoom.userTotalNums => 当前聊天室总人数。
+          console.log("获取聊天室信息成功");
+          console.log(chatRoom);
+        },
+        onError: function(error) {
+          console.log("获取聊天室信息失败");
+          console.log(error)
+        }
+      });
+    },
+    sendMessageToChatroom : function(){
+      var content = {
+        content:"hello，time：" + new Date().getTime(),
+        extra:"chatroom"
+      };
+
+      var conversationtype = RongIMLib.ConversationType.CHATROOM; // 私聊
+      var msg = new RongIMLib.TextMessage(content);
+
+      RongIMClient.getInstance().sendMessage(conversationtype, chatRoomId, msg, {
+            onSuccess: function (message) {
+                console.log("发送聊天室消息成功");
+                console.log(message);
+            },
+            onError: function (errorCode,message) {
+                console.log("发送聊天室消息失败");
+                console.log(errorCode);
+            }
+        });
+    },
+    quitChatroom : function(){
+      RongIMClient.getInstance().quitChatRoom(chatRoomId, {
+        onSuccess: function() {
+          console.log("退出聊天室成功");
+        },
+        onError: function(error) {
+          console.log("退出聊天室失败");
+          console.log(error);
+        }
+      });
+    }
+  }
+
+
   RongIMClient.setOnReceiveMessageListener({
     // 接收到的消息
     onReceived: function (message) {
@@ -62,6 +175,11 @@ function init(options, callbacks) {
     onSuccess: function (userId) {
       callbacks.getCurrentUser && callbacks.getCurrentUser({ userId: userId });
       console.log("链接成功，用户id：" + userId);
+
+      //API test
+      for(var funcName in apiTest){
+        apiTest[funcName]();
+      }
     },
     onTokenIncorrect: function () {
       //console.log('token无效');
@@ -246,12 +364,11 @@ Page({
       content: e.detail.value
     });
   },
-  navigateBack: () => {
+  navigateBack: function() {
+    var context = this;
+    context._im.disconnect();
     //删除缓存，临时做法。
     utils.cache.removeAll();
-
-    this._im.disconnect();
-
     var url = '../index';
     wx.redirectTo({
       url: url
@@ -260,7 +377,7 @@ Page({
   onLoad: function (options) {
     console.log(options.appkey);
     console.log(options.token);
-    var that = this
+    var that = this;
 
     that.setData({
       targetId: options.targetId

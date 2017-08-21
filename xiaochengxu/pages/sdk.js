@@ -4325,6 +4325,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.readTimeOut();
             var self = this;
             if (status == 0) {
+              self._client.userId = userId;
                 if (this._client.reconnectObj.onSuccess) {
                     this._client.reconnectObj.onSuccess(userId);
                     delete this._client.reconnectObj.onSuccess;
@@ -4332,7 +4333,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 else {
                     self._cb(userId);
                 }
-
+                
                 if (!RongIMLib.RongIMClient.isNotPullMsg) {
                     self._client.syncTime(undefined, undefined, undefined, true);
                 }
@@ -7263,8 +7264,10 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
                     if (RongIMLib.MessageUtil.supportLargeStorage()) {
                         for (var i = 0, len = list.length; i < len; i++) {
                             tempMsg = RongIMLib.MessageUtil.messageParser(list[i]);
-                            tempDir = JSON.parse(RongIMLib.RongIMClient._storageProvider.getItem(RongIMLib.Bridge._client.userId + tempMsg.messageUId + "SENT"));
+                            var key = RongIMLib.Bridge._client.userId + tempMsg.messageUId + "SENT"; 
+                            var data = RongIMLib.RongIMClient._storageProvider.getItem(key);
                             if (tempDir) {
+                                tempDir = JSON.parse(data);
                                 tempMsg.receiptResponse || (tempMsg.receiptResponse = {});
                                 tempMsg.receiptResponse[tempMsg.messageUId] = tempDir.count;
                             }
@@ -7585,9 +7588,13 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
             modules.setOrder(order);
             RongIMLib.RongIMClient.bridge.queryMsg("queryChrmI", RongIMLib.MessageUtil.ArrayForm(modules.toArrayBuffer()), chatRoomId, {
                 onSuccess: function (list) {
-                    setTimeout(function () {
-                        callback.onSuccess(list);
-                    });
+                  var userInfos = list.userInfos;
+                  userInfos.forEach(function(item){
+                    item.time = RongIMLib.MessageUtil.int64ToTimestamp(item.time)
+                  });
+                  setTimeout(function () {
+                     callback.onSuccess(list);
+                  });
                 },
                 onError: function (errcode) {
                     callback.onError(errcode);
