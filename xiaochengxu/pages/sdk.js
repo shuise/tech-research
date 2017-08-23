@@ -1978,7 +1978,19 @@ var __extends = (this && this.__extends) || function (d, b) {
          */
         RongIMClient.connect = function (token, callback, userId) {
             console.log("connect");
-
+            var key = "navi";
+            var storage = RongIMClient._storageProvider;
+            key = storage.getItemKey(key);
+            var server = storage.getItem(key) || "";
+            var isIP = function (str){
+                var pattern = /^\d{1,3}(\.\d{1,3}){3}(:\d*)?$/;
+                return pattern.test(str);
+            };
+            var domain = server.split(",")[0];
+            if(isIP(domain)){
+                storage.removeItem("rongSDK");
+            }
+            console.log('server', server);
             console.log({
                 token : token,
                 callback : callback,
@@ -4325,6 +4337,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.readTimeOut();
             var self = this;
             if (status == 0) {
+              self._client.userId = userId;
                 if (this._client.reconnectObj.onSuccess) {
                     this._client.reconnectObj.onSuccess(userId);
                     delete this._client.reconnectObj.onSuccess;
@@ -4332,7 +4345,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 else {
                     self._cb(userId);
                 }
-
+                
                 if (!RongIMLib.RongIMClient.isNotPullMsg) {
                     self._client.syncTime(undefined, undefined, undefined, true);
                 }
@@ -7164,9 +7177,8 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
             });
         };
         ServerDataProvider.prototype.reconnect = function (callback) {
-            if (RongIMLib.Bridge._client && RongIMLib.Bridge._client.channel && RongIMLib.Bridge._client.channel.connectionStatus != RongIMLib.ConnectionStatus.CONNECTED && RongIMLib.Bridge._client.channel.connectionStatus != RongIMLib.ConnectionStatus.CONNECTING) {
-                RongIMLib.RongIMClient.bridge.reconnect(callback);
-            }
+              var token = RongIMLib.RongIMClient._memoryStore.token;
+              RongIMLib.RongIMClient.connect(token, callback);
         };
         ServerDataProvider.prototype.logout = function () {
             RongIMLib.RongIMClient.bridge.disconnect();
@@ -8210,11 +8222,14 @@ registerMessageTypeMapping = {}, HistoryMsgType = {
             return "";
         },
         getItemKey : function (composedStr) {
+            if (composedStr.indexOf('rong_') == -1){
+                composedStr = 'rong_' + composedStr;
+            }
             var item = "";
             var res = wx.getStorageInfoSync();
             var keys = res.keys;
             keys.forEach(function(key){
-                if(key.indexOf(composedStr) > -1){
+                if(key.indexOf(composedStr) == 0){
                     item = key;
                 }
             });

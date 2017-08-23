@@ -22,6 +22,8 @@
 
     <view class="sent-box">
         <button class="pic" size="mini" bindtap="sendImage">图片</button>
+        <button class="pic" size="mini" bindtap="disconnect">断开</button>
+        <button class="pic" size="mini" bindtap="reconnect">重连</button>
         <form bindreset="sendMessage">
             <textarea bindinput="bindInput" placeholder="请输入..."></textarea> 
             <button class="toolbar" form-type="reset">发送</button>
