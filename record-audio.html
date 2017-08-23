@@ -40,7 +40,7 @@
     const options = {mimeType: 'video/webm;codecs=vp9'};
     const recordedChunks = [];
     const mediaRecorder = new MediaRecorder(stream, options);  
-
+    
     mediaRecorder.addEventListener('dataavailable', function(e) {
       if (e.data.size > 0) {
         recordedChunks.push(e.data);
