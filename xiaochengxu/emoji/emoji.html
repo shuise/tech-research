@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Emoji</title>
 </head>
@@ -155,9 +155,18 @@ console.log(emoji.emojis)
 console.log(emoji.names)
 console.log(emoji.data)
 
-alert(emoji.unicodeToEmoji('收到一条消息 \uf601'))
+alert(emoji.unicodeToEmoji('收到一条消息 \uf601 \uf604'))
 alert(emoji.emojiToSymbol('我 😁 '))
 alert(emoji.symbolToEmoji('我 [露齿而笑] [大笑]'))
+
+//reg = \uf000-\uf700;
+var unicodeEmoji;
+var prefix = "000";
+for(var i=0;i<700;i++){
+  unicodeEmoji = i + "";
+  unicodeEmoji = "\uf" + prefix.substring(0,3 - unicodeEmoji.length) + unicodeEmoji;
+  console.log(emoji.unicodeToEmoji(unicodeEmoji));
+}
 </script> -->
 
 </body>

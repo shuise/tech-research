@@ -226,14 +226,17 @@ module.exports = (function() {
     }
 
     var calculateUTF = function (nativeEmoji) {
-        if (61440 < nativeEmoji.charCodeAt(0)) {
-            var emojiUnicodeKey = escape(nativeEmoji).replace("%u", "u1");
-            var emoji = emojiFactory[emojiUnicodeKey];
-            if (emoji){
-                return emoji.tag;
-            }
-        }
-        return nativeEmoji;
+        var emoji = "0x" + escape(nativeEmoji).replace("%u","1");
+        return String.fromCodePoint(emoji);
+
+        // if (61440 < nativeEmoji.charCodeAt(0)) {
+        //     var emojiUnicodeKey = escape(nativeEmoji).replace("%u", "u1");
+        //     var emoji = emojiFactory[emojiUnicodeKey];
+        //     if (emoji){
+        //         return emoji.tag;
+        //     }
+        // }
+        // return nativeEmoji;
     };
 
     var getEmojiBySymbol = function(symbol) {

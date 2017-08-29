@@ -7,6 +7,13 @@ var config = require('../../config.js');
 emoji.init();
 
 console.log(emoji.names);
+
+//reg = \uf000-\uf700;
+console.log(emoji.unicodeToEmoji("\uf604"));
+console.log(emoji.unicodeToEmoji("\uf700"));
+console.log(emoji.unicodeToEmoji("\uf701"));
+
+
 var emojis = emoji.emojis;
 
 var FileType = RongIMLib.FileType;
