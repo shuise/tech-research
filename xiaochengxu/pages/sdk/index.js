@@ -1,6 +1,7 @@
 var utils = require("../../utils/util.js");
 
-var appkey = '8luwapkvucoil';
+// var appkey = '8luwapkvucoil';
+var appkey = 'p5tvi9dspmyu4';
 
 var tester1 = '';
 var tester2 = '';
@@ -17,9 +18,14 @@ Page({
       targetId: 'tester2'
     },
 
+    // tester2: {
+    //   token: 'ecphvouqF0rUu/48mSBguW20V27XsDF2Dx+bgnMVAZh1TCNfZRDk/4zXSvMRRLRO/X7/kENIB25S/KS4CyGL7w9TIq6kcYNI',
+    //   targetId: 'tester1'
+    // },
+
     tester2: {
-      token: 'ecphvouqF0rUu/48mSBguW20V27XsDF2Dx+bgnMVAZh1TCNfZRDk/4zXSvMRRLRO/X7/kENIB25S/KS4CyGL7w9TIq6kcYNI',
-      targetId: 'tester1'
+      token: 'AcIO8trOxjoTM+ZT40+uUcWoc2uauGVxoFgGQJ7hnyn7d9RDqskElLC3O/wsFysFeZYRfqleNGHsISYRbr4oY1ldt7IlU7SesPNearZjHxk=',
+      targetId: 'dcapptest_33428333'
     }
   
   },

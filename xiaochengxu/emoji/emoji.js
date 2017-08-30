@@ -137,7 +137,10 @@ module.exports = (function() {
         "u2744": { "en": "snowflake", "zh": "雪花", "tag": "\u2744", "position": "-3175px 0px" }
     };
 
-    // config
+    /*
+    config
+    emoji unicode: http://unicode.org/emoji/index.html
+    */
     var configs = {
         lang: "zh",
         reg: /[\uf000-\uf700]/g
