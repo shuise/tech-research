@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>fetch</title>
+</head>
+<body>
+
+<h1>fetch</h1>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API</a>
+
+<img src="" alt="">
+<img src="" alt="">
+
+<script>
+//不支持跨域，可以通过cros授权
+var r1 = './res/heal-the-world.jpg'; 
+var r1 = 'http://f.rongcloud.cn/res/heal-the-world.jpg';
+// var r1 = 'http://admin.rongcloud.cn/assets/images/logo.jpg';
+
+var myImage = document.querySelectorAll('img');
+fetchFiles(r1).then(function(myBlob) {
+	//获取bolb url
+	var objectURL = URL.createObjectURL(myBlob);
+	var bolbUrl = objectURL;
+
+	myImage[0].src = bolbUrl;
+
+	//获取base64
+	var reader = new FileReader();
+    reader.readAsDataURL(myBlob);
+    reader.onload = function(event) {
+        var base64 = event.target.result;
+        myImage[1].src = base64;
+    }
+}).catch(function(err){
+	console.log(err);
+});
+
+var r2 = "./emoji.html";
+var r2 = "./install.json";
+fetchFiles(r2).then(function(myBlob) {
+	//获取bolb url
+	var objectURL = URL.createObjectURL(myBlob);
+	var bolbUrl = objectURL;
+
+	window.open(bolbUrl); //可以获取地址访问，但引用的资源都不会被加载
+
+	//获取base64
+	var reader = new FileReader();
+    reader.readAsText(myBlob);
+    reader.onload = function(event) {
+        var text = event.target.result;
+        console.log(text); //获得文档正文内容，支持txt,html
+    }
+});
+
+function fetchFiles(fileUrl){
+	return fetch(fileUrl)
+	.then(function(response){
+		return response.blob();
+	})
+}
+</script>
+	
+</body>
+</html>

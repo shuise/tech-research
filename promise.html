@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Promise</title>
+</head>
+
+<body>
+
+<h1>Promise example</h1>
+
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise</a>
+
+</body>
+
+<script>
+function imgLoad(url) {
+  return new Promise(function(resolve, reject) {
+    // Standard XHR to load an image
+    var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.responseType = 'blob';
+    
+    // When the request loads, check whether it was successful
+    request.onload = function() {
+        if (request.status === 200) {
+            // If successful, resolve the promise by passing back the request response
+            resolve(request.response);
+        } else {
+            // If it fails, reject the promise with a error message
+            reject(Error('Image didn\'t load successfully; error code:' + request.statusText));
+        }
+    };
+    
+    request.onerror = function() {
+    // Also deal with the case when the entire request fails to begin with
+    // This is probably a network error, so reject the promise with an appropriate message
+       reject(Error('There was a network error.'));
+    };
+    
+    // Send the request
+    request.send();
+  });
+}
+
+var r1 = './res/heal-the-world.jpg'; 
+var body = document.querySelector('body');
+var myImage = new Image();
+imgLoad(r1).then(function(response) {
+    var imageURL = window.URL.createObjectURL(response);
+    myImage.src = imageURL;
+    body.appendChild(myImage);
+}, function(Error) {
+    console.log(Error);
+});
+</script>
+
+</html>
