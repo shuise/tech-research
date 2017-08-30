@@ -143,7 +143,7 @@ module.exports = (function() {
     */
     var configs = {
         lang: "zh",
-        reg: /[\uf000-\uf700]/g
+        reg: /[\uf000-\uf9FF]/g
     };
 
     var supportLanguage = [ "en" ,"zh" ];
