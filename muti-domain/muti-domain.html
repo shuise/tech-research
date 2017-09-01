@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+
+<script src="cors-sdk.js"></script>
+	
+<script>
+RongIM.ready(function(_window){
+	// var RongIMLib = _window.RongIMLib;
+	// init = _window.init;
+
+	var params = {
+		appKey : "8w7jv4qb78a9y",
+		token : "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg=="
+	};
+
+	var callbacks = {
+		getInstance : function(instance){
+			// RongIMLib.RongIMEmoji.init();
+			//instance.sendMessage
+			_window.sendTextMessage(instance);
+		},
+		getCurrentUser : function(userInfo){
+			// console.log(userInfo.userId);
+			alert("链接成功；userid=" + userInfo.userId);
+		},
+		receiveNewMessage : function(message){
+			console.log(message)
+			// showResult("show1",message);
+			// messageOutput(message);
+		}
+	};
+
+	RongIM.init(params,callbacks);
+});
+
+
+</script>	
+</body>
+</html>

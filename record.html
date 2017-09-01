@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>record</title>
+</head>
+
+<body>
+
+
+<!-- 
+https://github.com/Daniel-Hug/speech-input/blob/gh-pages/index.html
+https://developer.mozilla.org/en-US/docs/Web/Events/nomatch
+-->
+
+<div>
+	<input type="text" style="width: 300px; padding:10px;" class="speech-input" lang="zh" placeholder="start recrod">
+	<a href="#" class="si-btn">录音</a>
+</div>
+
+<script>
+var inputEl = document.querySelector('.speech-input');
+var micBtn = document.querySelector('.si-btn');
+
+getRecords(micBtn,function(result){
+	// console.log(result);
+	inputEl.value = result.data;
+});
+
+
+/*global webkitSpeechRecognition */
+function getRecords(micBtn,callback) {
+	// setup recognition
+	var recognizing = false;
+	var recognition = new webkitSpeechRecognition();
+		recognition.continuous = true;
+		recognition.interimResults = true;
+		recognition.lang = "test";
+	var transcript = "";
+
+	micBtn.addEventListener('click', function(event) {
+		event.preventDefault();
+
+		console.log("click");
+
+		// stop and exit if already going
+		if (recognizing) {
+			console.log("stop");
+			recognition.stop();
+			recognizing = false;
+			return;
+		}
+		recognizing = true;
+
+		console.log("pre start");
+		recognition.start();
+	}, false);
+
+	recognition.onstart = function() {
+		console.log("start");
+	};
+
+	recognition.onsoundstart = function() {
+		console.log('onsoundstart');
+	}
+
+	recognition.onspeechstart = function() {
+		console.log('onspeechstart');
+	}
+
+	recognition.onend = function(event) {
+		console.log("onend");
+		callback({
+			time : "onend",
+			data : transcript,
+			_event : event
+		});	
+	};
+
+	recognition.onsoundend = function() {
+		console.log('onsoundend');
+	}
+
+	//recognition.onspeechend not work
+	recognition.onspeechend = function(event) {
+		// get SpeechRecognitionResultList object
+		console.log("onspeechend");
+		console.log(event);
+	};
+
+	recognition.onresult = function(event){
+		var result = event.results[0][0];
+
+		// console.log("onresult");
+		// console.log(result);
+
+		transcript = result.transcript;
+
+		callback({
+			time : "onresult",
+			data : "result:" + transcript
+		});
+	};
+
+	recognition.onnomatch = function(event) {
+		console.log("onnomatch");
+		callback({
+			time : "onnomatch",
+			_event : event
+		});	
+	}
+}
+
+</script>	
+</body>
+</html>
