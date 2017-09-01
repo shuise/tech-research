@@ -1,0 +1,34 @@
+<h1>SDK</h1>
+<script src="//cdn.ronghub.com/RongIMLib-2.2.6.js?20170719"></script>
+<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+<script src="../init.js"></script>
+<script>
+function sendTextMessage(instance){
+	var content = {
+		content:"阿拉伯语：الشرق الأوسط ，希伯来语：המזרח התיכון。 ，，，，hello 😊 " + ' π，α，β, » 数字单位部分字符 如：× 拉丁文所有字符 如：Ο Ρ σ Ï Æ 拼音所有字符 如： ě ì ň 英文音标部分字符 如 ： ə ʃ 俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ ',
+		user : {
+			"userId" : "this-is-a-test-id",
+			"name" : "张三",
+			"portraitUri" : "http://rongcloud.cn/images/newVersion/log_wx.png"
+		},
+		extra:{
+			"name":"name",
+			"age" : 12
+		}
+	};
+
+	var msg = new RongIMLib.TextMessage(content);
+	var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+	var targetId = "user10"
+
+	instance.sendMessage(conversationtype, targetId, msg, {
+        onSuccess: function (message) {
+            alert("发送文字消息成功");
+        },
+        onError: function (errorCode,message) {
+            console.log(errorCode);
+        }
+    });
+}	
+</script>

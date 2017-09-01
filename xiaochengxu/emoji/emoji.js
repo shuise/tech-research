@@ -139,7 +139,7 @@ module.exports = (function() {
 
     /*
     config
-    emoji unicode: http://unicode.org/emoji/index.html
+    emoji unicode: http://unicode.org/emoji/index.htmls
     */
     var configs = {
         lang: "zh",
