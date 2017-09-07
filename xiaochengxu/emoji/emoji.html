@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Emoji</title>
 </head>
@@ -58,14 +58,14 @@ a {
         <p>发消息时，必须直接发送emoji原生字符。如：😀 ，转换方法：symbolToEmoji</p>
     </li>
     <li>
-        <p>Web SDK接收消息时接收到的是unicode编码(”ef600”)，需用 messageDecode 转化成原生emoji</p>
+        <p>Web SDK接收消息时接收到的是unicode编码(”\uf600”)，需用 messageDecode 转化成原生emoji</p>
     </li>
 </ol>
 
 <h2>SDK 说明</h2>
 <ol>
     <li>
-        <p>emoji SDK 内置支持 128个emoji表情</p>
+        <p>emoji SDK 内置支持 128个emoji表情，主要是为了做消息输入框的表情选项</p>
     </li>
     <li>
         <p><a>emoji SDK 初始化</a></p>
@@ -89,7 +89,7 @@ a {
     // 自定义设置
     var config = {
         lang: '选择的语言',
-        reg: '匹配unicode的正则表达式'
+        reg: '匹配unicode的正则表达式'  //解析unicode emoji的范围，doc：http://unicode.org/reports/tr51/index.html
     };
     init(emoji, config);
         </pre>
@@ -155,9 +155,18 @@ console.log(emoji.emojis)
 console.log(emoji.names)
 console.log(emoji.data)
 
-alert(emoji.unicodeToEmoji('收到一条消息 \uf601'))
+alert(emoji.unicodeToEmoji('收到一条消息 \uf601 \uf604'))
 alert(emoji.emojiToSymbol('我 😁 '))
 alert(emoji.symbolToEmoji('我 [露齿而笑] [大笑]'))
+
+//reg = \uf000-\uf700;
+var unicodeEmoji;
+var prefix = "000";
+for(var i=0;i<700;i++){
+  unicodeEmoji = i + "";
+  unicodeEmoji = "\uf" + prefix.substring(0,3 - unicodeEmoji.length) + unicodeEmoji;
+  console.log(emoji.unicodeToEmoji(unicodeEmoji));
+}
 </script> -->
 
 </body>
