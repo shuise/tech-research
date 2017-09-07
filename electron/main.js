@@ -16,7 +16,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  win.loadURL(`file://${__dirname}/requirejs-in-node.html`)
+  win.loadURL(`file://${__dirname}/normal.html`)
 
   // Open the DevTools.
   win.webContents.openDevTools()
@@ -30,7 +30,7 @@ function createWindow () {
   })
 }
 
-// const {upgrade} = require('./upgrade');
+const {upgrade} = require('./upgrade');
 // todo 分离到screenshot.main.js
 const {takeScreenshot} = require('./modules/screenshot/screenshot.main')
 
@@ -52,9 +52,9 @@ app.on('ready', function(){
     })
   })
 
-  // ipcMain.on('upgrade', (event, updateList) => {
-  //     upgrade(updateList);
-  // })
+  ipcMain.on('upgrade', (event, updateList) => {
+      upgrade(updateList);
+  })
 })
 
 // Quit when all windows are closed.

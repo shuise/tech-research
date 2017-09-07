@@ -8,9 +8,9 @@ const app = process.type === 'browser' ?
     require('electron').app :
     require('electron').remote.app;
 
-const logDir = path.resolve(app.getPath('userData'), 'logs');
+const logDir = __dirname + '/logs';
 
-
+console.log(logDir);
 var logDate = dateFormat(new Date(), 'yyyymmdd');
 var logFileName = path.resolve(logDir, logDate + '.log');
 // const logLevel = process.env.NODE_ENV === 'production' ? 'info' : 'debug';
