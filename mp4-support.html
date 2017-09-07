@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mp4 support detective</title>
+</head>
+<body>
+
+<h1>mp4 support detective</h1>
+<h2>git project: <a href="https://github.com/clappr/clappr">https://github.com/clappr/clappr</a></h2>
+
+<p>use 2 experimental technology
+	<a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaSource">MediaSource</a>
+	<a href="https://developer.mozilla.org/en-US/docs/Web/API/SourceBuffer">SourceBuffer</a>	
+</p>
+
+mimeType (type 或 type + codec)<br>
+<input type="text" list="mimeTypes" id="mimeType" size="60">
+<datalist id="mimeTypes">
+	<option value='video/mp4; codecs="avc1.42E01E,mp4a.40.2"'>
+	<option value='video/mp4;'>
+	<option value='video/webm; codecs="opus, vp9"'>
+	<option value='video/webm;'>
+</datalist>
+
+
+<input type="button" value="test" id="btn">
+
+<script>
+function isSupported(mimeType) {
+	var mediaSource = window.MediaSource || window.WebKitMediaSource;
+
+	var isTypeSupported = mediaSource && typeof mediaSource.isTypeSupported === 'function' && mediaSource.isTypeSupported(mimeType);
+
+
+	// if SourceBuffer is exposed ensure its API is valid
+	// safari and old version of Chrome doe not expose SourceBuffer globally so checking SourceBuffer.prototype is impossible
+	var sourceBuffer = window.SourceBuffer || window.WebKitSourceBuffer;
+	var sourceBufferValidAPI = !sourceBuffer || sourceBuffer.prototype && typeof sourceBuffer.prototype.appendBuffer === 'function' && typeof sourceBuffer.prototype.remove === 'function';
+	return isTypeSupported && sourceBufferValidAPI;
+}	
+
+var btn = document.getElementById("btn");
+var v = document.getElementById("mimeType");
+btn.onclick = function(){
+	var mimeType = v.value;
+	alert(isSupported(mimeType));
+}
+</script>
+
+<br><br><br><br><br><br>
+
+<pre>
+https://segmentfault.com/a/1190000008916399
+
+视频编码格式
+视频编码格式就是我们上面提到的第一步，将物理流转换为比特流，并且进行压缩。同样，它的压缩编码格式会决定它的视频文件格式。所以，第一步很重要。针对于 HTML5 中的 video/audio，它实际上是支持多种编码格式的，但局限于各浏览器厂家的普及度，目前视频格式支持度最高的是 MPEG-4/H.264，音频则是 MP3/AC3。（下面就主要说下视频的，音频就先不谈了。）
+
+目前市面上，主流浏览器支持的几个有：
+
+H.264
+MEPG-4 第 2 部分
+VP8
+Ogg
+WebM（免费）
+</pre>	
+</body>
+</html>
