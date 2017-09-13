@@ -1,0 +1,89 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<title>RongCloud</title> 
+<base href="./"> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<link rel="icon" type="image/x-icon" href="favicon.ico"> 
+<!--基础css--> 
+
+<h1>src in electron</h1>
+<pre id="show"></pre>
+<script> 
+window.nodeRequire = require; 
+delete window.require;
+delete window.exports; 
+delete window.module; 
+</script> 
+
+<script type="text/javascript" src="http://cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script> 
+<style>
+	body{
+		font-size: 12px;
+	}
+	.example-block{
+		height: 150px;
+		width: 150px;
+		background-color: #DEDEDE;
+		float: left;
+		margin-left: 10px;
+	}
+	.example-block span{
+		display: inline-block;
+	}
+</style>
+</head> 
+<body> 
+<script> 
+window.require = nodeRequire; 
+const electron = require('electron'); 
+// const sqlite3 = require('sqlite3'); 
+
+
+
+function showInfo(str){
+	var t = document.getElementById("show");
+		t.innerHTML += "\n" + str;
+}
+function upgrade(){
+	var updateList = [{
+		id: 'screencapture',
+		name: 'screencapture',
+		version: '1.0.1',
+		source: 'https://rongcloud-file.cn.ronghub.com/1fb4e941e498af0b1c.node?attname=screencapture-1.0.1.node&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:tacrAYdZKExB0d4mY-KrOz_416U='
+	}];
+	var params = {
+		updateList: updateList
+	};
+	/*
+		如需自动升级， Server 发送系统消息调用即可，演示通过 button 触发
+	*/
+	Electron.upgrade(params);
+};
+
+function startShot(){
+    console.log("start screenShot");
+    Electron.screenShot(function(data){
+        var t = document.getElementById("screen");
+        t.src = data;
+    });  
+} 
+
+</script> 
+
+<app-root></app-root> 
+<div class="example-block">
+	<input type="button" value="screen capture" onclick="startShot()">
+	<br>
+	<img style="max-width:100px;border:1px solid red;margin:10px;" id="screen" alt="">
+</div>
+
+<div class="example-block">
+	<input type="button" value="upgrade" onclick="upgrade()">
+	<span>如需自动升级， Server 发送系统消息调用即可，演示通过 button 触发</span>
+</div>
+
+</body> 
+</html> 
