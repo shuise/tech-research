@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>RongCloud IM 开发指南</title>
+<script src="../lib/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="assets/doc.css" charset="utf-8">
+<script src="assets/marked.js"></script>
+</head>
+<body>
+
+<input type="file" onchange="show(this);">
+
+<div id="content" class="doc-content"></div>
+<script>
+function show(obj){
+	var file = obj.files[0];
+	var reader = new FileReader();
+		reader.readAsText(file, "utf-8");   //UTF-16
+	reader.onload = function(evt){
+		var md = evt.target.result;
+		alert(marked(md))
+		$("#content").html(marked(md));
+	}
+}
+</script>
+
+</body>
+</html>
