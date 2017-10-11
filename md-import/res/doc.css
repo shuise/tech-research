@@ -1,0 +1,178 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+
+body {
+    font-size: 100%;
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+code {
+    color: #292d32;
+    /*background-color: #d3edff;*/
+    font-size: 13px;
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+a {
+    color: #0099ff;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: none;
+}
+
+canvas {
+    display: block;
+    margin: 10px
+}
+.doc-content {
+    color: #606874;
+    font-size: 100%;
+    padding:0 1em;
+    line-height: 1.8;
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    margin-bottom:4em;
+}
+.doc-content p {
+    margin-bottom: 0.6em;
+}
+
+.doc-content strong {
+    font-weight: bold;
+}
+.doc-content img{
+    display: block;
+    border: 0;
+    max-width: 99%;
+}
+.doc-content table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.doc-content h1 {
+    font-size: 160%;
+    margin: 1.5em 0 0;
+    color: #000;
+}
+
+.doc-content h2 {
+    font-size: 140%;
+    margin: 1.25em 0 0;
+    text-indent:0.25em;
+    color: #000;
+}
+
+.doc-content h3 {
+    font-size:120%;
+    margin: 1em 0 0;
+    text-indent:0.5em;
+    color: #000;
+}
+
+.doc-content h4 {
+    margin: 1em 0 0;
+    font-size: 100%;
+    color: #000;
+}
+
+.doc-content h5 {
+    font-size: 90%;
+    color: #000;
+    margin: 1em 0 0;
+}
+
+.doc-content ul,
+.doc-content ol {
+    font-size:90%;
+    display: block;
+    padding-left: 2em;
+    margin-bottom: 1em;
+}
+
+.doc-content ul {
+    list-style-type: disc;
+}
+
+.doc-content table {
+    min-width:60%;
+    max-width:99%;
+    border:1px solid #ddd;
+    font-size:80%;
+    margin:0.5em 1em;
+}
+.doc-content caption {
+    font-weight:700;
+    padding:0.5em;
+    line-height:2;
+    border-bottom:1px solid #fff;
+}
+.doc-content thead td,
+.doc-content thead th {
+    background:#f8f8f8;
+}
+.doc-content tr:hover {
+    background:#f5f5f5;
+}
+
+.doc-content td,
+.doc-content th {
+    padding:0.5em 1em;
+    border-bottom:1px solid #ddd;
+}
+.doc-content blockquote{
+    border:1px solid #ccc;
+    background:#f5f5f5;
+    padding:0.5em;
+    margin:1em;
+}
+.doc-content p{
+    margin:0.5em 1em;
+}
+.doc-content pre{
+    margin:0.5em 1em;
+}
+
+/*btn*/
+.toolbar {
+    border-bottom:1px solid #ccc;
+    background:#f5f5f5;
+    padding:0.5em;
+}
+.import-md{
+    display:inline-block;
+    width:9em;
+    height:2em;
+    overflow:hidden;
+    line-height:2;
+    text-align:center;
+    background:#000;
+    font-size:14px;
+    color:#fff;
+    border-radius:5px;
+    position:relative;
+}
+.import-md input{
+    position:absolute;
+    left:0;
+    top:0;
+    height:10em;
+    width:100%;
+    background:red;
+    opacity:0;
+}
+
+/*print*/
+@media print {
+    .toolbar {
+        display:none;
+    }
+}
