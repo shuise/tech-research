@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>不同格式语音播放测试</title>
+</head>
+<style type="text/css">
+  button {
+    margin: 10px 0;
+  }
+</style>
+<body>
+
+<li><button onclick="play(1)">播放 wav 格式语音</button></li>  
+<li><button onclick="play(2)">播放 ogg 格式语音</button></li>
+<li><button onclick="play(3)">播放 mp3 格式语音</button></li>
+<li><button onclick="play(4)">播放 aac 格式语音</button></li>
+<li><button onclick="play(5)">播放 flac 格式语音</button></li>
+
+<script type="text/javascript">
+  function play(num){
+    var audio = document.createElement("audio");
+     switch (num) {
+                case 1:
+                    audio.src = "voice-test-data/test.wav";;
+                    break;
+                case 2:
+                    audio.src = "voice-test-data/test.ogg";;
+                    break;
+                case 3:
+                    audio.src = "voice-test-data/test.mp3";;
+                    break;
+                case 4:
+                    audio.src = "voice-test-data/test.aac";;
+                    break;
+                case 5:
+                  audio.src = "voice-test-data/test.flac";
+                  break;
+    } 
+    audio.play();
+  }
+</script>
+</body>
+</html>
