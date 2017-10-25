@@ -5,7 +5,7 @@
     <!-- <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> -->
 </head>
 <style type="text/css">
-    li {
+    .stopRecorder li {
         list-style-type: none;
         float: left;
     }
@@ -19,17 +19,17 @@
 <body>
     
     <h3>web 端录制语音，播放对应格式的 base64 语音</h3>
-    <!-- <h3 id="time"></h3> -->
     <h3>录音最长时间 60s，60s 后将自动停止录音。</h3>
+
     <h3 id="resultArea">录音时间 : 0 s</h3>
-    <audio preload = "auto" src = "" id="audio"></audio>
     <button onclick="start()">开始录制语音</button>
 
     <!-- <button onclick="start()">录音</button> -->
     <!-- <button id="stop">停止</button> -->
 
     <h3 id="resultStrByte">录音文件 base64 大小：</h3>
-    <div style="height: 70px;">
+    <audio id="audio" src="" autoplay controls></audio>
+    <div style="height: 70px;" class="stopRecorder">
         <ul>
             <li>
                 <button id="stopToWav">停止(录制 wav 格式语音)</button>
@@ -73,7 +73,7 @@
         showResult(time);
 
         if(time >= 60){
-            stopToAac.click();  //录音时间大于 60s 的时候，自动停止录音
+            stopToMp3.click();  //录音时间大于 60s 的时候，自动停止录音
         }
     }
 
@@ -82,7 +82,7 @@
         录音 base64 查看控制台
     */
     function getStrByte(str){
-        var bytescount = 0;
+        let bytescount = 0;
         if(str != null){
             for(var i = 0;i<str.length;i++){
                 var c=str.charAt(i);
@@ -93,9 +93,10 @@
                 }
             }
         }
-        var strByte = (bytescount/1024).toFixed(1);
+        let strByte = (bytescount/1024).toFixed(1);
         var strByteShow = document.getElementById('resultStrByte');
         strByteShow.innerHTML = '录音文件 base64 大小：' + strByte +'kb';
+        bytescount = 0;
     }
 
     // 通过 FileReader 提取录音文件 blob 
@@ -108,8 +109,8 @@
             console.log(wavBase64);
             getStrByte(wavBase64);
             audio.src = wavBase64;
-            audio.load();
-            audio.play();
+            // audio.load();
+            // audio.play();
         }
         reader.readAsDataURL(blob);
 
@@ -147,12 +148,15 @@
 　　256Kbps=Studio音乐工作室（音乐发烧友适用）
     
     唯一影响mp3文件大小的参数为 比特率
+    码率一般指比特率，比特率是指每秒传送的比特(bit)数。单位为 bps(Bit Per Second)，比特率越高，传送数据速度越快。声音中的比特率是指将模拟声音信号转换成数字声音信号后，
+    单位时间内的二进制数据量，是间接衡量音频质量的一个指标。
 */
 
     var handleSuccess = function(stream) {  
         //https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/audioBitsPerSecond
         const options = {
-            audioBitsPerSecond : 12800
+            // audioBitsPerSecond 最大值为 128000
+            audioBitsPerSecond : 11200
             // videoBitsPerSecond : 2500000,
             // mimeType: type
         };
@@ -205,5 +209,6 @@
     }
 
 </script>
+
 </html>
 
