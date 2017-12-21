@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>file reader</title>
+</head>
+<body>
+<style>
+.li {
+  border:1px solid #ccc;
+  margin:10px;
+  padding:10px;
+  font-size:12px;
+  line-height:20px;
+}
+</style>
+<input type="file" id="file" />
+
+<div class="li"><a id="url" target="_blank"></a></div>
+<div id="text" class="li"></div>
+<div id="binary" class="li"></div>
+<div id="arrayBuffer" class="li"></div>
+<div id="dataUrl" class="li"></div>
+
+<script>
+(function(){
+  var node = document.getElementById("file");
+  node.onchange = function(e){
+    var file = this.files[0];
+    console.log(this.value)
+    console.log(file)
+    document.title = file.name + file.lastModifiedDate.getTime() || "";
+    callback(file);
+  }
+})();
+
+(function(e){
+  var aFileParts = ["<a id=\"a\"><b id=\"b\">hey!<\/b><\/a>"];
+  var file = new Blob(aFileParts, { "type" : "text\/plain" }); // the blob
+  callback(file)
+})();
+
+function callback(file){
+  getFile(file,"dataUrl");
+  getFile(file,"arrayBuffer");
+  getFile(file,"text");
+  getFile(file,"binary");
+
+  document.getElementById("url").href = getBlobUrl(file);
+  document.getElementById("url").innerHTML = getBlobUrl(file) || "no";  
+}
+
+function getBlobUrl(file){
+  var url = "";
+  if(window.createObjectURL){
+    url = window.createObjectURL(file);
+  }else if(window.createBlobURL){
+    url = window.createBlobURL(file);
+  }else if(window.URL && window.URL.createObjectURL){
+    url = window.URL.createObjectURL(file);     //chrome,firefox
+  }else if(window.webkitURL && window.webkitURL.createObjectURL){
+    url = window.webkitURL.createObjectURL(file);   //safari
+  } 
+  return url;
+}
+
+function getFile(file,type) {
+  var reader = new FileReader();
+  if(type == "text"){
+      reader.readAsText(file, "utf-8");   //UTF-16
+    }else if(type == "dataUrl"){
+      reader.readAsDataURL(file);
+    }else if(type == "arrayBuffer"){
+      reader.readAsArrayBuffer(file);
+    }else if(type == "binary"){
+      reader.readAsBinaryString(file);
+    }
+
+  reader.onload = function(evt){
+    console.log(type);
+    document.getElementById(type).innerHTML = '<h2>'  + type + '</h2>' + evt.target.result;
+    // console.log(evt.target.result);
+    console.log(evt);
+  }
+} 
+</script> 
+</body>
+</html>
