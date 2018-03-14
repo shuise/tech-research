@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>message render</title>
+</head>
+<body>
+
+<div id="show">
+	
+</div>
+
+<script>
+/*
+注释指定类型消息的渲染方法
+*/ 
+var render = {
+	RegMessage : function(message){
+		var tpl = "";
+		var msg = fn(tpl,message);
+
+		function fn(tpl,message){
+			return "html片段"
+		}
+	}
+};
+function Msg(messages){
+	var html = [];
+	for(var i=0;i<messages.length;i++){
+		var item = messages[i];
+		var messageType = messages[i].messageType;
+		/*
+		优先使用自定义的渲染策略
+		*/
+		if(render[messageType]){
+			item = render[messageType](messages[i]);
+		}
+		html.push(item);
+	}
+	return html;
+}
+</script>
+
+
+<script>
+var messages = [
+	{
+	"content": {
+		"messageName": "TextMessage",
+		"content": "This is a at message!"
+		},
+	"objectName": "RC:TxtMsg",
+	"receivedTime": 1520994639739,
+	"senderUserId": "user10",
+	"sentTime": 1520994347758,
+	"targetId": "user9",
+	"messageType": "TextMessage",
+	"messageUId": "5H24-KVAT-O43A-D3EE"
+	},
+	{
+	"content": {
+		"name" : "name",
+		"gender" : "men",
+		"age" : 1
+		},
+	"objectName": "REG:TxtMsg",
+	"receivedTime": 1520994639739,
+	"senderUserId": "user10",
+	"sentTime": 1520994347758,
+	"targetId": "user9",
+	"messageType": "RegMessage",
+	"messageUId": "5H24-KVAT-O43A-D3EE"
+	}
+];	
+
+document.getElementById("show").innerHTML = Msg(messages);	
+</script>	
+</body>
+</html>
