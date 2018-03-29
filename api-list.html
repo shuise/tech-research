@@ -94,7 +94,40 @@ h2{
 	position:relative;
 	border-radius:5px;
 }
+
+.rc-result{
+	border:1px solid #ccc;
+	background:#333;
+	color:green;
+	padding:2em;
+	width:25em;
+	height:20em;
+	overflow:auto;
+	position:fixed;
+	right:1em;
+	bottom:1em;
+}
 </style>
+
+
+<script src="//cdn.ronghub.com/RongIMLib-2.3.0.js?00"></script>
+<script src="//cdn.ronghub.com/RongEmoji-2.2.4.min.js"></script> 
+<script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+
+<script src="lib/jquery-3.1.1.min.js"></script>	
+
+<script>
+function print(data){
+	var code = "";
+	if(typeof data == "object"){
+		for(var p in data);
+			code = p + ":" + data[p] + "<br>";
+	}else{
+		code = data + "";
+	}
+	$(".rc-result").html( $(".rc-result").html() + code + '<br>');
+}	
+</script>
 
 <div class="rc-api">
 	<div class="rc-title">
@@ -123,17 +156,17 @@ h2{
 		</div>
 	</div>
 
+	<div class="rc-result"></div>
+
 	<div class="rc-api-main">
 		<div class="rc-api-content">
 			<h2 id="init">初始化</h2>
 			<div class="rc-api-desc">功能说明：xxxxxxxxxxx</div>
 			<div class="rc-api-code">
-				<textarea name="" id="">function sum(){
-	var a = 1;
-	var b = 2;
-	return a + b;
-}
-alert(sum())
+				<textarea name="" id="">var appKey = "8w7jv4qb78a9y";
+RongIMLib.RongIMClient.init(appKey);
+var instance = RongIMClient.getInstance();
+print(instance);
 			</textarea>
 				<span class="rc-api-run">运行</span>
 			</div>
@@ -145,17 +178,33 @@ alert(sum())
 			<h2 id="init">链接</h2>
 			<div class="rc-api-desc">功能说明：xxxxxxxxxxx</div>
 			<div class="rc-api-code">
-				<textarea name="" id="">//开始链接
+				<textarea name="" id="">// 连接状态监听器
+var token = "4FGCL0oQ/E72nU4ivbui8uHR/ySxKaD1cAX2biXsYR6RsLYO9xAA4ooa+q3n42JnVTQyMAdFUiDsjFRDYZaQeg==";					
+RongIMClient.setConnectionStatusListener({
+	onChanged: function (status) {
+		print("链接状态： " + status);
+	}
+});
+
+RongIMClient.setOnReceiveMessageListener({
+	// 接收到的消息
+	onReceived: function (message) {
+	    // 判断消息类型
+		print("新消息:");
+		print(message);
+	}
+});
+
+//开始链接
 RongIMClient.connect(token, {
 	onSuccess: function(userId) {
-		callbacks.getCurrentUser && callbacks.getCurrentUser({userId:userId});
-		console.log("链接成功，用户id：" + userId);
+		print("链接成功，用户id：" + userId);
 	},
 	onTokenIncorrect: function() {
-		console.log('token无效');
+		print('token无效');
 	},
 	onError:function(errorCode){
-		console.log(errorCode);
+		print(errorCode);
 	}
 });</textarea>
 				<span class="rc-api-run">运行</span>
@@ -166,10 +215,10 @@ RongIMClient.connect(token, {
 	</div>
 </div>
 
-<script src="lib/jquery-3.1.1.min.js"></script>	
 <script>
 $(".rc-api-run").click(function(){
-	eval($(".rc-api-code textarea").eq(0).html());
+	$(".rc-result").html("");
+	eval($(this).prev().val());
 });	
 </script>
 </body>
