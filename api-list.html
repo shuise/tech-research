@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web SDK 全功能清单</title>
+</head>
+<body>
+
+<style>
+*{
+	margin:0;
+	padding:0;
+	list-style:none;
+	font-size:100%;
+}	
+h1{
+	font-size:200%;
+}
+h2{
+	font-size:150%；
+}
+.rc-api{
+	margin:1em;
+}
+.rc-title{
+	background:#f5f5f5;
+	border-bottom:1px solid #dedede;
+	padding:10px;
+	position:fixed;
+	left:1em;
+	right:1em;
+	top:1em;
+}
+.rc-title time{
+	float:right;
+	margin-top:-1.5em;
+}
+.rc-api-menu{
+	width:160px;
+	position:fixed;
+	left:1.4em;
+	top:7em;
+}
+.rc-api-sub{
+	margin-bottom:1em;
+}
+.rc-api-sub ol{
+	margin-left:1em;
+}
+.rc-api-sub a{
+	color:#333;
+	text-decoration:none;
+	line-height:2;
+}
+
+.rc-api-main{
+	margin-left:210px;
+	margin-top:7em;
+	min-height:800px;
+	border-left:1px solid #dedede;
+	padding-left:2em;
+}
+
+.rc-api-content{
+	font-size:14px;
+	line-height:1.8;
+	margin-bottom:5em;
+}
+.rc-api-content h2{
+	background:#f5f5f5;
+	border-bottom:1px solid #dedede;
+	padding:10px;
+	font-size:18px;
+	margin-bottom:1em;
+}
+.rc-api-content textarea{
+	width:80%;
+	height:12em;
+	color:#f5f5f5;
+	background:#000;
+	border-bottom:1px solid #000;
+	padding:1em 1em 5em 1em;
+}
+.rc-api-run{
+	display:block;
+	cursor:pointer;
+	padding:0 3em;
+	background:#f5f5f5;
+	color:#000;
+	width:3em;
+	line-height:3em;
+	height:3em;
+	margin:-4.5em 0 0 1em;
+	position:relative;
+	border-radius:5px;
+}
+</style>
+
+<div class="rc-api">
+	<div class="rc-title">
+		<h1>Web SDK 2.3.0 全功能清单</h1>
+		<time>更新时间：2018-3.30</time>
+	</div>
+
+	<div class="rc-api-menu">
+		<div class="rc-api-sub">
+			<h2>初始化、链接</h2>
+			<ol>
+				<li><a href="#init">初始化</a></li>
+				<li><a href="#connect">链接</a></li>
+				<li><a href="#disconnect">断开链接</a></li>
+				<li><a href="#reconnect">重链</a></li>
+			</ol>
+		</div>
+		<div class="rc-api-sub">
+			<h2>接收消息</h2>
+			<ol>
+				<li><a href="#messageType">消息类型</a></li>
+				<li><a href="#receive">新消息</a></li>
+				<li><a href="#unread">未读消息</a></li>
+				<li><a href="#histroy">历史消息</a></li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="rc-api-main">
+		<div class="rc-api-content">
+			<h2 id="init">初始化</h2>
+			<div class="rc-api-desc">功能说明：xxxxxxxxxxx</div>
+			<div class="rc-api-code">
+				<textarea name="" id="">function sum(){
+	var a = 1;
+	var b = 2;
+	return a + b;
+}
+alert(sum())
+			</textarea>
+				<span class="rc-api-run">运行</span>
+			</div>
+		</div>
+
+
+
+		<div class="rc-api-content">
+			<h2 id="init">链接</h2>
+			<div class="rc-api-desc">功能说明：xxxxxxxxxxx</div>
+			<div class="rc-api-code">
+				<textarea name="" id="">//开始链接
+RongIMClient.connect(token, {
+	onSuccess: function(userId) {
+		callbacks.getCurrentUser && callbacks.getCurrentUser({userId:userId});
+		console.log("链接成功，用户id：" + userId);
+	},
+	onTokenIncorrect: function() {
+		console.log('token无效');
+	},
+	onError:function(errorCode){
+		console.log(errorCode);
+	}
+});</textarea>
+				<span class="rc-api-run">运行</span>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+<script src="lib/jquery-3.1.1.min.js"></script>	
+<script>
+$(".rc-api-run").click(function(){
+	eval($(".rc-api-code textarea").eq(0).html());
+});	
+</script>
+</body>
+</html>
