@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.pie.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.piestacked.js" charset="utf-8"></script>
+        <style>
+            .canvas {margin:50px auto;width:85%;height:320px;display:block}
+            .nteschart-tip{display:none;position:absolute;left:50px;top:50px;font-size:12px;white-space:nowrap;background:rgba(0,0,0,0.75);color:#fff;padding:5px;-webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+       -o-border-radius: 4px;
+          border-radius: 4px;
+-moz-transition: all 0.2s ease-in 0s; -webkit-transition: all 0.2s ease-in 0s;o-transition: all 0.2s ease-in 0s; transition: all 0.2s ease-in 0s;
+}
+            .nteschart-tip table{border:none;}
+            .nteschart-tip th{color:#999;font-weight:normal;}
+            .nteschart-tip td:nth-child(1){color:#fff;font-weight:bold}
+            .nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#FACC99;font-weight:bold}
+            .nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:-1px;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+        </style>
+    </head>
+    <body>
+        <div id="canvas2" class="canvas"></div> 
+        <script>
+            var data = [
+             {
+                 title : '新闻首页',
+                 tips : '{title}\t{percent}%\t{y}\t占比：{percent}%',
+                 data : [3600,6900,6000,7700,7200,5900,6900,6800,5600,4900],
+                 group : 'total'
+             },{
+                 title : '体育频道',
+                 tips : '{title}\t{percent}%\t{y}\t占比：{percent}%',
+                 data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+                 group : 'total'
+             },{
+                 title : '其它新闻数量',
+                 tips : '{title}\t{percent}%\t{y}\t占比：{percent}%',
+                 data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+                 group : 'total'
+             }];
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas2")
+            });
+            var chart = canvas1.pieStacked(data, null, {
+                htmlTips : {
+                   group : "<table><tr><th>{xtick}<th colspan=2>文章PV<th>日均{rows}<tr><td><i></i>所有频道<td><td>{sum}</table>",
+                   vline : true
+                },
+                legendAttr : {border: false, icon: 'rect'},
+                yTitle : {title: "点击次数"},
+                xTick : {shiftY : 3},
+                xpadding : 0, dotHidden : 1,
+                yTick : {labels : "{y}%", startY : [0,0], interval : 20},
+                grid : {rows : 5, shadow : 0}, shadow : false,
+                colors : ['#ff0000', '#2244EE', '#EDA55E'], noBG : false,
+                anim : true, unify : 100
+        }, {
+                htmlTips : {
+                   group : "<table><tr><th>{xtick}<th colspan=2>文章PV<th>日均{rows}<tr><td><i></i>所有频道<td><td>{sum}</table>",
+                   offset : 9
+                },
+                legendAttr : {border: false, icon: 'rect'},
+                barAttr : {nogradient : true, thickness : 16},
+                yTitle : {title: "点击次数"},
+                xTick : {shiftY : 3},
+                yTick : {labels : "{y}", startY : [0,0]},
+                grid : {rows : 5, shadow : 0}, shadow : false,
+                colors : ['#485C74', '#39ABDF', '#EDA55E'], noBG : false,
+                anim : true,
+                groupMeanLine : true
+        }, 
+        ["7-1", "7-2", "7-3", "7-4", "7-5", "7-6", "7-7", "7-8", "7-9", "7-10", "7-11", "7-12"]);
+
+  (function(){ //图表重绘
+    if(!window.eve) return;
+    var resizeTimeout, _resize;
+    if(window.onresize) _resize = window.onresize;
+    window.onresize = function(){
+      if(resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function(){
+        if(_resize) _resize();
+        eve("winResize");
+        resizeTimeout = null;
+      }, 150);
+    }
+  })();
+       </script>
+
+        <center>
+            <button onclick="chart.toggle(0)">占比</button>
+            <button onclick="chart.toggle(1)">数量</button>
+        </center>
+
+    </body>
+</html>

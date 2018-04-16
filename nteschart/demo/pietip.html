@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.pie.js" charset="utf-8"></script>
+        <style>
+            body{background:#f2f2f2;}
+            #canvas {margin:20px auto;width:80%;height:420px;background:#fff;border:1px solid #ccc;position:relative;}
+            .nteschart-tip{display:none;position:absolute;left:50px;top:50px;font-size:12px;white-space:nowrap;background:rgba(0,0,0,0.7);color:#fff;padding:5px;-webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+       -o-border-radius: 4px;
+          border-radius: 4px;
+-moz-transition: all 0.2s ease-in 0s; -webkit-transition: all 0.2s ease-in 0s;o-transition: all 0.2s ease-in 0s; transition: all 0.2s ease-in 0s;
+}
+            .nteschart-tip table{border:none;}
+            .nteschart-tip th{color:#999;font-weight:normal;}
+            .nteschart-tip td:nth-child(1){color:#fff;font-weight:bold}
+            .nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#FACC99;font-weight:bold}
+            .nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:middle;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+        </style>
+    </head>
+    <body>
+        <!--div style="height:1000px">&nbsp;</div-->
+        <div id="canvas"></div> 
+        <script>
+           var canvas = new NTESChart({
+                container : document.getElementById("canvas")
+            });
+           var data = {"Chrome18":9,"IE8":28,"FF23":81,"IE7":9,"Opera9":2,"Safari534":1,"Chrome19":3,"IE9":2,"FF14":6,"Chrome14":2,"Chrome21":7,"FF9":2,"Chrome6":1,"IE6":11,"Chrome17":2,"Chrome20":24};
+           var subData = [{title:"IE6",value:15},{title:"IE7",value:28}];
+           canvas.pie(data, {
+               htmlTips : {
+                   single : "<table><tr><th>所有时间<th colspan=2>PV总和<tr><td>{title}<td>{percent}%<td>{fmtval}</table>"
+               },
+               tips : "{title}\n{percent}% [{fmtval}]",
+               orient : 'right',
+               shiftX : -90, radius : 140,
+               tipRatio : 0.2, //animate: true,
+               subData : subData,
+               fmtPercent : function(val){ return val.toFixed(2); }
+           });
+        </script>
+
+    </body>
+</html>

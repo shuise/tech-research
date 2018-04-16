@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <style>
+            #canvas {margin:50px auto;width:800px}
+        </style>
+    </head>
+    <body>
+        <div id="canvas"></div> 
+        <script>
+            var canvas = new NTESChart({
+                container : document.getElementById("canvas"),
+                x : -60,
+                y : -20,
+                width : 800,
+                height : 600
+            });
+
+            //绘制坐标轴边框
+            var frame = canvas.frame({
+                width : 640,
+                height : 300,
+                grid : {cols : 16, rows : 15},
+                xTitle : {title : "日期", dy : 45},
+                yTitle : {title : "访问次数"},
+                yTick : {ticks : 16, interval : 10, labels : "{y}"}
+            });
+            var xlabels = [];
+            for(var i = 0; i < 16; i++){
+                var day = 2*i+1;
+                xlabels.push("2012-07-"+(day<10?'0':'')+day);
+            }
+            var data1 = [26,49,38,47,72,76,91,72,60,60,53,58,70,96,87,99,77,90,67,72,83,57,74,69,62,98,80,98,80,78,2];
+            frame.xTick({
+                interval : 2,
+                maxX : data1.length,
+                labels : xlabels,   //label数组
+                rotate : -45,
+                dy : 20  //label位置微调
+            });
+
+            //正式绘制图表
+            frame.addSeries(data1, "curve", {plotAttr : {stroke: "hsl(.6, .5, .5)"}, fillAttr : {fill: "hsl(.6, .5, .5)"}});
+            frame.addSeries(data1, "dot", {
+                label : "{y} 点击\n2012年7月{x}日",
+                dotAttr :{stroke : "hsl(.6, .5, .5)", fill : "#fff"},
+                labelPos : "top"
+            });
+
+            var data2 = [8,25,27,25,54,59,79,47,27,44,44,51,56,83,12,91,52,12,40,8,60,29,7,33,56,25,1,78,70,68,2];
+            frame.addSeries(data2, "curve");
+            frame.addSeries(data2, "dot", {
+                label : "{y} 点击\n2012年7月{x}日",
+                hoverArea : 'bottom'
+            });
+        </script>
+
+    </body>
+</html>

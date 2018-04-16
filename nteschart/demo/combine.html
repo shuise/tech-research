@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <script type="text/javascript" src="http://static.f2e.netease.com/component/nteschart/chart.util.js" charset="utf-8"></script>
+        <style>
+            #canvas1 {margin:0 auto;width:800px;height:400px;border:1px solid #ddd;}
+            .nteschart-tip{display:none;position:absolute;left:50px;top:50px;font-size:12px;white-space:nowrap;background:rgba(0,0,0,0.75);color:#fff;padding:5px;-webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+       -o-border-radius: 4px;
+          border-radius: 4px;
+-moz-transition: all 0.2s ease-in 0s; -webkit-transition: all 0.2s ease-in 0s;o-transition: all 0.2s ease-in 0s; transition: all 0.2s ease-in 0s;
+}
+            .nteschart-tip table{border:none;}
+            .nteschart-tip th{color:#999;font-weight:normal;}
+            .nteschart-tip td:nth-child(1){color:#fff;font-weight:bold}
+            .nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#FACC99;font-weight:bold}
+            .nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:-1px;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+        </style>
+        <title>NTESChart 组合绘图</title>
+    </head>
+    <body>
+        <div id="canvas1"></div> 
+        <script>
+        var labels = NTESChart.dateRange({
+            format : "MM/dd",
+            from : Date.UTC(2010,0,1),
+            to : Date.UTC(2010,3,1)
+        });
+        var data = [
+        {
+            title : '测试数据0',
+            data : [100,50,110,55,30,20,50,70],
+            tips : '{y}',
+            chart : ["bar"]
+        },
+        {
+            title : '测试数据1',
+            data : [25,40,30,21,34,20,12,42],
+            chart : ["line","dot"],
+            tips : '{xtick}\n{y}',
+            config : {dotAttr:{type:'circle'}}
+        },
+        {
+            title : '测试数据2',
+            data : [73,93,89,78,99,82,80,72],
+            chart : ["line","dot"],
+            tips : '{xtick}: {y} %',
+            config : {dotAttr:{type:'rect'}}
+        },
+        {
+            title : '测试数据3',
+            data : [60,71,83,49,44,60,40,52],
+            chart : ["line","dot"],
+            tips : '{xtick}: {y} 人',
+            config : {dotAttr:{type:'tri'}}
+        },
+        {
+            title : '测试数据4',
+            data : [58,59,70,61,74,67,58,68],
+            chart : ["line","dot"],
+            tips : '{title}\n{xtick}: {y}',
+            config : {dotAttr:{type:'star'}}
+        },
+        {
+            title : '测试数据5',
+            data : [70,79,84,59,54,30,60,70],
+            chart : ["line","dot"], rightSide: true,
+            config : {dotAttr:{type:'*'}}
+        }
+    ];
+        var chart = new NTESChart({
+            container : document.getElementById("canvas1")
+        });
+        chart.xyChart(data, ["line"], {
+            htmlTips : {
+                single : "<table><tr><th>所有时间<th>PV总和<tr><td>{title}<td>{y}</table>"
+            },
+            tips : "{title}: {y}次",
+            dotInterval : 1, 
+            padding : {x:50, left:-10}, xpadding: 1,
+            xTick : {_labels : labels},
+            yTick : {shiftX: 20, labels : "{y}", rLabels : "{y}", apronum: 5, startY : [0,0]},
+            yTitle : {title : "关键词数量"},
+            yRightTitle : {title : "关键词数量"},
+            colors : ['#B1DEE4'],
+            grid : {shadow:0,nogrid:0,borderAttr:false},
+            barAttr : {gradient : false},
+            showLegend : true,
+            shadow : true,
+            anim : true
+        });
+        </script>
+
+    </body>
+</html>

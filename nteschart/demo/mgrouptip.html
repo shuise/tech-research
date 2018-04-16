@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>手机版tips</title>
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <style>
+.canvas {margin:50px auto;width:600px;height:350px;display:block;position:relative;}
+.nteschart-tip{display:none;position:relative;left:0;top:0;font-size:14px;white-space:nowrap;color:#666666;padding:0;-webkit-border-radius:4px;}
+.nteschart-tip-arrow{position:absolute;top:-8px;left:50px;border-bottom: 8px solid #FF4473;border-left: 6px solid rgba(0, 0, 0, 0);border-right: 6px solid rgba(0, 0, 0, 0);}
+.nteschart-tip table{width:100%;border:1px solid #CCCCCC;}
+.nteschart-tip th{color:#888;font-weight:normal;}
+.nteschart-tip td:nth-child(1){color:#444;font-weight:bold}
+.nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#9A7C69;font-weight:bold}
+.nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:-1px;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+        </style>
+    </head>
+    <body>
+        <div id="canvas2" class="canvas"></div> 
+        <script> //归一堆叠线图
+            var data = [
+             {
+                 title : '导入荐新闻首页新闻数量',
+                 tips : '{title}\t{percent}%\t{y}\t{average}',
+                 data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+                 group : 'total'
+             },{
+                 title : '未导入荐新闻首页新闻数量',
+                 tips : '{title}\t{percent}%\t{y}\t{average}',
+                 data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+                 group : 'total'
+             },{
+                 title : '其它新闻数量',
+                 tips : '{title}\t{percent}%\t{y}\t{average}',
+                 data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+                 group : 'total',
+                 config : {fixMeanNum:function(num){return Math.round(num)}}
+             }];
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas2")
+            });
+            var obj = canvas1.xyChart(data, ["line", "dot"], {
+                htmlTips : {
+                   group : "<table><tr><th>{xtick}<th colspan=2>文章PV<th>日均{rows}<tr><td><i style='background:#FF4473'></i>所有频道<td colspan=2>{sum}<td>{average}</table>",
+                   vline : true,
+                   docked : 'bottom'
+                },
+                fixTips : function(info){
+                   info.average = NTESChart.quoteNum(info.average||0);
+                   info.sum = 0;
+                },
+                tipsAlwaysOn : true, dotHidden:1,
+                showLegend : false,
+                yTitle : {title: "点击次数"},
+                xTick : {labels : "7-{x}", shiftY : 3},
+                xpadding : 0, //fillAttr : {opacity : 0.8},
+                yTick : {
+                  labels : "{y}", startY : [0,0], interval : 20
+                },
+                grid : {nogrid:1, rows:5, shadow : 0}, shadow : false,
+                fillAttr : [
+                  {opacity:1},
+                  {opacity:1},
+                  {opacity:1}
+                ],hoverOnInit:true,
+                colors : ['#999999', '#BBBBBB', '#F0F0F0'], noBG : false,
+                anim : true, unify : 100
+            });
+       </script>
+
+    </body>
+</html>

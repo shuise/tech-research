@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <style>
+            #canvas1 {margin:0 auto;width:200px;height:100px;border:1px solid #ddd;padding:0}
+            a{text-decoration:none}
+        </style>
+        <title>财经K线</title>
+    </head>
+    <body>
+        <a href="javascript:alert('o')"><div id="canvas1"></div></a>
+<script>
+var _timeS = (new Date).getTime();
+var canvas1 = new NTESChart({
+    container : document.getElementById("canvas1"),
+    framedTextAttr : {frameAttr : {"fill-opacity": .9}}
+});
+
+//绘制图表
+var klineData = [
+    {
+        title : "分时图", 
+        data: [],
+        config : {
+            fillAttr : {'fill' : '#94B8F3'},
+            plotAttr : {"stroke-width": 1.2, stroke:'#7498E3'}
+        }
+    }
+];
+var points = 240;
+if(/\?(\d+)/.test(location.href)){
+    points = parseInt(RegExp.$1);
+}
+var val = 1789.30;
+for(var i=0;i<points;i++){
+    val += (Math.random() * 0.02 - 0.01);
+    klineData[0].data.push({y:val});
+}
+canvas1.xyChart(klineData, ["line", "marker", "ma0"], {
+    dotInterval:60,
+    xTick : {
+        _labels : ["9:30", "", "11:30/13:00", "", "15:00"], 
+        maxX:points,  //每日数据总数
+        txtAttr: {fill : '#999'}
+    },
+    //hoverOnInit : "right",
+    showLegend : false, 
+    padding: {x:30}, xpadding:0, 
+    //Title : {title:'上证指数', shiftY:7, txtAttr : {font: '10px  微软雅黑, Arial'}},
+    grid : {
+        vline:true, 
+        midline:true, 
+        cols:4, rows:4, 
+        shadow:false, 
+        plotAttr : {stroke: '#ccc', 'stroke-dasharray': '. '}
+    },
+    yTick : {
+        labels : "{y}", //startY : [0,0],
+        midY: 1789.3,   //昨日收盘
+        ticks : 4,
+        txtAttr: {fill : '#999999'}, 
+        fixNum : function(n){return n.toFixed(3);}
+    },
+    MAAttr : {
+        plotAttr : {"stroke-width": 1, stroke:'#ef7f44'}
+    },
+    markerAttr : {
+        txtAttr: [{fill : '#090'}, {fill : '#f00'}]
+    }
+});
+//alert((new Date()).getTime() - _timeS)
+</script>
+
+    </body>
+</html>

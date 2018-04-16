@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+    <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+    <style>
+      body{height:2000px}
+      .wrap{position:fixed;width:100%;}
+      #canvas {margin:50px auto;width:80%;display:block;border:1px solid #ccc}
+    </style>
+  </head>
+<body>
+  <div class="wrap">
+    <div id="canvas"></div> 
+  </div>
+    <script>
+        var canvas = new NTESChart({
+            container : document.getElementById("canvas"),
+            //width : 800,
+            height : 400, grid: {rows:2}
+        });
+
+        var data = [
+            {
+                title : '测试1',
+                data : [0,0,60,31,14,50,70,82]
+            }/*,
+            {
+                title : '测试2',
+                //data : [50,70,80,51,34,70,50,62]
+                data : [12,12,12]
+            }*/
+        ];
+        var frame = canvas.xyChart(data, ["line","dot"], {
+            invalid : 0, 
+            tips : "{y} 点击\n2012年7月{x}日",
+            Title : {title: "微门户各频道PV"},
+            yTitle : {title: "点击次数", vertical:true},
+            yRightTitle : {title: "点击次数", vertical:true},
+            xTick : {interval : 1, labels : "2012-7-{x}", rotate: -50, shiftY:20, milestones:["ok", "ok"]},
+            yTick : {labels : "{y}", interval: 50},
+            animate : true,  //nogrid : 0
+            fillAttr : {fill:'#FFcc00'},
+            animateEnd : function(){
+                console.log(1);
+            }
+        });
+        eve("frame.seriesOver", frame, 1, 2); //自动显示tip
+
+        (function(){ //图表重绘
+          if(!window.eve) return;
+          var resizeTimeout, _resize;
+          if(window.onresize) _resize = window.onresize;
+          window.onresize = function(){
+            if(resizeTimeout) clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function(){
+              if(_resize) _resize();
+              eve("winResize");
+              resizeTimeout = null;
+            }, 150);
+          }
+        })();
+    </script>
+</body>
+</html>

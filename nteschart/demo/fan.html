@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.fan.js" charset="utf-8"></script>
+        <style>
+            body{background:#f2f2f2;}
+            #canvas {margin:20px auto;width:80%;height:420px;background:#fff;border:1px solid #ccc}
+        </style>
+    </head>
+    <body>
+        <!--div style="height:1000px">&nbsp;</div-->
+        <div id="canvas"></div> 
+        <script>
+           var canvas = new NTESChart({
+                container : document.getElementById("canvas")
+            });
+           var data = {"Chrome18.043949":9,"IE8":28,"FF23":71,"IE7":9,"Opera9":2,"Safari534":1,"Chrome21":7,"Chrome6.8872":1,"IE6":11,"Chrome17":2,"Chrome20":24};
+           //var data = [{title:"Chrome18",value:9},{title:"IE8",value:28},{title:"FF13",value:61},{title:"IE7",value:9},{title:"Opera9",value:2},{title:"Safari534",value:1},{title:"Chrome19",value:3},{title:"IE9",value:2},{title:"FF14",value:6},{title:"Chrome14",value:2},{title:"Chrome21",value:7},{title:"FF9",value:2},{title:"Chrome6",value:1},{title:"IE6",value:11},{title:"Chrome17",value:2},{title:"Chrome20",value:24}];
+           var subData = [{title:"IE6",value:15},{title:"IE7",value:28}];
+           canvas.fan(data, {
+               tips : "{title}\n{percent}% [{fmtval}]",
+               //orient : 'right',
+               //shiftX : -90, radius : 140,
+               tipRatio : 0.2, 
+               animate: true,
+               //subData : subData,
+               fmtPercent : function(val){ return val.toFixed(2); }
+           });
+
+    var tm_resize, _resize;
+    if(window.onresize) _resize = window.onresize;
+    window.onresize = function(){
+        if(tm_resize) clearTimeout(tm_resize);
+        tm_resize = setTimeout(function(){
+            if(_resize) _resize();
+            eve("winResize");
+            tm_resize = null;
+        }, 50);
+    }
+        </script>
+
+    </body>
+</html>

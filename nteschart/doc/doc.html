@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图表组件文档 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://static.f2e.netease.com/system/docs_temp/api.css" />
+<style>
+pre b { color: #a79f4f; font-weight: normal;}
+pre i,pre i *,pre i .d { color: #7bb967; font-style: normal;}
+pre .s {color: #b78e31;}
+pre .d {color: #ff7a5c;}
+pre .c,pre .c * {color: #88c; }
+.f2e_api_section pre{margin-bottom:15px}
+.f2e_api_section ul{padding-left:42px;}
+.f2e_api_section ul li{list-style-type:disc;list-style:inside;color:#343434}
+</style>
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<div class="f2e_api_menu_item">
+				<h2><a href="#">图表组件</a></h2>
+				<ol>
+					<li><a href="#js_option">NTESChart</a></li>
+					<li><a href="#prototype">NTESChart.prototype</a></li>
+					<li><a href="#xyChart">NTESChart.xyChart</a></li>
+					<li><a href="#js_demo1">线图示例</a></li>
+					<li><a href="#js_demo2">柱状图示例</a></li>
+					<li><a href="#ring">NTESChart.ring</a></li>
+					<li><a href="#pie">NTESChart.pie</a></li>
+					<li><a href="#piedemo">饼图示例</a></li>
+					<li><a href="#map">NTESChart.map</a></li>
+					<li><a href="#js_demo1">地图示例</a></li>
+				</ol>
+			</div>
+
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>图表组件说明文档</h1>
+			
+			<div class="f2e_api_section">
+				<p>依赖的库文件(Raphael)：<a href="http://img1.cache.netease.com/f2e/libs/raphael.js" target=_blank>http://img1.cache.netease.com/f2e/libs/raphael.js</a><br></p>
+				<p>最新JS源代码(内网。在项目中请按需引用，并结合js合并功能)：
+                    <ul>
+                        <li><a href="http://static.f2e.netease.com/component/nteschart/chart.core.js" target=_blank>基础库: http://static.f2e.netease.com/component/nteschart/chart.core.js</a></li>
+                        <li><a href="http://static.f2e.netease.com/component/nteschart/chart.pie.js" target=_blank>饼图: http://static.f2e.netease.com/component/nteschart/chart.pie.js</a></li>
+                        <li><a href="http://static.f2e.netease.com/component/nteschart/chart.map.js" target=_blank>地图: http://static.f2e.netease.com/component/nteschart/chart.map.js</a></li>
+                        <li><a href="http://static.f2e.netease.com/component/nteschart/chart.frame.js" target=_blank>坐标图: http://static.f2e.netease.com/component/nteschart/chart.frame.js</a></li>
+                    </ul>
+                </p>
+				<!--p>最新JS压缩版(可直接引用)：
+                    <ul>
+                        <li><a href="http://static.f2e.netease.com/component/nteschart/ntes_chart.js" target=_blank>【全部】http://static.f2e.netease.com/component/nteschart/ntes_chart.js</a></li>
+                    </ul>
+                </p-->
+
+			</div>
+
+			<div class="f2e_api_section">
+				<h2 id="js_option">var canvas = new NTESChart(options);</h2>
+				<pre>options<span class="s"> = </span>{
+    container : <b>null</b>,  <span class="c">//图表控件所在dom容器(必填)</span>
+    x : <b>0</b>,  <span class="c">//画布沿x轴的偏移</span>
+    y : <b>0</b>,  <span class="c">//画布沿y轴的偏移</span>
+    width : <b></b>,  <span class="c">//画布宽度</span>
+    height : <b></b>,  <span class="c">//画布高度</span>
+    type : <b>'svg'</b>, <span class="c">//使用svg/vml作图</span>
+    zoom : <b>1</b><span class="c">//默认缩放</span>
+};</pre>
+				<h2 id="prototype">NTESChart.prototype</h2>
+<pre>{
+    xyChart :   Function,   <span class="c">//xy图形绘制函数(直线图、曲线图、点图、柱状图)</span>
+    pie :   Function,   <span class="c">//饼图绘制函数</span>
+    ring :   Function,   <span class="c">//圆环绘制函数</span>
+    touchPie :   Function,   <span class="c">//触屏版饼图绘制函数</span>
+    touchRing :   Function,   <span class="c">//触屏版圆环绘制函数</span>
+    frame :   Function,   <span class="c">//坐标系边框绘制函数</span>
+    map :   Function,   <span class="c">//地图绘制函数</span>
+
+    path :   Function,   <span class="c">//svg路径绘制函数</span>
+    circle :   Function,   <span class="c">//圆形绘制函数</span>
+    tip : Function,    <span class="c">//提示框绘制函数</span>
+    move : Function,    <span class="c">//画布平移</span>
+    zoom : Function    <span class="c">//画布缩放</span>
+};</pre>
+
+				<h2 id="xyChart">NTESChart.xyChart(data, types, options)</h2>
+<pre>
+//数据格式
+var data = [{
+        'title' : 'title1',
+        'data' : [{y:1},{y:1},{y:1},{y:1},{y:2},{y:1},{y:0},{y:3,milestone:'有大事发生'},{y:1},{y:1},{y:0}],
+        'chart' : ['line', 'dot'],   <span class="c">//可选, 用来指定本数据的作画方式</span>
+        'rightSide' : false,    <span class="c">//可选, 默认为false</span>
+        'tips' : "{xtick}: {y}",    <span class="c">//可选, 可用点位符见options中注释</span>
+        'config': {'plotAttr':{..}, ...}   <span class="c">//可选</span>
+    },
+    ..
+];</pre>
+<pre>types = ["line", "curve", "dot", "bar", "hbar" ...]</pre>
+<pre>options = {
+    x : <b>70</b>,  <span class="c">//坐标系左上角在画布上的位置</span>
+    y : <b>20</b>,  <span class="c">//坐标系左上角在画布上的位置</span>
+    width : <b></b>,  <span class="c">//坐标系宽度</span>
+    height : <b></b>,  <span class="c">//坐标系高度</span>
+    tips : <b>null</b>,  <span class="c">//鼠标触发的气泡中文字格式(字符串)，可用占位符如下：</span>
+                      <span class="c">//{x}: 数据序号，从1开始</span>
+                      <span class="c">//{y}: 数据实际值</span>
+                      <span class="c">//{xtick}: 当前点对应的x轴标注</span>
+                      <span class="c">//{milestone}: 当前点对应的重大事件</span>
+                      <span class="c">//{title}: 所在数据集的标题</span>
+                      <span class="c">//{percent}: 百分比，只对stacked图有用</span>
+    htmlTips :  <span class="c">//鼠标触发的html格式提示：</span>
+    {
+        group : null, <span class="c">//格式字符串，可用{rows}表示每组数的tips值</span>
+        single : null, <span class="c">//格式字符串</span>
+        orderRank : false <span class="c">//表格数据根据数值大小排序</span>
+    },
+    dotInterval : <b>1</b>,  <span class="c">//描点，两点间隔dotInterval个数据</span>
+    xTick :   <span class="c">//x轴标尺、文字</span>
+    {
+        maxX : null,   <span class="c">//x轴最大数值(数据量-1)[必填]</span>
+        interval : 1,   <span class="c">//两个标记之间的间隔(数据单位)</span>
+        labels : null,   <span class="c">//标记文字，可为字符串或数组，与要绘制的ticks一一对应</span>
+        _labels : null,   <span class="c">//标记文字数组，长度为maxX+1，与数据一一对应</span>
+        rotate : 0,   <span class="c">//标记文字旋转角度</span>
+        skip : 0,   <span class="c">//从第几个数据单位开始作标记</span>
+        shiftY : 0,   <span class="c">//标注文字沿y轴的平移</span>
+        txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444'}  <span class="c">//标记文字样式</span>
+    },
+    yTick :    <span class="c">//y轴标尺、文字</span>
+    {
+        dx : 0,   <span class="c">//标注文字沿x轴的平移</span>
+        interval : 1,   <span class="c">//两个标记之间的间隔(数据单位)</span>
+        labels : null,   <span class="c">//左侧y轴上的标记文字，可为字符串或数组</span>
+        rLabels : null,   <span class="c">//右侧y轴上的标记文字，可为字符串或数组</span>
+        rotate : 0,   <span class="c">//标记文字旋转角度</span>
+        txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444'},  <span class="c">//标记文字样式</span>
+        shiftX : 0   <span class="c">//标注位置沿x轴的偏移</span>
+    },
+    xTitle : <b></b>        <span class="c">//x轴标题</span>
+    {
+        posX : this.options.x + this.options.width/2,   <span class="c">//x轴标题位置</span>
+        posY : this.options.y + this.options.height,   <span class="c">//x轴标题位置</span>
+        txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444'},  <span class="c">//标题样式</span>
+        shiftY : 0   <span class="c">//标题位置沿y轴的偏移</span>
+    },
+    yTitle : <b></b>         <span class="c">//左侧y轴标题</span>
+    {
+        posX : this.options.x - 40,   <span class="c">//y轴标题位置</span>
+        posY : this.options.y + this.options.height / 2,   <span class="c">//y轴标题位置</span>
+        txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444'},  <span class="c">//标题样式</span>
+        shiftX : 0   <span class="c">//标题位置沿x轴的偏移</span>
+    },
+    yRightTitle : <b></b>         <span class="c">//右侧y轴标题</span>
+    {
+        posX : this.options.x - 40,   <span class="c">//y轴标题位置</span>
+        posY : this.options.y + this.options.height / 2,   <span class="c">//y轴标题位置</span>
+        txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444'},  <span class="c">//标题样式</span>
+        shiftX : 0   <span class="c">//标题位置沿x轴的偏移</span>
+    },
+    Title : <b></b>         <span class="c">//图表标题</span>
+    {
+        posX : this.options.x + this.options.width/2,   <span class="c">//标题位置</span>
+        posY : this.options.y - 25,   <span class="c">//标题位置</span>
+        txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444'},  <span class="c">//标题样式</span>
+        shiftY : 0   <span class="c">//标题位置沿y轴的偏移</span>
+    },
+    dotAttr : null,  <span class="c">//数据点样式，其中solid: true表示绘制实心图标</span>
+    plotAttr : null,  <span class="c">//Object或Array，线/点绘制属性</span>
+    fillAttr : null,  <span class="c">//Object或Array，区域绘制属性</span>
+    getclr :  function(a){         <span class="c">//颜色自动映射函数</span>
+        return "hsb("+a+","+1+","+1+")";
+    },
+    fixMeanNum: Math.round, <span class="c">//平均值数字格式化</span>
+    fixTips: null, <span class="c">//Tips中的数值格式化</span>
+    colors : <b>[]</b>,  <span class="c">//自定义图形颜色(数组)</span>
+    dotHidden : <b>0</b>, <span class="c">//是否默认隐藏曲线上的数据点标记</span>
+    fixLabel : <b>0</b>, <span class="c">//是否在柱顶固定显示标记(只用于柱状图)</span>
+    noHover : <b>false</b>,  <span class="c">//不绘制感应区</span>
+    animate : <b>false</b>,  <span class="c">//是否有绘制动画</span>
+    drawEnd : <b>null</b>, <span class="c">//绘制结束回调函数</span>
+    padding: {y:20, x:60}, <span class="c">//画布四周留空</span>
+    xpadding : <b>1</b>,<span class="c">//是否在曲线和坐标系左右边界之间留空</span>
+    grid : {
+        cols : <b>null</b>, <span class="c">//竖线数</span>
+        rows : <b>null</b>, <span class="c">//横线数</span>
+        shadow : <b>true</b>, <span class="c">//隔行绘制背景(Grid)</span>
+        nogrid : <b>0</b>,<span class="c">//不绘制平行x轴的多条横线</span>
+        borderAttr : <b>{stroke: '#ccc'}</b>,<span class="c">//图表外框样式，为false表示不绘制外框</span>
+        vline : <b>false</b> <span class="c">//背景竖直线</span>
+    },
+    showLegend : <b>false</b>, <span class="c">//在图表底部绘制图例</span>
+    autofix : <b>true</b><span class="c">//图中曲线数变化时，是否重新调整坐标系范围</span>
+};</pre>
+
+<h2 id="js_demo1">线图示例</h2>
+<pre>
+var canvas1 = new NTESChart({
+    container : document.getElementById("canvas1")
+});
+
+//绘制图表
+var data = {
+'大话西游': [26,49,48,47,52,46,51,62,50,40,43,58,60,76,57,69,77,90,67,72,83,57,74,69,62,98,80,98,80,78,2], 
+'天下三' : [560,790,900,907,802,426,591,782,510,492,789,588,900,596,647,489,587,595,609,788,583,674,581,597,591,688,920,518,800,780,520]
+};
+var chart = canvas1.xyChart(data, ["line","dot"], {
+    label : "{y} 点击\n2012年7月{x}日",
+    Title : {title: "微门户各频道PV"},
+    yTitle : {title: "点击次数"},
+    xTick : {interval : 1, labels : "12-7-{x}", rotate: -50, dy:12},
+    yTick : {labels : "{y}", apronum: 5},
+    animate : true
+});
+
+setTimeout(function(){
+    chart.updateData(data); //清空画布并根据新数据重绘
+}, 1000);
+</pre>
+			<div class="f2e_api_btns">
+				<a href="../demo/line2.html" target="_blank">直线图demo</a> &nbsp;
+				<a href="../demo/curve1.html" target="_blank">曲线图demo</a> &nbsp;
+			</div>
+			</div>
+
+			<div class="f2e_api_section">
+
+				<h2 id="bars">柱状图示例</h2>
+				<pre>
+var canvas2 = new NTESChart({
+    container : document.getElementById("canvas2")
+});
+
+//绘制图表
+var data = {'水平柱图':[{title:'A',y:26},{title:'B',y:49},{title:'C',y:38},{title:'D',y:47},{title:'E',y:72},{title:'F',y:76},{title:'G',y:91}]};
+canvas2.xyChart(data, ["bar"], {
+    label : "{y} 点击\n2012年7月{x}日",
+    xTick : {interval : 2, labels : "{x}"},
+    yTick : {interval : 10, labels : "{y}"},
+    minY : 0
+});
+</pre>
+			<div class="f2e_api_btns">
+				<a href="../demo/bar.html" target="_blank">柱状图demo</a>
+			</div>
+
+			</div>
+
+			<div class="f2e_api_section">
+				<h2 id="ring">NTESChart.ring(data, options)</h2>
+<pre>data = {"北京":50, "内蒙古":24, "陕西":26, "西藏":15 ...}</pre>
+<pre>options = {
+    tips : <b>null</b>,  <span class="c">//标记文字，可为字符串或数组</span>
+    cx : <b>this.options.width/2</b>,  <span class="c">//饼图中心位置</span>
+    cy : <b>this.options.height/2</b>,  <span class="c">//饼图中心位置</span>
+    radius : <b>Math.min(this.options.width*0.75, this.options.height)*0.4</b>,  <span class="c">//饼图半径</span>
+    innerRatio : <b>0.35</b>,  <span class="c">//内外半径比</span>
+    getclr :  function(a){         <span class="c">//颜色自动映射函数</span>
+            return "hsb("+a*0.6+",.75,.65)";
+    },
+    fmtPercent : function(val){         <span class="c">//百分比显示函数</span>
+            return Math.round(val);
+    },
+    colors : <b>[]</b>,  <span class="c">//自定义图形颜色(数组)</span>
+    plotAttr : {stroke: "#fff", 'stroke-width' : 0, 'cursor' : 'pointer'},  <span class="c">//扇形样式</span>
+    edgeAttr : {stroke: "#fff", 'stroke-width' : 2},    <span class="c">//扇形边缘样式</span>
+    txtAttr : {font: '12px  微软雅黑, Arial', fill : '#444', 'cursor' : 'pointer'},  <span class="c">//文字样式</span>
+    legendAttr : {font: '12px  微软雅黑, Arial', fill : '#444', 'text-align' : 'left'},  <span class="c">//图例样式</span>
+    click : <b>null</b>,  <span class="c">//扇形区域点击回调函数</span>
+    animate : <b>false</b>,  <span class="c">//是否有绘制动画</span>
+    drawEnd : <b>null</b>, <span class="c">//绘制结束回调函数</span>
+    mouseover : <b>null</b>,  <span class="c">//扇形区域mouseover回调函数</span>
+    tipRatio : <b>0.1</b><span class="c">//在比重超过tipRatio的扇形上标记文字，为0表示不在扇形上标记</span>
+};</pre>
+
+				<h2 id="pie">NTESChart.pie(data, options)</h2>
+<pre>data = {"北京":50, "内蒙古":24, "陕西":26, "西藏":15 ...}</pre>
+<pre>options = {
+    //参数除不支持innerRatio外，与NTESChart.ring相同
+};</pre>
+				<h2 id="piedemo">饼图示例</h2>
+				<pre>
+var canvas = new NTESChart({
+     container : document.getElementById("canvas")
+ });
+var data = {"Chrome18":9,"IE8":28,"FF13":31,"IE7":9,"Opera9":2,"Safari534":1,"Chrome19":3,"IE9":2,"FF14":6,"Chrome14":2,"Chrome21":7,"FF9":2,"Chrome6":1,"IE6":11,"Chrome17":2,"Chrome20":24};
+canvas.pie(data, {
+     tips : "{title} {percent}% [{value}]"
+});</pre>
+			<div class="f2e_api_btns">
+				<a href="../demo/pie.html" target="_blank">饼图demo</a>
+			</div>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2 id="map">NTESChart.map(data, options)</h2>
+<pre>data = {"北京":50, "内蒙古":24, "陕西":26, "西藏":15 ...};
+或
+data = [
+    {
+        id:"110000",
+        name:"北京", //id,name必填其一，如果id与name不一致，以id为准
+        value:50,
+        attr:{fill: '#7193ab'},
+        marker:document.getElementById("map_flags_110000")
+    }, 
+    {
+        id:"120000",
+        value:34
+    }
+];
+
+中国地图对应的"id name":
+    110000 北京
+    120000 天津
+    130000 河北
+    140000 山西
+    150000 内蒙古
+    210000 辽宁
+    220000 吉林
+    230000 黑龙江
+    310000 上海
+    320000 江苏
+    330000 浙江
+    340000 安徽
+    350000 福建
+    360000 江西
+    370000 山东
+    410000 河南
+    420000 湖北
+    430000 湖南
+    440000 广东
+    450000 广西
+    460000 海南
+    500000 重庆
+    510000 四川
+    520000 贵州
+    530000 云南
+    540000 西藏
+    610000 陕西
+    620000 甘肃
+    630000 青海
+    640000 宁夏
+    650000 新疆
+    710000 台湾
+    810000 香港
+</pre>
+<pre>options = {
+    getclr :  function(a){         <span class="c">//颜色自动映射函数</span>
+          return "hsb("+0.1+","+a+","+1+")";
+    },
+    txtAttr : {font: '12px Helvetica, Arial', fill: "#fff"}, <span class="c">//文字样式</span>
+    defaultAttr : {fill: "#fff", stroke: "#999",  'stroke-width' : 1},  <span class="c">//地图默认样式</span>
+    hoverAttr : {fill: "#f22", stroke: "#888"},   <span class="c">//地图高亮样式</span>
+    shadow : <b>true</b>, <span class="c">//地图阴影</span>
+    marker : {
+        hoverClass : "hover",  <span class="c">//区域hover时，相应的marker添加此class</span>
+        position : "capital", <span class="c">//center/capital</span>
+        dx : 0,   <span class="c">//marker相对区域代表点(中心/首府)的偏移</span>
+        dy : 0
+    },
+    animate : <b>300</b>,<span class="c">//hover状态切换时间</span>
+    labelPos : <b>"right"</b>,<span class="c">//文字提示框位置</span>
+    click : <b>null</b>,  <span class="c">//地图区域点击回调函数</span>
+    markerClick : <b>null</b>,  <span class="c">//marker点击回调函数</span>
+    mouseover : <b>null</b>,  <span class="c">//地图区域mouseover回调函数</span>
+    scale : <b>Math.min(this.options.width / 900, this.options.height / 800)</b><span class="c">//地图缩放比例</span>
+};</pre>
+<h2 id="js_demo2">地图示例</h2>
+<pre>
+var canvas = new NTESChart({
+    container : document.getElementById("canvas")
+});
+
+var data = {"北京":50, "广西":24, "陕西":26, "西藏":15, "湖北":34, "浙江":38, "上海": 49, "青海":8,"山东":40};
+
+canvas.map(data, {
+    label : "{name} {value}[{percent}%]",
+    mouseover : function(name){
+          //console.log(name);
+    },
+    click : function(name){
+          alert(name);
+    }
+});
+</pre>
+			<div class="f2e_api_btns">
+				<a href="../demo/map.html" target="_blank">地图demo</a>
+			</div>
+			</div>
+
+	    </div>
+		    <div class="clear"></div>
+    </div></div>
+
+</body>
+</html>
