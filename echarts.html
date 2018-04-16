@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="./lib/echarts.min.js"></script>
+</head>
+<body>
+
+<h1>图标示例</h1>
+
+
+
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 900px;height:300px;"></div>
+<div id="main2" style="width: 900px;height:300px;"></div>
+
+
+
+<script type="text/javascript">
+var d1 = [46,35,33,37,40,34,40,53,36,34,38,38,33,38,39,51,36,33,34,35,33,41,46,42,33,47,53,54,57,54,51];
+var t1 = document.getElementById('main');
+createMap(t1,d1,"2017.4.11~2017.5.11 日均")
+
+
+var d2 = [38,38,28,28,29,27,29,50,25,43,51,57,61,51,38,38,37,39,53];
+var t2 = document.getElementById('main2');
+createMap(t2,d2,"2017.4.11~2017.5.11 周均")
+
+function createMap(t,d,name){
+        // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(t);
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: name
+        },
+        tooltip: {},
+        legend: {
+            data:['比例']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'line',
+            data: d
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>pie</title>
+</head>
+<body>
+
+<style>
+.pie_wrapper{
+	width:240px;
+	height:240px;
+	border-radius:120px;
+	overflow:hidden;
+}
+.pie1{
+	width:200px;
+	height:200px;
+	border:20px solid #000;
+	border-radius:120px;
+	position:relative;
+}
+.pie2{
+	width:200px;
+	height:200px;
+	border-radius:100px;
+	text-align: center;
+	vertical-align:middle;
+	font-size:40px;
+	line-height:200px;
+	position:absolute;
+	z-index:10;
+	background:#fff;
+}	
+.pie_arr{
+	position:absolute;
+	left:50px;
+	top:100px;
+	width:0;
+	height:0;
+	border-left:50px solid transparent;
+	border-right:50px solid transparent;
+	border-bottom:120px solid red;
+}
+</style>	
+
+<div class="pie_wrapper">
+<div class="pie1">
+	<div class="pie_arr"></div>
+	<div class="pie2">80%</div>
+</div>
+</div>
+
+</body>
+</html>
