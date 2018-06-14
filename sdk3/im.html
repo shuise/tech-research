@@ -50,6 +50,7 @@ function connect(){
 }
 
 function getMessage(){
+	showResult("new message listen");
 	RongIMLib3.getMessage(function(message){
 		showResult("new message by get");
 		showResult(message);
@@ -100,7 +101,7 @@ function sendMessage(){
 	</p>
 	<p>
 		<span>获取消息</span>
-		<input type="button" onclick="getMessage()" value="获取消息">
+		<input type="button" onclick="getMessage()" value="获取消息">  <a href="https://rongcloud.github.io/websdk-demo/api-test.html">发送消息页面</a>
 	</p>
 	<p>
 		<span>发送消息</span>

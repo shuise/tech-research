@@ -7,7 +7,7 @@ var RongIMLib3 = {};
 4=connected
 */
 var status = 1;	
-	
+
 var getMessageList = [];
 var tokenIncorrectList = [];
 var readyList = [];
@@ -46,10 +46,11 @@ RongIMLib3.connect = function(callbacks){
 		RongIMLib3.init();
 	}
 	if( status == 1 || status == 2 || status == 3){
-		getMessageList.push(callbacks.getMessage);
-		tokenIncorrectList.push(callbacks.tokenIncorrect);
-		readyList.push(callbacks.ready);
-		errorList.push(callbacks.error);
+		//临时防止报错的恶心代码
+		getMessageList.push(callbacks.getMessage || function(){});
+		tokenIncorrectList.push(callbacks.tokenIncorrect || function(){});
+		readyList.push(callbacks.ready || function(){});
+		errorList.push(callbacks.error || function(){});
 	}
 	if( status == 4){
 		callbacks.ready && callbacks.ready(RongIMLib3.currentUser);
@@ -104,6 +105,7 @@ RongIMLib3.connect = function(callbacks){
 	RongIMClient.setOnReceiveMessageListener({
 		// 接收到的消息
 		onReceived: function (message) {
+			console.log(message);
 			for(var i=0,len=getMessageList.length; i<len; i++){
 				getMessageList[i](message);
 			}
@@ -140,7 +142,13 @@ RongIMLib3.connect = function(callbacks){
 }
 
 RongIMLib3.getMessage = function(callback){
-	getMessageList.push(callback);
+	if( status != 4){
+		RongIMLib3.connect({
+			getMessage : callback
+		});
+		return;
+	}
+	getMessageList.push(callback || function(){});
 }
 
 RongIMLib3.sendMessage = function(conversationType, targetId, content, callbacks){
