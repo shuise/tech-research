@@ -6,6 +6,35 @@
 </head>
 <body>
 
+<h1>SDK 易用性设计 <small>appKey: 8w7jv4qb78a9y; 当前用户: user9</small></h1>
+<div class="panel" id="panel">
+	<p>
+		<span>初始化</span>
+		<input type="button" onclick="init()" value="初始化">
+	</p>
+	<p>
+		<span>链接</span>
+		<input type="button" onclick="connect()" value="链接">
+	</p>
+	<p>
+		<span>获取消息</span>
+		<input type="button" onclick="receiveMessage()" value="获取消息">  <a href="https://rongcloud.github.io/websdk-demo/api-test.html">发送消息页面</a>
+	</p>
+	<p>
+		<span>发送消息</span>
+		<input type="button" onclick="sendMessage()" value="发送消息">
+	</p>
+</div>
+
+<p></p>
+
+<hr>
+
+<div class="show" id="show1">
+	<h3>消息接收结果(新消息在最下)</h3>
+	<pre id="r"></pre>
+</div>
+
 
 <script>
 function showResult(info){
@@ -21,20 +50,23 @@ RongIMLib3.config = {
 	appKey : "8w7jv4qb78a9y",
 	token : "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg=="
 }; 
+showResult(statusDesc[status]);
 
 
 function init(){
 	RongIMLib3.init();
-	showResult(status);
+	showResult(statusDesc[status]);
 }
 
 function connect(){
+	showResult(statusDesc[status]);
 	RongIMLib3.connect({
 		ready : function(currentUser){
-			showResult("connect ready");
+			// showResult("connect ready");
+			showResult(statusDesc[status]);
 			showResult(currentUser);
 		},
-		getMessage : function(message){
+		receiveMessage : function(message){
 			showResult("new message by listen");
 			showResult(message);
 		},
@@ -49,9 +81,10 @@ function connect(){
 	});
 }
 
-function getMessage(){
+function receiveMessage(){
+	showResult(statusDesc[status]);
 	showResult("new message listen");
-	RongIMLib3.getMessage(function(message){
+	RongIMLib3.receiveMessage(function(message){
 		showResult("new message by get");
 		showResult(message);
 	});
@@ -59,6 +92,7 @@ function getMessage(){
 
 //only support textMessage
 function sendMessage(){
+	showResult(statusDesc[status]);
 	var content = {
 		content: [
 			"阿拉伯语：الشرق الأوسط ",
@@ -77,6 +111,7 @@ function sendMessage(){
 	var conversationType = RongIMLib.ConversationType.PRIVATE; // 私聊
 	RongIMLib3.sendMessage(conversationType, targetId, content, {
         onSuccess: function (message) {
+			showResult(statusDesc[status]);
             showResult("发送文字消息 成功");
             showResult(message);
         },
@@ -88,35 +123,6 @@ function sendMessage(){
 }
 </script>
 
-
-<h1>SDK 易用性设计 <small>appKey: 8w7jv4qb78a9y; 当前用户: user9</small></h1>
-<div class="panel" id="panel">
-	<p>
-		<span>初始化</span>
-		<input type="button" onclick="init()" value="初始化">
-	</p>
-	<p>
-		<span>链接</span>
-		<input type="button" onclick="connect()" value="链接">
-	</p>
-	<p>
-		<span>获取消息</span>
-		<input type="button" onclick="getMessage()" value="获取消息">  <a href="https://rongcloud.github.io/websdk-demo/api-test.html">发送消息页面</a>
-	</p>
-	<p>
-		<span>发送消息</span>
-		<input type="button" onclick="sendMessage()" value="发送消息">
-	</p>
-</div>
-
-<p></p>
-
-<hr>
-
-<div class="show" id="show1">
-	<h3>消息接收结果(新消息在最下)</h3>
-	<pre id="r"></pre>
-</div>
 
 </body>
 </html>

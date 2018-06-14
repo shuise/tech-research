@@ -6,22 +6,29 @@ var RongIMLib3 = {};
 3=connecting；
 4=connected
 */
-var status = 1;	
+var status = 1;
+var statusDesc = {
+	1 : "未初始化",
+	2 : "初始化结束，开始链接",
+	3 : "链接中",
+	4 : "链接成功"
+};
 
-var getMessageList = [];
+var receiveMessageList = [];
 var tokenIncorrectList = [];
 var readyList = [];
 var errorList = [];
 
 RongIMLib3.init = function(callback){
 	if( status == 1){
+		status = 2;
+
 		var appKey = RongIMLib3.config.appKey;
 		RongIMClient.init(appKey);
 
 		RongIMLib3.instance = RongIMClient.getInstance();
 	}
 	//同步方法、貌似也不需要回调，主要看后续业务逻辑如何处理
-	status = 2;
 	callback && callback(RongIMLib3);
 }
 
@@ -30,7 +37,7 @@ callbacks = {
 	ready : function(currentUser){
 	
 		},
-	getMessage : function(message){
+	receiveMessage : function(message){
 		
 		},
 	tokenIncorrect : function(token){
@@ -47,7 +54,7 @@ RongIMLib3.connect = function(callbacks){
 	}
 	if( status == 1 || status == 2 || status == 3){
 		//临时防止报错的恶心代码
-		getMessageList.push(callbacks.getMessage || function(){});
+		receiveMessageList.push(callbacks.receiveMessage || function(){});
 		tokenIncorrectList.push(callbacks.tokenIncorrect || function(){});
 		readyList.push(callbacks.ready || function(){});
 		errorList.push(callbacks.error || function(){});
@@ -106,8 +113,8 @@ RongIMLib3.connect = function(callbacks){
 		// 接收到的消息
 		onReceived: function (message) {
 			console.log(message);
-			for(var i=0,len=getMessageList.length; i<len; i++){
-				getMessageList[i](message);
+			for(var i=0,len=receiveMessageList.length; i<len; i++){
+				receiveMessageList[i](message);
 			}
 		}
 	});
@@ -141,25 +148,31 @@ RongIMLib3.connect = function(callbacks){
 	}, '');
 }
 
-RongIMLib3.getMessage = function(callback){
+RongIMLib3.receiveMessage = function(callback){
 	if( status != 4){
 		RongIMLib3.connect({
-			getMessage : callback
+			receiveMessage : callback
 		});
 		return;
 	}
-	getMessageList.push(callback || function(){});
+	receiveMessageList.push(callback || function(){});
 }
 
 RongIMLib3.sendMessage = function(conversationType, targetId, content, callbacks){
 	if( status != 4){
 		RongIMLib3.connect({
 			ready : function(currentUser){
-				var instance = RongIMLib3.instance;
-				var msg = new RongIMLib.TextMessage(content);
-				instance.sendMessage(conversationType, targetId, msg, callbacks);
+				sendText();
 			}
 		});
+	}else{
+		sendText();
+	}
+
+	function sendText(){
+		var instance = RongIMLib3.instance;
+		var msg = new RongIMLib.TextMessage(content);
+		instance.sendMessage(conversationType, targetId, msg, callbacks);
 	}
 }
 
