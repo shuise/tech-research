@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SDK 易用性</title>
+</head>
+<body>
+
+<h1>SDK 易用性设计 <small>appKey: 8w7jv4qb78a9y; 当前用户: user9</small></h1>
+<div class="panel" id="panel">
+	<p>
+		<span>初始化</span>
+		<input type="button" onclick="init()" value="初始化">
+	</p>
+	<p>
+		<span>链接</span>
+		<input type="button" onclick="connect()" value="链接">
+	</p>
+	<p>
+		<span>获取消息</span>
+		<input type="button" onclick="receiveMessage()" value="获取消息">  <a href="https://rongcloud.github.io/websdk-demo/api-test.html">发送消息页面</a>
+	</p>
+	<p>
+		<span>发送消息</span>
+		<input type="button" onclick="sendMessage()" value="发送消息">
+	</p>
+</div>
+
+<p></p>
+
+<hr>
+
+<div class="show" id="show1">
+	<h3>消息接收结果(新消息在最下)</h3>
+	<pre id="r"></pre>
+</div>
+
+
+<script>
+function showResult(info){
+	var dom = document.getElementById("r");
+	dom.innerHTML += "<br>" + JSON.stringify(info,null,"\t");
+}	
+</script>
+
+<script src="//cdn.ronghub.com/RongIMLib-2.3.2.js"></script>
+<script src="im.js"></script>
+<script>
+var statusDesc = RongIM.statusDesc;
+var status = RongIM.status;
+
+RongIM.config = {
+	appKey : "8w7jv4qb78a9y",
+	token : "ZThhLI1Xa1BX5EMREAdArWSH6ouuI8NT/fNmMkzF+4IOKIoFvbsi6JnH8QmnSltLkCcsK8vOgKl3IZgfbxFiWg=="
+}; 
+showResult(statusDesc[status]);
+
+
+function init(){
+	RongIM.init();
+	showResult(statusDesc[status]);
+}
+
+function connect(){
+	showResult(statusDesc[status]);
+	RongIM.connect({
+		ready : function(currentUser){
+			// showResult("connect ready");
+			showResult(statusDesc[status]);
+			showResult(currentUser);
+		},
+		receiveMessage : function(message){
+			showResult("new message by listen");
+			showResult(message);
+		},
+		tokenIncorrect : function(token){
+			showResult("tokenIncorrect");
+			showResult(token);
+		},
+		error : function(errorCode){
+			showResult("connect error");
+			showResult(errorCode);
+		}
+	});
+}
+
+function receiveMessage(){
+	showResult(statusDesc[status]);
+	showResult("new message listen");
+	RongIM.receiveMessage(function(message){
+		showResult("new message by get");
+		showResult(message);
+	});
+}
+
+//only support textMessage
+function sendMessage(){
+	showResult(statusDesc[status]);
+	var content = {
+		content: [
+			"阿拉伯语：الشرق الأوسط ",
+			"希伯来语：המזרח התיכון",
+			"emoji: 😊 ",
+			"希腊字母： π，α，β, ",
+			"数字单位部分字符 如：× ",
+			"拉丁文所有字符 如：Ο Ρ σ Ï Æ ",
+			"拼音所有字符 如： ě ì ň ",
+			"英文音标部分字符 如 ： ə ʃ ",
+			"俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ "
+		].join(",")
+	};
+
+	var targetId = "user11";
+	var conversationType = RongIMLib.ConversationType.PRIVATE; // 私聊
+	RongIM.sendMessage(conversationType, targetId, content, {
+        onSuccess: function (message) {
+			showResult(statusDesc[status]);
+            showResult("发送文字消息 成功");
+            showResult(message);
+        },
+        onError: function (errorCode,message) {
+            showResult("发送文字消息 失败");
+            showResult(message);
+        }
+    });
+}
+</script>
+
+
+</body>
+</html>
