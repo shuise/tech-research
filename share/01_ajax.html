@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ajax</title>
+<link rel="stylesheet" href="share.css" />
+</head>
+
+<body id="top">
+
+<a href="#top" id="back_top">TOP</a>
+
+<h1>ajax请求</h1>
+<ol class="menu" id="menu">
+	<li><a href="#a1">网络与http(s)协议</a></li>
+	<li><a href="#a2">URI与GET请求</a></li>
+	<li><a href="#a3_5">调试工具(fiddler，浏览器自带工具等)</a></li>
+	<li><a href="#a3">同源策略</a></li>
+	<li><a href="#a4">XHR(XMLHttpRequest)</a></li>
+	<li><a href="#a5">XHR2.0(html5)</a></li>
+	<li><a href="#a6">JsonP</a></li>
+</ol>
+
+
+<div id="a1" class="sections">
+	<img src="images/net.png" lang="images/net.png,images/layer.png,images/ip.png" class="trans">
+		
+	<div class="note">
+	<h3>相关链接：</h3>
+		<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html">互联网协议入门（一）</a><br>
+		<a href="http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html">互联网协议入门（二）</a>
+	</div>
+</div>
+
+<div id="a2" class="sections">
+	<ol>
+		<li>URI是什么？</li>
+		<li>为什么是GET？</li>
+		<li>原生的GET有那些？</li>
+		<li>http请求都有哪些类型？</li>
+	</ol>	
+	<div class="note">
+	<h3>相关链接：</h3>
+	<a href="http://www.cnblogs.com/TankXiao/archive/2012/02/13/2342672.html">HTTP协议详解</a><br>
+	<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.1">w3c官网</a>
+	</div>
+</div>
+
+<div id="a3_5" class="sections">
+	<ol>
+		<li>fiddler(.net framework)</li>
+		<li>firebug</li>
+		<li>chrome自带工具</li>
+	</ol>	
+	
+	<img src="images/http.png" alt="" />
+</div>
+
+<div id="a3" class="sections">
+	<ol>
+		<li>什么是同源？</li>
+		<li>为什么需要同源策略？</li>
+	</ol>	
+	<pre>location.href = location.protocal + "//" + location.host + ":" + location.port + location.pathname + location.hash</pre>
+</div>
+
+<div id="a4" class="sections">
+	<ol>
+		<li>ajax是个什么东西？</li>
+		<li>ajax到底都能干些什么？</li>
+		<li>ajax的局限性是那些呢？</li>
+	</ol>	
+	
+	<img src="images/ajax.png" alt="" />
+	
+<pre>function loadAjax(option,callback){
+	var xhr = (window.ActiveXObject) ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
+	if(option.method.toLowerCase() == 'get'){
+		for(prop in option.data){
+			option.url = HE.setPara(option.url,prop,option.data[prop]);
+		}
+		option.data = null;
+	}else{
+		if(typeof(option.data) != "string"){
+			option.data = HE.encode(option.data);
+		}
+	}
+	try{
+		if(option.async !== false){option.async = true;}
+		xhr.open(option.method || "POST",option.url,option.async);
+		xhr.setRequestHeader("Content-Type",option.contentType||"application/x-www-form-urlencoded");
+		xhr.onreadystatechange = handleStateChange;        
+		xhr.send(option.data);
+	}catch (ex) {
+		return "";
+	}
+	function handleStateChange(){			
+		if (xhr!=null && xhr.readyState==4){
+			callback(eval("("+xhr.responseText+")"));
+		} 
+	}
+}</pre>
+</div>
+
+<div id="a5" class="sections">	
+	<ol>
+		<li>XmlHttpRequest2(XDomainRequest)</li>
+		<li>onloadstart,onprogress,onerror,ontimeout</li>
+		<li>upload</li>
+	</ol>
+	<div class="note">
+	<h3>相关链接：</h3>
+	<a href="http://www.w3.org/TR/XMLHttpRequest/">XHR level2</a><br>
+	<a href="http://newhtml.net/using-cors/#more-366">CORS(Cross-Origin Resource Sharing)</a>
+	</div>
+</div>
+
+<div id="a6" class="sections">
+	<ol>
+		<li>JsonP是技巧而不是技术</li>
+		<li>JsonP是通过前后端配合实现的</li>
+		<li>后端遵从js语法，前端基于强大的闭包</li>
+	</ol>
+<pre>function loadJsonP(url, callback){
+	var callbackName = HE.guid();
+	var url = HE.setPara(url,"callback",callbackName);
+	window[lsGUID] = callback;
+	var node = document.createElement('script');
+	node.src = url;
+	document.getElementsByTagName('head')[0].appendChild(node);                                  
+}</pre>
+</div>
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" src="share.js"></script>
+</body>
+</html>

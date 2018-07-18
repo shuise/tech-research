@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ajax</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript">
+function loadAjax(option,callback){
+	var xhr = (window.ActiveXObject) ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
+	
+	option.method = option.method || "post";
+	if(option.method.toLowerCase() == 'get'){
+		for(prop in option.data){
+			option.url = HE.setPara(option.url,prop,option.data[prop]);
+		}
+		option.data = null;
+	}else{
+		if(typeof(option.data) != "string"){
+			option.data = HE.encode(option.data);
+		}
+	}
+	try{
+		if(option.async !== false){option.async = true;}
+		xhr.open(option.method,option.url,option.async);
+		xhr.setRequestHeader("Content-Type",option.contentType||"application/x-www-form-urlencoded");
+		xhr.onreadystatechange = handleStateChange;        
+		xhr.send(option.data);
+	}catch (ex) {
+		return "";
+	}
+	function handleStateChange(){	
+		alert("status:" + xhr.status);		
+		if (xhr!=null && xhr.readyState==4){
+			callback(eval("("+xhr.responseText+")"));
+		} 
+	}
+}
+
+function loadJsonP(url, callback){
+	var callbackName = HE.guid();
+	window[callbackName] = callback;
+	var url = HE.setPara(url,"callback",callbackName);
+	var node = document.createElement('script');
+		node.src = url;
+	document.getElementsByTagName('head')[0].appendChild(node);                                  
+}
+</script>
+
+<script type="text/javascript">
+function test1(){
+	var option = {
+		url : "php/post.php",
+		method : "get",
+		data : {
+			a : "a",
+			b : "b"
+		}
+	};
+	loadAjax(option,function(data){
+		alert(data);
+	});
+}
+
+function test2(){
+	var url = "php/jsonp.php?a=a&b=b&fromUserId=2191&toUserId=2191&toUserId=2192&objectName=";
+	loadJsonP(url,function(data){
+		alert(data);
+	});
+}
+</script>
+
+
+<input type="button" value="test1 ajax" onclick="test1()" />
+<input type="button" value="test2 jsonp" onclick="test2()" />
+</body>
+</html>
