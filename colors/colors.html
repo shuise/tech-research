@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>colors</title>
+</head>
+<body>
+<!--
+http://nipponcolors.com/#taikoh
+-->
+
+<script>
+var colors = [
+	{"name":"艾莉斯蓝","color":"＃F0F8FF"},
+	{"name":"古董白","color":"＃FAEBD7"},
+	{"name":"水族","color":"＃00FFFF"},
+	{"name":"海蓝宝石","color":"＃7FFFD4"},
+	{"name":"蔚蓝色","color":"＃F0FFFF"},
+	{"name":"米色","color":"＃F5F5DC"},
+	{"name":"浓汤","color":"＃FFE4C4"},
+	{"name":"黑色","color":"＃000000"},
+	{"name":"杏仁白","color":"＃FFEBCD"},
+	{"name":"蓝","color":"＃0000FF"},
+	{"name":"蓝紫","color":"＃8A2BE2"},
+	{"name":"布朗","color":"＃A52A2A"},
+	{"name":"原木色","color":"＃DEB887"},
+	{"name":"藏青","color":"＃5F9EA0"},
+	{"name":"黄绿色","color":"＃7FFF00"},
+	{"name":"巧克力","color":"＃D2691E"},
+	{"name":"珊瑚","color":"＃FF7F50"},
+	{"name":"矢菊花","color":"＃6495ED"},
+	{"name":"玉米穗黄","color":"＃FFF8DC"},
+	{"name":"赤红","color":"＃DC143C"},
+	{"name":"青色","color":"＃00FFFF"},
+	{"name":"暗蓝色","color":"＃00008B"},
+	{"name":"灰绿色","color":"＃008B8B"},
+	{"name":"深金黄","color":"＃B8860B"},
+	{"name":"深灰","color":"＃A9A9A9"},
+	{"name":"DarkGrey","color":"＃A9A9A9"},
+	{"name":"深绿","color":"＃006400"},
+	{"name":"深卡其色","color":"＃BDB76B"},
+	{"name":"洋红","color":"＃8B008B"},
+	{"name":"深橄榄绿","color":"＃556B2F"},
+	{"name":"深橙","color":"＃FF8C00"},
+	{"name":"深兰花紫","color":"＃9932CC"},
+	{"name":"深红","color":"＃8B0000"},
+	{"name":"深橙红","color":"＃E9967A"},
+	{"name":"深海藻绿","color":"＃8FBC8F"},
+	{"name":"深青蓝","color":"＃483D8B"},
+	{"name":"深青灰","color":"＃2F4F4F"},
+	{"name":"DarkSlateGrey","color":"＃2F4F4F"},
+	{"name":"深粉蓝","color":"＃00CED1"},
+	{"name":"深紫","color":"＃9400D3"},
+	{"name":"深粉红","color":"＃FF1493"},
+	{"name":"深天蓝","color":"＃00BFFF"},
+	{"name":"暗灰","color":"＃696969"},
+	{"name":"DimGrey","color":"＃696969"},
+	{"name":"宝蓝","color":"＃1E90FF"},
+	{"name":"耐火砖","color":"＃B22222"},
+	{"name":"花白","color":"＃FFFAF0"},
+	{"name":"森林绿","color":"＃228B22"},
+	{"name":"倒挂金钟","color":"＃FF00FF"},
+	{"name":"亮灰","color":"＃DCDCDC"},
+	{"name":"苍白","color":"＃F8F8FF"},
+	{"name":"黄金","color":"＃FFD700"},
+	{"name":"金黄","color":"＃DAA520"},
+	{"name":"灰色","color":"＃808080"},
+	{"name":"灰色","color":"＃808080"},
+	{"name":"绿","color":"＃008000"},
+	{"name":"绿黄","color":"＃ADFF2F"},
+	{"name":"蜜瓜","color":"＃F0FFF0"},
+	{"name":"暗粉红","color":"＃FF69B4"},
+	{"name":"印地安","color":"＃CD5C5C"},
+	{"name":"靛青","color":"＃4B0082"},
+	{"name":"象牙","color":"＃FFFFF0"},
+	{"name":"黄褐色","color":"＃F0E68C"},
+	{"name":"薰衣草","color":"＃E6E6FA"},
+	{"name":"淡紫","color":"＃FFF0F5"},
+	{"name":"草绿","color":"＃7CFC00"},
+	{"name":"粉黄","color":"＃FFFACD"},
+	{"name":"浅蓝","color":"＃ADD8E6"},
+	{"name":"浅珊瑚红","color":"＃F08080"},
+	{"name":"浅青绿","color":"＃E0FFFF"},
+	{"name":"浅金黄","color":"＃FAFAD2"},
+	{"name":"浅灰色","color":"＃D3D3D3"},
+	{"name":"浅灰","color":"＃D3D3D3"},
+	{"name":"浅绿","color":"＃90EE90"},
+	{"name":"浅粉红","color":"＃FFB6C1"},
+	{"name":"橙红","color":"＃FFA07A"},
+	{"name":"海藻绿","color":"＃20B2AA"},
+	{"name":"天蓝","color":"＃87CEFA"},
+	{"name":"青灰","color":"＃778899"},
+	{"name":"LightSlateGrey","color":"＃778899"},
+	{"name":"浅钢","color":"＃B0C4DE"},
+	{"name":"浅黄","color":"＃FFFFE0"},
+	{"name":"石灰","color":"＃00FF00"},
+	{"name":"暗绿","color":"＃32CD32"},
+	{"name":"亚麻布","color":"＃FAF0E6"},
+	{"name":"品红","color":"＃FF00FF"},
+	{"name":"栗色","color":"＃800000"},
+	{"name":"草绿","color":"＃66CDAA"},
+	{"name":"暗蓝","color":"＃0000CD"},
+	{"name":"兰花紫","color":"＃BA55D3"},
+	{"name":"暗紫","color":"＃9370D8"},
+	{"name":"暗海藻","color":"＃3CB371"},
+	{"name":"青蓝","color":"＃7B68EE"},
+	{"name":"嫩绿","color":"＃00FA9A"},
+	{"name":"粉蓝","color":"＃48D1CC"},
+	{"name":"暗紫","color":"＃C71585"},
+	{"name":"黑蓝","color":"＃191970"},
+	{"name":"薄荷乳白","color":"＃F5FFFA"},
+	{"name":"粉玫瑰红","color":"＃FFE4E1"},
+	{"name":"莫卡辛","color":"＃FFE4B5"},
+	{"name":"印地安","color":"＃FFDEAD"},
+	{"name":"海军","color":"＃000080"},
+	{"name":"旧布黄","color":"＃FDF5E6"},
+	{"name":"橄榄","color":"＃808000"},
+	{"name":"淡绿褐","color":"＃6B8E23"},
+	{"name":"橙色","color":"＃FFA500"},
+	{"name":"橙红","color":"＃FF4500"},
+	{"name":"兰花","color":"＃DA70D6"},
+	{"name":"淡金黄","color":"＃EEE8AA"},
+	{"name":"淡绿","color":"＃98FB98"},
+	{"name":"淡蓝绿","color":"＃AFEEEE"},
+	{"name":"浅紫红","color":"＃D87093"},
+	{"name":"粉木瓜橙","color":"＃FFEFD5"},
+	{"name":"粉桃红","color":"＃FFDAB9"},
+	{"name":"秘鲁","color":"＃CD853F"},
+	{"name":"粉红色","color":"＃FFC0CB"},
+	{"name":"梅","color":"＃DDA0DD"},
+	{"name":"灰蓝","color":"＃B0E0E6"},
+	{"name":"紫色","color":"＃800080"},
+	{"name":"红","color":"＃FF0000"},
+	{"name":"玫瑰褐","color":"＃BC8F8F"},
+	{"name":"红深蓝","color":"＃4169E1"},
+	{"name":"SaddleBrown","color":"＃8B4513"},
+	{"name":"三文鱼","color":"＃FA8072"},
+	{"name":"黄褐","color":"＃F4A460"},
+	{"name":"海藻绿","color":"＃2E8B57"},
+	{"name":"贝壳","color":"＃FFF5EE"},
+	{"name":"赭石","color":"＃A0522D"},
+	{"name":"银","color":"＃C0C0C0"},
+	{"name":"天蓝","color":"＃87CEEB"},
+	{"name":"青蓝","color":"＃6A5ACD"},
+	{"name":"青灰","color":"＃708090"},
+	{"name":"SlateGrey","color":"＃708090"},
+	{"name":"雪","color":"＃FFFAFA"},
+	{"name":"嫩绿","color":"＃00FF7F"},
+	{"name":"钢青","color":"＃4682B4"},
+	{"name":"黄褐色","color":"＃D2B48C"},
+	{"name":"蒂尔","color":"＃008080"},
+	{"name":"蓟","color":"＃D8BFD8"},
+	{"name":"西红柿","color":"＃FF6347"},
+	{"name":"绿松石","color":"＃40E0D0"},
+	{"name":"紫罗兰色","color":"＃EE82EE"},
+	{"name":"小麦","color":"＃F5DEB3"},
+	{"name":"白","color":"＃FFFFFF"},
+	{"name":"白雾","color":"＃F5F5F5"},
+	{"name":"黄河","color":"＃FFFF00"},
+	{"name":"黄绿","color":"＃9ACD32"}
+ ];
+</script>
+
+<style>
+html,body{
+	height:100%;
+}
+#main{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+#main img{
+	min-width:100%;
+	min-height:100%;
+}
+#btns {
+	height:5em;
+	margin-top:-5em;
+	background:#f5f5f5;
+	opacity:0.5;
+}
+#btns input{
+	margin:5px 2em;
+	font-size:2em;
+	overflow:hidden;
+	float:left;
+}
+#result {
+	background:#f5f5f5;
+	padding:10px;
+	position:fixed;
+	left:5px;
+	top:5px;
+}
+</style>
+<div id="result"></div>
+<div id="main">
+	<img src="view.jpg" alt="" id="show">
+</div>
+<div id="btns">
+	<input type="file" id="file" value="选择"">
+	<input type="button" id="cerame" value="拍照">
+</div>
+
+
+<script>
+//select detect area
+(function(){
+	var cav = document.getElementById("show");
+	cav.onclick = function(event){
+		var x = event.clientX; //screenX
+		var y = event.clientY;
+
+		var result = getColorValue(cav, [x, y], 20);
+		console.log(result.data.join())
+		document.getElementById("result").innerText = result;
+	}
+})();
+
+function getColorValue(imgNode, from, offset){
+	//http://www.w3school.com.cn/tags/canvas_drawimage.asp
+	var _canvas = document.createElement("canvas");
+		_canvas.width = offset;
+		_canvas.height = offset;
+
+	var _scale = 1/offset;
+	//alert(_scale)
+	console.log(from)
+	var context = _canvas.getContext('2d');
+		// context.scale(_scale, _scale);
+		context.drawImage(imgNode, 0 - from[0], 0 - from[1]);
+	var _color = context.getImageData(0, 0, 1, 1);
+	return _color;
+}
+
+// change img
+(function(){
+	var node = document.getElementById("file");
+	node.onchange = function(e){
+		var file = this.files[0];
+		getFile(file, function(file){
+			document.getElementById("show").src = file;
+		});
+	}
+})();
+
+function getFile(file,callback) {
+  var reader = new FileReader();
+      reader.readAsDataURL(file);
+	  reader.onload = function(evt){
+	  	callback(evt.target.result);
+	  }
+}
+</script>
+
+</body>
+</html>
