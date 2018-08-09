@@ -8,10 +8,14 @@
 <body>
 
 
-<!-- 
+<!--
 https://github.com/Daniel-Hug/speech-input/blob/gh-pages/index.html
 https://developer.mozilla.org/en-US/docs/Web/Events/nomatch
 -->
+
+<p>
+ On Chrome, using Speech Recognition on a web page involves a server-based recognition engine. Your audio is sent to a web service for recognition processing, so it won't work offline.	
+</p>
 
 <div>
 	<input type="text" style="width: 300px; padding:10px;" class="speech-input" lang="zh" placeholder="start recrod">
@@ -35,7 +39,13 @@ function getRecords(micBtn,callback) {
 	var recognition = new webkitSpeechRecognition();
 		recognition.continuous = true;
 		recognition.interimResults = true;
-		recognition.lang = "test";
+		recognition.lang = "en-GB";
+		
+		// recognition.lang = "zh-CN";
+
+		// recognition.serviceURI = "";
+		//Specifies the location of the speech recognition service used by the current SpeechRecognition to handle the actual recognition. The default is the user agent's default speech service.
+
 	var transcript = "";
 
 	micBtn.addEventListener('click', function(event) {
@@ -45,23 +55,23 @@ function getRecords(micBtn,callback) {
 
 		// stop and exit if already going
 		if (recognizing) {
-			console.log("stop");
+			// console.log("stop");
 			recognition.stop();
 			recognizing = false;
 			return;
 		}
 		recognizing = true;
 
-		console.log("pre start");
+		// console.log("pre start");
 		recognition.start();
 	}, false);
 
 	recognition.onstart = function() {
-		console.log("start");
+		// console.log("start");
 	};
 
 	recognition.onsoundstart = function() {
-		console.log('onsoundstart');
+		// console.log('onsoundstart');
 	}
 
 	recognition.onspeechstart = function() {
@@ -74,11 +84,11 @@ function getRecords(micBtn,callback) {
 			time : "onend",
 			data : transcript,
 			_event : event
-		});	
+		});
 	};
 
 	recognition.onsoundend = function() {
-		console.log('onsoundend');
+		// console.log('onsoundend');
 	}
 
 	//recognition.onspeechend not work
@@ -91,8 +101,10 @@ function getRecords(micBtn,callback) {
 	recognition.onresult = function(event){
 		var result = event.results[0][0];
 
-		// console.log("onresult");
-		// console.log(result);
+		console.log("onresult");
+		console.log(event);
+		console.log(event.results);
+		console.log(result);
 
 		transcript = result.transcript;
 
@@ -107,10 +119,10 @@ function getRecords(micBtn,callback) {
 		callback({
 			time : "onnomatch",
 			_event : event
-		});	
+		});
 	}
 }
 
-</script>	
+</script>
 </body>
 </html>
