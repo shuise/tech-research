@@ -162,61 +162,169 @@ var colors = [
 </script>
 
 <style>
-html,body{
+body{
 	height:100%;
+	margin:0;
+	padding:5px;
+	overflow:hidden;
 }
 #main{
-	width:100%;
+	width:80%;
 	height:100%;
 	overflow:hidden;
+	position:relative;
+	font-size:0;
 }
 #main img{
 	min-width:100%;
 	min-height:100%;
 }
-#btns {
-	height:5em;
-	margin-top:-5em;
-	background:#f5f5f5;
-	opacity:0.5;
-}
-#btns input{
-	margin:5px 2em;
-	font-size:2em;
+#main input{
+	opacity:0;
+	width:100%;
+	height:100%;
 	overflow:hidden;
 	float:left;
+	position:absolute;
+	left:0;
+	top:0;
 }
 #result {
 	background:#f5f5f5;
-	padding:10px;
 	position:fixed;
-	left:5px;
+	width:calc(20% - 20px);
+	right:5px;
 	top:5px;
+	bottom:5px;
+}
+#result span{
+	display:inline-block;
+	margin:1px 0 0 1px;
+	width:16px;
+	height:16px;
+}
+#extend {
+	position:fixed;
+	width:15px;
+	top:5px;
+	right: calc(20% - 14px);
+}
+#extend span{
+	display:block;
+	height:15px;
+	margin-bottom:2px;
 }
 </style>
-<div id="result"></div>
 <div id="main">
 	<img src="view.jpg" alt="" id="show">
+	<input type="file" id="file" value="选择">
 </div>
-<div id="btns">
-	<input type="file" id="file" value="选择"">
-	<input type="button" id="cerame" value="拍照">
+<div id="extend">
+	<span v-for="item in colors" v-bind:style="{ backgroundColor: item.o}"></span>
+</div>
+<div id="result">
+	<span v-for="item in colors" v-bind:style="{ backgroundColor: item.o}" v-on:mouseover="extend(item.o)"></span>
 </div>
 
+<script src="../lib/vue-2.0.3.js"></script>
+<script src="randomColor/randomColor.js"></script>
 
 <script>
 //select detect area
 (function(){
 	var cav = document.getElementById("show");
+	var extend = new Vue({
+	    el : "#extend",
+	    data : {
+	        colors : []
+	    }
+	});
+
+	var panel = new Vue({
+		el : "#result",
+		data : {
+			colors : []
+		},
+		methods : {
+			extend : function(color){
+				var colors = randomColor({
+				   count: 50,
+				   hue: color
+				});
+				console.log(colors);
+
+				var data = [];
+				for(var i=0;i<colors.length;i++){
+				    data.push({
+				        o : colors[i],
+				    });
+				}
+
+				extend.$data.colors = data;
+				// console.log(data);
+
+			}
+		}
+	});
+	cav.onload = function(){
+		panel.$data.colors = getAreaColors(cav, 20);
+	}
+
+	// change img
+	var node = document.getElementById("file");
+	node.onchange = function(e){
+		var file = this.files[0];
+		getFile(file, function(file){
+			cav.src = file;
+			cav.onload = function(){
+				console.log( getAreaColors(cav, 20))
+				panel.$data.colors = getAreaColors(cav, 20);
+			}
+		});
+	}
+
 	cav.onclick = function(event){
 		var x = event.clientX; //screenX
 		var y = event.clientY;
 
 		var result = getColorValue(cav, [x, y], 20);
 		console.log(result.data.join())
-		document.getElementById("result").innerText = result;
+		var color = result.data.join();
+		document.getElementById("result").innerText = "rgb(" + color + ")";
+		document.getElementById("result").style.background = "rgb(" + color + ")";
 	}
 })();
+
+function getAreaColors(imgNode,number){
+	var w = imgNode.clientWidth;
+	var h = imgNode.clientHeight;
+	var w2 = w/number;
+	var h2 = h/number;
+
+	var data = [];
+
+	for(var i=0;i<number;i++){
+		for(var n=0;n<number;n++){
+			data.push(getColor(i,n));
+		}
+	}
+
+	return data;
+
+	function getColor(i,n){
+		var _canvas = document.createElement("canvas");
+			_canvas.width = 1;
+			_canvas.height = 1;
+		var context = _canvas.getContext('2d');
+			context.scale(1/w2, 1/h2);
+			context.drawImage(imgNode, 0 - w2*i, 0 - h2*n);
+		var _color = context.getImageData(0, 0, 1, 1).data.join();
+			_color = "rgba(" + _color + ")";
+		return {
+			o : _color
+		};
+	}
+}
 
 function getColorValue(imgNode, from, offset){
 	//http://www.w3school.com.cn/tags/canvas_drawimage.asp
@@ -233,17 +341,6 @@ function getColorValue(imgNode, from, offset){
 	var _color = context.getImageData(0, 0, 1, 1);
 	return _color;
 }
-
-// change img
-(function(){
-	var node = document.getElementById("file");
-	node.onchange = function(e){
-		var file = this.files[0];
-		getFile(file, function(file){
-			document.getElementById("show").src = file;
-		});
-	}
-})();
 
 function getFile(file,callback) {
   var reader = new FileReader();
