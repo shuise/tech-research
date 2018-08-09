@@ -223,7 +223,7 @@ body{
 	<span v-for="item in colors" v-bind:style="{ backgroundColor: item.o}"></span>
 </div>
 <div id="result">
-	<span v-for="item in colors" v-bind:style="{ backgroundColor: item.o}" v-on:mouseover="extend(item.o)"></span>
+	<span v-for="item in colors" v-bind:style="{ backgroundColor: item.o}" v-on:mouseover="extend(item.o)" v-bind:title="item.o"></span>
 </div>
 
 <script src="../lib/vue-2.0.3.js"></script>

@@ -24,6 +24,7 @@
 </style>
 
 <div id="show">
+    <h2>主色 {{main}} 扩展色： </h2>
     <span v-for="item in colors" v-bind:style="{ backgroundColor: item.o, color: item.p }">
     	{{item.o}}
     </span>
@@ -52,7 +53,7 @@ alpha – A decimal between 0 and 1. Only relevant when using a format with an a
 */
 
 var colors = randomColor({
-   count: 9,
+   count: 20,
    hue: _hue,
    format : "hsl"
 });
@@ -70,6 +71,7 @@ console.log(data);
 var list = new Vue({
     el : "#show",
     data : {
+        main : _hue,
         colors : data
     }
 });
