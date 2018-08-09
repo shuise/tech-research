@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>randomw color</title>
+</head>
+<body>
+
+<style>
+#show {
+	padding:2em;
+}	
+#show span{
+	display: inline-block;
+	margin:1em;
+	width:200px;
+	height:200px;
+  line-height:200px;
+  overflow:hidden;
+  font-size:12px;
+	border-radius:50% 50%;
+	text-align:center;
+}
+</style>
+
+<div id="show">
+    <span v-for="item in colors" v-bind:style="{ backgroundColor: item.o, color: item.p }">
+    	{{item.o}}
+    </span>
+</div>
+
+<script src="../../lib/vue-2.0.3.js"></script>
+<script src="randomColor.js"></script>
+<script src="../opposite.js"></script>
+
+<script>
+var _hues = ["","green","red","yellow","blue","purple","orange","random"];
+var _hue = _hues[Math.ceil(Math.random()*10000)%_hues.length];
+
+/*
+hue – Controls the hue of the generated color. You can pass a string representing a color name: red, orange, yellow, green, blue, purple, pink and monochrome are currently supported. If you pass a hexidecimal color string such as #00FFFF, randomColor will extract its hue value and use that to generate colors.
+
+luminosity – Controls the luminosity of the generated color. You can specify a string containing bright, light or dark.
+
+count – An integer which specifies the number of colors to generate.
+
+seed - An integer or string which when passed will cause randomColor to return the same color each time.
+
+format – A string which specifies the format of the generated color. Possible values are rgb, rgba, rgbArray, hsl, hsla, hslArray and hex (default).
+
+alpha – A decimal between 0 and 1. Only relevant when using a format with an alpha channel (rgba and hsla). Defaults to a random value.
+*/
+
+var colors = randomColor({
+   count: 9,
+   hue: _hue,
+   format : "hsl"
+});
+
+var data = [];
+for(var i=0;i<colors.length;i++){
+    data.push({
+        o : colors[i],
+        p : getOppositeColor(colors[i])
+    });
+}
+
+console.log(data);
+
+var list = new Vue({
+    el : "#show",
+    data : {
+        colors : data
+    }
+});
+</script>	
+</body>
+</html>
