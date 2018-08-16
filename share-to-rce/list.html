@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>书签君 bookmarklets</title>
+</head>
+
+<body>
+
+<p>将"链接"保存入书签栏, 在网页中点击该书签即可</p>
+
+<div class="list" id="list">
+
+</div>
+
+<!-- 
+通过 domain 参数，可以实现 list 在发布前后同样的值不变，
+但需要写切换方法
+-->
+
+<script>
+var config = {
+	domain : location.protocol + "//" + location.host,
+	list : [
+		{
+			"url" : "./qrcode.js",
+			"name" : "二维码"
+		},
+		{
+			"url" : "./share-to-rce.js",
+			"name" : "分享到 RCE"
+		}
+	]
+};
+</script>
+
+<script>
+;(function(){
+	//添加时间戳为了及时更新，实现自动升级
+	var temp = ['<hr><a title="{url}" href=\'javascript:(function () {l}',
+				'	var node = window.bookmarkletsNode;',
+				'	var d = document;',
+				'	var bd =  d.getElementsByTagName("body")[0];',
+				'    if (!node) {l}',
+				'        node = d.createElement("script");',
+				'        node.type = "text/javascript";',
+				'        node.charset = "utf-8";',
+				'        node.src = "{url}?" + new Date().getTime();',
+				'        bd.appendChild(node);',
+				'    {r}',
+				'{r}());\'>{name}</a>'].join("");
+
+	var node = document.getElementById("list");
+
+	var list = config.list;
+	var domain = config.domain;
+
+	for(var i=0,len=list.length;i<len;i++){
+		list[i].l = "{";
+		list[i].r = "}";
+
+		// if(list[i].url.indexOf("http://") != 0 && list[i].url.indexOf("https://") != 0){
+		// 	list[i].url  = domain + list[i].url;
+		// }
+		//window.open(list[i].url)
+	}
+	node.innerHTML = subs(temp,list);
+})();
+
+
+
+function subs(template, data, regexp){
+	if(!(Object.prototype.toString.call(data) === "[object Array]")){
+		data = [data]
+	}
+	var ret = [];
+	for(var i=0,j=data.length;i<j;i++){
+		ret.push(replaceAction(data[i]));
+	}
+	return ret.join("");
+
+	function replaceAction(object){
+		return template.replace(regexp || (/\\?\{([^}]+)\}/g), function(match, name){
+			if (match.charAt(0) == '\\') return match.slice(1);
+			return (object[name] != undefined) ? object[name] : '';
+		});
+	}
+}
+</script>
+</body>
+</html>
