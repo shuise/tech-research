@@ -20,13 +20,14 @@
   font-size:12px;
 	border-radius:50% 50%;
 	text-align:center;
+  /*text-shadow:#fff 1px 1px,#fff -1px -1px;*/
 }
 </style>
 
 <div id="show">
     <h2>主色 {{main}} 扩展色： </h2>
     <span v-for="item in colors" v-bind:style="{ backgroundColor: item.o, color: item.p }">
-    	{{item.o}}
+    	{{item.p}}
     </span>
 </div>
 
