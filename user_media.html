@@ -12,21 +12,21 @@ function init(){
 	var video = document.getElementById("show");
 	var app = document.getElementById("app");
 
-	if (navigator.webkitGetUserMedia) {
-		navigator.webkitGetUserMedia({audio:true, video:true},gotStream,function(){});
+	if (navigator.getUserMedia) {
+		navigator.getUserMedia({audio:true, video:true},gotStream,function(){});
 	}
 	function gotStream(stream) {
-		video.src = webkitURL.createObjectURL(stream);
-		app.hidden = false;
-	}
-
-	if (navigator.mozGetUserMedia) {
-		navigator.mozGetUserMedia({audio:true, video:true}, gotStream2,function(){});
-	}
-	function gotStream2(stream) {
 		video.src = URL.createObjectURL(stream);
 		app.hidden = false;
 	}
+
+	// if (navigator.mozGetUserMedia) {
+	// 	navigator.mozGetUserMedia({audio:true, video:true}, gotStream2,function(){});
+	// }
+	// function gotStream2(stream) {
+	// 	video.src = URL.createObjectURL(stream);
+	// 	app.hidden = false;
+	// }
 }
 
 /*
