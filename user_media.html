@@ -16,7 +16,8 @@ function init(){
 		navigator.getUserMedia({audio:true, video:true},gotStream,function(){});
 	}
 	function gotStream(stream) {
-		video.src = URL.createObjectURL(stream);
+		video.src = stream;
+		// video.src = URL.createObjectURL(stream);
 		app.hidden = false;
 	}
 
