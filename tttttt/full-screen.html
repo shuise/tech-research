@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>大屏</title>
+</head>
+
+<body class="fullScreen">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./setting.js"></script>
+
+
+  <script src="./libs/jquery-3.1.1.js"></script>
+  <script src="./libs/vue-2.6.10.js"></script>
+  <script src="./libs/underscore-1.8.3.js"></script>
+
+  <!-- im -->
+  <script src="./rongcloud/RongIMLib-2.3.3.js"></script>
+  <script src="./rongcloud/RongEmoji-2.2.6.min.js"></script>
+  <script src="./rongcloud/RongIMVoice-2.2.5.min.js"></script>
+  <!-- <script src="./rongcloud/init.js"></script> -->
+
+
+  <script src="./im/libs/utils.js"></script>
+  <script src="./im/libs/qiniu-upload.js"></script>
+
+  <script src="./im/template.js"></script>
+  <script src="./im/emoji.js"></script>
+  <script src="./im/im.js"></script>
+  <link rel="stylesheet" href="./im/im.css">
+
+  <!-- api -->
+  <script src="js/common.js"></script>
+
+  <!-- RTC -->
+  <link rel="stylesheet" href="./css/rtc/war.css">
+  <script src="./libs/rtc/adapter.js"></script>
+  <script src="./libs/rtc/rongRTCEngine.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/service.js"></script>
+  <script src="./js/rtc/rtc.js"></script>
+
+
+  <div id="fullScreen" class="page-fullScreen">
+    <div class="fs-container">
+    <div class="left-container">
+      <div class="left-top-container item-border sy-tc">
+        <em>作战室</em>
+        <div class="main-video">
+          <div class="sy-war-video-box sy-war-video-box-full">
+            <div class="sy-war-max-video">
+              <video autoplay ref="maxVideo" v-bind:class="{ 'sy-war-video-self': isCurrent(maxVideo.userId) }"
+                muted="isCurrent(maxVideo.userId)"></video>
+            </div>
+            <div class="sy-war-min-videos">
+              <div class="sy-war-video" v-for="video in videos">
+                <p class="sy-war-video-title">{{video.userId}}{{video.msg}}</p>
+                <video autoplay ref="videos" v-on:click="setMax" :userid="video.userId"
+                  v-bind:class="{ 'sy-war-video-self': isCurrent(video.userId) }"
+                  muted="isCurrent(video.userId)"></video>
+                <div class="sy-war-buttons">
+                  <button class="sy-war-button sy-war-button-unmute" :userid="video.userId" v-on:click="unmute"
+                    v-if="video.isMuted && (isManager || isCurrent(video.userId))"></button>
+                  <button class="sy-war-button sy-war-button-mute" :userid="video.userId" v-on:click="mute"
+                    v-if="!video.isMuted && (isManager || isCurrent(video.userId))"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-name">现场作战: {{ maxVideo.userId }}</div>
+      </div>
+    </div>
+
+    <div class="right-container item-border sy-tc">
+      <em>电子白板</em>
+      <div class="mainboard">
+        <iframe :src="wbURL" frameborder="0" class="sy-war-wb"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="fs-container">
+      <div class="left-bottom-container">
+        <div class="war-room-user item-border sy-tc">
+          <em>作战室人员</em>
+          <div class="war-room-user-content">
+            <div class="war-room-user-left">
+              <p><label class="item-label"></label><span>割接人员</span></p>
+              <div class="user-item-box" v-for="item in users">
+                <div class="user-item bg-style" :class="[item.select? 'bg-select':'bg-unselect']"></div>
+                <span>{{item.name}}</span>
+              </div>
+            </div>
+            <div class="war-room-user-right">
+              <div class="war-room-user-right-top">
+                <p style="margin-left:10px;"><label class="item-label"></label><span>省公司领导</span></p>
+                <div class="user-item-box" v-for="item in companyLeaders">
+                  <div class="user-item bg-style" :class="[item.select? 'bg-select':'bg-unselect']">
+                  </div>
+                  <span>{{item.name}}</span>
+                </div>
+              </div>
+              <div class="war-room-user-right-bottom">
+                <p style="margin-left:10px;"><label class="item-label"></label><span>集团领导</span></p>
+                <div class="user-item-box" v-for="item in groupLeaders">
+                  <div class="user-item bg-style" :class="[item.select? 'bg-select':'bg-unselect']">
+                  </div>
+                  <span>{{item.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="war-room-chat-log item-border sy-tc">
+          <em>聊天记录</em>
+          <div class="war-room-msg" id="warMsgList"></div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<script>
+// (function(){
+  var queryString = utils.getQueryStrings(location.href);
+  var token = queryString.token;
+  var userId = queryString.userId;
+  var roomId = queryString.roomId;
+  var role = queryString.role;
+
+  if(token == ""){
+    alert("请登录");
+  }
+
+  var syRTC = null, { User, Chatroom, MessageType } = SYService;
+  var fullScreen = new Vue({
+    el: "#fullScreen",
+    data: {
+      userInfo: {},
+      users: [],
+      companyLeaders: [],
+      groupLeaders: [],
+      messages: [],
+      wbURL: '',
+      isManager: role == 1,
+      maxVideo: {
+        userId: ''
+      },
+      videos: []
+    },
+    methods: {
+      isCurrent: function (id) {
+        return isCurrent(id);
+      },
+      setMax: function () {
+        let { target } = event;
+        let id = target.getAttribute('userid');
+        let stream = syRTC.Stream.get({
+          id
+        });
+        SYUtils.extend(this.maxVideo, {
+          userId: id
+        });
+        this.$refs.maxVideo.srcObject = stream;
+      },
+      mute: function (event) {
+        let { target } = event;
+        let id = target.getAttribute('userid');
+        syRTC.Stream.mute({
+          id
+        });
+        this.videos.map((video) => {
+          if (SYUtils.isEqual(video.userId, id)) {
+            SYUtils.extend(video, {
+              isMuted: true
+            });
+          }
+          return video;
+        });
+
+        Chatroom.send({
+          id: roomId
+        }, {
+            name: MessageType.MuteMessage,
+            content: {
+              roomId,
+              to: id
+            }
+          });
+      },
+      unmute: function (event) {
+        let { target } = event;
+        let id = target.getAttribute('userid');
+        syRTC.Stream.unmute({
+          id
+        });
+        this.videos.map((video) => {
+          if (SYUtils.isEqual(video.userId, id)) {
+            SYUtils.extend(video, {
+              isMuted: false
+            });
+          }
+          return video;
+        });
+        Chatroom.send({
+          id: roomId
+        }, {
+            name: MessageType.UnmuteMessage,
+            content: {
+              roomId,
+              to: id
+            }
+          });
+      }
+    },
+    mounted: function () {
+      var _this = this;
+      API.getUserByRoomId(roomId, function (data) {
+        _this.$data.users = data.users || [];
+        _this.$data.companyLeaders = data.companyLeaders || [];
+        _this.$data.groupLeaders = data.groupLeaders || [];
+      });
+
+      API.getRCToken({id: userId},function(token){
+        initRTC(roomId, userId);
+        API.groupAdd({
+            userId: userId,
+            group: {id: roomId}
+          },function(groupInfo){
+              RCS.init({
+                appKey: CONFIG.im.appkey,
+                token: token,
+                groupId: roomId,
+                title: groupInfo.name,
+                user: groupInfo.user,
+                target: document.getElementById('warMsgList'),
+                showConversitionList: false,
+                templates: {
+                  button: ['<div class="rongcloud-consult rongcloud-im-consult">',
+                    '</div>',
+                    '<div class="customer-service" style="display: none;"></div>'].join('')//"templates/button.html",
+                },
+                extraInfo: {
+                  // 当前登陆用户信息
+                  userInfo: {}
+                }
+              }, function () {
+                RCS.openConversation({ id: roomId, mcount: 20 })
+                initChatRoom(roomId);
+              }, messageHanlder);
+            });
+        });
+    }
+  });
+// })();
+
+
+function isCurrent(id) {
+  return SYUtils.isEqual(id, userId);
+}
+function updateVideoMessage(id, msg) {
+  msg = msg || '';
+  fullScreen.videos.map((video) => {
+    if (SYUtils.isEqual(video.userId, id)) {
+      SYUtils.extend(video, {
+        msg: msg
+      });
+    }
+    return video;
+  });
+}
+function messageHanlder(message) {
+  let { messageType, content: { to: id } } = message;
+  if (SYUtils.isEqual(messageType, MessageType.MuteMessage)) {
+    if (isCurrent(id)) {
+      syRTC.Stream.mute({
+        id
+      });
+      updateVideoMessage(id, '已被静音');
+    }
+  }
+
+  if (SYUtils.isEqual(messageType, MessageType.UnmuteMessage)) {
+    if (isCurrent(id)) {
+      syRTC.Stream.unmute({
+        id
+      });
+      updateVideoMessage(id);
+    }
+  }
+}
+
+function initChatRoom(id) {
+  Chatroom.join({
+    id
+  }).then(() => {
+    console.log('join chatroom successfully');
+  })
+}
+function initRTC(roomId, userId) {
+  let { rtc: rtcCfg } = CONFIG;
+  syRTC = SYRTC.init({
+    url: rtcCfg.ws
+  });
+  let { Room, Stream, Whiteborad } = syRTC;
+  let user = {
+    id: userId,
+    roomId: roomId
+  };
+  Room.watch(({ type, user: { id } }) => {
+    if (SYUtils.isEqual(type, 'left')) {
+      removeVideo(id);
+    }
+  });
+  Stream.watch((user) => {
+    let { id } = user;
+    let stream = Stream.get(user);
+    addVideo(id, stream);
+  });
+
+  //需要确定是否与 IM 同 key
+  User.getRTCToken(user, {
+    url: rtcCfg.url,
+    appkey: rtcCfg.appkey
+  }).then((token) => {
+    SYUtils.extend(user, {
+      token
+    });
+    Room.join(user).then(() => {
+      console.log('join room successfully');
+      let stream = Stream.get(user);
+      addVideo(userId, stream);
+      getWB(Whiteborad);
+    });
+  });
+}
+
+function getWB(Whiteborad) {
+  Whiteborad.get().then((url) => {
+    console.log(url);
+    SYUtils.extend(fullScreen, {
+      wbURL: url
+    });
+  });
+}
+function findVideo(userId, callabck) {
+  let { $refs: { videos } } = fullScreen;
+  SYUtils.forEach(videos, (video, index) => {
+    let videoUserId = video.getAttribute('userid');
+    if (SYUtils.isEqual(videoUserId, userId)) {
+      callabck(video, index);
+    }
+  });
+}
+function addVideo(userId, stream) {
+  fullScreen.videos.push({
+    userId,
+    isMuted: false,
+    msg: ''
+  });
+  fullScreen.$nextTick(function () {
+    findVideo(userId, (video) => {
+      video.srcObject = stream;
+    });
+  });
+}
+function removeVideo(userId) {
+  let { videos } = fullScreen;
+  SYUtils.forEach(videos, (video, index) => {
+    if (SYUtils.isEqual(video.userId, userId)) {
+      videos.splice(index, 1);
+    }
+  });
+}
+</script>
+
+</body>
+
+</html>

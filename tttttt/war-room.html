@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>作战室</title>
+</head>
+
+<body class="page-warroom">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./setting.js"></script>
+
+  <script src="./libs/jquery-3.1.1.js"></script>
+  <script src="./libs/vue-2.6.10.js"></script>
+  <script src="./libs/underscore-1.8.3.js"></script>
+
+  <link rel="stylesheet" href="./element-ui/index.css">
+  <script src="./element-ui/index.js"></script>
+
+  <!-- im -->
+  <script src="./rongcloud/RongIMLib-2.3.3.js"></script>
+  <script src="./rongcloud/RongEmoji-2.2.6.min.js"></script>
+  <script src="./rongcloud/RongIMVoice-2.2.5.min.js"></script>
+  <!-- <script src="./rongcloud/init.js"></script> -->
+
+
+  <script src="./im/libs/utils.js"></script>
+  <script src="./im/libs/qiniu-upload.js"></script>
+
+  <script src="./im/template.js"></script>
+  <script src="./im/emoji.js"></script>
+  <script src="./im/im.js"></script>
+  <link rel="stylesheet" href="./im/im.css">
+
+  <!-- RTC -->
+  <link rel="stylesheet" href="./css/rtc/war.css">
+  <script src="./libs/rtc/adapter.js"></script>
+  <script src="./libs/rtc/rongRTCEngine.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/service.js"></script>
+  <script src="./js/rtc/rtc.js"></script>
+
+
+  <div id="room" class="container">
+    <!-- 导航条 -->
+    <div class="header">
+      <div class="headername">割接作战室</div>
+      <div class="logo"></div>
+
+      <div class="headright">
+        <!-- <div class="new_info marginR20">新消息</div> -->
+        <div class="username marginR15">
+          <div class="user">{{ userInfo.name }}</div>
+          <!-- <div class="icon3"></div> -->
+        </div>
+        <div class="exit marginR15" @click="loginOut">退出</div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <!-- 主题部分 -->
+    <div class="war-room-main">
+      <div class="war-room-wb">
+        <!-- 电子白板 -->
+        <iframe :src="wbURL" frameborder="0" class="sy-war-wb"></iframe>
+      </div>
+
+      <!-- 视频区 -->
+      <div class="sy-war-video-box">
+        <div class="sy-war-max-video">
+          <video autoplay ref="maxVideo" v-bind:class="{ 'sy-war-video-self': isCurrent(maxVideo.userId) }" muted="isCurrent(maxVideo.userId)"></video>
+        </div>
+        <div class="sy-war-min-videos">
+          <div class="sy-war-video" v-for="video in videos">
+            <p class="sy-war-video-title">{{video.userId}}{{video.msg}}</p>
+            <video autoplay ref="videos" v-on:click="setMax" :userid="video.userId"
+              v-bind:class="{ 'sy-war-video-self': isCurrent(video.userId) }" muted="isCurrent(video.userId)"></video>
+            <div class="sy-war-buttons">
+                <button class="sy-war-button sy-war-button-unmute" :userid="video.userId" v-on:click="unmute"
+                v-if="video.isMuted && (isManager || isCurrent(video.userId))"></button>
+              <button class="sy-war-button sy-war-button-mute" :userid="video.userId" v-on:click="mute"
+                v-if="!video.isMuted && (isManager || isCurrent(video.userId))"></button>
+                
+              <!-- <button class="sy-war-button sy-war-button-unmute" :userid="video.userId" v-on:click="mute"
+                v-if="isMuted"></button>
+              <button class="sy-war-button sy-war-button-mute" :userid="video.userId" v-on:click="unmute"
+                v-else></button>
+
+              <button class="sy-war-button sy-war-button-enable" :userid="video.userId" v-on:click="enable"
+                v-if="isDisable"></button>
+              <button class="sy-war-button sy-war-button-disable" :userid="video.userId" v-on:click="disable"
+                v-else></button> -->
+            </div> 
+          </div>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+
+      <!-- 聊天区 -->
+      <div class="wr-chatbox">
+        <div class="war-room-chat" id="war-room-chat">
+          <!-- <div class="war-room-msgs" id="war-room-msgs">
+                    <h2>IM通信子窗口</h2>
+                </div>
+                <div class="war-room-chatbox">
+                    <el-form ref="form" label-width="0">
+                    <el-form-item label="">
+                        <el-input type="textarea" rows="5" v-model="chatbox.desc"></el-input>
+                        <el-button class="wr-send" type="primary" @click="onSubmit">{{ chatbox.btn }}</el-button>
+                    </el-form-item>
+                    </el-form>
+                    消息发送框，支持文字、图片、emoji、文件
+                </div> -->
+        </div>
+        <div class="war-room-members">
+          <h2>人员列表</h2>
+
+          <el-popover
+            placement="right"
+            width="300"
+            trigger="click">
+            <h3>请选择人员</h3>
+            <div class="war-room-userlist" style="height:300px;">
+              <div class="warroom-user" v-for="user in userList2">
+                <img :src="user.avatar" alt="">
+                <strong>{{ user.realName }}</strong>
+                <span>{{ user.certification }}</span>
+                <input type="checkbox" v-model="userIds" name="userId" :value="user.id">
+              </div>
+            </div>
+            <div class="el-popover-btn">
+              <el-button type="primary" size="small" v-on:click="addMember()">新增</el-button>
+            </div>
+            <span slot="reference" class="war-room-member-add" v-on:click="getMember()">+</span>
+          </el-popover>
+
+          <div class="war-room-userlist">
+            <div class="warroom-user" v-for="user in userList">
+              <img :src="user.avatar" alt="">
+              <strong>{{ user.realName }}</strong>
+              <span>{{ user.certification }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height:50px;"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+
+  <script>
+    var syRTC = null, { User, Chatroom, MessageType } = SYService;
+    var queryString = utils.getQueryStrings(location.href);
+    var token = queryString.token;
+    var userId = queryString.userId;
+    var roomId = queryString.roomId;
+    var role = queryString.role;
+
+    var roomInstance = new Vue({
+      el: "#room",
+      data: {
+        msg: "Welcome to Your Vue.js App",
+        userInfo: {},
+        isMuted: false,
+        isDisable: false,
+        isAuthi: true,
+        userList: [],
+        userList2: [],
+        userIds: [],
+        wbURL: '',
+        isManager: role == 1,
+        maxVideo: {
+          userId: ''
+        },
+        chatbox: {
+          desc: "消息发送框，支持文字、图片、emoji、文件",
+          btn: "发送"
+        },
+        videos: []
+      },
+      methods: {
+        addMember: function(){
+          var _this = this;
+          var userIds = this.userIds;
+          API.groupAdds({
+            userIds: userIds,
+            groupId: roomId
+          },function(data){
+            _this.$data.userList.push(API.user1)
+            _this.$data.userList.push(API.user2)
+          });
+        },
+        getMember: function(){
+          var _this = this;
+          API.getUserList({token: token}, function (userList) {
+            _this.$data.userList2 = userList;
+          });
+        },
+        loginOut: function () {
+          syRTC.Room.leave({ id: userId, roomId: roomId })
+          location.href = "./index.html";
+        },
+        onSubmit: function () {
+
+        },
+        disable: function (event) {
+          let { target } = event;
+          let id = target.getAttribute('userid');
+          syRTC.Stream.disable({
+            id
+          });
+          SYUtils.extend(this, {
+            isDisable: true
+          });
+        },
+        enable: function (event) {
+          let { target } = event;
+          let id = target.getAttribute('userid');
+          syRTC.Stream.enable({
+            id
+          });
+          SYUtils.extend(this, {
+            isDisable: false
+          });
+        },
+        mute: function (event) {
+          let { target } = event;
+          let id = target.getAttribute('userid');
+          syRTC.Stream.mute({
+            id
+          });
+          this.videos.map((video) => {
+            if (SYUtils.isEqual(video.userId, id)) {
+              SYUtils.extend(video, {
+                isMuted: true
+              });
+            }
+            return video;
+          });
+
+          Chatroom.send({
+            id: roomId
+          }, {
+              name: MessageType.MuteMessage,
+              content: {
+                roomId,
+                to: id
+              }
+            });
+        },
+        unmute: function (event) {
+          let { target } = event;
+          let id = target.getAttribute('userid');
+          syRTC.Stream.unmute({
+            id
+          });
+          this.videos.map((video) => {
+            if (SYUtils.isEqual(video.userId, id)) {
+              SYUtils.extend(video, {
+                isMuted: false
+              });
+            }
+            return video;
+          });
+          Chatroom.send({
+            id: roomId
+          }, {
+              name: MessageType.UnmuteMessage,
+              content: {
+                roomId,
+                to: id
+              }
+            });
+        },
+        isCurrent: function (id) {
+          return isCurrent(id);
+        },
+        setMax: function () {
+          let { target } = event;
+          let id = target.getAttribute('userid');
+          let stream = syRTC.Stream.get({
+            id
+          });
+          SYUtils.extend(this.maxVideo, {
+            userId: id
+          });
+          this.$refs.maxVideo.srcObject = stream;
+        }
+      },
+      mounted: function () {
+        var _this = this;
+        API.getRCToken({id: userId},function(token){
+          initRTC(roomId, userId);
+          API.groupAdd({
+            userId: userId,
+            group: {id: roomId}
+          },function(groupInfo){
+              //todo: 从 url 获取用户，roomid，并自动进入
+
+              _this.$data.userList = groupInfo.members;
+              RCS.init({
+                appKey: CONFIG.im.appkey,
+                token: token,
+                groupId: roomId,
+                title: groupInfo.name,
+                user: groupInfo.user,
+                target: document.getElementById('war-room-chat'),
+                showConversitionList: false,
+                templates: {
+                  button: ['<div class="rongcloud-consult rongcloud-im-consult">',
+                    '</div>',
+                    '<div class="customer-service" style="display: none;"></div>'].join('')//"templates/button.html",
+                },
+                extraInfo: {
+                  // 当前登陆用户信息
+                  userInfo: {}
+                }
+              }, function () {
+                RCS.openConversation({ id: roomId, mcount: 10 });
+                initChatRoom(roomId);
+              }, messageHanlder);
+            });
+
+        });
+      }
+    });
+
+    function initChatRoom(id) {
+      Chatroom.join({
+        id
+      }).then(() => {
+        console.log('join chatroom successfully');
+      })
+    }
+
+    function initRTC(roomId, userId) {
+      let { rtc: rtcCfg } = CONFIG;
+      syRTC = SYRTC.init({
+        url: rtcCfg.ws
+      });
+      let { Room, Stream, Whiteborad } = syRTC;
+      let user = {
+        id: userId,
+        roomId: roomId
+      };
+
+      Room.watch(({ type, user: { id } }) => {
+        if (SYUtils.isEqual(type, 'left')) {
+          removeVideo(id);
+        }
+      });
+      Stream.watch((user) => {
+        let { id } = user;
+        let stream = Stream.get(user);
+        addVideo(id, stream);
+      });
+      User.getRTCToken(user, {
+        url: rtcCfg.url,
+        appkey: rtcCfg.appkey
+      }).then((token) => {
+        SYUtils.extend(user, {
+          token
+        });
+        Room.join(user).then(() => {
+          console.log('join room successfully');
+          let stream = Stream.get(user);
+          addVideo(userId, stream);
+
+          Whiteborad.get().then((url) => {
+            // alert(url)
+            roomInstance.$data.wbURL = url;
+          });
+        });
+      });
+    }
+
+    function updateVideoMessage(id, msg) {
+      msg = msg || '';
+      roomInstance.videos.map((video) => {
+        if (SYUtils.isEqual(video.userId, id)) {
+          SYUtils.extend(video, {
+            msg: msg
+          });
+        }
+        return video;
+      });
+    }
+
+    function messageHanlder(message) {
+      let { messageType, content: { to: id } } = message;
+      if (SYUtils.isEqual(messageType, MessageType.MuteMessage)) {
+        if (isCurrent(id)) {
+          syRTC.Stream.mute({
+            id
+          });
+          updateVideoMessage(id, '已被静音');
+        }
+      }
+
+      if (SYUtils.isEqual(messageType, MessageType.UnmuteMessage)) {
+        if (isCurrent(id)) {
+          syRTC.Stream.unmute({
+            id
+          });
+          updateVideoMessage(id);
+        }
+      }
+    }
+
+    function findVideo(userId, callabck) {
+      let { $refs: { videos } } = roomInstance;
+      SYUtils.forEach(videos, (video, index) => {
+        let videoUserId = video.getAttribute('userid');
+        if (SYUtils.isEqual(videoUserId, userId)) {
+          callabck(video, index);
+        }
+      });
+    }
+    function addVideo(userId, stream) {
+      roomInstance.videos.push({
+        userId,
+        isMuted: false,
+        msg: ''
+      });
+      roomInstance.$nextTick(function () {
+        findVideo(userId, (video) => {
+          video.srcObject = stream;
+        });
+      });
+    }
+    function removeVideo(userId) {
+      let { videos } = roomInstance;
+      SYUtils.forEach(videos, (video, index) => {
+        if (SYUtils.isEqual(video.userId, userId)) {
+          videos.splice(index, 1);
+        }
+      });
+    }
+    function isCurrent(id) {
+      return SYUtils.isEqual(id, userId);
+    }
+  </script>
+
+</body>
+
+</html>
