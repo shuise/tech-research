@@ -36,8 +36,9 @@
 <script src="../opposite.js"></script>
 
 <script>
-var _hues = ["","green","red","yellow","blue","purple","orange","random"];
+var _hues = ["#cd0000","green","red","yellow","blue","purple","orange","random"];
 var _hue = _hues[Math.ceil(Math.random()*10000)%_hues.length];
+var _hue = _hues[0];
 
 /*
 hue – Controls the hue of the generated color. You can pass a string representing a color name: red, orange, yellow, green, blue, purple, pink and monochrome are currently supported. If you pass a hexidecimal color string such as #00FFFF, randomColor will extract its hue value and use that to generate colors.
