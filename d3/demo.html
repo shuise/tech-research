@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>d3</title>
+</head>
+<body>
+<script src="d3.v5.min.js"></script>
+
+<div class="chart"></div>
+<script>
+var data = [5,10,15,20,100,400];
+d3.select(".chart")
+  .selectAll("div")
+    .data(data)
+  .enter().append("div")
+    .style("width", function(d) { return d * 10 + "px"; })
+    .style("background","#ccc")
+    .style("margin","5px")
+    .text(function(d) { return d; });
+</script>
+
+<div id="show">
+    <h2>价格心理因素</h2>
+    <ol>
+        <li>大小：与字体大时相比，在字体上实际较小的价格被认为便宜；</li>
+        <li>重量：将产品图像放在食品包装的底部时，我们认为食品本身较重，同理，在价格标签上，数字越接近底部，人们通常认为价格更昂贵。</li>
+        <li>动态变化：将原始价格划掉并以折扣价写出，人们就将这种变化概念化为降价动向；</li>
+        <li>相似效应：在对一个产品（如轮滑鞋）的描述中，“低摩擦”比“高性能”更容易联想到“低价”的概念。</li>
+    </ol>
+</div>
+
+<script>
+d3.selectAll("li").style("color", function(d, i) {
+  return i % 2 ? "#333" : "#cd0000";
+});
+d3.select("body")
+.transition()
+.duration(1500)
+.style("background-color", "skyblue");
+
+var body = d3.select("body");
+var div = body.append("div");
+div.html("Hello, world!");
+</script>
+
+</body>
+</html>

@@ -15,7 +15,7 @@
     border:1px solid #ccc;
     padding:30px;
     vertical-align:top;
-}    
+}
 .lib-download{
     display:inline-block;
     vertical-align:top;
@@ -58,12 +58,17 @@
             <input v-model="libModChecked" name="lib-ios-mod" type="checkbox" v-bind:value="modItem.link">
             <span>{{modItem.quenceName}}</span>
         </label>
-    </div>   
+    </div>
+
+    <label><input type="checkbox" v-model="isBusinessman">公务人员 {{ isBusinessman }} - {{ isBusinessman + 1 - 1}}</label>
 </div>
 
 <script>
+var isBusinessman = new Date().getTime()%2;
+alert(isBusinessman)
 var iOSData = {
     "packName" : "CallLib SDK 下载",
+    "isBusinessman": isBusinessman,
     "packLink" : "http://downloads.rongcloud.cn/Rong_Cloud_Android_IMKit_SDK_v2_7_3_stable_with_CallKit.zip",
     "optList" : [
         {
@@ -86,8 +91,8 @@ var iOSData = {
             "quenceName":"vip",
             "link":'io14'
         }
-    ]               
-};    
+    ]
+};
 </script>
 <script>
 downloadInit(iOSData);

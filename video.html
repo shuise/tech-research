@@ -45,8 +45,14 @@
 <body style="padding:10px"> 
 
 
+<!-- 
+https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/track
+https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API
+-->
 <div class="wrap" id="wrap">
-	<video src="res/1.mp4" id="video" autoplay class="video"></video>
+	<video src="res/1.mp4" id="video" autoplay class="video">
+		<track default kind="captions" srclang="en" src="video.vtt?1"/>
+	</video>
 	<div class="bar">
 		<a href="#paly" class="play" title="暂停">play/stop</a>
 		<span class="prog"><em></em></span>

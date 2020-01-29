@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<style>
+body{
+    font-size:20px;
+}
+em{
+    color:#cd0000;
+}
+input{
+    display:inline-block;
+    width:100px;
+    height:30px;
+    margin:0 5px;
+    font-size:20px;
+    outline:none;
+}
+p span{
+    display:inline-block;
+    width:100px;
+}
+.btn{
+    height:20px;
+    padding:5px 15px;
+    border-radius:3px;
+    background:#ccc;
+    cursor: pointer;
+}
+</style>
+<div id="list">
+    <h1>自动出题器</h1>
+    题目数量<input type="number" v-model="len" max=100>
+    <span @click="gene" class="btn">生成</span>
+    <p v-for="item in list">
+        <span>{{ item.a }} {{ item.b }} {{ item.c }}</span> = <input type="text" v-model="item.d">
+        <em>{{ judge(item) }}</em>
+    </p>
+</div>
+
+<script src="https://frontend.mofangchuxing.com/vue-2.6.10.js"></script>
+<script>
+var el = new Vue({
+    el: '#list',
+    data: {
+        len: 10,
+        list: []
+    },
+    methods: {
+        getRandom: function(max){
+            var number = Math.ceil(Math.random()*999999)%max;
+            return number;
+        },
+        judge: function(item){
+            console.log(item);
+            console.log(item.a +  item.b + item.c);
+            item.b = item.b == 'x' ? '*' : item.b;
+            console.log(item.d);
+            var result = eval(item.a +  item.b + item.c) == item.d;
+            if(item.d == undefined){
+                return '';
+            }
+            if(result){
+                return '√';
+            }else{
+                return 'x';
+            }
+        },
+        getList: function(){
+            var symbols = ['x','+','-'];
+            var _this = this;
+            var len = _this.len;
+            len = Math.min(100, len);
+            var data = [];
+            for(var i=0;i<len;i++){
+                var b = symbols[_this.getRandom(3)];
+                var a = _this.getRandom(688);
+                var c = _this.getRandom(988);
+                if(b == 'x'){
+                    a = _this.getRandom(99);
+                    c = _this.getRandom(7) + 2;
+                }
+                data.push({
+                    a: Math.max(a, c),
+                    b: b,
+                    c: Math.min(a, c)
+                });
+            }
+            return data;
+        },
+        gene: function(){
+            this.list = this.getList();
+        }
+    }
+});
+</script>
+
+</body>
+</html>

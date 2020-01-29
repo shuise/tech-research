@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>是否可见判断</title>
+</head>
+<body>
+<style>
+.list span{
+  display: block;
+  height:300px;
+  margin-top: 10px;
+}  
+.list span:nth-child(even){
+  background: #ccc;
+}
+</style> 
+
+<h1>dom节点是否在可见区域的判断方法</h1>
+
+<div class="list">
+  <span>0</span>
+  <span>1</span>
+  <span>2</span>
+  <span>3</span>
+  <span>4</span>
+  <span>5</span>
+  <span>6</span>
+  <span>7</span>
+  <span>8</span>
+  <span>9</span>
+</div>
+
+<script>
+//http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html
+//https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+ 
+const observer = new IntersectionObserver(function(changes) {
+  changes.forEach(function(element, index) {
+    var node = element.target;
+   // 当这个值大于 0，说明满足我们的加载条件了，这个值可通过 rootMargin 手动设置
+    console.log(node.innerHTML, element.intersectionRatio);
+    // node.innerHTML = element.intersectionRatio;
+    if (element.intersectionRatio > 0) {
+      // 放弃监听，防止性能浪费。
+      observer.unobserve(element.target);
+
+      node.style.background = '#cd0000';
+    }
+  });
+});
+function initObserver() {
+  const listItems = document.querySelectorAll('.list span');
+  listItems.forEach(function(item) {
+   // 对每个 list 元素进行监听
+    observer.observe(item);
+  });
+}
+initObserver();  
+</script>
+
+</body>
+</html>

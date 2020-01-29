@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>是否可见判断</title>
+</head>
+<body>
+<style>
+html,body,.list{
+  height: 500px;
+  overflow: auto;
+}
+.list span{
+  display: block;
+  height:510px;
+  margin-top: 10px;
+}  
+.list span:nth-child(even){
+  background: #ccc;
+}
+</style> 
+
+<h1>dom节点是否在可见区域的判断方法</h1>
+
+<div class="list">
+ <span></span>
+ <span class="a"></span>
+</div>
+
+<script>
+let options = {
+  root: document.querySelector('.list'),
+  rootMargin: '100px',
+  threshold: 0.5
+}
+
+let observer = new IntersectionObserver(callback, options);
+observer.observe(document.querySelector('.a'));
+
+
+function callback(entries, observer) {
+  console.log(entries, observer);
+
+  entries[0].target.style.background = '#cd0000';
+   //  var node = element.target;
+   // // 当这个值大于 0，说明满足我们的加载条件了，这个值可通过 rootMargin 手动设置
+   //  console.log(node, element.intersectionRatio);
+   //  // node.innerHTML = element.intersectionRatio;
+   //  if (element.intersectionRatio > 0) {
+   //    // 放弃监听，防止性能浪费。
+   //    observer.unobserve(element.target);
+
+   //    node.style.background = '#cd0000';
+   //  }
+  }
+</script>
+
+</body>
+</html>
