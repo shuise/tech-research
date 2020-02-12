@@ -1,5 +1,5 @@
 (function(){
-	var names = document.querySelectorAll(".subject-item .info h2 a");
+	var names = document.querySelectorAll(".item-show .title a");
 	var url1 = "http://cn.epubee.com/books/?s=";
 	var url2 = "http://www.ireadweek.com/index.php?g=portal&m=search&a=index&keyword=";
 	var url3 = "http://www.duokan.com/search/{keyword}/1"
@@ -7,8 +7,8 @@
 		var keyword = names[i].innerText;
 			keyword = keyword.split("，")[0].split(" ")[0];
 		// window.open(url1 + keyword);
-		window.open(url2 + keyword);
-		window.open(url3.replace('{keyword}',keyword));
+		// window.open(url2 + keyword);
+		// window.open(url3.replace('{keyword}',keyword));
 		window.open('https://www.amazon.cn/s?k=' + keyword)
 	}
 })();
