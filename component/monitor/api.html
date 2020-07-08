@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- Generated with Dr.js -->
+<html lang="en"><head><meta charset="utf-8"><title>性能监控</title><link rel="stylesheet" href="dr.css"></head><body id="dr-js"><div id="dr"><ol id="dr-toc" class="dr-toc"><li class="dr-lvl0"><a href="#NTES" class="undefined"><span>NTES</span></a></li><li class="dr-lvl1"><a href="#NTES.Monitor" class="dr-method"><span>NTES.Monitor()</span></a></li><li class="dr-lvl2"><a href="#NTES.Monitor.collect" class="dr-method"><span>NTES.Monitor.collect()</span></a></li><li class="dr-lvl2"><a href="#NTES.Monitor.domload" class="dr-method"><span>NTES.Monitor.domload()</span></a></li><li class="dr-lvl2"><a href="#NTES.Monitor.load" class="dr-method"><span>NTES.Monitor.load()</span></a></li><li class="dr-lvl2"><a href="#NTES.Monitor.performance" class="dr-method"><span>NTES.Monitor.performance()</span></a></li><li class="dr-lvl2"><a href="#NTES.Monitor.send" class="dr-method"><span>NTES.Monitor.send()</span></a></li><li class="dr-lvl2"><a href="#NTES.Monitor.timer" class="dr-method"><span>NTES.Monitor.timer()</span></a></li></ol><div class="dr-doc"><!--p class="dr-source">Check out the source: <a href=".monitor-src.html">monitor.js</a></p--><h2 id="NTES" class="undefined">NTES<!--a href="#NTES" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#Lundefined">&#x27ad;</a></h2>
+</h2>
+<h3 id="NTES.Monitor" class="dr-method">NTES.Monitor(base, cfg)<!--a href="#NTES.Monitor" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L28">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p></p>
+<p></p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">base</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{id: "项目ID", nid: "NTES ID", uid: "user name，如邮箱前缀"}</dd>
+<dt class="dr-param">cfg</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{baseUrl: "http://project.f2e.netease.com:88/d.gif", wait: &lt;window.load之后等待发送的时间>, busy: &lt;0|1, 是否每100ms记录浏览器响应时间>}</dd>
+</dl>
+<pre class="javascript code"><code><span class="c">/* 最简应用实例 */</span>
+<b>var</b> _ntes_const={stime : <b>new</b> Date()};   <span class="c">//放在head顶部</span>
+(<b>new</b> NTES.Monitor({id:'data2012'})).performance();  <span class="c">//放在页面底部</span>
+
+<span class="c">/* 自定义实例<span class="d">1</span> */</span>
+<b>var</b> monitor<span class="s"> = </span><b>new</b> NTES.Monitor({id: <i>"data2012"</i>}));
+monitor.collect({size1: <span class="d">1004</span>, load1: <span class="d">40</span>});
+monitor.send();
+
+<span class="c">/* 自定义实例<span class="d">2</span> */</span>
+<b>var</b> monitor<span class="s"> = </span><b>new</b> NTES.Monitor(
+   {id: <i>"auto"</i>}, 
+   {baseUrl: <i>"http://project.f2e.netease.com:<span class="d">88</span>/c.gif"</i>}
+);
+monitor.load(<b>function</b>(){ 
+   monitor.collect([{ .. }, { .. }]); 
+   monitor.send(); 
+});
+</code></pre>
+</div>
+<h4 id="NTES.Monitor.collect" class="dr-method">NTES.Monitor.collect(info)<!--a href="#NTES.Monitor.collect" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L66">&#x27ad;</a></h4>
+</h4>
+<div class="dr-method"><p>收集更多自定义数据</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">info</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">可以是一个json对象，或者是由多个json对象组成的数组</dd>
+</dl>
+</div>
+<h4 id="NTES.Monitor.domload" class="dr-method">NTES.Monitor.domload(callback)<!--a href="#NTES.Monitor.domload" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L38">&#x27ad;</a></h4>
+</h4>
+<div class="dr-method"><p>DOMContentLoaded回调函数，此时静态资料可能未下载完毕</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">callback</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">回调函数</dd>
+</dl>
+</div>
+<h4 id="NTES.Monitor.load" class="dr-method">NTES.Monitor.load(callback)<!--a href="#NTES.Monitor.load" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L48">&#x27ad;</a></h4>
+</h4>
+<div class="dr-method"><p>DOM Loaded回调函数，此时静态资料已经下载完毕</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">callback</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">回调函数</dd>
+</dl>
+</div>
+<h4 id="NTES.Monitor.performance" class="dr-method">NTES.Monitor.performance()<!--a href="#NTES.Monitor.performance" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L56">&#x27ad;</a></h4>
+</h4>
+<div class="dr-method"><p>自动收集从页面开始加载到DOMContentLoaded和window.onload之间的时间。如果浏览器支持window.performance.timing，则包括浏览器提供的性能数据。</p>
+</div>
+<h4 id="NTES.Monitor.send" class="dr-method">NTES.Monitor.send()<!--a href="#NTES.Monitor.send" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L74">&#x27ad;</a></h4>
+</h4>
+<div class="dr-method"><p>将收集的所有数据发送到log服务器，并清空数据缓存</p>
+</div>
+<h4 id="NTES.Monitor.timer" class="dr-method">NTES.Monitor.timer(name)<!--a href="#NTES.Monitor.timer" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".monitor-src.html#L84">&#x27ad;</a></h4>
+</h4>
+<div class="dr-method"><p>收集当前点 与 window._ntes_const.stime 之间的时间间隔</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">name</dt>
+<dd class="dr-type"><em class="dr-type-string">string</em></dd>
+<dd class="dr-description">时间点名称</dd>
+</dl>
+</div>
+</div></div><script src='tocsearch.js'></script></body></html>

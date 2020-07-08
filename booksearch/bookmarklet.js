@@ -13,6 +13,16 @@
 	}
 })();
 
+(function(){
+	//https://my.clippings.io/#/
+	var btns = document.getElementsByTagName("button");
+	for(var i=0;i<btns.length;i++){
+	    if(btns[i].getAttribute('ng-click') == 'DeleteBook(book)'){
+	        btns[i].click();
+	    }
+	}
+})();
+
 
 (function(){
 	var names = document.querySelectorAll(".item .title a");

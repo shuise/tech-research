@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />		
+		<title>车友会</title>
+		<!-- Date: 2013-11-28 -->
+		<style type="text/css">
+			body{margin:0;padding:0;}
+		</style>
+	</head>
+	<body style="height:1000px;">
+		<div class="console" style="height:200px;overflow-y: auto;">
+			
+		</div>
+		<input type="text" placeholder="请输入keyword" id="inpt" style="height:40px; width:100%;" />
+		<script type="text/javascript">
+			function $(o){
+				return document.querySelector(o);
+			} 			 
+			function log(str){
+				$(".console").innerHTML += str+"<br>";
+			}
+			$("#inpt").onfocus = function(){
+				log(window.innerHeight);
+			}
+			$("#inpt").onkeyup = function(){
+				log("keyup");
+			}
+			$("#inpt").onblur = function(){
+				log("onblur");
+			}							
+			window.onresize = function(){
+				log("resize");
+			}
+			window.onscroll = function(){
+				//log("scroll");
+			}
+			log(window.innerHeight);			
+		</script>
+	</body>
+</html>
+

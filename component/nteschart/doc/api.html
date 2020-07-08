@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- Generated with Dr.js -->
+<html lang="en"><head><meta charset="utf-8"><title>图表组件</title><link rel="stylesheet" href="dr.css"></head><body id="dr-js"><div id="dr"><ol id="dr-toc" class="dr-toc"><li class="dr-lvl0"><a href="#Frame" class="dr-function"><span>Frame</span></a></li><li class="dr-lvl1"><a href="#Frame.addSeries" class="dr-method"><span>Frame.addSeries()</span></a></li><li class="dr-lvl1"><a href="#Frame.drawGrid" class="dr-method"><span>Frame.drawGrid()</span></a></li><li class="dr-lvl1"><a href="#Frame.xTick" class="dr-method"><span>Frame.xTick()</span></a></li><li class="dr-lvl1"><a href="#Frame.xTititle" class="dr-method"><span>Frame.xTititle()</span></a></li><li class="dr-lvl1"><a href="#Frame.yTick" class="dr-method"><span>Frame.yTick()</span></a></li><li class="dr-lvl1"><a href="#Frame.yTititle" class="dr-function"><span>Frame.yTititle</span></a></li><li class="dr-lvl0"><a href="#NTESChart" class="dr-function"><span>NTESChart</span></a></li><li class="dr-lvl1"><a href="#NTESChart.circle" class="dr-method"><span>NTESChart.circle()</span></a></li><li class="dr-lvl1"><a href="#NTESChart.frame" class="dr-method"><span>NTESChart.frame()</span></a></li><li class="dr-lvl1"><a href="#NTESChart.map" class="dr-method"><span>NTESChart.map()</span></a></li><li class="dr-lvl1"><a href="#NTESChart.move" class="dr-method"><span>NTESChart.move()</span></a></li><li class="dr-lvl1"><a href="#NTESChart.path" class="dr-method"><span>NTESChart.path()</span></a></li><li class="dr-lvl1"><a href="#NTESChart.zoom" class="dr-method"><span>NTESChart.zoom()</span></a></li></ol><div class="dr-doc"><!--p class="dr-source">Check out the source: <a href=".api-src.html">api.js</a></p--><h2 id="Frame" class="dr-function">Frame<!--a href="#Frame" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L130">&#x27ad;</a></h2>
+</h2>
+<div class="dr-function"><p>坐标系边框对象[Internal]</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{width: &lt;图表宽度>, height: &lt;图表高度>}</dd>
+</dl>
+</div>
+<h3 id="Frame.addSeries" class="dr-method">Frame.addSeries(data, chartType, params)<!--a href="#Frame.addSeries" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L43">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制新图表</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">data</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">数据</dd>
+<dt class="dr-param">chartType</dt>
+<dd class="dr-type"><em class="dr-type-string">string</em></dd>
+<dd class="dr-description">图表类别</dd>
+<dt class="dr-param">params</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">图表参数</dd>
+</dl>
+</div>
+<h3 id="Frame.drawGrid" class="dr-method">Frame.drawGrid(options)<!--a href="#Frame.drawGrid" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L138">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制坐标系底格线</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{cols: &lt;底格列数>, rows: &lt;底格行数>}</dd>
+</dl>
+</div>
+<h3 id="Frame.xTick" class="dr-method">Frame.xTick(options)<!--a href="#Frame.xTick" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L157">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制坐标系中x轴标签文字</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">&#160;</dd>
+</dl>
+ <pre>
+ options = {
+        ticks : <轴上标签数>,
+        startX: <第一个标签位置>,
+        endX: <最后一个标签位置>,
+        labels : [标签文字数组或模板字符串],
+        roate : <文字旋转角度>,
+        dy : <文字在y轴上的偏移>,
+        zoom : <初始缩放比例>
+  };
+ </pre>
+</div>
+<h3 id="Frame.xTititle" class="dr-method">Frame.xTititle(options)<!--a href="#Frame.xTititle" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L182">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>添加x轴标题</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{ title : &lt;标题文字> }</dd>
+</dl>
+</div>
+<h3 id="Frame.yTick" class="dr-method">Frame.yTick(options)<!--a href="#Frame.yTick" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L175">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制坐标系中y轴标签文字</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">&#160;</dd>
+</dl>
+ <pre>
+ options = {
+        ticks : <轴上标签数>,
+        startY: <第一个标签位置>,
+        endY: <最后一个标签位置>,
+        labels : [标签文字数组或模板字符串],
+        roate : <文字旋转角度>,
+        dx : <文字在x轴上的偏移>,
+        zoom : <初始缩放比例>
+  };
+ </pre>
+</div>
+<h3 id="Frame.yTititle" class="dr-function">Frame.yTititle<!--a href="#Frame.yTititle" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L189">&#x27ad;</a></h3>
+</h3>
+<div class="dr-function"><p>添加y轴标题</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{ title : &lt;标题文字> }</dd>
+</dl>
+</div>
+<h2 id="NTESChart" class="dr-function">NTESChart<!--a href="#NTESChart" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L25">&#x27ad;</a></h2>
+</h2>
+<div class="dr-function"><p></p>
+<p></p>
+<p class="header">参数
+</p>
+ <pre>
+ options = {
+        container : <绘图容器>,
+        width : <绘图区宽度>,
+        height : <绘图区高度>,
+        type : "flash|svg|webgl",
+        zoom : <初始缩放比例>,
+        shadow : <是否绘制阴影>,
+        legend : {预定义图例，如线型等},
+        plotOptions : {  },
+        title : ''
+        text : { },
+        series : [{  }]
+  };
+ </pre>
+</div>
+<h3 id="NTESChart.circle" class="dr-method">NTESChart.circle(center, radius, params)<!--a href="#NTESChart.circle" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L69">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制圆圈</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">center</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{x: cx, y: cy}</dd>
+<dt class="dr-param">radius</dt>
+<dd class="dr-type"><em class="dr-type-number">number</em></dd>
+<dd class="dr-description">圆圈半径</dd>
+<dt class="dr-param">params</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">画图参数</dd>
+</dl>
+</div>
+<h3 id="NTESChart.frame" class="dr-method">NTESChart.frame(options)<!--a href="#NTESChart.frame" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L94">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>新建Frame对象(用来绘制坐标轴边框)</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">options</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{ 要绘制的轴向，绘制精度 }</dd>
+</dl>
+<p class="dr-returns"><strong class="dr-title">Returns:</strong> <em class="dr-type-object">object</em> <span class="dr-description">内部Frame对象</span></p>
+</div>
+<h3 id="NTESChart.map" class="dr-method">NTESChart.map(callback)<!--a href="#NTESChart.map" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L57">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制地图(包括各省份边界)</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">callback</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">事件驱动函数</dd>
+</dl>
+     <pre>{
+     hover : function(){ //省份区域鼠标hover事件  },
+     click : function(){ //省份区域鼠标click事件  },
+ }</pre>
+</div>
+<h3 id="NTESChart.move" class="dr-method">NTESChart.move(position)<!--a href="#NTESChart.move" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L118">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>平移画布</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">position</dt>
+<dd class="dr-type"><em class="dr-type-json">json</em></dd>
+<dd class="dr-description">{x: &lt;x轴平移>, y: &lt;y轴平移>}</dd>
+</dl>
+</div>
+<h3 id="NTESChart.path" class="dr-method">NTESChart.path(path, scale)<!--a href="#NTESChart.path" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L81">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>绘制SVG路径</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">path</dt>
+<dd class="dr-type"><em class="dr-type-string">string</em></dd>
+<dd class="dr-description">根据SVG语法表述的路径数据</dd>
+<dt class="dr-param">scale</dt>
+<dd class="dr-type"><em class="dr-type-number">number</em></dd>
+<dd class="dr-description">SVG路径放大倍率</dd>
+</dl>
+</div>
+<h3 id="NTESChart.zoom" class="dr-method">NTESChart.zoom(scale)<!--a href="#NTESChart.zoom" title="Link to this section" class="dr-hash">&#x2693;</a--><a target=_blank class="dr-sourceline" title="Go to source" href=".api-src.html#L106">&#x27ad;</a></h3>
+</h3>
+<div class="dr-method"><p>将整个画面按比例缩放</p>
+<p class="header">参数
+</p>
+<dl class="dr-parameters"><dt class="dr-param">scale</dt>
+<dd class="dr-type"><em class="dr-type-number">number</em></dd>
+<dd class="dr-description">缩放比例</dd>
+</dl>
+</div>
+</div></div><script src='tocsearch.js'></script></body></html>

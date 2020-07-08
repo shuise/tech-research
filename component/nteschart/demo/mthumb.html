@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+<script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+<script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+<script type="text/javascript" src="tabchart.js" charset="utf-8"></script>
+<title>手机版趋势图</title>
+<style>
+body{background:#EEEEEF}
+.nav-group{width:95%;max-width:800px;margin:0 auto;}
+.nav-hds{margin:0;padding:0;}
+.nav-hd{background:#FFF;float:left;list-style:none;text-align:center;color:#888888;font-size:18px;}
+.nav-hd span{cursor:pointer;display:block;padding:10px 0;border-top:3px solid transparent}
+.nav-hd:nth-child(1) span{border-right:1px solid #EFEFEF;}
+.nav-hd.active span{border-top:3px solid #FF4473;}
+.nav-hds2 .nav-hd{width:50%}
+.nav-bd{background:#F7F7F7;height:480px;padding:12px;display:none;}
+.nav-bd.active{display:block}
+.nteschart-body {margin:20px auto;width:100%;max-width:600px;height:350px;display:block;position:relative;-moz-user-select:none;-webkit-user-select:none;}
+.chart-xy .nteschart-body { height:250px }
+.nteschart-tip{display:none;position:relative;left:0;font-size:12px;white-space:nowrap;color:#666666;padding:0;-webkit-border-radius:4px;-webkit-box-shadow:1px 1px 4px #ccc;box-shadow:1px 1px 4px #ccc}
+.nteschart-shadow{border-radius:100%;-webkit-box-shadow:0 0 6px #666;box-shadow:0 0 6px #666}
+.nteschart-shadow-inner{border-radius:100%;-webkit-box-shadow:0 0 6px #666 inset;box-shadow:0 0 6px #666 inset}
+.chart-pie .nteschart-tip-arrow{display:none}
+.chart-pie .nteschart-tip:before,.chart-xy .nteschart-tip-arrow{position:absolute;border-bottom: 12px solid #FF4473;border-left: 8px solid rgba(0, 0, 0, 0);border-right: 8px solid rgba(0, 0, 0, 0);top:-12px;}
+.chart-pie .nteschart-tip:before{left:50%;content:"";margin:0 0 0 -8px;}
+.chart-xy .nteschart-tip-arrow{left:50px;}
+.nteschart-tip table{width:100%;border:1px solid #CCCCCC;}
+.nteschart-tip th,.nteschart-tip td{padding:3px 6px}
+.nteschart-tip th{color:#888;font-weight:normal;}
+.nteschart-tip td:nth-child(1){color:#444;}
+.nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:-1px;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+.nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#9A7C69;}
+.nteschart-tip td:last-child{text-align:center;}
+.clearfix:after{content:" "; display: block; height:0; clear:both;}
+.nteschart-legend{display:inline-block;margin-right:10px;}
+.nteschart-tip td:nth-child(1) .nteschart-legend-circle i{border-radius:100%;-webkit-border-radius:100%;}
+
+.nteschart-block{background:#F7F7F7;padding:20px 0;width:95%;max-width:800px;margin:20px auto;-webkit-box-shadow:0 0 4px #999;box-shadow:0 0 4px #999;}
+.nteschart-block h3{margin:10px 0 0;text-align:center;font-weight:normal;}
+.nteschart-thumb{height:260px;width:80%;margin:0 auto;}
+</style>
+</head>
+<body>
+    <div class="nteschart-block">
+        <h3>流量趋势</h3>
+        <div class="nteschart-thumb" chart-data="pvthumb" chart-conf="pvthumb"></div> 
+    </div>
+    <div class="nteschart-block">
+        <h3>页面效果</h3>
+        <div class="nteschart-thumb" chart-data="uvthumb" chart-conf="uvthumb"></div> 
+    </div>
+    <div class="nteschart-block">
+        <h3>流量来源</h3>
+        <div class="nteschart-thumb" chart-data="srcthumb" chart-conf="srcthumb"></div> 
+    </div>
+    <script>
+window.chartConfs = {};
+window.chartDatas = {};
+chartDatas.pvthumb = [
+  {
+    title : '导入荐新闻首页新闻数量',
+    data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900]
+  }
+];
+chartDatas.uvthumb = [
+  {
+    title : '导入荐新闻首页新闻数量',
+    data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900]
+  }
+];
+chartDatas.srcthumb = [
+  {
+    title : '导入荐新闻首页新闻数量',
+    data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+    group : 'total'
+  },{
+    title : '未导入荐新闻首页新闻数量',
+    data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+    group : 'total'
+  },{
+    title : '其它新闻数量',
+    data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+    group : 'total',
+    config : {fixMeanNum:function(num){return Math.round(num)}}
+  }];
+chartConfs.pvthumb = {
+  type : 'xyChart',
+  plot : ['line'],
+  options : {
+    padding:{x:20},
+    showLegend : false,
+    noHover : true,
+    vivid : true,
+    xpadding : 0,
+    xTick : {labels : null},
+    yTick : {labels : null, startY:[0,0]},
+    grid : {nogrid: true, borderAttr: {stroke: 'none'}},
+    shadow : false,
+    hoverOnInit:true,
+    fillAttr : {'fill' : '270-#CCCCCC-#DFDFDF-#F5F5F5'},
+    colors : ['#AAAAAA'],
+    noBG : false
+  }
+};
+chartConfs.uvthumb = {
+  type : 'xyChart',
+  plot : ['line'],
+  options : {
+    padding:{x:20},
+    noHover : true,
+    showLegend : false,
+    xpadding : 0,
+    xTick : {labels : null},
+    yTick : {labels : null, startY:[0,0]},
+    grid : {nogrid: true, borderAttr: {stroke: 'none'}},
+    hoverOnInit:true,
+    colors : ['#999999', '#BBBBBB', '#F0F0F0'],
+    noBG : false
+  }
+};
+chartConfs.srcthumb = {
+  type : 'xyChart',
+  plot : ['line'],
+  options : {
+    padding:{x:20},
+    showLegend : false,
+    xpadding : 0,
+    xTick : {labels : null},
+    yTick : {labels : null, startY:[0,0], interval: 20},
+    fillAttr : [
+      {opacity:1},
+      {opacity:1},
+      {opacity:1}
+    ],
+    grid : {nogrid:1, rows:5, shadow : 0, vline : true},
+    shadow : false,
+    hoverOnInit:true,
+    colors : ['#999999', '#BBBBBB', '#F0F0F0'],
+    noBG : false,
+    unify : 100
+  }
+};
+
+NTESChart.initCharts(document.querySelectorAll(".nteschart-thumb"));
+    </script>
+</body>
+</html>

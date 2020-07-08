@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chinaMap</title>
+	<script src='http://img1.cache.netease.com/f2e/lib/js/ne.js'></script>
+	<script src='js/chinamap.js'></script>
+</head>
+<body style="text-align:center">
+	<div id="chinaMap">
+		<p>
+			<a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
+		</p>
+	</div>
+	<input type="button" value="UpdateColor" onclick="onClickUpdateColor()"/>
+	<input type="button" value="SimulateClick" onclick="onClicksimulateClick()"/>
+	<script type="text/javascript">
+
+			var map = flashMap({
+				swf: "mapofchina.swf?345345",	//swf地址									
+				targetId: "chinaMap",		//替换页面元素ID
+				width: "600"						//宽,高度自动适配
+			},{
+				fillcolor: "#ED752D",		//初始填充色
+				fillalpha: .5,					//初始透明度
+				overcolor: "#FB9D64",		//鼠标移入颜色
+				overalpha: 1,						//鼠标移入透明度
+				downcolor: "#6F6F6F",		//鼠标按下颜色
+				downalpha: 1,						//鼠标按下透明度
+				bordercolor: "#FFFFFF",	//边界填充色
+				borderalpha: 1,					//边界透明度
+				borderthickness: 1.5,		//边界粗细
+				labelenable: true,			//是否显示地区名称
+				labelfontsize: 12,			//地区名称字体大小
+				labelcolor: "#FFFFFF",	//地区名称颜色
+				labelbgColor: "#C65C1D",//地区名称背景颜色
+				labelbgahpha: "1",		//地区名称背景透明度
+				toggle: true,						//地区鼠标按下是否弹起
+				radio: true,						//按下一个地区，其它地区是否弹起(toggle为true时有效)
+				shadow: true,						//是否显示阴影
+				initColor: {						//特殊初始化颜色
+					"110000": {"fillcolor":"#FF5F10", "overcolor":"#EEEEEE", "downcolor": "#5D5153"},
+					"530000": {"fillcolor":"#FF5F10", "overcolor":"#EEEEEE", "downcolor": "#5D5153", "selected":"true"},
+					"310000": {"fillcolor":"#FF5F10","selected":"true"}
+				}
+			},{
+				positionData: function (data) {//位置数据回调
+					console.log(data);
+				},
+				click: function(data) {//点击回调
+					console.log(data.code, data.name, data.position, data.selected);
+				},
+				hover: function(data) {//移入回调
+					console.log(data.code, data.name, data.position);
+				},
+				out: function(data) {//移出回调
+					console.log(data.code, data.name, data.position);
+				}
+			}
+		);
+
+
+		//更新颜色
+		function onClickUpdateColor() {
+			map.call("updateColor", {
+				"data":{
+					"110000": {"fillcolor":"#FF0000", "overcolor":"#FF9009", "downcolor": "#5D5153"},
+					"530000": {"fillcolor":"#FF0000", "overcolor":"#FF9009", "downcolor": "#5D5153", "selected":"false"},
+					"150000": {"selected":"false"}
+				}
+			});
+		}
+
+		//模拟鼠标操作
+		function onClicksimulateClick() {
+			map.call("mouseCtrl", {"code":"150000", "type":"click", "reCallFlag":"false"});
+		}
+	</script>	
+</body>
+</html>

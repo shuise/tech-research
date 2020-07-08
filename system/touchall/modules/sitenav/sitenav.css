@@ -1,0 +1,33 @@
+.net-nav-top{ color:#888;height:30px;line-height:30px;margin-bottom:6px;padding-top:10px }
+.net-nav-channels{ margin-top:12px; }
+.net-nav-inner {padding:0 0 25% 0;text-align:center;}
+.net-nav-inner a{ display:inline-block;padding:6px 9px;background:#F5F5F5;color:#666;margin:0 4px 8px 0;white-space:nowrap; }
+.net-nav-icon{ float:left;width:50%;text-align:center;vertical-align:middle; }
+.net-nav-user{ padding:20px 0 15px;text-align:left;background:#F2F2F2;border-top:#C2C2C2 }
+.net-avatar{ width:60px;height:60px;border-radius:100%;overflow:hidden;float:left;margin:5px 10px; }
+.net-mylinks{ overflow:hidden;padding-right:5px; }
+.net-mylinks a{ padding:4px 5px;margin:0 4px 5px 0; }
+.net-mylinks-nick{ padding:6px 3px 0; }
+.net-login { text-align:center; }
+.net-login input{ padding: 6px 0;text-indent: 8px;border: 1px solid #DCDCDC;margin: 3px 0; }
+.net-login button{ padding:6px 0;margin:0 0 5px;background-image: -webkit-linear-gradient(top, rgb(94, 186, 109), rgb(60, 160, 81));background-color: #5eba6d;border: 1px solid #239438;color:#fff; }
+.net-login input,.net-login button,.net-login-tip{ width:90%;line-height:1.2;font-size: 100%; }
+.net-login-tip{ font-size:90%;color:#ba2636;padding:3px 0; }
+.net-nav-inner .net-logout{ float:right;color:#888;font-size:80%;background:none; }
+.net-avatar img{ width:100%; }
+.net-nav-icon:before{ display:inline-block;vertical-align:middle;font-family: 'Genericons';margin-right:3px;font-size:120%; }
+.net-nav-icon.genericon-reply:before{ -webkit-transform:scaleX(-1); }
+.net-nav-mobile{ 
+  position: absolute;
+  background: #F8F8F8;
+  overflow-y:scroll;-webkit-overflow-scrolling: touch;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  -webkit-transform: translate3d(100%, 0, 0);
+  -webkit-transition: -webkit-transform 0.4s ease-in-out;
+}
+.sidebar-wrap.m-active .net-nav-mobile {-webkit-transform: translate3d(0, 0, 0);}
+@media only screen and (min-width: 400px) {
+  .net-nav-inner a{margin:0 6px 10px 0;}
+}

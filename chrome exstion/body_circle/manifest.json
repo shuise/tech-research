@@ -1,0 +1,12 @@
+{
+  "name": "概率分析器",
+  "version": "1.0",
+  "description": "帮助你分析一些看似没有规则的事情，帮你拨开眼前的迷雾",
+  "permissions": [
+    "tabs"
+  ],
+  "browser_action": {
+    "default_icon": "logo.png",
+    "popup": "index.html"
+  }
+}

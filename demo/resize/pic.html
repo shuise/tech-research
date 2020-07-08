@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图片缩放</title>
+<style type="text/css">
+body { font-family:Arial, Helvetica, sans-serif}
+.img img {max-width:600px;-ms-interpolation-mode: bicubic;_display:none}
+.img v\:image {Behavior: url(#default#VML);display:block;}
+</style>
+</head>
+
+<body>
+<table>
+  <tr>
+    <td><img src="normal.jpg" alt="" /></td>
+    <td>
+	<div id="img" class="img">
+		<img src="big.jpg" alt="" />
+		<!--[if lte IE 6]>  
+		<v:image src="big.jpg" style="height:450px;"></v:image>
+		<![endif]--> 
+	</div>
+	
+	</td>
+  </tr>
+</table>
+</body>
+</html>

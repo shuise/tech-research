@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>server sent event</title>
+</head>
+<style>
+.a{
+	color:blue;
+}
+.b{
+	color:red;
+}
+</style>
+<body>
+
+<!-- 
+https://developer.mozilla.org/en-US/docs/Server-sent_events/Using_server-sent_events#Event_stream_format -->
+
+<ul id="list">
+
+</ul>
+
+
+
+<script>
+var eventList = document.getElementById("list");
+var evtSource = new EventSource("ssedome.php");
+
+evtSource.onmessage = function(e) {
+	var newElement = document.createElement("li");
+	newElement.className = "b";
+	newElement.innerHTML = "message: " + e.data;
+	eventList.appendChild(newElement);
+};
+
+evtSource.addEventListener("ping", function(e) {
+	var newElement = document.createElement("li");
+	newElement.className = "a";
+	var data = JSON.parse(e.data);
+	newElement.innerHTML = "ping at " + data.times;
+	eventList.appendChild(newElement);
+}, false);
+
+evtSource.onerror = function(e) {
+  alert("EventSource failed.");
+};
+</script>
+</body>
+</html>

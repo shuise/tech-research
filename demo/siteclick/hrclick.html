@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>首页点击行为分析(按时辰)</title>
+        <link rel="stylesheet" href="noclick.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <h1>首页点击行为分析( <a href="click.html">有/无有效点击对比</a>
+<a href="brclick.html">按浏览器</a>
+按时辰
+<a href="refclick.html">按来源</a>
+<a href="byuser.html">以用户为单位</a>
+<a href="trend.html">关联分析</a> )</h1>
+        <div class="main_wrap">
+            <select id="day_sel"><option>请选择日期</option></select>
+            <fieldset class="chart_wrap">
+                <legend align="center"><select id="tab_hds">
+                <option value="button">点击概况分析</option>
+                <option value="scroll">滚屏高度分析</option>
+                <option value="login">登录状况分析</option>
+                <option value="time">停留时间分析</option>
+                <option value="new">首次访问分析</option>
+                <option value="firstload">首屏加载分析</option>
+                <option value="domload">DOM加载分析</option>
+                <option value="load">资源加载分析</option>
+            </select></legend>
+                <div class="tab_con" id="main_chart"></div>
+            </fieldset>
+        </div>
+
+        <div class="switch_wrap">
+            <div class="blank20"></div>
+            <label class="switch-label">显示具体数值：</label>
+            <div class="onoffswitch">
+                <input type="checkbox" id="valswitch" class="onoffswitch-checkbox">
+                <label for="valswitch" class="onoffswitch-label">
+                    <div class="onoffswitch-inner"></div>
+                    <div class="onoffswitch-switch"></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="table_wrap" id="table_wrap"></div>
+        <div class="dm_tips">
+            <h2>帮助信息</h2>
+            <div class="dm_tips_corner"></div>
+            <dl>
+<!--#include file="_help.html"-->
+    		</dl>
+		</div>
+        <script src="http://qa.developer.163.com/common/ntes.js" charset='utf-8'></script>
+        <script src="http://qa.developer.163.com/libs/raphael.js" _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.core.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.pie.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.frame.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.dualchart.js" charset='utf-8' _group="nchart"></script>
+        <script src="hrclick.js" charset='utf-8'></script>
+    </body>
+</html>

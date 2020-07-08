@@ -1,0 +1,67 @@
+@import url(http://static.f2e.netease.com/system/docs_temp/api.css);
+body{ overflow:hidden;font-size:12px }
+a{ text-decoration:none }
+.f2e_board{ position:absolute; top:0;bottom:0;left:0;right:0; }
+.f2e_demo{ height:100%;width:1000px;margin:0 auto;box-shadow:-2px 0 12px #bbb;-webkit-box-shadow:-2px 0 12px #bbb;-o-box-shadow:-2px 0 12px #bbb }
+.f2e_demo .iframe_wrap { height:100%;margin-left:240px }
+.f2e_demo iframe{ height:100%;width:100%;background:#eee;overflow:auto; }
+.bwrap {border-bottom: 1px solid #AAAAAA; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); height: 58px;}
+.m-panelbtns {padding:0;margin:10px 0 0 20px;}
+.m-panelbtns li {float: left;}
+.m-panelbtns a{float:left;padding:0 15px;height:29px;line-height:29px;border:1px solid #b3b3b3;margin-left:-1px;text-shadow:1px 1px #f7f7f7;color:#333}
+.m-panelbtns a:hover{color:#333;background-color:#f0f0f0;}
+.m-panelbtns a.pressed{ background-color:#a0a0a0;color:#eee;text-shadow:none }
+.m-panelbtns a.demo{border-radius:2px 0 0 2px;_margin-left:0;}
+.m-panelbtns a.js{border-radius:0 2px 2px 0}
+.m-panelbtns .js-select{background-color:#e2e2e2}
+.cwrap code{display:none;}
+.info {float: left;margin-right: -400px; width: 100%;}
+.bwrapin{background:url(images/icn2.png) repeat-x 0 -160px}
+.g-tool{position: absolute;top: 88px;left: 0;width: 100%;height: 100%}
+.f-cb:after{clear:both;display:block;visibility:hidden;height:0;overflow:hidden;content:".";}
+.f-cb{zoom:1;}
+#export{ position:relative }
+#export div{ text-indent:0 }
+#export embed{ cursor:pointer }
+
+.btns a.run,.btns a.run:hover,.btns a.reset,.btns a.reset:hover,.btns a.export,.btns a.export:hover,.m-share li .s1,.m-share li .s1:hover,.m-share li .s2,.m-share li .s2:hover,.m-share li .s3,.m-share li .s3:hover,.m-share li .s4,.m-share li .s4:hover,.m-share li .s5,.m-share li .s5:hover{background:url(images/icn2.png) no-repeat 9999px 9999px}
+.info a{ cursor:pointer }
+.btns .copy_hint { float:left;margin-right:10px;line-height:48px;color:#666;font-size:14px;display:none }
+.btns a {background-color: #D5D5D5;border-right: 1px solid #BBB;cursor: pointer;float:left;height: 51px;overflow: hidden;text-indent: -2000px;width: 62px;}
+.btns a.export{background-position: 0 -214px;}
+.btns a.export:hover{background-position: 0 -266px;}
+.btns a.run {background-position: 0 -317px;}
+.btns a.run:hover {background-position: 0 -369px;}
+.btns a.reset{background-position: 0 -421px;}
+.btns a.reset:hover{background-position: 0 -473px;}
+.btns {display: inline;  float: right; margin:0 -1px 0 0;}
+.cwrap {position: absolute;top: 0; bottom:0;left:0;width:100%;overflow: hidden;}
+.cwrap code{display:none;}
+.cwrap .demo{float:left;position:relative;height:100%;overflow-y:scroll;overflow-x:auto;width:240px;border-top:3px solid #f0f0f0;z-index:2;background:#eee}
+.cwrap .demo .itm{position:relative;float:left;width:100%;border-bottom:1px solid #e1e1e1;line-height:33px;background-color:#f0f0f0;}
+.cwrap .demo .itm-crt{background-color:#fafafa;}
+.cwrap .demo .itm .img{display:none;margin:2px 0 0 12px;}
+.cwrap .dtlcode .code-crt{background-color:#fff;border-top-color:#a3d4ff;}
+.cwrap .dtlcode .srccode{display:none}.m-tpl{display:none;}
+.m-case{position:relative;width:940px;margin-top:30px;}
+.cwrap .demo .itm{position:relative;float:left;width:100%;border-bottom:1px solid #e1e1e1;line-height:18px;background-color:#f0f0f0;}
+.cwrap .demo .itm-crt{background-color:#fafafa;}
+.cwrap .demo .itm a{display:block;margin:0;*zoom:1;color:#333;padding:7px 0 7px 12px}
+.m-logo,.w-downloadbtn,.w-prebtn,.w-nxtbtn,.w-quoto,.w-info,.m-nav .crt,.m-nav .crt a,.m-nav li a:hover,.js-hv,.w-horn,.w-docicon,.w-viewbtn,.w-viewbtn:hover,.w-comicon,.w-toolicon,.w-topicicon,.w-faqicon,.w-file,.w-dldbtn,.w-clapsetip,.w-larraw,.w-more,.w-lst,.w-btn,.w-dtlicn,.w-dtlicn:hover,.m-infolst .tipitm .licion,.m-filehd .apicat .crt .lbl,.m-filehd .apicat .crt .btnl,.w-link,.w-magnifying,.m-faq .qicn,.m-faq .aicn,.cwrap .demo .crt{background:url(images/sprite.png) no-repeat 9999px 9999px;}
+.cwrap .demo .crt { background:#416378;}
+.cwrap .demo .crt a { color: #FFFFFF; font-weight: bold;}
+.CodeMirror, .CodeMirror-scroll{ height:100% }
+.CodeMirror{ border-left:1px solid #aaa }
+
+.sub-menu{ margin-left:20px }
+.parent-node{ cursor:pointer }
+.cwrap .demo .parent-node.opened{ border-bottom:none }
+.parent-node > a{ background:url(images/dir2.gif) no-repeat 190px center; }
+.parent-node.opened > a{ background:url(images/dir.gif) no-repeat 190px center;border-bottom:1px solid #E1E1E1 }
+
+
+.f2e_api_head address {padding-top:8px;font-size:30px;float:right}
+
+.f2e_api_head .breadcrumb{ text-align:right;padding-right:20px;padding-top:65px;line-height:20px;color:#fff }
+.f2e_api_head .breadcrumb .menu{ display:inline }
+.f2e_api_head .breadcrumb select{ font-size:12px }

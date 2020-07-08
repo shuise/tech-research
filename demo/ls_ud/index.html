@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>localStorage和userData存储数据的软件清除方式</title>
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<style type="text/css">
+.page_main{
+	width: 80%;
+	margin:0 auto;
+}
+.page_main table{margin:20px auto;}
+.page_main caption{font-size: 16px;font-weight: bold;}
+.page_main th{font-weight: normal;}
+.page_main td{text-align: center;}
+.page_main .desc{text-align: right;}
+.table caption{
+	background:#f5f5f5;
+	padding:10px;
+	text-align:left;
+}
+</style>
+</head>
+<body>
+<div class="page_main">
+	<table class="table table-bordered">
+		<caption>localStorage在各浏览器中的清除结果</caption>
+		<tr>
+			<th>&nbsp;</th>
+			<th>浏览器自带方式</th>
+			<th>QQ电脑管家（默认）</th>
+			<th>QQ电脑管家（全选）</th>
+			<th>360安全卫士（默认）</th>
+			<th>360安全卫士（全选）</th>
+		</tr>
+		<tr>
+			<td>IE6</td>		<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+		</tr>
+		<tr>
+			<td>IE8</td>		<td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+		</tr>
+		<tr>
+			<td>FireFox23</td>	<td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+		</tr>
+		<tr>
+			<td>Chrome28</td>	<td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+		</tr>
+		<tr>
+			<td>Opera12</td>	<td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+		</tr>
+		<tr>
+			<td colspan="6" class="desc">不支持：—   成功清除：Y   未清除：N （基于WIN XP系统测试）</td>
+		</tr>
+	</table>
+	<table class="table table-bordered">
+		<caption>userData在各浏览器中的清除结果</caption>
+		<tr>
+			<th>&nbsp;</th>
+			<th>浏览器自带方式</th>
+			<th>QQ电脑管家（默认）</th>
+			<th>QQ电脑管家（全选）</th>
+			<th>360安全卫士（默认）</th>
+			<th>360安全卫士（全选）</th>
+		</tr>
+		<tr>
+			<td>IE6</td>		<td>N</td><td>N</td><td>N</td><td>N</td><td>N</td>
+		</tr>
+		<tr>
+			<td>IE8</td>		<td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+		</tr>
+		<tr>
+			<td>FireFox23</td>	<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+		</tr>
+		<tr>
+			<td>Chrome28</td>	<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+		</tr>
+		<tr>
+			<td>Opera12</td>	<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+		</tr>
+		<tr>
+			<td colspan="6" class="desc">不支持：—   成功清除：Y   未清除：N （基于WIN XP系统测试）</td>
+		</tr>
+	</table>
+</div>
+
+</body>
+</html>

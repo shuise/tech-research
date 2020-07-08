@@ -1,0 +1,335 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>price table</title>
+<link rel="stylesheet" href="http://static.f2e.netease.com/common/common.css">
+<style type="text/css">
+.main {margin:50px;}
+.list_item {float:left;border-right:1px solid #ccc;min-height:500px;width:100px;text-align:center;position:relative;}
+.list_item strong {display: block;background:orange;color:#fff;}
+.list_item a {position: absolute;left:10px;}
+.list_item a img {width:80px;height:60px;border:1px solid #ccc;}
+.size_bar {float:left;width:20px;min-height:500px;}
+.size_bar li {height:60px;width:20px;position: relative;background:#ddd;}
+.size_bar li.li1 {background:#ccc;}
+.size_bar li span {position: absolute;left:-20px;top:20px;font-size:12px;}
+</style>
+</head>
+<body>
+
+
+
+<div class="main" id="main">
+	<ul class="size_bar" id="size_bar"></ul>
+	<div class="list" id="list"></div>
+</div>
+
+
+
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js" _group="ntes"></script>
+<script type="text/javascript">
+var data = [
+	{
+	name : "微型车",
+	data : 	[
+	{
+	    "name": "江南TT",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_16003.png",
+	    "price": "2.08"
+	},
+	{
+	    "name": "海马王子",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_4853.png",
+	    "price": "2.98"
+	},
+	{
+	    "name": "奇瑞QQ 3",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-27/120x90_89TJN6KC29M80008.png",
+	    "price": "3.09"
+	},
+	{
+	    "name": "北斗星",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-09-07/120x90_8AQBT97F29HP0008.png",
+	    "price": "3.20"
+	},
+	{
+	    "name": "夏利N3三厢",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-24/120x90_89MIJ61V53200008.png",
+	    "price": "3.40"
+	},
+	{
+	    "name": "爱迪尔",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2051.png",
+	    "price": "3.49"
+	},
+	{
+	    "name": "海马爱尚",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_16388.png",
+	    "price": "3.58"
+	},
+	{
+	    "name": "比亚迪F0",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2043.png",
+	    "price": "3.69"
+	},
+	{
+	    "name": "奔奔MINI",
+	    "image": "http://img4.cache.netease.com/photo/0008/2012-10-25/120x90_8EM23F782AFB0008.png",
+	    "price": "3.69"
+	},
+	{
+	    "name": "吉利全球鹰熊猫",
+	    "image": "http://img4.cache.netease.com/photo/0008/2012-09-10/120x90_8B1JT74J29LU0008.png",
+	    "price": "3.78"
+	},
+	{
+	    "name": "悦悦",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2308.png",
+	    "price": "3.78"
+	},
+	{
+	    "name": "瑞麒M1",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2372.png",
+	    "price": "3.88"
+	},
+	{
+	    "name": "奔奔LOVE",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_15985.png",
+	    "price": "3.89"
+	},
+	{
+	    "name": "乐驰",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-09-03/120x90_8AFLC9L852LQ0008.png",
+	    "price": "3.98"
+	},
+	{
+	    "name": "乐驰",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2060.png",
+	    "price": "3.98"
+	},
+	{
+	    "name": "路宝",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2257.png",
+	    "price": "3.99"
+	},
+	{
+	    "name": "奥拓",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-30/120x90_8A666TL529HV0008.png",
+	    "price": "3.99"
+	},
+	{
+	    "name": "旗云1",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_4892.png",
+	    "price": "3.99"
+	},
+	{
+	    "name": "小贵族",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2298.png",
+	    "price": "4.49"
+	},
+	{
+	    "name": "瑞麒M5",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_15006.png",
+	    "price": "4.88"
+	}]
+	},
+	{
+	name : "微型车2",
+	data : 	[
+	{
+	    "name": "夏利N3三厢",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-24/120x90_89MIJ61V53200008.png",
+	    "price": "3.40"
+	},
+	{
+	    "name": "爱迪尔",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2051.png",
+	    "price": "3.49"
+	},
+	{
+	    "name": "海马爱尚",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_16388.png",
+	    "price": "3.58"
+	},
+	{
+	    "name": "比亚迪F0",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2043.png",
+	    "price": "3.69"
+	},
+	{
+	    "name": "奔奔MINI",
+	    "image": "http://img4.cache.netease.com/photo/0008/2012-10-25/120x90_8EM23F782AFB0008.png",
+	    "price": "3.69"
+	},
+	{
+	    "name": "吉利全球鹰熊猫",
+	    "image": "http://img4.cache.netease.com/photo/0008/2012-09-10/120x90_8B1JT74J29LU0008.png",
+	    "price": "3.78"
+	},
+	{
+	    "name": "悦悦",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2308.png",
+	    "price": "3.78"
+	},
+	{
+	    "name": "瑞麒M1",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2372.png",
+	    "price": "3.88"
+	},
+	{
+	    "name": "奔奔LOVE",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_15985.png",
+	    "price": "3.89"
+	},
+	{
+	    "name": "乐驰",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-09-03/120x90_8AFLC9L852LQ0008.png",
+	    "price": "3.98"
+	},
+	{
+	    "name": "乐驰",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2060.png",
+	    "price": "3.98"
+	}]
+	},
+	{
+	name : "微型车3",
+	data : 	[
+	{
+	    "name": "江南TT",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_16003.png",
+	    "price": "2.08"
+	},
+	{
+	    "name": "海马王子",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_4853.png",
+	    "price": "2.98"
+	},
+	{
+	    "name": "奇瑞QQ 3",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-27/120x90_89TJN6KC29M80008.png",
+	    "price": "3.09"
+	},
+	{
+	    "name": "北斗星",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-09-07/120x90_8AQBT97F29HP0008.png",
+	    "price": "3.20"
+	},
+	{
+	    "name": "夏利N3三厢",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-24/120x90_89MIJ61V53200008.png",
+	    "price": "3.40"
+	},
+	{
+	    "name": "爱迪尔",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2051.png",
+	    "price": "3.49"
+	},
+	{
+	    "name": "海马爱尚",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_16388.png",
+	    "price": "3.58"
+	},
+	{
+	    "name": "比亚迪F0",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2043.png",
+	    "price": "3.69"
+	},
+	{
+	    "name": "奔奔MINI",
+	    "image": "http://img4.cache.netease.com/photo/0008/2012-10-25/120x90_8EM23F782AFB0008.png",
+	    "price": "3.69"
+	},
+	{
+	    "name": "吉利全球鹰熊猫",
+	    "image": "http://img4.cache.netease.com/photo/0008/2012-09-10/120x90_8B1JT74J29LU0008.png",
+	    "price": "3.78"
+	},
+	{
+	    "name": "悦悦",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2308.png",
+	    "price": "3.78"
+	},
+	{
+	    "name": "瑞麒M1",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2372.png",
+	    "price": "3.88"
+	},
+	{
+	    "name": "奔奔LOVE",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_15985.png",
+	    "price": "3.89"
+	},
+	{
+	    "name": "乐驰",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-09-03/120x90_8AFLC9L852LQ0008.png",
+	    "price": "3.98"
+	},
+	{
+	    "name": "奥拓",
+	    "image": "http://img3.cache.netease.com/photo/0008/2012-08-30/120x90_8A666TL529HV0008.png",
+	    "price": "3.99"
+	},
+	{
+	    "name": "旗云1",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_4892.png",
+	    "price": "3.99"
+	},
+	{
+	    "name": "小贵族",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_2298.png",
+	    "price": "4.49"
+	},
+	{
+	    "name": "瑞麒M5",
+	    "image": "http://img3.cache.netease.com/photo/0008/autolib/transcover/lf45/120x90_15006.png",
+	    "price": "4.88"
+	}]
+	}
+];
+var data_cross = {
+	zero : 2,  //起点
+	internal : 0.1,		//标尺单位
+	minPrice : 1.5,		//最低价格
+	maxPrice : 5 		//最高价格
+};
+
+//标尺数量
+var maxUnit = Math.ceil((data_cross.maxPrice - data_cross.zero)/data_cross.internal);
+
+//html模板
+var temp = {
+	cross : '<li class="li{even}"><span>{price}</span></li>',
+	head : '<strong>{name}</strong>',
+	item : '<a href="{link}" style="top:{top}px;"><img src="{image}" alt="{name}" title="{name}"></a>'
+};
+
+//计算坐标价格
+var crosses = [];
+for(var i=0;i<maxUnit;i++){	
+	crosses.push({"price":data_cross.zero + Math.floor(data_cross.internal*i*100)/100,"even":i%2});
+}
+//写入页面
+NE.$("#size_bar").innerHTML = NE.template.replace(temp.cross,crosses);
+
+var wrap = NE.$("#list");
+for(var i=0;i<data.length;i++){
+	createList(data[i])
+}
+function createList(_data){
+	//计算每一个item的top值
+	var data = _data.data;
+	for(var i=0,len=data.length;i<len;i++){
+		data[i].top = (data[i].price - data_cross.zero)*60/data_cross.internal;
+	}
+	var newList = document.createElement("div");
+	wrap.appendChild(newList);
+	newList.className = "list_item";
+	newList.innerHTML = NE.template.replace(temp.head,_data) 
+							+ NE.template.replace(temp.item,data);
+
+}
+</script>
+</body>
+</html>

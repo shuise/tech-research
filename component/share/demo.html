@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>show</title>
+</head>
+<style>
+.share{
+	padding:20px;
+	font-size:0;
+}
+.share a{
+	font-size:14px;
+	margin:20px;
+	border:1px solid #ccc;
+	padding:10px;
+	background:#999;
+	color:#000;
+	text-decoration:none;
+}
+.share3 a{
+	border-radius:5px;
+	background:green;
+	color:#fff;
+}
+</style>
+<body>
+
+<div id="share" class="share"></div>
+<div id="share2" class="share"></div>
+	
+<div id="share3" class="share share3" _title="title" _desc="desc" _link="http://163.com">
+	<a href="#t163" title="分享到网易微博" class="ne_share_t163" _channel="t163">网易微博</a>
+	<a href="#weibo" title="分享到新浪微博" class="ne_share_weibo" _channel="weibo">新浪微博</a>
+</div>
+
+<script src="share.js"></script>
+<script>
+var data = {
+	"pic":["http://img6.cache.netease.com/photo/0026/2013-11-07/9D2VG5RS25A20026.jpg"]
+};
+
+
+// default
+(function(){
+	var target = document.getElementById("share");
+	var _share = new share(data);
+		_share.init(target);
+})();
+
+
+// add channels
+(function(){
+	var target = document.getElementById("share2");
+	
+	var channels = [
+		{"channel" : "t163", "name" : "网易微博"},
+		{"channel" : "weibo", "name" : "新浪微博"},
+		{"channel" : "qzone", "name" : "腾讯空间"},
+		{"channel" : "douban", "name" : "豆瓣"},
+		{"channel" : "renren", "name" : "人人"},
+		{"channel" : "tqq", "name" : "腾讯微博", "url" : "http://v.t.qq.com/share/share.php?title={title}&url={url}&site={source}&pic={pic}"}
+	];
+
+	var _share = new share(data);
+		_share.init(target,channels);
+})();
+
+
+//just addevent;
+(function(){
+	var target = document.getElementById("share3");
+	var _share = new share(data);
+		_share.addEvents(target);
+})();
+</script>	
+</body>
+</html>

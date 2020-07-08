@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://qa.developer.163.com/component/datepicker/index.html -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>demo_日期选择datapicker</title>
+<style type="text/css">
+pre{ background:#f6f6f6; border:1px dashed #ddd; padding:10px;}
+body{ padding-bottom:200px;}
+</style>
+<style>
+html,body{ border:0;}
+/*日历*/
+.datepicker_wrapper2{ display:none; width:176px; border:1px solid #ccc; background-color:#fff; position:absolute; left:0; top:20px; z-index:50; font:12px \5B8B\4F53,serif;}
+.datepicker_title2{ text-align:center; padding:3px 0; background-color:#ddd;}
+.datepicker_title2 select{ width:70px; margin:0;}
+.datepicker_wrapper2 .prev_btn,.datepicker_wrapper2 .next_btn{ float:left; display: inline-block; width:15px; height:15px; line-height:15px; color:#000;text-decoration: none; text-align:center; margin:0 10px;}
+.datepicker_wrapper2 .prev_btn:hover,.datepicker_wrapper2 .next_btn:hover{ font-weight:bold;}
+.datepicker_wrapper2 .next_btn{ float:right; }
+.date_selector2{ border-collapse:separate;border-spacing: 1px;}
+.date_selector2 th{ font-weight:bolder; text-align:center; line-height:20px;}
+.date_selector2 tbody td{ border:none; padding:0;}
+.date_selector2 td a{ display:block; width:24px; height:18px; line-height:18px; text-align:center; color:#000; padding:0;position: static;background-color: #E5F0F9;text-decoration:none;}
+.date_selector2 td a:visited{color:#000;}
+.date_selector2 td a:hover{ background-color:#eee;color:#666; border:1px solid #8EA8BC; width:22px; height:16px; line-height:16px}
+.date_selector2 .weekend{ background-color:#F6F6F6;color:#ccc;}
+.date_selector2 .date_available{ background-color:#DDD;}
+.date_selector2 .date_today,.date_selector .date_today:visited{ background-color:#999; color:#fff;}
+.date_selector2 .after_today,.date_selector td .after_today:visited,.date_selector td .date_weekend:visited{color:#ccc;}
+</style>
+<link rel="stylesheet" href="datepicker.css" />
+</head>
+
+<body style="position: static; ">
+<h1>日期选择datapicker</h1>
+<script type="text/javascript" src="datepicker.js"></script>
+<h2><a href="./datepicker.html" target="_blank">参考文档</a></h2>
+
+<h2>demo1</h2>
+<input type="text" id="datepicker1" value="2012-07-20">
+<pre>
+new datePicker(document.getElementById('datepicker1'));
+</pre>
+<script>
+new datePicker(document.getElementById('datepicker1'));
+</script>
+<h2>demo2</h2>
+<p>自定义日期选择规则，本实例为自定义周末不能选择</p>
+<input type="text" id="datepicker2" value="2012-07-20">
+<pre>
+new datePicker(document.getElementById('datepicker2'),{
+	'validateMonth':function(y,m){
+		if(m>10||m<6){
+			return false;
+		}
+	},
+	'customCell':function(date,elem){
+		var day = date.getDay();
+		if(day == 0||day == 6)
+		this.disable(elem);
+	}
+});
+</pre>
+<script>
+new datePicker(document.getElementById('datepicker2'),{
+	'showOtherMonth':true,
+	'validateMonth':function(y,m){
+		var nBtn = this.nextMonthBtn;
+		var pBtn = this.prevMonthBtn;
+		this.enable(nBtn);
+		this.enable(pBtn);
+		if(m>10){
+			this.disable(nBtn);
+			return false;
+		}
+		if(m<6){
+			this.disable(pBtn);
+			return false;
+		}
+	},
+    'fromDate': '2012-07-10',
+	'customCell':function(date,elem){
+		var day = date.getDay();
+		if(day == 0||day == 6)
+		this.disable(elem);
+	}
+});
+</script>
+<h2>demo3</h2>
+<p>自定义UI</p>
+<input type="text" id="datepicker3" value="2012-07-20">
+<pre>
+new datePicker(document.getElementById('datepicker3'),{
+	'cls':{
+		'title':'datepicker_title2',
+		'wrapper':'datepicker_wrapper2',
+		'selector':'date_selector2'
+	}
+});
+</pre>
+<script>
+new datePicker(document.getElementById('datepicker3'),{
+	'cls':{
+		'title':'datepicker_title2',
+		'wrapper':'datepicker_wrapper2',
+		'selector':'date_selector2'
+	}
+});
+</script>
+<h2>demo4</h2>
+<p>自定义日期格式</p>
+<input type="text" id="datepicker4" value="2012/07/20"><input type="text" id="datepicker5" value="20/07/2012">
+<pre>
+new datePicker(document.getElementById('datepicker4'),{
+	'format':'yyyy/mm/dd'
+});
+new datePicker(document.getElementById('datepicker5'),{
+	'format':'dd/mm/yyyy'
+});
+</pre>
+<script>
+new datePicker(document.getElementById('datepicker4'),{
+	'format':'yyyy/mm/dd'
+});
+new datePicker(document.getElementById('datepicker5'),{
+	'format':'dd/mm/yyyy'
+});
+</script>
+<h2>demo5</h2>
+<p>自定义结构模板</p>
+<input type="text" id="datepicker6" value="2012-01-01">
+<pre>
+new datePicker(document.getElementById('datepicker6'),{
+	'temp':{
+		'content':'&lt;div&gt;&lt;table class="date_selector"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Sun&lt;/th&gt;&lt;th&gt;Mon&lt;/th&gt;&lt;th&gt;Tue&lt;/th&gt;&lt;th&gt;Wed&lt;/th&gt;
+			   &lt;th&gt;Thu&lt;/th&gt;&lt;th&gt;Fri&lt;/th&gt;&lt;th&gt;Sat&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;{0}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;'
+	}
+});
+</pre>
+<script>
+new datePicker(document.getElementById('datepicker6'),{
+	'temp':{
+		'content':'<div><table class="date_selector"><thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead><tbody>{0}</tbody></table></div>'
+	}
+});
+</script>
+<h2>demo6</h2>
+<p>特殊日期定制</p>
+<input type="text" id="datepicker7" value="2012-01-01">
+<pre>
+new datePicker(document.getElementById('datepicker7'),{
+	'customCell':function(date,elem){
+		if(date.getMonth()==0&&date.getDate()==1)
+		elem.innerHTML = '元旦';
+	}
+});
+</pre>
+<script>
+new datePicker(document.getElementById('datepicker7'),{
+	'customCell':function(date,elem){
+		if(date.getMonth()==0&&date.getDate()==1)
+		elem.innerHTML = '元旦';
+	}
+});
+</script>
+
+</body>
+</html>

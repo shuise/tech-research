@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>test</title>
+		<meta name="author" content="Administrator" />
+		<!-- Date: 2013-03-26 -->
+	</head>
+	<body style="position: relative;">
+		<a style="position: absolute; width: 100px;height: 100px;background: #000;" href="" id="test_link">&nbsp;</a>
+		<slider></slider>
+		<progress></progress>
+		<script type="text/javascript" src="http://img1.cache.netease.com/cnews/js/ntes_jslib_1.x.js"></script>
+		<script type="text/javascript">
+		var handle = $("#test_link");	
+		$(handle).addEvent("click",function(e){
+			e.preventDefault();
+			stopBubble(e);
+		});		
+		$(handle).addEvent("mousedown",function(e){
+			$(document).addEvent("mousemove",mousemovehandle).addEvent("mouseup",mouseuphandle);
+			$(handle).addEvent("mousemove",mousemovehandle).addEvent("mouseup",mouseuphandle);
+		});
+		function mousemovehandle(e){
+			console.log(e.pageX,e.pageY);
+			unSelected();					
+			handle.addCss({
+				top:e.pageY+"px",
+				left:e.pageX+"px"
+			});
+			stopBubble(e);			
+		}
+		function unSelected(){
+			if(window.getSelection){//w3c
+			   window.getSelection().removeAllRanges();
+			 }else  if(document.selection){
+			   document.selection.empty();//IE
+			 }
+		}		
+		function mouseuphandle(e){		
+			$(document).removeEvent("mousemove",mousemovehandle).removeEvent("mouseup",mouseuphandle);
+			$(handle).removeEvent("mousemove",mousemovehandle).removeEvent("mouseup",mouseuphandle);
+			stopBubble(e);								
+		}			
+		function stopBubble(e){
+			if(e.stopPropagation){
+				e.stopPropagation();		
+			}else{
+				window.event.cancelBubble = true;
+			}
+		}
+		$(handle).addEvent("dragstart",function(e){
+			return false;
+		});	
+		console.log(handle.draggable);										
+		</script>
+	</body>
+</html>

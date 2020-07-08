@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.pie.js" charset="utf-8"></script>
+        <style>
+            .canvas {margin:50px auto;width:960px;height:350px;display:block}
+        </style>
+    </head>
+    <body>
+        <!--div id="canvas0" title="未归一堆叠柱图" class="canvas"></div> 
+        <script>
+            var data = [{
+            title : '导入荐新闻首页新闻数量',
+            tips : '[{xtick}]\n导入荐新闻首页新闻数量:15,000\n当日新闻发布数量:{y}\n占比：{percent}%',
+            data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+            group : 'total'
+            },{
+            title : '未导入荐新闻首页新闻数量',
+            tips : '[{xtick}]\n未导入荐新闻首页新闻数量:5,000\n总推荐次数:{y}\n占比：{percent}%',
+            data : [71226,70049,74348,73265,72352,71146,80051,71262,74350,79840],
+            group : 'total'
+            }];
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas0")
+            });
+            canvas1.xyChart(data, ["bar"], {
+            tips : "{title}: {y}次({percent}%)",
+            groupMeanLine : true,
+            //unify : 100,
+            dotInterval : 1,
+            xpadding : 0.5,
+            padding : {x:40},
+            xTick : {labels : ['10000','10000','5000','2000','1000','500','200','100','500','200','100']},
+            yTick : {shiftX: 20, labels : "{y}", apronum: 5, startY : [0,0]},
+            yTitle : {title : "关键词数量"},
+            //xTitle : {title : "访问次数"},
+            colors : ['#4D5B75', '#68AAE1', '#AFCF00'],
+            barAttr : {thickness : 12, nogradient : true},
+            showLegend : true,
+            hideLegendBorder : true,
+            shadow : false
+            });
+        </script>
+
+
+
+        <div id="canvas1" title="归一堆叠柱图" class="canvas"></div> 
+        <script>
+            var data = [
+             {
+                 title : '导入荐新闻首页新闻数量',
+                 tips : '[{xtick}]\n导入荐新闻首页新闻数量:15,000\n当日新闻发布数量:{y}\n占比：{percent}%',
+                 data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+                 group : 'total'
+             },{
+                 title : '未导入荐新闻首页新闻数量',
+                 tips : '[{xtick}]\n未导入荐新闻首页新闻数量:5,000\n总推荐次数:{y}\n占比：{percent}%',
+                 data : [71226,70049,74348,73265,72352,71146,80051,71262,74350,79840],
+                 group : 'total'
+             }];
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas1")
+            });
+            canvas1.xyChart(data, ["bar"], {
+                tips : "{y} 点击\n2012年7月{x}日",
+                Title : {title: "微门户各频道PV"},
+                yTitle : {title: "点击次数"},
+                xTick : {labels : "7-{x}"},
+                yTick : {labels : "{y}", startY : [0,0], interval : 10},
+                grid : {rows : 10},
+                colors : ['#B1DEE4', '#EDA55E'],
+                anim : true, unify : 100
+            });
+       </script-->
+
+
+
+        <div id="canvas2" title="归一堆叠线图" class="canvas"></div> 
+        <script>
+            var data = [
+             {
+                 title : '导入荐新闻首页新闻数量',
+                 tips : '[{xtick}]\n导入荐新闻首页新闻数量:15,000\n当日新闻发布数量:{y}\n占比：{percent}%',
+                 data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+                 group : 'total'
+             },{
+                 title : '未导入荐新闻首页新闻数量',
+                 tips : '[{xtick}]\n未导入荐新闻首页新闻数量:5,000\n总推荐次数:{y}\n占比：{percent}%',
+                 data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+                 group : 'total'
+             },{
+                 title : '其它新闻数量',
+                 tips : '[{xtick}]\n未导入荐新闻首页新闻数量:5,000\n总推荐次数:{y}\n占比：{percent}%',
+                 data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+                 group : 'total'
+             }];
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas2")
+            });
+            canvas1.xyChart(data, ["line"], {
+                tips : "{y} 点击\n2012年7月{x}日",
+                Title : {title: "微门户各频道PV"},
+                yTitle : {title: "点击次数"},
+                xTick : {labels : "7-{x}"}, xpadding : 0,
+                yTick : {labels : "{y}", startY : [0,0], interval : 20},
+                grid : {rows : 5, shadow : 0}, shadow : false,
+                colors : ['#ff0000', '#2244EE', '#EDA55E'], noBG : false,
+                anim : true, unify : 100
+            });
+       </script>
+
+    </body>
+</html>

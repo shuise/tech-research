@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title></title>
+<style>
+	body{font:12px tahoma, arial,"宋体";margin:0 auto;color:#000;  }
+	a{ text-decoration: underline;color:#000;}
+	a:hover{ color:#c03;text-decoration:underline;}
+	a img{ border:0;}
+	ol,ul,li,h1,h2,h3,h4,h5,h6,form,p,dl,dt,dd,.block{ display:block; margin:0; padding:0;}
+	li{ list-style:none;}
+	h1,h2,h3,h4,h5,h6{}
+	.main{ width:960px; margin:50px auto 0;}
+	.wrap{ height:1200px; float:left; width:960px;  }
+	.wrap .unselect,.wrap .unselect * {-moz-user-select :-moz-none; -webkit-user-select :none;  }
+	.wrap .col_l,.wrap .col_m,.wrap .col_r{   float:left;display:inline;width:310px;  }
+	.wrap .spacecon { float:left; width:310px; height:1px; overflow:hidden; line-height:1px;}
+	.wrap .col_l{  }
+	.wrap .col_m{   margin:0 15px; }
+	.wrap .col_r{ }
+	.wrap  .mod { z-index : 2;   margin-top:10px; float:left; width:308px; border:1px solid #000;}
+	.wrap  .mod .mod_tt,.wrap  .mod .mod_ct{ width:100%; float:left;}
+	.wrap  .mod .mod_tt { line-height:24px; background:#000; /*cursor:move;*/}
+	.wrap  .mod .mod_tt,.wrap  .mod .mod_tt *{ color:#fff; font-size:14px;}
+	.wrap  .mod .mod_tt .spl{ padding-left:14px;}
+	.wrap  .mod .mod_ct { background:#fff; line-height:22px;}
+	.wrap  .mod .mod_ct .container{ width:290px; margin:0 auto; overflow:hidden;}
+	#opacitynode{ background:#ccc; overflow:hidden;  margin-top:10px; width:308px; float:left; z-index : 1;}	
+	.debug{ background:#fff; width:150px; height:150px; position:absolute; left:0; top:0; border:1px solid #000; font-size:14px; font-weight:bold; padding:10px;}
+	
+</style>
+</head>
+<body>
+	
+	<div class="main">
+		<div id="debug"></div>
+        <div>
+			<input type="button" value="获取布局" id="saveLayout">
+		</div>
+        <div class="wrap" id="wrap">
+			<table width="960" border="0" cellspacing="0" cellpadding="0">
+				<tbody><tr>
+					<td width="320" valign="top" id="col_0">
+						 
+							<dl class="mod" mod="photo" id="mod_photo">
+								<dt class="mod_tt"><span class="spl">A</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							<dl class="mod" mod="blog" id="mod_blog">
+								<dt class="mod_tt"><span class="spl">B</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							<dl class="mod" mod="message" id="mod_message">
+								<dt class="mod_tt"><span class="spl">C</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							 
+					
+					</td>
+					<td width="320" valign="top" id="col_1">
+						 
+							 
+							<dl class="mod" mod="feed" id="mod_feed">
+								<dt class="mod_tt"><span class="spl">D</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							<dl class="mod" mod="visitors" id="mod_visitors">
+								<dt class="mod_tt"><span class="spl">E</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							 
+					
+					</td>
+					<td width="320" valign="top" id="col_2">
+						 
+							 
+							<dl class="mod" mod="videos" id="mod_videos">
+								<dt class="mod_tt"><span class="spl">F</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							<dl class="mod" mod="music" id="mod_music">
+								<dt class="mod_tt"><span class="spl">G</span></dt>
+								<dd class="mod_ct">
+									<div class="container">
+										<ul>	
+											<li>item 1</li>	
+											<li>item 2</li>	
+											<li>item 3</li>	
+											<li>item 4</li>	
+										</ul>
+									</div>
+								</dd>
+							</dl>
+							 
+					</td>
+				</tr>
+			</tbody></table>
+        </div>
+    </div>
+	
+<script type="text/javascript" src="http://static.f2e.netease.com/libs/jquery.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/component/drag/drag.js"></script>
+<script type="text/javascript" src="dragdrop.js"></script>
+<script type="text/javascript">
+	var layout = "";
+	$(function(){
+		$("#col_0, #col_1, #col_2").dragdrop({
+			connectWith : ".mod",
+			onLayoutUpdated : function(layoutStr){
+				layout = layoutStr;
+			}
+		}) 
+		$("#saveLayout").click(function(){
+			alert(layout);
+		})
+	});
+</script>
+	
+	</body></html>

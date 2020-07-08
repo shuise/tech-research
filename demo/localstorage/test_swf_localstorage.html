@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="UTF-8">
+        <title>flash_storage</title>
+        <style type="text/css">
+        </style>
+   
+    <script src="/lib/core.js"></script>
+        <script src="/lib/utils/browser.js"></script>
+        <script src="/lib/utils/array.js"></script>
+        <script src="/lib/utils/string.js"></script>
+        <script src="/lib/utils/json.js"></script>
+        <script src="/lib/utils/template.js"></script>
+        <script src="/lib/utils/swf.js"></script>        
+    </head>
+    <body>
+        <form name="form1" onsubmit="return false;">
+            <input type="text" name="input" value="" />
+            <input type="button" value="Get" onclick="onClickGet()" /><br />
+            <input type="button" value="Save" onclick="onClickSave()" /><br />
+            <input type="button" value="Clear" onclick="onClickClear()" /><br />
+            <textarea cols="60" rows="20" name="output" readonly="true">Initializing...</textarea>
+        </form>
+        <div id="swf_node"></div>
+        <script type="text/javascript" src="swf_localstorage.js"></script>
+        <script type="text/javascript">
+			tools_swfstorage.init({
+				targetId:'swf_node',
+				interval:3000,
+				needListen : true,
+				onready : function(){
+					tools_swfstorage.addListener("un","userName",function(params){
+						document.forms["form1"].output.value += "userName: " + params.newValue + "\n";
+					});																	
+				}				
+			});						
+            function onClickGet(){
+            	tools_swfstorage.get("un","userName",function(params){
+            		document.forms["form1"].output.value += "userName: " + params.value + "\n";
+            	});
+            }
+            function onClickSave(){
+            	tools_swfstorage.set("un","userName",document.forms["form1"].input.value);
+            }
+
+            function onClickClear(){
+            	tools_swfstorage.remove("un","userName");
+            }
+        </script>        
+    </body>
+</html>

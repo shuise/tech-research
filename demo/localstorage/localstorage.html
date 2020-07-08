@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>localstorage</title>
+		<meta name="author" content="weixin" />
+		<!-- Date: 2012-07-06 -->
+	</head>
+	<body>
+		<p>存储接口测试</p>
+		<p>
+			<input id="setkey" style="width: 200px;height: 21px;line-height: 21px;" type="text" /> 	<input id="setvalue" style="width: 200px;height: 21px;line-height: 21px;" type="text" /> <input type="button" onclick="insertvalue();" value="存储数据" />
+		</p>
+		<p>存储接口测试</p>
+		<p>
+			<input id="getkey" type="text" /><input type="button" onclick="getvalue();" value="取数据" /><input type="button" onclick="deletekey();" value="删除" />
+		</p>
+		<p id="console" style="color: red;font-size: 14px;"></p>
+		<script type="text/javascript" src="localstorage.js"></script>	
+<script type="text/javascript">
+tools_localStorage.init();
+function insertvalue(){
+	var key = document.getElementById("setkey").value,
+		value = document.getElementById("setvalue").value,
+		console =  document.getElementById("console");
+		
+	if(key ==""||value=="")
+	{
+		console.innerHTML="插入值有问题";
+		return;
+	}	
+	tools_localStorage.setItem(key,value);
+	console.innerHTML="插入成功";
+} 
+function getvalue(){
+	var key = document.getElementById("getkey").value,
+		console =  document.getElementById("console");		
+	if(key =="")
+	{
+		console.innerHTML="key为空";
+		return;
+	}		
+	console.innerHTML=key+":"+tools_localStorage.getItem(key);
+} 
+function deletekey(){
+	var key = document.getElementById("getkey").value,
+		console =  document.getElementById("console");		
+	if(key =="")
+	{
+		console.innerHTML="key为空";
+		return;
+	}
+	tools_localStorage.removeItem(key);		
+	console.innerHTML="已删除";
+}
+</script>
+	</body>
+</html>

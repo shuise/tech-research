@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>bound_slide</title>
+		<!-- Date: 2013-03-18 -->
+		<link rel="stylesheet" href="http://img1.cache.netease.com/cnews/css07/style.css" />
+		<link rel="stylesheet" href="slider.css" />
+		<script type="text/javascript" src="http://img1.cache.netease.com/cnews/js/ntes_jslib_1.x.js"></script>
+	</head>
+	<body>		
+		<div style="width: 320px;margin:100px auto;">
+			<div id="slidebody" class="bound_slide_cnt" >
+				<div class="bs_lower_bound bs_bound_tip" ></div>
+				<div class="bs_upper_bound bs_bound_tip"></div>
+				<div class="bs_hound"></div>
+				<a href="javascript;" target="_self" class="bs_left_ctrl bs_ctrl" >←</a>
+				<a href="javascript;" target="_self" class="bs_right_ctrl bs_ctrl" >→</a>			
+			</div>
+		</div>
+		
+		<div id="slider2" style="width: 500px;margin:100px auto;">
+		</div>
+		
+		<div style="width: 320px;margin:100px auto;">
+			<div id="slide3" class="bound_slide_cnt" >
+				<div class="bs_lower_bound bs_bound_tip" ></div>
+				<div class="bs_upper_bound bs_bound_tip"></div>
+				<div class="bs_hound"></div>
+				<a href="#slider2"  class="bs_left_ctrl bs_ctrl" >←</a>
+				<a href="#slider2"  class="bs_right_ctrl bs_ctrl" >→</a>			
+			</div>
+		</div>
+		<div style="width: 320px;margin:100px auto;">
+			<div id="slide4" class="bound_slide_cnt" >
+				<div class="bs_upper_bound bs_bound_tip"></div>
+				<a href="javascript;" target="_self" class="bs_right_ctrl bs_ctrl" >→</a>			
+			</div>
+		</div>						
+		<script type="text/javascript" src="bound_slide.js"></script>	
+		<script type="text/javascript">
+/*
+ 	@ui{
+ 	slider,//slider
+	highlight,//范围UI
+	upper,//上限控制UI
+	lower,//下限控制UI
+	}
+	@param{
+		slideClickbind,//是否绑定slinder体click
+		orientation,//方向"vertical" "horizontal" 默认"horizontal"
+		step,//步长
+		min,//范围下限
+		max,//范围上限
+		values//[]为范围选择，单值			
+	}
+	@callback{
+		upperChange:function(self,value),
+		upperChange:function(self,value),
+		upperStop:function(self,value),
+		lowerStop:function(self,value)
+	}
+ */		
+			var _slide = new bound_slide(
+				{
+					slider:$("#slidebody"),
+					highlight:$("#slidebody .bs_hound").$(0),
+					upper:$("#slidebody .bs_right_ctrl").$(0),
+					lower:$("#slidebody .bs_left_ctrl").$(0)
+				},
+				{
+					step:5,
+					min:0,
+					max:100,
+					values:[20,50]					
+				},
+				{
+					upperChange:function(value){
+						var node = $("#slidebody .bs_upper_bound").$(0);
+						_slide.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					},
+					lowerChange:function(value){
+						var node = $("#slidebody .bs_lower_bound").$(0);
+						_slide.setNodePosbyValue(node,value);
+						node.innerHTML = value;						
+					}					
+				}
+			);
+			_slide.init();
+			
+			var _slide2 = new bound_slide(
+				$("#slider2"),
+				{
+					step:5,
+					min:0,
+					max:100,
+					values:[20,50]					
+				},
+				{
+					upperChange:function(value){
+						//console.log("upper",value);
+					},
+					lowerChange:function(value){
+						//console.log("lower",value);					
+					}					
+				}
+			);
+			_slide2.init();	
+
+			var _slide3 = new bound_slide(
+				{
+					slider:$("#slide3"),
+					highlight:$("#slide3 .bs_hound").$(0),
+					upper:$("#slide3 .bs_right_ctrl").$(0),
+					lower:$("#slide3 .bs_left_ctrl").$(0)
+				},
+				{
+					step:10,
+					min:0,
+					max:100,
+					values:[20,50]					
+				},
+				{
+					upperChange:function(value){
+						var node = $("#slide3 .bs_upper_bound").$(0);
+						_slide3.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					},
+					lowerChange:function(value){
+						var node = $("#slide3 .bs_lower_bound").$(0);
+						_slide3.setNodePosbyValue(node,value);
+						node.innerHTML = value;						
+					}					
+				}
+			);
+			_slide3.slideClickbind = function(){
+				var self = this;
+				$(self._ui.slider).addEvent("click",function(e){
+					var event_offset_dis = e[self._fix.pageAxis] - self.offset_pos[self._fix.pos];
+					var mod = event_offset_dis/self._dis_interval;
+					var flag = Math.round(mod)>mod;
+					
+					var curVale = self.posToValue(event_offset_dis);
+					var lowerValue = curVale;
+					var upperValue = curVale+self._param.step;
+						upperValue = upperValue>self._param.max?self._param.max:upperValue;
+					if(flag){
+						upperValue = curVale;
+						lowerValue = curVale-self._param.step;
+						lowerValue = lowerValue<self._param.min?self._param.min:lowerValue;
+					}
+					self.updateUpperValue(upperValue);
+					self.updateLowerValue(lowerValue);
+					self.setBound();
+				});
+			}
+			_slide3.init();						
+			//单侧slide 
+			var _slide4 = new bound_slide(
+				{
+					slider:$("#slide4"),
+					upper:$("#slide4 .bs_right_ctrl").$(0)
+				},
+				{
+					step:5,
+					min:0,
+					max:100,
+					values:30					
+				},
+				{
+					upperChange:function(value){
+						var node = $("#slide4 .bs_upper_bound").$(0);
+						_slide.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					}					
+				}
+			);
+			_slide4.init();
+			
+		</script>	
+	</body>
+</html>

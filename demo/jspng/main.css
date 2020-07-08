@@ -1,0 +1,14 @@
+body{font-size:14px;color:#333;}
+a{color:#1982D1;text-decoration:none;}
+a:hover{color:#BA0000;text-decoration:underline;}
+a.on{color:#BA0000;text-decoration:underline;}
+.main{width:980px;margin:0 auto;}
+h2{font-size:14px;}
+h2 span{font-size:14px;cursor:pointer;}
+.none{display:none;}
+.c-tab{}
+.c-tab .current{font-weight:bold;color:#FF0000;}
+.c-main{}
+.c-main p{display:none;margin:5px 0;}
+.c-main .current{display:block;}
+.desc{font-size:12px;font-color:#bababa;}

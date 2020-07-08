@@ -1,0 +1,194 @@
+/* base */
+body{line-height:1.5;font-family:arial,"\5b8b\4f53";background:#fff;font-size:12px}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{font-size:100%}
+ol,ul{list-style:none}
+address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:normal}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;*font-size:100%}
+fieldset,img,a img,:link img,:visited img{border:0}
+a{text-decoration:none}
+a:hover{text-decoration:underline}
+:focus{outline:0}
+table{border-collapse:collapse;border-spacing:0}
+caption,th{text-align:left}
+sup,sub{font-size:100%;vertical-align:baseline}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
+.clear,.clearfix:after{clear:both;height:0;overflow:hidden;display:block}
+.clearfix:after{visibility:hidden;content:"."}
+.clearfix{*zoom:1}
+
+/* page */
+.hehehehe{display: none;}
+body{
+	min-height: 1000px;
+}
+.pagetitle{
+	font-size: 40px;
+	color: #f0e;
+	text-shadow:0px 0px 3px #000;
+	margin:10px auto 20px;
+}
+.pagetitle::first-letter{
+	font-size: 50px;
+}
+.gameplay{
+	width: 600px;
+	margin:40px auto 0;
+	border: 2px solid #000;
+	border-radius: 10px;
+	padding: 10px;
+}
+.gamecontainer{
+	
+}
+.gamecontainer .mainbox{
+	width: 400px;
+	float: left;
+}
+.gamecontainer .sidebox{
+	width: 200px;
+	float: right;
+}
+.gamecontainer .mainbox li{
+	width: 100px;
+	height: 100px;
+	border:2px solid #000;
+	border-radius: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	line-height: 100px;
+	float: left;
+	transition:border-color 0.2s linear 0s;
+}
+.gamecontainer .mainbox li:hover{
+	box-shadow: 0 0 20px #f00 inset;
+	border-color: red;
+}
+.gamecontainer .mainbox li span{
+	font-size: 30px;
+}
+.gamecontainer .mainbox .grown_1{
+	background: url(images/gu_i.png) 0 0 no-repeat #794a12;
+}
+.gamecontainer .mainbox .grown_2{
+	background: url(images/gu_i.png) -100px 0 no-repeat #18a13b;
+}
+.gamecontainer .mainbox .grown_3{
+	background: url(images/gu_i.png) -200px 0 no-repeat #aa4149;
+}
+.gamecontainer .mainbox .grown_4{
+	background: url(images/gu_i.png) -300px 0 no-repeat #f90;
+}
+.gamecontainer .mainbox .growing span{
+	display: none;
+}
+.cardtotal{
+	background: url(images/gu_i.png) -300px 0 no-repeat;
+	padding-left: 100px;
+	height: 100px;
+	line-height: 90px;
+	font-size: 30px;
+	font-family: Arial;
+	color: #f03090;
+	font-weight: bold;
+}
+.btns{
+	height: 50px;
+	background: #df9d50;
+	border-radius: 10px;
+	padding: 20px;
+}
+.btns a:hover{
+	text-decoration: none;
+	box-shadow: 1px 1px 3px #000;
+}
+.btns a:active{
+	box-shadow: 1px 1px 3px #000 inset;
+	opacity: .8;
+}
+.act_btn{
+	display: inline-block;
+	font-size: 30px;
+	text-align: center;
+	color: #000;
+	border:2px solid #000;
+	border-radius: 5px;
+	padding: 0 8px;
+	background: #f6dd77;
+	margin:0 5px;
+}
+.share_line{
+	width: 400px;
+	height: 200px;
+	border:10px solid #000;
+	border-radius: 20px;
+	text-align: center;
+	position: fixed;
+	z-index: 10;
+	left: 50%;
+	top:80px;
+	background: rgba(255,200,200,.96);
+	margin-left: -200px;
+	display: none;
+}
+.share_line span{
+	display: block;
+	font-size: 20px;
+	text-align: center;
+}
+.share_line a:hover{
+	text-decoration: none;
+}
+.nickname{
+	width: 200px;
+	height: 35px;
+	line-height: 35px;
+	display: block;
+	margin:0 auto;
+	text-align: center;
+}
+.score{
+	display: none;
+}
+.justshowmywealth,.nozuo{
+	display: inline-block;
+	font-size: 30px;
+	color: #000;
+	border:2px solid #000;
+	margin:0 10px;
+	padding: 0 10px;
+	color: #f03090;
+}
+.nozuo{
+	color: #777;
+	border-color: #777;
+}
+.cursor_default{
+	cursor: auto;
+}
+.cursor_sow{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_c_a.png), pointer;
+}
+.cursor_sow:active{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_c_a.png), pointer;
+}
+.cursor_water{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_h_a.png), pointer;
+}
+.cursor_water:active{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_h_b.png), pointer;
+}
+.cursor_unroot{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_t_a.png), pointer;
+}
+.cursor_unroot:active{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_t_b.png), pointer;
+}
+.cursor_reap{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_l_a.png), pointer;
+}
+.cursor_reap:active{
+	cursor: url(http://dev.f2e.163.com/demo/growing_up/images/gu_l_a.png), pointer;
+}

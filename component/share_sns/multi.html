@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>多个分享</title> 
+
+    <script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+
+    <link rel="stylesheet" href="share_sns.css">
+    <script src="share_sns.js"></script>
+
+    <style>
+    .ns-area {width: 960px;margin: 0 auto;}
+    .ns-box {float:left;width: 300px;height:46px;border-top:350px solid #c2ebfc;background: #333;margin:10px;}
+    </style>
+    
+</head>
+
+<body>
+    <!-- 在每个分享父元素上自定义属性 data-url等等 -->
+    <div class="ns-area">
+        <div class="ns-box">
+            <ul class="ns-share13-light" data-url="http://www.163.com/" data-title="标题" data-pic="http://img1.cache.netease.com/home/2013/11/29/201311291552338da02.jpg" data-digest="描述" data-source="来源">
+                <li class="ns-share-item" data-type="yixin"><a href="javascript:;" target="_self" title="分享到易信"><i class="ns-share-icon ns-share-yixin"></i></a></li>
+                <li class="ns-share-item" data-type="lofter"><a href="javascript:;" target="_self" title="分享到LOFTER"><i class="ns-share-icon ns-share-lofter"></i></a></li>
+                <li class="ns-share-item" data-type="weixin"><a href="javascript:;" target="_self" title="分享到微信"><i class="ns-share-icon ns-share-weixin"></i></a></li>
+                <li class="ns-share-item" data-type="qzone"><a href="javascript:;" target="_self" title="分享到QQ空间"><i class="ns-share-icon ns-share-qzone"></i></a></li>
+                <li class="ns-share-item" data-type="sinawb"><a href="javascript:;" target="_self" title="分享到新浪微博"><i class="ns-share-icon ns-share-sinawb"></i></a></li>
+                <li class="ns-share-item" data-type="renren"><a href="javascript:;" target="_self" title="分享到人人网"><i class="ns-share-icon ns-share-renren"></i></a></li>
+                <li class="ns-share-item" data-type="youdao"><a href="javascript:;" target="_self" title="收藏到有道云笔记"><i class="ns-share-icon ns-share-youdao"></i></a></li>
+            </ul>         
+        </div>
+        <div class="ns-box">
+            <ul class="ns-share13-light" data-url="http://www.163.com/" data-title="标题" data-pic="http://img1.cache.netease.com/home/2013/11/29/201311291552338da02.jpg" data-digest="描述" data-source="来源">
+                <li class="ns-share-item" data-type="yixin"><a href="javascript:;" target="_self" title="分享到易信"><i class="ns-share-icon ns-share-yixin"></i></a></li>
+                <li class="ns-share-item" data-type="lofter"><a href="javascript:;" target="_self" title="分享到LOFTER"><i class="ns-share-icon ns-share-lofter"></i></a></li>
+                <li class="ns-share-item" data-type="weixin"><a href="javascript:;" target="_self" title="分享到微信"><i class="ns-share-icon ns-share-weixin"></i></a></li>
+                <li class="ns-share-item" data-type="qzone"><a href="javascript:;" target="_self" title="分享到QQ空间"><i class="ns-share-icon ns-share-qzone"></i></a></li>
+                <li class="ns-share-item" data-type="sinawb"><a href="javascript:;" target="_self" title="分享到新浪微博"><i class="ns-share-icon ns-share-sinawb"></i></a></li>
+                <li class="ns-share-item" data-type="renren"><a href="javascript:;" target="_self" title="分享到人人网"><i class="ns-share-icon ns-share-renren"></i></a></li>
+                <li class="ns-share-item" data-type="youdao"><a href="javascript:;" target="_self" title="收藏到有道云笔记"><i class="ns-share-icon ns-share-youdao"></i></a></li>
+            </ul> 
+        </div>
+        <div class="ns-box">
+            <ul class="ns-share13-light" data-url="http://www.163.com/" data-title="标题" data-pic="http://img1.cache.netease.com/home/2013/11/29/201311291552338da02.jpg" data-digest="描述" data-source="来源">
+                <li class="ns-share-item" data-type="yixin"><a href="javascript:;" target="_self" title="分享到易信"><i class="ns-share-icon ns-share-yixin"></i></a></li>
+                <li class="ns-share-item" data-type="lofter"><a href="javascript:;" target="_self" title="分享到LOFTER"><i class="ns-share-icon ns-share-lofter"></i></a></li>
+                <li class="ns-share-item" data-type="weixin"><a href="javascript:;" target="_self" title="分享到微信"><i class="ns-share-icon ns-share-weixin"></i></a></li>
+                <li class="ns-share-item" data-type="qzone"><a href="javascript:;" target="_self" title="分享到QQ空间"><i class="ns-share-icon ns-share-qzone"></i></a></li>
+                <li class="ns-share-item" data-type="sinawb"><a href="javascript:;" target="_self" title="分享到新浪微博"><i class="ns-share-icon ns-share-sinawb"></i></a></li>
+                <li class="ns-share-item" data-type="renren"><a href="javascript:;" target="_self" title="分享到人人网"><i class="ns-share-icon ns-share-renren"></i></a></li>
+                <li class="ns-share-item" data-type="youdao"><a href="javascript:;" target="_self" title="收藏到有道云笔记"><i class="ns-share-icon ns-share-youdao"></i></a></li>
+            </ul> 
+        </div>
+    </div>
+
+
+    <script>
+        NE.shareSnsAll({
+            shareItemClassName: "ns-share-item",    //分享按钮类名 不指定默认即ns-share-item
+            qrcodeOffsetX: -76,
+            qrcodeOffsetY: 20
+        });
+    </script>
+
+</body>
+
+</html>

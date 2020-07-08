@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ajax_back @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://static.f2e.netease.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>ajax_back</h1>
+			<div class="f2e_api_section">
+				<p>
+					其实严格意义上，应该是javascript执行的回退方案。通过hashchange来管理每一步js执行逻辑。
+				</p>
+			</div>						
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/ajax_back/ajax_back.js">http://qa.developer.163.com/component/ajax_back/ajax_back.js</a></p>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>代码实例</h2>
+	<pre id="f2e_api_code">
+	var _back = new ajax_back();
+		_back.init();
+		_back.execute(
+			function(){
+				//需要回退的执行逻辑
+			},
+			hash//对应hash值，可缺省,会随机生成一个hash
+		);	
+	</pre>
+			</div>
+
+			<div class="f2e_api_btns">
+				<a href="demo.html" target="_blank">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

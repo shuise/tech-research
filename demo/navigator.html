@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>navigator</title>
+<link rel="stylesheet" href="/component/bootstrap/bootstrap.css">
+</head>
+<body>
+
+
+<div id="show"></div>
+
+<script type="text/javascript" src="canvas/res/lib.js"></script>
+<script>
+var old = [
+	"appCodeName",
+	"appName",
+	"appVersion",
+	"cookieEnabled",
+	"javaEnabled",
+	"language",
+	"onLine",
+	"platform",
+	"productSub",
+	"product",
+	"userAgent",
+	"vendor",
+	"vendorSub",
+	""
+];
+
+document.getElementById("show").innerHTML = 
+printData(navigator) + printData(window);
+function printData(obj){
+	// HE.trace('printData')
+	// HE.trace(obj)
+	var str = "";
+	if(typeof obj == 'object'){
+		str = '<table class="table table-bordered">';
+		for (prop in obj){
+			str += '<tr><th style="text-align:right;">' + prop + '</th><td>' + obj[prop] + '</td></tr>';
+		}
+		str += "</table>";
+	}else{
+		str = HE.json2Str(obj + '');
+	}
+	return str;
+}
+</script>
+
+</body>
+</html>

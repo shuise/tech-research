@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>canvas绘制大图</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<!-- Date: 2014-02-20 -->
+		<link rel="stylesheet" href="bootstrap.min.css" />
+		<link rel="stylesheet" href="bootstrap-theme.min.css" />		
+	</head>
+	<body>	
+		<div class="container">
+			<div class="page-header">
+				<h2>canvas绘制大图</h2>
+			</div>				
+			<div class="well text-center">				
+				<div class="page-header">
+					<h3>原图显示</h3>
+				</div>
+				<img class="img-responsive" src="IMG_0422.JPG" alt="" />							
+			</div>
+
+			<div class="well text-center">				
+				<div class="page-header">
+					<h3>canvas直接绘制大图</h3>
+				</div>
+				<canvas id="test_canvas">			
+				</canvas>				
+			</div>
+
+			<div class="well text-center">				
+				<div class="page-header">
+					<h3>不压缩，分块后，canvas绘制</h3>
+				</div>
+				<div id="showcnt">			
+				</div>				
+			</div>
+			
+			<div class="well text-center">				
+				<div class="page-header">
+					<h3>压缩0.8，分块后，canvas绘制</h3>
+				</div>
+				<div id="showcnt1">			
+				</div>				
+			</div>						
+		</div>
+	
+		<script src="imagescale.js"></script>
+		<script type="text/javascript">
+		(function(){
+			function getEle(s){
+				return document.querySelectorAll(s);
+			}
+			var img = new Image();
+			img.src = "IMG_0422.JPG";
+			img.onload = function(){
+				var canvas = document.getElementById("test_canvas");
+				var ctx = canvas.getContext("2d");
+				var scale = getEle(".page-header")[1].offsetWidth*1.0/img.width;
+				var width = img.width*scale;
+				var height = img.height*scale;			
+				canvas.setAttribute('width',width);
+				canvas.setAttribute('height',height);			
+				ctx.drawImage(img,0,0,width,height);								
+			};
+			
+				
+			
+			//for(var i=1;i<10;i++){
+				//(function(i){
+			//利用canvas先分解， 再绘制图片
+			imageScale("IMG_0422.JPG",1,function(canvas){					
+				var br = document.createElement("br");
+				var link = document.createElement("a");
+				link.className = "btn btn-default ";
+				link.innerHTML = "另存为";
+				link.href = canvas.toDataURL("image/jpeg").replace("image/jpeg;base64","image/octet-stream;base64");
+				link.download = new Date().getTime()+".jpg";
+				var showCtn = getEle("#showcnt")[0];
+				showCtn.appendChild(canvas);
+				showCtn.appendChild(br);
+				showCtn.appendChild(link);						
+				//getEle("#result")[0].innerHTML += "&nbsp;"+new Number(i); 
+			});	
+			
+			imageScale("IMG_0422.JPG",0.7,function(canvas){					
+				var br = document.createElement("br");
+				var link = document.createElement("a");
+				link.className = "btn btn-default ";
+				link.innerHTML = "另存为";
+				link.href = canvas.toDataURL("image/jpeg").replace("image/jpeg;base64","image/octet-stream;base64");
+				link.download = new Date().getTime()+".jpg";
+				var showCtn = getEle("#showcnt1")[0];
+				showCtn.appendChild(canvas);
+				showCtn.appendChild(br);
+				showCtn.appendChild(link);						
+				//getEle("#result")[0].innerHTML += "&nbsp;"+new Number(i); 
+			});							
+				//})(i);				
+			//}												
+		})();		
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,79 @@
+<div class="rank-wrap">
+  <table class="table">
+    <tbody>
+      <tr><th colspan="7" class="category">
+          <span ne-repeat="item in catelist">
+            <a ne-show="{item.title!=category}" href="#/list/{{item.title}}">{{item.title}}</a>
+            <b ne-show="{item.title==category}">{{item.title}}</b>
+          </span>
+      </th></tr>
+	  <tr>
+		<th rowspan=2>关键词</th>
+		<th rowspan=2 class="rborder">目标页面</th>
+		<th colspan=2 class="rborder center">百度排名</th>
+		<th colspan=2 class="center">360排名</th>
+		<th rowspan=2 class="lborder center">排名走势</th>
+	  </tr>
+      <tr>
+          <th class="center">同URL</th>
+          <th class="rborder center">同域最高排名</th>
+          <th class="center">同URL</th>
+          <th class="center">同域最高排名</th>
+      </tr>
+	  <tr ne-repeat="item in list">
+		<th>{{item.searchWord}}</th>
+		<td class="rborder"><a href="{{item.originUrl}}" target="_blank">{{item.originUrl}}</a></td>
+		<td class="center">
+          <span>{{item.detail[0].rank || ""}}</span>
+        </td>
+		<td class="rborder center">
+          {!{item.detail[0].dRank}} <a href="http://{{item.detail[0].dUrl}}" target="_blank" ne-class="{!item.detail[0] || !item.detail[0].dRank?'hidden':''k}">[页面]</a>
+        </td>
+		<td class="center">
+          <span ne-show="item.detail[1]">{{item.detail[1].rank || ""}}</span>
+        </td>
+		<td class="center">
+          {!{item.detail[1].dRank}} <a href="http://{{item.detail[1].dUrl}}" target="_blank" ne-class="{!item.detail[1] || !item.detail[1].dRank?'hidden':''}">[页面]</a>
+		</td>
+		<td class="lborder acenter"><a href="#/detail/{{item.searchWord}}/{{item.originUrl}}" class="btn btn-small">排名走势</a></td>
+	  </tr>
+    </tbody>
+	<tbody class="togglewrap" ne-show="toggleold">
+      <tr><td colspan="7">
+          <a class="category" ne-click="toggleold()">查看更多历史条目</a>
+      </td></tr>
+    </tbody>
+	<tbody class="table" ne-show="showold">
+	  <tr>
+		<th rowspan=2>关键词</th>
+		<th rowspan=2>目标页面</th>
+		<th colspan=2 class="center">百度排名</th>
+		<th colspan=2 class="center">360排名</th>
+		<th rowspan=2 class="center">排名走势</th>
+	  </tr>
+      <tr>
+          <th>同URL</th>
+          <th>同域最高排名</th>
+          <th>同URL</th>
+          <th>同域最高排名</th>
+      </tr>
+	  <tr ne-repeat="item in oldlist">
+		<th>{{item.searchWord}}</th>
+		<td><a href="{{item.originUrl}}" target="_blank">{{item.originUrl}}</a></td>
+		<td>
+          <span>{{item.detail[0].rank || ""}}</span>
+        </td>
+		<td>
+          <a href="http://{{item.detail[0].dUrl}}" target="_blank" ne-class="{!item.detail[0] || !item.detail[0].dRank?'hidden':''k}">{{item.detail[0].dRank}}(同域最高排名页)</a>
+        </td>
+		<td>
+          <span ne-show="item.detail[1]">{{item.detail[1].rank || ""}}</span>
+        </td>
+		<td>
+          <a href="http://{{item.detail[1].dUrl}}" target="_blank" ne-class="{!item.detail[1] || !item.detail[1].dRank?'hidden':''}">{{item.detail[1].dRank}}(同域最高排名页)</a>
+		</td>
+		<td class="acenter"><a href="#/detail/{{item.searchWord}}/{{item.originUrl}}" class="btn btn-small">排名走势</a></td>
+	  </tr>
+    </tbody>
+  </table>
+</div>

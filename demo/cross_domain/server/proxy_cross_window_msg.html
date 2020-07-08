@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>proxy</title>
+</head>
+
+<body>
+<script>
+window.addEventListener("message", function(e){
+	window.parent.postMessage("your username:" + e.data, "*");
+});
+</script>	
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿.c_select_mock{height:20px;position:absolute;font-size:12px;line-height:20px;font-family:arial, "宋体";}
+.c_select_arr {display:block;width:100%;background-color:#fff;border:1px solid #ddd;height:19px;overflow:hidden;}
+.c_select_arr span{background:url(images/select.jpg) no-repeat 0 0; display:block;width:15px;height:15px; overflow:hidden;position:absolute;top:3px;right:1px;}
+.c_select_arr input { padding-left:3px;border:0;outline:0;padding-top:2px;}
+.c_select_mock ul{height:0;width:100%;overflow:hidden;position:absolute;left:0;top:20px;z-index:100;display:none;}
+.c_select_mock ul li{line-height:21px; padding-left:3px; height:21px; overflow:hidden; cursor:default;}
+.c_select_mock ul li:hover,.c_select_mock ul li.selected{background-color:#EBEFF8}
+.c_select_mock_open ul{ background:#fff;border:1px solid #ddd;border-top:0;overflow:auto;height:auto;max-height:200px;_height:expression( this.scrollHeight > 200 ? "200px" : "auto" );display:block;}

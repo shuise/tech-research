@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+<style type="text/css">
+.drag {position: relative; left: 50px; width: 58px; height: 58px; border: 1px solid #89B; background: #BCE;}
+#handle {position: absolute; right: -1px; bottom: -1px; width: 8px; height: 8px; overflow: hidden; border: 1px solid #8899BB; background-color: #99AACC; cursor: nw-resize;}
+</style>
+</head>
+
+<body>
+<div id="div-1" class="drag" style="margin-left:100px; margin-top: 120px;">div1 <div id="handle"></div></div>
+<script>
+var handle = document.getElementById("handle");
+new Drag({
+	elem: handle,
+	draginit: function(e, dd){
+		var div = this.parentNode;
+		dd.div = {
+			w : div.offsetWidth,
+			h: div.offsetHeight
+		}
+	},
+	drag: function(e, dd){
+		var div = this.parentNode;
+		div.style.width = Math.max(30, dd.div.w + dd.deltaX) + "px";
+		div.style.height = Math.max(30, dd.div.h + dd.deltaY) + "px";
+	}
+});
+
+
+</script>
+</body>
+</html>

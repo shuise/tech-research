@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>bound_test</title>
+		<meta name="author" content="Administrator" />
+		<!-- Date: 2014-02-27 -->
+		<style type="text/css">
+			#wrap1{
+				position:absolute;
+				z-index:1;
+				margin:auto;
+				left:0;
+				right:0;
+				top:0;
+				bottom:0;				
+				width:400px;
+				height:400px;
+				background-color:red;
+			}
+			#wrap1:hover{
+				background-color:#FFF;
+			}
+			#wrap2{
+				position:absolute;
+				z-index:2;
+				margin:auto;
+				left:0;
+				right:0;
+				top:0;
+				bottom:0;	
+				width:200px;
+				height:200px;
+				border-radius:100px;
+				background-color:black;
+			}
+			#wrap2:hover{
+				background-color:blue;
+			}
+			#wrap3{
+				position:relative;
+				width:500px;
+				height:500px;
+				margin:auto;
+			}						
+		</style>		
+	</head>
+	<body>
+		<div id="wrap3">
+			<div id="wrap1"></div>
+			<div id="wrap2"></div>
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ID</title>
+</head>
+<body>
+<style>
+.a{
+	font-size:12px;
+	line-height: 20px;
+	width:80%;
+	word-break:break-all;
+}
+div{
+	border:1px solid #ccc;
+	padding:10px;
+}
+.result{
+	position:fixed;
+	right:5px;
+	top:5px;
+	width:15%;
+}
+.compare{
+	font-size:30px;
+}
+</style>
+<script src="finger_print.json"></script>
+<script src="finger_print2.json"></script>
+<script src="finger_print3.json"></script>
+
+<p>
+	<!-- <input id="form_1988_name" name="name" type="text" value="" placeholder="popo前缀"/> -->
+	你的canvas指纹：
+
+	<!-- <input class="compare" type="button" onclick="save()" value="保存结果"> -->
+	<input class="compare" type="button" onclick="compare(fingerPrint)" value="第1次结果对比">
+	<input class="compare" type="button" onclick="compare(fingerPrint2)" value="第2次结果对比">
+	<input class="compare" type="button" onclick="compare(fingerPrint3)" value="第3次结果对比">
+</p>	
+<div id="a" class="a"></div>
+<div class="result">
+	<h2>三次试验参数：</h2>
+	<ol>
+		<li>20pt airal</li>
+		<li>9pt Cochin</li>
+		<li>90pt Cochin</li>
+	</ol>
+</div>
+
+
+
+<script>
+var str = "网易（北京）科技有限公司 中关村东路 NetEase Inc.";
+var config = "90pt Cochin";
+
+var target = document.getElementById("a");
+var cid = getID(str);
+	target.innerHTML = cid;
+
+
+
+function getID(words){
+	var d = document;
+	var canvas = d.createElement("canvas");
+		canvas.width = 1000;
+		canvas.height = 1000;
+	var context = canvas.getContext("2d");
+
+	context.font = config;    
+	
+	context.fillStyle = "red"; 
+	context.fillText(words,0,0);
+
+	context.shadowOffsetX = 5;     
+	context.shadowOffsetY = 5;     
+	context.shadowBlur    = 20;     
+	context.shadowColor   = "blue"; 
+
+	var url = canvas.toDataURL("image/png");
+	return url;
+}
+
+
+function compare(data){
+	var names = [];
+	var flag = false;
+	for(var p in data){
+		names.push(p);
+	}
+
+	for(var i=0,len=names.length;i<len;i++){
+		for(var p in data){
+			if(p != names[i] && data[p] == data[names[i]]){
+				flag = true;
+				alert(p + "与" + names[i] +  "冲突");
+			}
+		}
+	}
+
+	if(!flag){
+		alert("无冲突");
+	}
+
+	// return names.join("<br>");
+}
+
+
+function save(){
+	var url = "http://active.163.com/service/form/v1/1988/submit";
+	var name = document.getElementById("form_1988_name").value || new Date().getTime();
+	var data = {
+		"name" : name,
+		"cid" : cid,
+		"ua" : navigator.userAgent,
+		"config" : config
+	};
+}
+</script>
+</body>
+</html>

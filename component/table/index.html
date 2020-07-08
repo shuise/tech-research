@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>table 排序,表头置顶 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+		
+		<div class="f2e_api_content">
+			<h1>table 排序,表头置顶</h1>
+			
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/table/money_common.js">http://qa.developer.163.com/component/table/money_common.js</a></p>
+			</div>
+						
+			
+			<div class="f2e_api_section">
+				<h2>参数说明</h2>
+				<pre id="f2e_api_code">
+1 、 表格排序
+需要排序的表格表头：
+money_common.sort_table('plate_performance',1,'int',this)
+参数说明：排序表格id
+               需排序的列(第一列即为0)
+               数值类型，支持int,float,string
+               传入事件源
+
+                      
+2、表头滚动置顶
+表头需单独一个表格。主体表格内容部分亦需表头，用作占位使表格宽度自适应
+调用方法： money_common.fasten_thead('plate_performance','plate_performance_fasten');
+参数说明：主体表格id
+               辅助展示表格id
+
+
+3、表格翻页
+调用示例：
+var money_common_arg = {
+        ids:{ //页面内元素id
+            table_id    : 'scroll_table_1',       //需控制的表格id
+            left_id     : 'scroll_turn_left',     //向左翻控制键id
+            right_id    : 'scroll_turn_right'     //向右翻控制键id
+        },
+        cls:{ //控制键层的class名
+            left        : 'scroll_btn_l',         //向左 不可点击时样式 
+            left_hover  : 'scroll_btn_l active',  //向左 可点击时样式 
+            right       : 'scroll_btn_r',         //向右 不可点击时样式 
+            right_hover : 'scroll_btn_r active'   //向右 可点击时样式 
+        },
+        scroll_num      : 6                       //每点击一次跳过table的列数
+};
+money_common.scroll_crosswise(money_common_arg);
+
+
+
+4、兼容ie的css3中nth-child效果实现
+money_common.nth_child(id,style,even,onlyIE);
+参数说明：需要隔行变色的表格id,如果为空，则为该页面内的所有表格
+               隔行实现的样式
+               奇偶行，默认为偶数行
+               是否只实现ie(其他浏览器可通过css3的nth-child实现)，默认其他浏览器不做处理
+</pre>
+			</div>
+			
+				
+			<div class="f2e_api_btns">
+				<a href="fasten.shtml">查看1 2的demo</a><br/>
+			    <a href="/finance/common/_detail_demo.html">查看3翻页demo</a><br/>
+			    <a href="/finance/common/_table_demo.html">查看4的demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

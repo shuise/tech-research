@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>中华人民共和国身份证号验证</title>
+<link rel="stylesheet" href="http://static.f2e.netease.com/system/docs_temp/api.css" />
+<style type="text/css">
+	#idno{width: 180px;}
+</style>
+<script type="text/javascript" src="idcard.js"></script>
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<div class="f2e_api_menu_item">
+				<h2>前端 代码库</h2>
+				<ol id="menu">
+				<li><a href="vedio.html">视频播放（需chrome）</a></li>
+				<li><a href="audio/mp.html">音频播放（需chrome）</a></li>
+				<li><a href="linebetween/index.html">js动态添加分隔线</a></li>
+				<li><a href="copy/index.html">兼容所有浏览器的复制功能--多个复制</a></li>
+				<li><a href="timeline/timeline.html">简易时间轴</a></li>
+				<li><a href="turnpage/index.html">js+css3翻书效果</a></li>
+				<li><a href="autoslide/pageslide_demo.html">文章页-车款展示slide</a></li>
+				<li><a href="wgraph/index.html" target="_blank">UML图表绘制(基于Raphael绘图库)</a></li>
+				<li><a href="xampp/index.html" target="_blank">Windows下XAMPP环境配置</a></li>
+				<li><a href="canvas/canvas.html">canvas</a></li>
+				<li><a href="colorPicker.html">colors</a></li>
+				<li><a href="localstorage/localstorage.html" target="_blank">localstorage封装接口（localstrage+userdata）</a></li>
+				<li><a href="jspng/index.html" target="_blank">文本与PNG图片之间的转换demo（HTML5）</a></li>
+				<li><a href="slidewindow/NormalJS/index.html" target="_blank">图片轮换(原生JS)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="slidewindow/UseJquery/index.html" target="_blank">图片轮换(JQuery版)</a></li>
+				<li><a href="utf8bom/index.html" target="_blank">UTF8文件编码的两种模式</a></li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>中华人民共和国身份证号验证</h1>
+			
+			<div class="f2e_api_section">
+				<p>引入idcard.js</p>
+				<p>调用validateIdCard(<em>string</em>)进行对身份证号字符串string的验证</p>
+				<p>验证结果：
+					0 验证无误
+					1 非法身份证号
+					2 非法地区
+					3 非法生日
+				</p>
+			</div>
+			<div class="f2e_api_section" style="border:1px dashed #999;">
+				<p>
+					<strong>输入身份证号：</strong>
+					<input type="text" id="idno" size="18" />
+					<input type="button" value="验证" onclick="checkIDCard()" />
+				</p>
+				<p>
+					<strong>验证结果：</strong><span id="idresult"></span>
+				</p>
+			</div>
+
+
+			<div class="f2e_api_section">
+				<h2>代码实例</h2>
+				<pre id="f2e_api_code"> 
+					validateIdCard('130888198808080886');
+					//return 0
+					validateIdCard('130888198808080880');
+					//return 1
+				</pre>
+			</div>
+
+			<div class="f2e_api_btns">
+				<!-- <a href="demo.html" target="_blank">demo</a> -->
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+<script type="text/javascript">
+function checkIDCard(){
+	var str = document.getElementById('idno').value;
+	var arr = ['验证无误','非法身份证号','非法地区','非法生日'];
+	if(str){
+		document.getElementById('idresult').innerHTML = arr[validateIdCard(str)];
+	}
+}
+</script>
+</body>
+</html>

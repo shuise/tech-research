@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+<script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+<script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+<script type="text/javascript" src="../chart.touchpie.js" charset="utf-8"></script>
+<script type="text/javascript" src="tabchart.js" charset="utf-8"></script>
+<title>手机版饼图</title>
+<style>
+body{background:#EEEEEF}
+.nav-group{width:95%;max-width:800px;margin:0 auto;}
+.nav-hds{margin:0;padding:0;}
+.nav-hd{background:#FFF;float:left;list-style:none;text-align:center;color:#888888;font-size:18px;}
+.nav-hd span{cursor:pointer;display:block;padding:10px 0;border-top:3px solid transparent}
+.nav-hd:nth-child(1) span{border-right:1px solid #EFEFEF;}
+.nav-hd.active span{border-top:3px solid #FF4473;}
+.nav-hds2 .nav-hd{width:50%}
+.nav-bd{background:#F7F7F7;padding:12px;display:none;}
+.nav-bd.active{display:block}
+.nteschart-body {margin:20px auto;width:100%;max-width:600px;height:350px;display:block;position:relative;-moz-user-select:none;-webkit-user-select:none;}
+.chart-xy .nteschart-body { height:250px }
+.nteschart-tip{display:none;position:relative;left:0;font-size:12px;white-space:nowrap;color:#666666;padding:0;-webkit-border-radius:4px;-webkit-box-shadow:1px 1px 4px #ccc;box-shadow:1px 1px 4px #ccc}
+.nteschart-shadow{border-radius:100%;-webkit-box-shadow:0 0 6px #666;box-shadow:0 0 6px #666}
+.nteschart-shadow-inner{border-radius:100%;-webkit-box-shadow:0 0 6px #666 inset;box-shadow:0 0 6px #666 inset}
+.chart-pie .nteschart-tip-arrow{display:none}
+.chart-pie .nteschart-tip:before,.chart-xy .nteschart-tip-arrow{position:absolute;border-bottom: 12px solid #FF4473;border-left: 8px solid rgba(0, 0, 0, 0);border-right: 8px solid rgba(0, 0, 0, 0);top:-12px;}
+.chart-pie .nteschart-tip:before{left:50%;content:"";margin:0 0 0 -8px;}
+.chart-xy .nteschart-tip-arrow{left:50px;}
+.nteschart-tip table{width:100%;border:1px solid #CCCCCC;}
+.nteschart-tip th,.nteschart-tip td{padding:4px 6px}
+.nteschart-tip th{color:#888;font-weight:normal;}
+.nteschart-tip td:nth-child(1){color:#444;}
+.nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:-1px;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+.nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#9A7C69;}
+.nteschart-tip td:last-child{text-align:center;}
+.clearfix:after{content:" "; display: block; height:0; clear:both;}
+</style>
+</head>
+<body>
+    <div class="nav-group" id="group1">
+        <ul class="nav-hds nav-hds2 clearfix">
+            <li class="nav-hd active" chart-data="pie" chart-conf="pie"><span>占比</span></li>
+            <li class="nav-hd" chart-data="line" chart-conf="line"><span>数值</span></li>
+        </ul>
+        <div class="nav-bds">
+            <div class="nav-bd chart-pie active">
+                <div class="nteschart-body"></div> 
+            </div>
+            <div class="nav-bd chart-xy">
+                <div class="nteschart-body"></div> 
+            </div>
+        </div>
+    </div>
+    <script>
+var chartConfs = {};
+var chartDatas = {};
+chartConfs.pie = {
+  type : 'touchRing',
+  options : {
+    htmlTips : {
+      single : "<table><tr><th colspan=3>{title}<tr><td>PV总和<td>{percent}%<td>{fmtval}</table>",
+      docked : 'bottom',
+      boxWidth : 400
+    },tipsAlwaysOn : true, 
+    tips : "{title}\n{percent}% [{fmtval}]",
+    shiftX : -50,
+    tipRatio : 0, animate: true,
+    getColor : function(a){
+      return "hsb(0,0," + a*0.88 + ")";
+    },
+    legend : {show:'right'},
+    fmtPercent : function(val){ return val.toFixed(2); }
+  }
+};
+chartConfs.line = {
+  type : 'xyChart',
+  plot : ['line', 'dot'],
+  options : {
+    padding:{x:20},
+    htmlTips : {
+      group : "<table><tr><th>{xtick}<th colspan=2>文章PV<th>日均{rows}<tr><td><i style='background:#FF4473'></i>所有频道<td colspan=2>{sum}<td>{average}</table>",
+      vline : {stroke:'#FF4473'},
+      docked : 'bottom'
+    },
+    fixTips : function(info){
+      info.average = NTESChart.quoteNum(info.average||0);
+    },
+    tipsAlwaysOn : true, dotHidden:3,
+    showLegend : false,
+    yTitle : {title: "点击次数"},
+    xTick : {labels : "7-{x}", shiftY : 3},
+    xpadding : 0, //fillAttr : {opacity : 0.8},
+    yTick : {
+      labels : "{y}", startY : [0,0], interval : 20
+    },
+    grid : {nogrid:1, rows:5, shadow : 0, vline : true},
+    shadow : false,
+    fillAttr : [
+      {opacity:1},
+      {opacity:1},
+      {opacity:1}
+    ],
+    hoverOnInit:true,
+    colors : ['#999999', '#BBBBBB', '#F0F0F0'],
+    noBG : false,
+    anim : true, unify : 100
+  }
+};
+chartDatas.pie = {"Chrome18.043949":9,"IE8":28,"FF23":71,"IE7":9,"Opera9":2,"FF14":6,"Chrome14":2,"Chrome21":7,"IE6":11,"Chrome20":24};
+chartDatas.line = [
+  {
+    title : '导入荐新闻首页新闻数量',
+    tips : '{title}\t{percent}%\t{y}\t{average}',
+    data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+    group : 'total'
+  },{
+    title : '未导入荐新闻首页新闻数量',
+    tips : '{title}\t{percent}%\t{y}\t{average}',
+    data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+    group : 'total'
+  },{
+    title : '其它新闻数量',
+    tips : '{title}\t{percent}%\t{y}\t{average}',
+    data : [7122,7004,7434,7326,7235,7114,8001,7262,7435,7840],
+    group : 'total',
+    config : {fixMeanNum:function(num){return Math.round(num)}}
+  }];
+
+NTESChart.initTabCharts(document.getElementById("group1"));
+    </script>
+</body>
+</html>

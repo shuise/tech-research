@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cors</title>
+<script src="http://img1.cache.netease.com/f2e/libs/jquery.js"></script>
+</head>
+
+<body>
+<button type="button" id="btn_get">get</button>
+<button type="button" id="btn_post">post</button>
+<script>
+$(function(){
+	var support = "withCredentials" in (new XMLHttpRequest());
+	if(!support) {
+		alert("不支持cors");
+		return;
+	}
+
+	$("#btn_get").click(function(){
+		$.get("http://test.cross_domain.163.com:8080/?date=1396684617824").then(function(data) {
+			console.info(data);
+		}, function(error) {
+			console.info("出错： ", error);
+		});
+	});
+
+	$("#btn_post").click(function(){
+		$.post("http://test.cross_domain.163.com:8080/?date=1396684617824", {
+		    "username": "netease",
+			"age": 14
+		}, "json").then(function(data) {
+			console.info(data);
+		}, function(error) {
+			console.info("出错： ", error);
+		});
+	});
+});
+</script>
+
+<dl style="position: fixed; left: 10px; bottom: 10px;">
+	<dt>参考资料</dt>
+	<dd><a href="http://newhtml.net/using-cors/" target="_blank">利用CORS实现跨域请求</a></dd>
+</dl>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>网易微博分享</title>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="http://img1.cache.netease.com/cnews/css07/style.css" />
+<link type="text/css" rel="stylesheet" href="http://img1.cache.netease.com/f2e/component/share/shareweibo.css" /> 
+
+<style>
+	.shareweibo{margin:100px 0px 0px 300px;}
+</style>
+</head>
+
+<body>
+
+<div class="shareweibo clearfix"  id="shareweibo"></div>
+
+<script src="shareweibo_v1_01.js"></script>
+<script>
+(function(){
+	//自定义微博接口  
+	var tapi = {
+        "tsina" : 'http://service.weibo.com/share/share.php?url={url}&title={title}&pic={pic}&appkey=603437721',
+		"t163" : 'http://t.163.com/article/user/checkLogin.do?link={url}&source={source}&info={title}{url}&images={pic}&togImg={togImg}&{date}',
+	    "tsohu" : 'http://t.sohu.com/third/post.jsp?url={url}&title={title}&content={charset}&pic={pic}',
+	    "tqq" : 'http://v.t.qq.com/share/share.php?title={title}&url={url}&site={source}&pic={pic}',
+	    "qzone" : 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={url}&title={title}summary={digest}&site={source}&pics={pic}',
+	    "kaixin001" : 'http://www.kaixin001.com/repaste/bshare.php?rtitle={title}&rcontent={digest}&rurl={url}',
+	    "douban" : 'http://www.douban.com/recommend/?url={url}&title={title}',
+		"renren" : 'http://share.renren.com/share/buttonshare.do?link={url}',
+		"msn" : 'http://profile.live.com/badge?url={url}&title={title}',
+		"dream" : 'http://dream.163.com/share/link/?url={url}&title={title}'
+    }
+	
+	//自定义参数
+	var opt = {
+		"title" : "微博标题测试", //页面title标题
+		"url" : "http://www.163.com?a=test&b=ccc#bbb", //分享的页面地址
+		"digest" : "", //摘要
+		"pic" : "http://qa.developer.163.com/component/share/images/a.jpg", //自定义图片
+		"source" : '网易', //来源
+		"sourceLink": "http://www.163.com", //来源域名
+		"charset" : "utf-8", //编码
+		"width" : 700, //分享弹框页的宽
+		"height" : 680, //分享弹框页的高
+		"customIcon" : false  //是否自定义图标内容，false否，ture自定义
+	};
+	
+	//自定义微博
+	var data = {
+		"weibo_title" : "分享到：",
+		"weibo":
+		[
+			{"_class" : "t163", "name" : "网易微博"},
+			{"_class" : "tsina", "name" : "新浪微博"},
+			{"_class" : "tsohu", "name" : "搜狐微博"},
+			{"_class" : "tqq", "name" : "腾讯微博"},
+			{"_class" : "qzone", "name" : "腾讯空间"},
+			{"_class" : "kaixin001", "name" : "开心网"},
+			{"_class" : "douban", "name" : "豆瓣"},
+			{"_class" : "renren", "name" : "人人"},
+			{"_class" : "msn", "name" : "msn"},
+			{"_class" : "dream", "name" : "梦幻人生"}
+		]
+	};
+
+	//自定义微博html标签
+	var temp = ['<a href="javascript:;" title="分享到{name}" class="{_class}" _class="{_class}">{name}</a>'].join('');
+	
+	var share = new Weiboshare(tapi);
+	share.init(document.getElementById("shareweibo"),data,opt,temp);
+})();
+</script>
+</body>
+</html>

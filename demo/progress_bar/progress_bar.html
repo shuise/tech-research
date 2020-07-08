@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>进度条</title>
+<style type="text/css">
+*{font-size:12px;font-family:arial;margin:0;padding:0;}
+table { border-collapse:collapse;border:1px solid #ccc; margin:20px;}
+td { border:1px solid #ccc; font-size:12px; font-family:Arial;padding:5px 10px;}
+thead { background:#f5f5f5; font-weight:700}
+
+.pbars{margin:50px 20px;}
+.pbars h2 {padding-bottom:20px;}
+.pbar {width:600px;border:1px solid #949DAD;padding:1px;height:10px;float:left; margin-right:20px;}
+.pbar p{background: #D4E4FF;height:10px;}
+.ex {cursor:pointer;padding:3px 8px;border: solid 1px #BBB;background:#f5f5f5;}
+strong {clear:both;float:left; margin-right:15px;}
+</style>
+</head>
+<body>
+
+<table>
+<thead>
+  <tr>
+	<td></td>
+    <td>Name</td>
+    <td>Description</td>
+    <td>Rate Trend</td>
+    <td>Acceleration</td>
+    <td>Function</td>
+  </tr>
+ </thead> 
+  <tr>
+	<td>1</td>
+    <td>線性 Linear</td>
+    <td>Progresses linearly 遞增率是常量</td>
+    <td>Constant</td>
+    <td>None</td>
+    <td>f(x) = x</td>
+  </tr>
+  <tr>
+	<td>2</td>
+	<td>前停頓 Early Pause</td>
+    <td>Almost linear; large pause around 25% 類似於線性，但在25%進度附近進度遞增非常慢</td>
+    <td>Speeds up</td>
+    <td> Unstable near beginning </td>
+    <td>f(x) = x+(1-sin(x*π*2+π/2))/-8</td>
+  </tr>
+  <tr>
+	<td>3</td>
+    <td>後停頓 Late Pause</td>
+    <td> Almost linear; large pause around 75% 類似於線性，但在75%進度附近進度遞增非常慢</td>
+    <td>Slows down </td>
+    <td>Unstable near end</td>
+    <td> f(x) = x+(1-sin(x*π*2+π/2))/8</td>
+  </tr>
+  <tr>
+	<td>4</td>
+    <td>慢速波狀曲線 Slow Wavy</td>
+    <td> Three large steps separated by pauses 速度時快時慢，整個過程有3個週期</td>
+    <td> Constant</td>
+    <td> Highly unstable</td>
+    <td> f(x) = x+sin(x*π*5)/20</td>
+  </tr>
+  <tr>
+	<td>5</td>
+    <td>快速波狀曲線 Fast Wavy</td>
+    <td> Increments in small, quick steps 類似於慢速波狀曲線，但波長很短，有很多週期</td>
+    <td> Constant</td>
+    <td> Highly unstable </td>
+    <td>f(x) = x+sin(x*π*20)/80</td>
+  </tr>
+  <tr>
+	<td>6</td>
+    <td>平方曲線 Power </td>
+    <td>Accelerates 進度的遞增率不斷在增加，也就是一開始很慢，隨後越來越快</td>
+    <td> Speeds up</td>
+    <td> Constant</td>
+    <td> f(x) = (x+(1-x)*0.03)2</td>
+  </tr>
+  <tr>
+	<td>7</td>
+    <td>反平方曲線 Inverse Power</td>
+    <td> Decelerates  和平方曲線像反，一開始很快，隨後越來越慢</td>
+    <td> Slows down</td>
+    <td> Constant </td>
+    <td>f(x) = 1+(1-x)1.5 *-1</td>
+  </tr>
+  <tr>
+	<td>8</td>
+    <td>快速平方曲線 Fast Power</td>
+    <td> Rapidly accelerates 類似于平方曲線，只是進度的遞增率更高</td>
+    <td> Speeds up</td>
+    <td> Stable </td>
+    <td>f(x) = (x+(1-x)/2)8</td>
+  </tr>
+  <tr>
+	<td>9</td>
+    <td>快速反平方曲線 Inv. Fast Power</td>
+    <td> Rapidly decelerates 和反平方曲線類似,只是進度的變化率更大</td>
+    <td> Slows down</td>
+    <td> Stable</td>
+    <td> f(x) = 1+(1-x)3 *-1</td>
+  </tr>
+  <tfoot>
+  	<tr>
+  		<td colspan="6">
+		測試顯示的結果告訴我們，<br>
+		凡是曲線中有明顯停頓的，使用者所感知的進度都比較慢，<br>
+		而進度中一直在加速的，使用者都會覺得進度走得很快。<br>
+		研究者們還指出雖然一個穩定的系統應該使用線性的進度條，但是如果能應用加速型的進度條，確實能小幅地改善用戶體驗。<br>
+		但是當進度並不能被準確測量時，進度條並不是一個很好的選擇， 實際情況下可以選用不斷重複的動畫來代替</td>
+  	</tr>
+  </tfoot>
+</table>
+
+<div class="pbars" id="pbars">
+	 <h2>demo</h2>
+</div>
+<input type="button" value="全部执行" id="all_run" style="margin:-30px 0 50px 650px;padding:5px;" />
+
+<script>
+function createHTML(){
+	var str = "";
+	for(var i=1;i<10;i++){
+		str += '<strong>' + i + '</strong><div class="pbar"><p style="width: 1%;"></p></div><span class="ex">执行</span><br /><br />';
+	}
+	return str;
+}
+
+function pbar01(obj,_time){
+	var t = _time/100;
+	var pct = 0;
+	var pb = setInterval(pbaring,t);
+	
+	function pbaring(){
+		obj.style.width = pct + '%';
+		pct += 1;
+		if (pct >= 101){
+			clearInterval(pb);
+		}
+	}
+}
+function pbar02(obj,_time){
+	var t = _time/100;
+	var pct = 0;
+	var pb = setInterval(pbaring,t);
+	var pb2;
+	function pbaring(){
+		obj.style.width = pct + '%';
+		pct += 1;
+		if (pct >= 25){
+			clearInterval(pb);
+			setTimeout(function(){
+				pb2 = setInterval(pbaring2,18)
+			},150)
+		}
+	}
+	function pbaring2(){
+		obj.style.width = pct + '%';
+		pct += 1;
+		if (pct >= 101){
+			clearInterval(pb2);
+		}
+	}
+}
+function pbar03(obj,_time){
+	var t = _time/100;
+	var pct = 0;
+	var pb = setInterval(pbaring,t);
+	var pb2;
+	function pbaring(){
+		obj.style.width = pct + '%';
+		pct += 1;
+		if (pct >= 75){
+			clearInterval(pb);
+			setTimeout(function(){
+				pb2 = setInterval(pbaring2,14)
+			},150)
+		}
+	}
+	function pbaring2(){
+		obj.style.width = pct + '%';
+		pct += 1;
+		if (pct >= 101){
+			clearInterval(pb2);
+		}
+	}
+}
+
+;(function(){
+	var node = $("pbars");
+		node.innerHTML += createHTML();
+	
+	var allrun = $("all_run");
+	
+	var btns = node.getElementsByTagName("span");
+	var bars = node.getElementsByTagName("p");
+	for(var i=0,len=btns.length;i<len;i++){
+		var btn = btns[i];
+		btn.lang = i;
+		btn.onclick = function(){
+			var index = this.lang/1;
+			window["pbar0" + (index + 1)](bars[index],2000);
+		}	
+	}
+	allrun.onclick = function(){
+		for(var i=0,len=btns.length;i<len;i++){
+			window["pbar0" + (i + 1)](bars[i],2000);
+		}	
+	}
+	function $(id){
+		return document.getElementById(id);
+	}
+})();
+</script>
+</body>
+</html>

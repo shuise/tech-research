@@ -1,0 +1,100 @@
+<!--link rel="stylesheet" href="@create.css" media="screen" /-->
+<div class="rachis-create">
+  <div class="rachis-header">
+    <h2>
+      <span>项目创建/管理工具</span>
+      <div class="h2-options">
+        <label class="switch-label">显示高级选项：</label>
+        <div class="onoffswitch">
+          <input type="checkbox" ne-model="state.showAdvanced" id="wrap-switch" class="onoffswitch-checkbox">
+          <label for="wrap-switch" class="onoffswitch-label">
+            <div class="onoffswitch-inner"></div>
+            <div class="onoffswitch-switch"></div>
+          </label>
+        </div>
+        <a ne-click="resetProject()">新建项目</a>
+      </div>
+      <div class="h2-right">
+        <input class="search-query" type="text" ne-keydown="search($event)" ne-model="q" placeholder="管理已有项目" autocomplete="off">
+      </div>
+    </h2>
+  </div>
+  <div class="rachis-block">
+    <span ne-hide="state.mngMode" class="rachis-formitem rachis-formitem-medium">
+      <label for="">项目框架：</label>
+      <select ne-model="options.projectType" ne-options="confs.projectTypes">
+      </select>
+    </span>
+    <span ne-hide="state.mngMode" class="rachis-formitem rachis-formitem-medium">
+      <label for="">页面头尾：</label>
+      <select ne-model="options.headFoot" ne-options="confs.headFoots">
+      </select>
+    </span>
+    <span ne-hide="state.mngMode" class="rachis-formitem rachis-formitem-medium">
+      <label>项目名称：</label>
+      <input type="text" placeholder="{{options._projectName}}" ne-keydown="nameInput($event)" ne-model="options.projectName" />
+    </span>
+    <span ne-hide="state.mngMode" class="rachis-formitem rachis-formitem-medium">
+      <label>所属频道：</label>
+      <select ne-model="options.channelName" ne-options="confs.channels">
+        <option value="">请选择</option>
+      </select>
+    </span>
+    <span ne-click="pathClick()" class="rachis-formitem rachis-formitem-medium">
+      <label>项目路径：</label>
+      <input class="fake-input" type="text" ne-model="options.projectPath" ne-keydown="pathVerify($event)" ne-disabled="{{state.mngMode}}" />
+    </span>
+    <span ne-hide="state.mngMode" class="rachis-formitem rachis-formitem-medium">
+      <label class="label-full"><input type="checkbox" ne-model="options.overWrite" /> <span>覆盖已有文件</span></label>
+    </span>
+    <div ne-show="state.showAdvanced">
+      <span class="rachis-formitem rachis-formitem-medium">
+        <label class="label-full"><input type="checkbox" ne-model="options.projectJson.skipRes" /> <span>不发布单个js/css</span></label>
+      </span>
+      <span class="rachis-formitem rachis-formitem-medium" ne-show="state.isBowlder" style="display:none">
+        <label class="label-full"><input type="checkbox" ne-model="options.copyModule" /> <span>复制公共模块到项目</span></label>
+      </span>
+    </div>
+    
+    <div ne-show="state.isBowlder" style="display:none">
+      <fieldset>
+        <legend>公共模块</legend>
+        <div class="clearfix">
+          <label ne-repeat="module in options.commonModules"><input type="checkbox" ne-click="uncheckCommon(module)" checked><a target="_blank" ne-href="/system/bowlder/mgallery/index.shtml#/detail{{module._id}}">{{module.title}}</a><span class="mod-conf" ne-click="configCommon(module)"></span></label>
+        </div>
+        <hr />
+        <div ne-module="/modules/tabs/tabs.js" ne-state="showhide:true;events:click" class="tabs-wrap">
+          <ul class="tabs-nav"><li ne-repeat="nav in availableModules.navs" ne-role="tab-nav">{{nav}}</li></ul>
+          <div ne-repeat="body in availableModules.bodys" class="tabs-body" ne-role="tab-body">
+            <label ne-repeat="module in body" ne-hide="module.checked"><input type="checkbox" ne-click="checkCommon(module)" ne-value="module.checked"><a target="_blank" ne-href="/system/bowlder/mgallery/index.shtml#/detail{{module._id}}">{{module.title}}</a></label>
+          </div>
+        </div>
+      </fieldset>
+      
+      <fieldset ne-hide="state.mngMode">
+        <legend>公共插件</legend>
+        <div class="clearfix">
+          <label ne-repeat="module in options.commonPlugins"><input type="checkbox" ne-click="uncheckCommonPlugin(module)" checked><a target="_blank" ne-href="/system/bowlder/mgallery/index.shtml#/doc{{module._id}}">{{module.title}}</a></label>
+        </div>
+        <hr />
+        <div ne-module="/modules/tabs/tabs.js" ne-state="showhide:true;events:click" class="tabs-wrap">
+          <ul class="tabs-nav"><li ne-repeat="nav in availablePlugins.navs" ne-role="tab-nav">{{nav}}</li></ul>
+          <div ne-repeat="body in availablePlugins.bodys" class="tabs-body" ne-role="tab-body">
+            <label ne-repeat="module in body" ne-hide="module.checked"><input type="checkbox" ne-click="checkCommonPlugin(module)" ne-value="module.checked"><a target="_blank" ne-href="/system/bowlder/mgallery/index.shtml#/doc{{module._id}}">{{module.title}}</a></label>
+          </div>
+        </div>
+      </fieldset>
+      
+      <fieldset>
+        <legend>私有模块</legend>
+        <label ne-repeat="module in options.selfModules"><a target="_blank" ne-href="/system/bowlder/mgallery/index.shtml#/detail{{module._id}}">{{module.title}}</a></label>
+        <button ne-click="addSelfMod()">新增</button>
+      </fieldset>
+    </div>
+    <span class="rachis-formitem rachis-formitem-long">
+      <button class="rachis-hugebutton" ne-click="save()">{{state.mngMode ? "更新项目" : "创建项目"}}</button>
+      <span ne-class="{{result.success?'rachis-success':'rachis-fail'}}">{!{result.msg}} &nbsp; <a ne-href="/{{options.projectPath}}" target="_blank" ne-show="result.success" style="display:none">打开目录</a></span>
+    </span>
+  </div>
+</div>
+

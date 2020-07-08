@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.pie.js" charset="utf-8"></script>
+        <style>
+            .canvas {margin:50px auto;width:960px;height:350px;display:block}
+        </style>
+    </head>
+    <body>
+        <!--div id="canvas0" title="并列柱图" class="canvas"></div> 
+        <script>
+            //绘制图表
+            var data = {
+            '大话西游': [26,49,48,47,52,46,51,62,50,40,43,58,60,76,57,69,77,90], 
+            '天下三' : [560,790,900,907,802,426,591,782,510,492,789,588,900,596,647,489,587,595]
+            };
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas0")
+            });
+            canvas1.xyChart(data, ["bar"], {
+                tips : "{y} 点击\n2012年7月{x}日",
+                Title : {title: "微门户各频道PV"},
+                yTitle : {title: "点击次数"},
+                xTick : {interval : 2, labels : "7-{x}"},
+                yTick : {labels : "{y}"},
+                colors : ['#B1DEE4', '#EDA55E'],
+                anim : true
+            });
+        </script-->
+
+        <div id="canvas1" title="堆叠柱图" class="canvas"></div> 
+        <script>
+            //绘制图表
+            var data = [
+             {
+                 title : '导入荐新闻首页新闻数量',
+                 tips : '[{xtick}]\n导入荐新闻首页新闻数量:15,000\n当日新闻发布数量:{y}\n占比：{percent}%',
+                 data : [4600,8900,9000,10700,8200,5900,6900,7800,5600,4900],
+                 group : 'total'
+             },{
+                 title : '未导入荐新闻首页新闻数量',
+                 tips : '[{xtick}]\n未导入荐新闻首页新闻数量:5,000\n总推荐次数:{y}\n占比：{percent}%',
+                 data : [71226,70049,74348,73265,72352,71146,80051,71262,74350,79840],
+                 group : 'total'
+             }];
+            var canvas1 = new NTESChart({
+                container : document.getElementById("canvas1")
+            });
+            canvas1.xyChart(data, ["hbar"], {
+                tips : "{y} 点击\n2012年7月{x}日",
+                Title : {title: "微门户各频道PV"},
+                yTitle : {title: "点击次数"},
+                xTick : {interval : 2, labels : "7-{x}"},
+                yTick : {labels : "{y}"},
+                colors : ['#B1DEE4', '#EDA55E'],
+                anim : true
+            });
+       </script>
+
+       <div id="canvas2" title="柱图细分信息" class="canvas"></div> 
+       <script>
+            var canvas2 = new NTESChart({
+                container : document.getElementById("canvas2")
+            });
+
+            //绘制图表
+            var data = [{title:'A',y:26},{title:'B',y:49},{title:'C',y:38},{title:'D',y:47},{title:'F',y:76},{title:'G',y:91}];
+var data = [{
+        title : '去向站点',
+        data : [
+            { x:'新闻频道', ys:[
+                { title:"国内频道", y:120, percent:2.1},
+                { title:"国外频道", y:110, percent:1.9},
+                { title:"军事频道_常规", y:90, percent:1.8},
+                { title:"新闻频道_航空频道", y:80, percent:1.7}
+            ], percent:48,y:280 },
+            { x:'女人频道', ys:[
+                { title:"时尚频道", y:90, percent:1.8},
+                { title:"星座频道", y:80, percent:1.7},
+                { title:"艺术频道", y:70, percent:1.6},
+                { title:"情爱频道", y:90, percent:1.5}
+            ], percent:20.99,y:180 },
+            { x:'财经频道', ys:[
+                { title:"时尚频道", y:90, percent:1.8},
+                { title:"星座频道", y:80, percent:1.75},
+                { title:"艺术频道", y:80, percent:1.71},
+                { title:"情爱频道", y:70, percent:1.7}
+            ], percent:20,y:170 },
+            { x:'体育频道', ys:[
+                { title:"足球频道", y:90, percent:1.5},
+                { title:"NBA频道", y:110, percent:2.7},
+                { title:"CBA频道", y:70, percent:1.4},
+                { title:"网球频道", y:60, percent:1.35}
+            ], percent:20,y:170 },
+            { x:'汽车频道', y:131, percent:11 },
+            { x:'娱乐频道', y:139, percent:11 },
+            { x:'站外', ys:[
+                { title:"其它", y:10, percent:10}
+            ], percent:10 }
+        ]}
+    ];
+            canvas2.xyChart(data, ["hbar"], {
+            mirror : true,
+            ys : 'ring',
+            padding : {x:30,left:50},
+            xpadding : 1,
+            showLegend : false,
+            grid:{shadow: 0, nogrid: 'b', borderAttr:0},
+            fixedLabel : "{percent}%",
+            tips : "{xtick}\n点击量: {y} 次",
+            subtips : "{sub.name}\n点击量: {sub.y}次({sub.percent}%)",
+            xTick : {labels : "{x}", txtAttr : { font: '12px 宋体'}, shiftY:5},
+            yTick : {labels : "{y}", apronum: 5, startY:[0,0]},
+            colors : ['#ffaa55'],
+            hovers : ['#EE386D']
+        });
+                /*tips : "{y} 点击",
+                showLegend: false,
+                xTick : {interval : 2, labels : "{x}"},
+                yTick : {interval : 10, labels : "{y}"}, //{y}
+                fixLabel : 1,
+                minY : 0, grid: {nogrid:1, borderAttr:null}*/
+        </script>
+
+    </body>
+</html>

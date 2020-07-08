@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--#include virtual="/system/unit_test/inc/head.html"-->
+<title>Quotes数据接口(线上)</title>
+</head>
+<body>
+<!--正文开始-->
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+
+<!-- quote data -->
+<script src="/finance/common/quotes_api.js"></script>
+<script src="/finance/common/quotes_api_test.js"></script>
+
+<div style="display:none;">
+    <ul>
+        <li class="a a_1"></li>
+        <li class="a a_2"></li>
+        <li class="a a_3"></li>
+    </ul>
+</div>
+<!--正文结束-->
+
+<!--#include virtual="/system/unit_test/inc/foot.html"-->
+</body>
+</html>

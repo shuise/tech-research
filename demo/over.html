@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>overflow</title>
+</head>
+<body>
+
+
+<style>
+.a{
+	width:300px;
+	overflow:hidden;
+	border:1px solid #ccc;
+	padding:20px;
+}
+.b{
+	width:600px;
+	height:200px;
+	border:1px solid #f00;
+	display:none;
+	position:absolute;
+	background:yellow;
+}
+.a:hover .b{
+	display:block;
+}
+</style>
+<div class="a">
+	<div class="b"></div>
+</div>
+提个问题，如何通过只修改class=b的css让b可以跳出overflow=hidden完整显示？
+
+</body>
+</html>

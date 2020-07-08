@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>组件开发</title>
+<link rel="stylesheet" href="share.css" />
+</head>
+
+<body id="top">
+
+<a href="#top" id="back_top">TOP</a>
+
+<h1>组件开发</h1>
+<ol class="menu" id="menu">
+	<li><a href="#a1">什么是组件？</a></li>
+	<li><a href="#a2">需要哪些组件？</a></li>
+	<li><a href="#a3">开发流程概述</a></li>
+	<li><a href="#a5">弹窗相关的问题</a></li>
+	<li><a href="#a7">需求提炼</a></li>
+	<li><a href="#a9">demo演示</a></li>
+</ol>
+
+
+<div id="a1" class="sections">
+	<img src="images/cmpt02.png" lang="images/cmpt02.png,images/cmpt01.png,images/cmpt03.png,images/cmpt04.png" class="trans">
+	
+	<ol>
+		<li>来源于工业和建筑</li>
+		<li>从工业和建筑行业进入了软件行业</li>
+		<li>再进入到web开发</li>
+	</ol>	
+
+	<div class="desc">
+	<p>The components represent chunks of <em>visual design</em> and <em>HTML/CSS code</em> that are combined into a composite Web page.</p>
+	<p>A component is a <em>speciﬁc way</em> that your organization has decided to solve its <em>speciﬁc design problems.</em><br/>------from《modular web design》</p>
+	</p><br>
+	<p>组件就是对于类似问题的统一解决方案。</p>
+	<p><strong>组件的组成：</strong>问题描述，解决方案，代码，demo以及使用文档</p>
+	</div>
+	<div class="note">
+	<h3>相关链接：</h3>
+		<a href="http://developer.yahoo.com/ypatterns/">yahoo design pattern</a><br>
+	</div>
+</div>
+
+<div id="a2" class="sections">
+	<ol>
+		<li>弹窗</li>
+		<li>日期</li>
+		<li>select模拟</li>
+		<li>tab切换，焦点图切换</li>
+		<li>表单验证</li>
+		<li>分享组件</li>
+		<li>滚动条</li>
+		<li>………………</li>
+	</ol>	
+</div>
+
+<div id="a3" class="sections">
+	<ol>
+		<li>需求的提炼与整理</li>
+		<li>组件的设计</li>
+		<li>coding (html,css,js)</li>
+		<li>发布demo页面</li>
+		<li>附上使用说明</li>
+	</ol>	
+</div>
+
+<div id="a5" class="sections">
+	<ol>
+		<li>一般具有相同的边框，但也有不同的情况</li>
+		<li>内容不定，除了html，也可能是iframe，ajax等</li>
+		<li>高宽，间距等不尽相同</li>
+		<li>多次弹出的前后位置问题</li>
+		<li>位置一般是绝对居中，也有在指定点弹出的情况</li>
+		<li>弹出和关闭有一些特殊的效果</li>
+		<li>遮罩有有无两种情况</li>
+		<li>需要随着滚动条同步滚动</li>
+		<li>需要通过拖拽改变位置</li>
+	</ol>	
+</div>
+
+<div id="a7" class="sections">
+	<ol>
+		<li>提供默认边框，但允许使用者行参修改 <strong>temp</strong></li>
+		<li>不管什么形式，使用者获取到要显示的html后统一行参传入 <strong>html</strong></li>
+		<li>高宽允许使用者行参定义 <strong>width,height</strong></li>
+		<li>多个弹窗的前后位置可行参 <strong>z-index</strong></li>
+		<li>默认为居中，允许使用者传入具体坐标定位 <strong>left,top</strong></li>
+		<li>默认为立即显示与移除，使用者可以自行定义 <strong>show,destroy</strong></li>
+		<li>考虑到具体场景，暂时去掉此最后三个需求</li>
+	</ol>	
+</div>
+
+<div id="a9" class="sections">	
+	<ol>
+		<li><a href="02_test.html">pop demo</a></li>
+	</ol>
+</div>
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" src="share.js"></script>
+</body>
+</html>

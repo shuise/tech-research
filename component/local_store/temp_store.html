@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>temp_store组件 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+<style type="text/css">
+	.f2e_api_section .codepre{margin-top: 12px;}
+</style>
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>temp_store</h1>
+			
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/switch/switch.js">http://qa.developer.163.com/component/local_store/temp_store.js</a></p>
+				<p><a href="temp_store_demo.html">查看demo</a></p>
+			</div>			
+			<div class="f2e_api_section">
+				<h2>调用初始化</h2>
+<pre id="f2e_api_code1">			
+NE._storage.init({
+	talker:'swf_localstorage',	//as与js通信约定接口window['swf_localstorage']，可缺省
+	targetId:'swf_node',	//必填  存放flash的容器id，切记不要添加影响flash运行的样式，如display:none;
+	interval:3000,			//监听间隔（默认60s）
+	needListen : true,		//是否需要监听，如调用addListener，必须设置true
+	onready : function(){	//初始化加载完毕后，调用
+	}				
+});
+</pre>
+<h2 style="margin-top:20px;">接口调用说明</h2>
+<pre id="f2e_api_code2" class="codepre">				
+NE._storage.set(ns,key,value);					//存储，ns:命名空间
+    
+NE._storage.get(ns,key,function(params){			//取值，注：取值逻辑需要放到回调中（as异步时序）
+	//params:(keyns, key, value)	
+});	
+	
+NE._storage.remove(ns,key);                      			//清除，当key缺省时，清除ns下所有key
+	
+NE._storage.addListener(ns,key,function(params){	//添加监听
+	//params:{keyns,key, newValue, oldValue}								
+});
+				
+NE._storage.removeListener(ns,key);				//移除监听		
+</pre>			
+			</div>
+
+			<div class="f2e_api_btns">
+				<a href="temp_store_demo.html">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

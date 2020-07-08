@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<!--#include virtual="/system/unit_test/inc/head.html"-->
+<title>NETS Lib单元测试(线上)</title>
+</head>
+<body>
+
+<!--正文开始-->
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<div id="div1">
+	<div id="class1" class="class1">
+		<span id="span1"></span>
+	</div>
+</div>
+<div id="div2">
+	<div id="class2" class="class1">
+		<span id="span1"></span>
+	</div>
+</div>
+
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/core_test.js" charset="utf-8"></script>
+<!--正文结束-->
+
+<!--#include virtual="/system/unit_test/inc/foot.html"-->
+</body>
+</html>

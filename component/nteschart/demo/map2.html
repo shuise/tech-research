@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.map.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../demo/china.js" charset='utf-8'></script>
+        <style>
+            body{font-size:12px}
+            #canvas {margin:0;width:958px;height:610px;background:#f2f2f2;border:1px solid #D9D9D9}
+            .canvas_wrap{position:relative;width:958px;height:610px;margin:0 auto;}
+            .map_flags,.map_curlocate{position:absolute;}
+        </style>
+        <link rel="stylesheet" href="http://qa.developer.163.com/auto/brand/css/brand_dealer.css" />
+    </head>
+    <body>
+        <table id="provs"></table>
+        <div class="canvas_wrap">
+            <div id="canvas"></div>
+            <div id="sect_dealermap_layer" class="sect_dealermap_layer"><span style="position:absolute;left:505px;top:230px;" _bid="2" id="map_flags_110000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>北京市（30）</span></span><span style="position:absolute;left:521px;top:238px;" _bid="26" id="map_flags_120000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>天津市（5）</span></span><span style="position:absolute;left:496px;top:246px;" _bid="9" id="map_flags_130000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>河北省（12）</span></span><span style="position:absolute;left:464px;top:270px;" _bid="22" id="map_flags_140000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>山西省（16）</span></span><span style="position:absolute;left:472px;top:173px;" _bid="18" id="map_flags_150000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>内蒙古自治区（16）</span></span><span style="position:absolute;left:578px;top:193px;" _bid="17" id="map_flags_210000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>辽宁省（17）</span></span><span style="position:absolute;left:594px;top:149px;" _bid="14" id="map_flags_220000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>吉林省（9）</span></span><span style="position:absolute;left:594px;top:92px;" _bid="11" id="map_flags_230000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>黑龙江省（7）</span></span><span style="position:absolute;left:586px;top:356px;" _bid="24" id="map_flags_310000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>上海市（3）</span></span><span style="position:absolute;left:553px;top:315px;" _bid="15" id="map_flags_320000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>江苏省（17）</span></span><span style="position:absolute;left:565px;top:376px;" _bid="30" id="map_flags_330000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>浙江省（13）</span></span><span style="position:absolute;left:529px;top:335px;" _bid="1" id="map_flags_340000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>安徽省（12）</span></span><span style="position:absolute;left:553px;top:433px;" _bid="3" id="map_flags_350000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>福建省（9）</span></span><span style="position:absolute;left:521px;top:412px;" _bid="16" id="map_flags_360000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>江西省（10）</span></span><span style="position:absolute;left:529px;top:279px;" _bid="21" id="map_flags_370000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>山东省（29）</span></span><span style="position:absolute;left:480px;top:323px;" _bid="10" id="map_flags_410000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>河南省（11）</span></span><span style="position:absolute;left:460px;top:356px;" _bid="12" id="map_flags_420000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>湖北省（11）</span></span><span style="position:absolute;left:468px;top:416px;" _bid="13" id="map_flags_430000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>湖南省（10）</span></span><span style="position:absolute;left:492px;top:469px;" _bid="5" id="map_flags_440000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>广东省（14）</span></span><span style="position:absolute;left:415px;top:469px;" _bid="6" id="map_flags_450000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>广西壮族自治区（12）</span></span><span style="position:absolute;left:415px;top:392px;" _bid="31" id="map_flags_500000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>重庆市（4）</span></span><span style="position:absolute;left:338px;top:368px;" _bid="25" id="map_flags_510000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>四川省（22）</span></span><span style="position:absolute;left:407px;top:433px;" _bid="7" id="map_flags_520000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>贵州省（11）</span></span><span style="position:absolute;left:326px;top:461px;" _bid="29" id="map_flags_530000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>云南省（4）</span></span><span style="position:absolute;left:415px;top:327px;" _bid="23" id="map_flags_610000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>陕西省（6）</span></span><span style="position:absolute;left:310px;top:238px;" _bid="4" id="map_flags_620000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>甘肃省（14）</span></span><span style="position:absolute;left:261px;top:287px;" _bid="20" id="map_flags_630000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>青海省（2）</span></span><span style="position:absolute;left:391px;top:279px;" _bid="19" id="map_flags_640000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>宁夏回族自治区（3）</span></span><span style="position:absolute;left:156px;top:197px;" _bid="28" id="map_flags_650000" class="map_flags"><span class="map_hlayer"><span class="map_triangle"></span>新疆维吾尔自治区（10）</span></span><span style="position:absolute;left:499px;top:213px;" id="map_curlocate" class="map_curlocate"><span class="map_curlocate_icon"></span><span class="map_curlocate_tx">您所在位置：<a href="">北京市</a></span></span></div>
+        </div>
+        <script>
+            var canvas = new NTESChart({
+                container : document.getElementById("canvas")
+            });
+
+            var data = [
+            {id:"110000",name:"北京",value:50,attr:{fill:'#7193ab'},marker:document.getElementById("map_flags_110000")},
+            {id:"120000",name:"天津",value:34,attr:{fill:'#b5c8d8'},marker:document.getElementById("map_flags_120000")}, 
+            {id:"130000",name:"河北",value:34,attr:{fill:'#d2dde8'},marker:document.getElementById("map_flags_130000")}, 
+            {id:"140000",name:"山西",value:34,attr:{fill:'#b5c8d8'},marker:document.getElementById("map_flags_140000")}, 
+            {id:"150000",name:"内蒙古",value:19,attr:{fill:'#c0ceda'},marker:document.getElementById("map_flags_150000")},
+            {id:"210000",name:"辽宁",value:38,attr:{fill:'#b5c7d8'},marker:document.getElementById("map_flags_210000")},
+            {id:"220000",name:"吉林",value:49,attr:{fill:'#9fb9cd'},marker:document.getElementById("map_flags_220000")}, 
+            {id:"230000",name:"黑龙江",value:15,attr:{fill:'#c8d4de'},marker:document.getElementById("map_flags_230000")}, 
+            {id:"310000",name:"上海",value:49,attr:{fill:'#9fb9cd'},marker:document.getElementById("map_flags_310000")}, 
+            {id:"320000",name:"江苏",value:15,attr:{fill:'#c8d4de'},marker:document.getElementById("map_flags_320000")}, 
+            {id:"330000",name:"浙江",value:38,attr:{fill:'#b5c7d8'},marker:document.getElementById("map_flags_330000")}, 
+            {id:"340000",name:"安徽",value:49,attr:{fill:'#9fb9cd'},marker:document.getElementById("map_flags_340000")}, 
+            {id:"350000",name:"福建",value:40,attr:{fill:'#98b4ca'},marker:document.getElementById("map_flags_350000")},
+            {id:"360000",name:"江西",value:49,attr:{fill:'#9fb9cd'},marker:document.getElementById("map_flags_360000")}, 
+            {id:"370000",name:"山东",value:40,attr:{fill:'#98b4ca'},marker:document.getElementById("map_flags_370000")},
+            {id:"410000",name:"河南",value:38,attr:{fill:'#b5c7d8'},marker:document.getElementById("map_flags_410000")},  
+            {id:"420000",name:"湖北",value:34,attr:{fill:'#b5c8d8'},marker:document.getElementById("map_flags_420000")}, 
+            {id:"430000",name:"湖南",value:34,attr:{fill:'#d2dde8'},marker:document.getElementById("map_flags_430000")}, 
+            {id:"440000",name:"广东",value:18,attr:{fill:'#9bb6cb'},marker:document.getElementById("map_flags_440000")},
+            {id:"450000",name:"广西",value:24,attr:{fill:'#b7c9d9'},marker:document.getElementById("map_flags_450000")}, 
+            {id:"500000",name:"重庆",value:17,attr:{fill:'#b1c4d4'},marker:document.getElementById("map_flags_500000")}, 
+            {id:"510000",name:"四川",value:49,attr:{fill:'#9fb9cd'},marker:document.getElementById("map_flags_510000")},  
+            {id:"520000",name:"贵州",value:20,attr:{fill:'#d2dde8'},marker:document.getElementById("map_flags_520000")},
+            {id:"530000",name:"云南",value:26,attr:{fill:'#bcccdc'},marker:document.getElementById("map_flags_530000")}, 
+            {id:"610000",name:"陕西",value:26,attr:{fill:'#bcccdc'},marker:document.getElementById("map_flags_610000")}, 
+            {id:"620000",name:"甘肃",value:17,attr:{fill:'#b1c4d4'},marker:document.getElementById("map_flags_620000")}, 
+            {id:"630000",name:"青海",value:8,attr:{fill:'#9bb6cb'},marker:document.getElementById("map_flags_630000")},
+            {id:"640000",name:"宁夏",value:26,attr:{fill:'#bcccdc'},marker:document.getElementById("map_flags_640000")}, 
+            {id:"650000",name:"新疆",value:50,attr:{fill:'#7193ab'},marker:document.getElementById("map_flags_650000")}
+            ];
+
+            var ditu = canvas.map(data, {
+                legend : false,
+                defaultAttr : {fill: "#C8D4DE", stroke: "#fff",  'stroke-width' : 1},
+                hoverAttr : {fill: "#61839b", stroke: "#fff"},
+                marker : {
+                      hoverClass : "map_flags_hover",
+                      dx : -10,
+                      dy : -10
+                },
+                animate : 300, //动画时间(ms)，0为关闭动画
+                mouseover : function(id){
+                      //console.log(id);
+                },
+                click : function(id){
+                      alert(id);
+                },
+                markerClick : function(id){
+                      alert(id);
+                }
+            });
+            ditu.addMarker(document.getElementById("map_curlocate"), {
+                 id: "110000", dx : -25, dy: -25
+            });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>work days</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/component/datepicker/datepicker.css" />
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<script type="text/javascript" src="/component/datepicker/datepicker.js"></script>
+<style>
+#show{
+	border:1px solid #ccc;
+	border-radius:5px;
+	padding:1em;
+	font-size:14px;
+	line-height:2em;
+}
+#show p {
+	font-size:12px;
+}
+h1 {
+	font-size:100%;
+}
+</style>
+</head>
+<body>
+
+<input type="text" id="datepicker1" value="">
+<select name="months" id="months">
+	<option value="">选择月份</option>
+</select>
+<select name="seasons" id="seasons">
+	<option value="">选择季度</option>
+</select>
+
+<div id="show"></div>
+
+<script src="config.js"></script>
+<script>
+var target = document.getElementById("show");
+var dates = document.getElementById("datepicker1");
+var months = document.getElementById("months");
+var seasons = document.getElementById("seasons");
+var myear = 2014;
+var mtime = "2014.1.1";
+var _mtime = "2014年1月1日";
+var now = NE.date.format(new Date(),"yyyy.MM.dd");
+var _now = NE.date.format(new Date(),"yyyy年MM月dd日");
+
+init();
+
+getRrsulte({
+	time : mtime,
+	text : _mtime
+});
+
+
+months.onchange = function(){
+	var _end = this.value;
+	var text = this.options[this.selectedIndex].innerHTML;
+	var data = {
+		time : getFullTime(_end,1),
+		text : text
+	}
+	getRrsulte(data);
+}
+seasons.onchange = function(){
+	var _end = this.value;
+	var text = this.options[this.selectedIndex].innerHTML;
+	var data = {
+		time : getFullTime(_end,3),
+		text : text
+	}
+	getRrsulte(data);
+}
+
+function dateChange(_end){
+	var arr = _end.split(".");
+	var data = {
+		time : _end,
+		text : arr[0] + "年" + arr[1] + "月" + arr[2] + "日"
+	}
+	getRrsulte(data);
+}
+
+function init(){
+	var now = new Date();
+	var _year = now.getFullYear(); 
+	var _month = now.getMonth() + 1;
+	var _day = now.getDate();
+
+	dates.value = mtime;
+	new datePicker(dates,{"format":"yyyy.MM.dd","callback":dateChange});
+
+	// 月份计算
+	for(var i=_month+1; i<13; i++){
+		var option = document.createElement("option");
+		months.appendChild(option);
+		option.value = _year + "." + i;
+		option.text = option.value.split(".").join("年") + "月底";	
+	}
+	if(_year < myear){
+		for(var i=_year+1; i<myear+1; i++){
+			for(var n=1; n<13; n++){
+				var option = document.createElement("option");
+				months.appendChild(option);
+				option.value = i + "." + n;
+				option.text = option.value.split(".").join("年") + "月底";	
+			}	
+		}
+	}
+	
+	// 季度计算
+	for(var i=Math.ceil(_month/3); i<5; i++){
+		var option = document.createElement("option");
+		seasons.appendChild(option);
+		option.value = _year + "." + i;
+		option.text = option.value.split(".").join("年 第") + "季度";;	
+	}
+	if(_year < myear){
+		for(var i=_year+1; i<myear+1; i++){
+			for(var n=1; n<5; n++){
+				var option = document.createElement("option");
+				seasons.appendChild(option);
+				option.value = i + "." + n;
+				option.text = option.value.split(".").join("年 第") + "季度";;	
+			}	
+		}
+	}	
+}
+
+function getRrsulte(data){
+	var subs = NE.template.replace;
+	var tpl1 = '<p><h2>{name}</h2>{desc}</p>';
+
+	var tpl2 = ['今天是<span>{now}</span>，',
+				'距离<span>{end}</span>',
+				'还有 {days} 个工作日'].join("<br>");
+	var _data = {
+		"now" : _now,
+		"end" : data.text,
+		"days" : 0
+	};
+	_data.days = getWorkDays(now,data.time);
+	target.innerHTML = subs(tpl2,_data) + subs(tpl1,frees);
+}
+
+function getWorkDays(t1,t2){
+	var _w1 = new Date(t1).getDay();
+	// NE.trace(t1); 
+	// NE.trace(t2); 
+	var _w2 = new Date(t2).getDay(); 
+	var _days = NE.date.diff(t1, t2).day + 1;
+
+	var weeks = Math.floor(_days/7);
+	var last = _days - weeks*7;
+	NE.trace(_days)
+	NE.trace(_w1)
+	NE.trace(_w2)
+	NE.trace(last)
+	var _left = _days - weeks*2
+	if(last == 1 && (_w2 == 0 || _w2 == 6)){
+		_left -= 1;
+	}
+	if(last > 2){
+		if(_w2 == 0){
+			_left -= 2;
+		}
+		if(_w2 == 6){
+			_left -= 1;
+		}
+	}
+	return _left;
+}
+
+function getFullTime(t1,times){
+	var times = times || 1;
+	var arr = t1.split(".");
+	var _month = arr[1]*times + 1;
+	if(_month == 13){
+		_month = 12;
+	}
+	var _day =  new Date(arr[0] + "." + _month).getUTCDate();
+	return [arr[0], arr[1]*times, _day].join("."); 
+}
+
+getVocations();
+function getVocations(t1,t2){
+	var vocas = [];
+	for(var i=0,len = frees.length;i<len;i++){
+		vocas.concat(frees[i].details);
+	}
+	NE.trace(vocas)
+}
+
+</script>	
+</body>
+</html>

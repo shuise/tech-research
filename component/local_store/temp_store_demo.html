@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="UTF-8">
+        <title>temp_storage</title>
+        <style type="text/css">
+        </style>   
+    	<script src="/lib/core.js"></script>
+        <script src="/lib/utils/browser.js"></script>
+        <script src="/lib/utils/array.js"></script>
+        <script src="/lib/utils/string.js"></script>
+        <script src="/lib/utils/json.js"></script>
+        <script src="/lib/utils/template.js"></script>
+        <script src="/lib/utils/swf.js"></script>        
+    </head>
+    <body>
+        <form onsubmit="return false;">
+        	<label>keyNamespace:</label>
+        	<input type="text" id="flash_kns" value="un"/><br/>
+            <label>key:</label>
+            <input type="text" id="flash_key" value="userName"/><br/>
+            <label>value:</label>
+            <input type="text" id="flash_value" value="" />
+            <input type="button" value="Get" onclick="onClickGet()" />
+            <input type="button" value="Save" onclick="onClickSave()" />
+            <input type="button" value="Clear_NS_Key" onclick="onClickClear()" />
+            <input type="button" value="Clear_NS" onclick="onClickClearNS()" /><br/><br/>
+            <label>listenKey:</label>
+            <input type="text" id="flash_listenKey" value="userName"/>
+            <input type="button" value="addListener" onclick="onClickAdd()" />
+            <input type="button" value="removeListener" onclick="onClickRemove()" /><br/><br/>
+            <textarea cols="60" rows="20" id="flash_output" readonly="true">Initializing...</textarea>
+        </form>
+        <div id="swf_node"></div>
+        <script type="text/javascript" src="temp_store.js"></script>
+        <script type="text/javascript">
+			var console_textarea = document.getElementById("flash_output");
+			var storage_kns = document.getElementById("flash_kns");
+			var storage_value = document.getElementById("flash_value");
+			var storage_key = document.getElementById("flash_key");
+			NE._storage.init({
+				talker:'swf_localstorage',//window['swf_localstorage']变量，js和as通信
+				targetId:'swf_node',//id：'swf_node' 存放flash的容器，切记不要display：none
+				interval:3000,//监听间隔
+				needListen : true,//是否需要监听
+				onready : function(){
+					//需同步处理的逻辑需要放到onready回调中					
+					// tools_swfstorage.addListener("un","userName",function(params){
+						// console_textarea.value += "userName: " + params.newValue + "\n";
+					// });																						
+				}				
+			});						
+            function onClickGet(){
+            	var ns = storage_kns.value;
+            	var key = storage_key.value;
+            	NE._storage.get(ns,key,function(params){
+            		console_textarea.value +="Get>>> "+ key+": " + params.value + "\n";
+            	});
+            }
+            function onClickSave(){
+            	var ns = storage_kns.value;
+            	var key = storage_key.value; 
+            	var value = storage_value.value;            	
+            	NE._storage.set(ns,key,value);
+            }
+
+            function onClickClear(){
+            	var ns = storage_kns.value;
+            	var key = storage_key.value;             	
+            	NE._storage.remove(ns,key);
+            	console_textarea.value +="ClearNS_key>>> keyns:"+ns+" key:"+key+"\n"; 
+            }
+            function onClickClearNS(){
+            	var ns = storage_kns.value;
+            	NE._storage.remove(ns);//删除指定命名空间
+            	console_textarea.value +="ClearNS>>> "+ns+"\n"; 
+            }
+            function onClickAdd(){
+            	var ns = storage_kns.value;
+            	var key = storage_key.value;             	
+				NE._storage.addListener(ns,key,function(params){
+					//params:{keyns: "un", newValue: "3333333", oldValue: "4444444444", key: "userName"} 					
+					console_textarea.value +="valueUpdate>>> "+params.key+": " + params.newValue + "\n";
+				});                
+            } 
+            function onClickRemove(){
+            	var ns = storage_kns.value;
+            	var key = storage_key.value;             	
+				NE._storage.removeListener(ns,key); 
+				console_textarea.value +="listenerRemove>>> \n";            	
+            }                                               
+        </script>        
+    </body>
+</html>

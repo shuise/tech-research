@@ -1,0 +1,8 @@
+.net-stock-tabs{ margin-top:8px; }
+.net-stock-item{ padding:5px 3.2%;color:#666;font-size:90%; }
+.net-stock-item>span{ float:left;width:25% }
+.net-stock-item span.net-stock-up{ color:red }
+.net-stock-item span.net-stock-down{ color:green }
+.net-stock-chart{ font-size:85%;color:#666;line-height:30px;max-width:360px;margin:0 auto; }
+.net-stock-msg{ padding-top:10px; }
+.net-stock-chart>img{ float:left;width:210px;margin-right:10px }

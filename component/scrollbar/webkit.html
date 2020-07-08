@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+
+.scroll { height:200px; width:500px; display:block; border:3px solid DarkSeaGreen; overflow:scroll; overflow-x:scroll; margin:0 auto; margin-top:150px; white-space:nowrap;}
+.demo { height:20px; width:80px; display:block; margin:0 auto; margin-top:20px;}
+a {text-decoration:none; color:blue;}
+a:hover {text-decoration:underline; color:red;}
+
+::-webkit-scrollbar-track-piece{
+	background-color:black;  /*滚动条的背景颜色 ，包括导航条和空白部分*/
+	-webkit-border-radius:0;  /*滚动条的圆角宽度*/
+}
+::-webkit-scrollbar{   /*不能删去*/
+	width:30px;       /*滚动条的宽度*/
+}
+::-webkit-scrollbar:horizontal{ 
+	height:20px;      /*水平滚动条的高度*/
+}
+::-webkit-scrollbar-thumb:vertical{   /*垂直滚动条的样式*/
+	height:50px;
+	background-color:blue;
+	-webkit-border-radius:10px;
+	outline:2px solid green;
+	outline-offset:-2px;        /*使border在滚动条范围内*/
+	border: 2px solid cyan;
+}
+::-webkit-scrollbar-thumb:hover{  /*垂直滚动条的hover样式*/
+	height:50px;
+	background-color:red;
+	-webkit-border-radius:14px;
+}
+::-webkit-scrollbar-thumb:horizontal{  /*水平滚动条的样式*/
+    width: 100px;     /*比系统默认的大才管用，具体要看一行有多长*/
+    background-color: silver;
+    -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal:hover{  /*水平滚动条的hover样式*/
+    background-color: purple;
+    -webkit-border-radius: 0px;
+}
+::-webkit-scrollbar-corner {   /*右下角区域*/
+    background-color: IndianRed;   
+    -webkit-border-radius: 12px;
+}
+::-webkit-scrollbar-button:start:decrement,  /*button是两侧的区域，ie中相当于三角的那个区域*/
+::-webkit-scrollbar-button:end:increment  
+{
+    height: 20px;
+    display: block;
+    background-color: Fuchsia;
+}
+
+</style>
+</head>
+<body>
+<div class="scroll">
+<pre>
+::-webkit-scrollbar-track-piece{
+	background-color:black;  /*滚动条的背景颜色 ，包括导航条和空白部分*/
+	-webkit-border-radius:0;  /*滚动条的圆角宽度*/
+}
+::-webkit-scrollbar{   /*不能删去*/
+	width:30px;       /*滚动条的宽度*/
+}
+::-webkit-scrollbar:horizontal{ 
+	height:20px;      /*水平滚动条的高度*/
+}
+::-webkit-scrollbar-thumb:vertical{   /*垂直滚动条的样式*/
+	height:50px;
+	background-color:blue;
+	-webkit-border-radius:10px;
+	outline:2px solid green;
+	outline-offset:-2px;        /*使border在滚动条范围内*/
+	border: 2px solid cyan;
+}
+::-webkit-scrollbar-thumb:hover{  /*垂直滚动条的hover样式*/
+	height:100px;    
+	background-color:red;
+	-webkit-border-radius:14px;
+}
+::-webkit-scrollbar-thumb:horizontal{  /*水平滚动条的样式*/
+    width: 50px;        /*比系统默认的大才管用，具体要看一行有多长*/
+    background-color: silver;
+    -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal:hover{  /*水平滚动条的hover样式*/
+    background-color: purple;
+    -webkit-border-radius: 0px;
+}
+::-webkit-scrollbar-corner {   /*右下角区域*/
+    background-color: IndianRed;   
+    -webkit-border-radius: 12px;
+}
+::-webkit-scrollbar-button:start:decrement,  /*button是两侧的区域，ie中相当于三角的那个区域*/
+::-webkit-scrollbar-button:end:increment  
+{
+    height: 20px;
+    display: block;
+    background-color: Fuchsia;
+}
+</pre>
+</div>
+<div class="demo"><a href="http://css-tricks.com/custom-scrollbars-in-webkit/" target="_black">详细介绍<a> </div>
+<div class="demo"><a href="http://trac.webkit.org/export/41842/trunk/LayoutTests/scrollbars/overflow-scrollbar-combinations.html" target="_black">应用实例<a> </div>
+</body>
+
+</html>

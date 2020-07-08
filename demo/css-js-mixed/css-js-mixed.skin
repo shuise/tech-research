@@ -1,0 +1,6 @@
+<!--/*
+var target = document.getElementById("b");
+	target.innerHTML += "js worked.";
+<!--*/
+
+<!--.a{background:red;color:#fff;} #b{background:green;}-->

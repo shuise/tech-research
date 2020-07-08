@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas的链式调用 - 编码技巧</title>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+		font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+	}
+	section{
+		width: 800px;
+		margin: 50px auto;
+		padding: 20px 10px;
+		border: 1px dashed #ccc;
+		border-radius: 8px;
+	}
+	nav{
+		float: right;
+	}
+	header{
+		margin: 20px 0;
+		padding-left: 20px;
+	}
+	header h1{
+		font-size: 24px;
+	}
+	article{
+		padding: 20px 10px;
+	}
+	article p{
+		line-height: 30px;
+		padding: 10px 0;
+		color: #666;
+		text-indent: 2em;
+	}
+	article code{
+		display: block;
+		margin: 1em;
+		padding: 1em;
+		color: #555;
+		font-size: 1em;
+		font-family: "source-code-pro", Consolas, monospace;
+		background: #eee;
+		border-radius: 5px;
+	}
+	article pre{
+		font-family: "source-code-pro", Consolas, monospace;
+		color: #555;
+		text-indent: 2em;
+	}
+	article pre.indent4{
+		text-indent: 4em;
+	}
+	article pre.indent6{
+		text-indent: 6em;
+	}
+	article pre.indent8{
+		text-indent: 8em;
+	}
+	article pre.indent10{
+		text-indent: 10em;
+	}
+	article pre.indent12{
+		text-indent: 12em;
+	}
+	.keyword{
+		color: #6868BB;
+		font-style: italic;
+	}
+	.red{
+		color: #F37272;
+	}
+	.blue{
+		color: #00f;
+	}
+	.date{
+		float: right;
+		color: gray;
+		font-size: 12px;
+	}
+</style>
+</head>
+<body>
+	<section>
+		<nav><a href="/demo/index.html">Demo</a></nav>
+		<header><h1>canvas的链式调用 - 编码技巧</h1><span class="date">2014-8-21 16:00 by bjluoying</span></header>
+		<article>
+			<p>链式调用是一种编码技巧，可以帮助我们节省不少js代码量的编写，这种组织代码思路可以使用在很多场合。下面以 canvas 绘图API为例抛砖引玉一下。</p>
+			<br>
+			<p><canvas id="mycanvas" style="border:1px solid #c3c3c3;">哈哈哈哈哈</canvas></p>
+			<p>如果要用canvas绘制上图中的圆，可能需要这样的代码：</p>
+			<code>
+				<span class="keyword">var</span> canvas = document.getElementById('mycanvas');
+				<br><br>
+				<span class="keyword">var</span> ctx = canvas.getContext('2d');
+				<br><br>
+				ctx.fillStyle = '#FF0000';
+				<br><br>
+				ctx.beginPath();
+				<br><br>
+				ctx.arc(70, 18, 15, 0, <span class="keyword">Math</span>.PI * 2, <span class="blue">true</span>);
+				<br><br>
+				ctx.closePath();
+				<br><br>
+				ctx.fill();
+			</code>
+			<p>绘制一个很简单的圆，竟然需要写如此多行代码。</p>
+			<p><strong>那如果是绘制很复杂的图形呢？怎么办？</strong></p>
+			<p>因此，我们需要使canvas能够支持链式调用，从而节省代码量。就像jQuery那样。</p>
+			<p>下面是我简单实现的链式调用：</p>
+			<code>
+				<span class="keyword">var</span> mcanvas = {
+				<br>
+		        <pre>wrap: <span class="keyword">function</span>(canvas) {</pre>
+		        <pre class="indent4"><span class="keyword">var</span> obj = {</pre>
+				<pre class="indent6">unwrap: <span class="keyword">function</span>() {</pre>
+				<pre class="indent8"><span class="red">for</span> (<span class="keyword">var</span> k in <span class="keyword">this</span>) <span class="red">delete</span> <span class="keyword">this</span>[k];</pre>
+				<pre class="indent8"><span class="keyword">this</span>.ctx = <span class="blue">null</span>;</pre>
+				<pre class="indent6">},</pre>
+				<br>
+				<pre class="indent6">attr: <span class="keyword">function</span>(name, value) {</pre>
+				<pre class="indent8"><span class="red">if</span> (<span class="keyword">this</span>.ctx) {</pre>
+				<pre class="indent10"><span class="keyword">var</span> as = name;</pre>
+				<pre class="indent10"><span class="red">typeof</span> name === 'string' && (as = {}, as[name] = value);</pre>
+				<pre class="indent10"><span class="red">for</span> (<span class="keyword">var</span> k <span class="red">in</span> as) <span class="keyword">this</span>.ctx[k] = as[k];</pre>
+				<pre class="indent8">}</pre>
+				<pre class="indent8"><span class="red">return</span> <span class="keyword">this</span>;</pre>
+				<pre class="indent6">}</pre>
+				<pre class="indent4">};</pre>
+				<br>
+				<pre class="indent4"><span class="red">typeof</span> name === 'string' && (canvas = document.getElementById(canvas));</pre>
+				<pre class="indent4"><span class="red">if</span> (canvas && canvas.tagName === 'CANVAS') {</pre>
+				<pre class="indent6"><span class="keyword">var</span> ctx = canvas.getContext('2d');</pre>
+				<pre class="indent6"><span class="red">for</span> (<span class="keyword">var</span> k in ctx) {</pre>
+				<pre class="indent8"><span class="red">if</span> (<span class="red">typeof</span> ctx[k] === 'function') {</pre>
+				<pre class="indent10"><span class="keyword">var</span> fn = <span class="keyword">function</span>() {</pre>
+				<pre class="indent12"><span class="keyword">this</span>.ctx[arguments.callee.method].apply(<span class="keyword">this</span>.ctx, arguments);</pre>
+				<pre class="indent12"><span class="red">return</span> <span class="keyword">this</span>;</pre>
+				<pre class="indent10">}</pre>
+				<pre class="indent10">fn.method = k;</pre>
+				<pre class="indent10">obj[k] = fn;</pre>
+				<pre class="indent8">}</pre>
+				<pre class="indent6">}</pre>
+				<pre class="indent6">obj.ctx = ctx;</pre>
+				<pre class="indent4">}</pre>
+				<pre class="indent4"><span class="red">return</span> obj;</pre>
+				<pre>}</pre>
+				}
+			</code>
+			<p>现在再绘制上面那样的圆，就只需要这样的一行代码了：</p>
+			<code>
+				<pre style="text-indent:0">mcanvas.wrap('mycanvas').attr({</pre>
+			    <pre>'fillStyle': '#FF0000'</pre>
+			    <pre style="text-indent:0">}).beginPath().arc(70, 18, 15, 0, <span class="keyword">Math</span>.PI * 2, <span class="blue">true</span>).closePath().fill().unwrap();</pre>
+			</code>
+			<p>抛砖引玉，这是支持链式调用的一种组织代码思路。</p>
+			<p><a href="mcanvas.js" target="_blank">源代码查看</a>（有注释）</p>
+		</article>
+	</section>
+	<script type="text/javascript" src="mcanvas.js"></script>
+	<script type="text/javascript">
+	 	mcanvas.wrap('mycanvas').attr({
+	        'fillStyle': '#FF0000'
+	    }).beginPath().arc(70, 18, 15, 0, Math.PI * 2, true).closePath().fill().unwrap();
+	</script>
+</body>
+</html>

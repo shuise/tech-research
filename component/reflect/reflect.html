@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<link rel="stylesheet" href="http://qa.developer.163.com/common/common.css">
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<meta charset="UTF-8">
+<title>Reflection</title>
+<style type="text/css">
+li {
+	float:left;
+	width:300px;
+	margin:10px;
+}
+img {
+	width:300px;
+	height:200px;
+	display: block;
+}
+.ani_bg {
+	width:300px;
+	height:1px;
+}
+.ani_end {
+	width:300px;
+	height:80px;
+	-webkit-transition-property:height;
+	-webkit-transition-duration:0.4s;
+	transition-timing-function:linear;
+}
+</style>
+</head>
+<body>
+
+<ul>
+	<li>
+		<img src="1.jpg" />
+	</li>
+	<li>
+		<img src="2.png" />
+	</li>
+	<li>
+		<img src="3.jpg" />
+	</li>
+</ul>
+
+<script type="text/javascript" src="reflect.js"></script>
+<script type="text/javascript">
+(function(){
+	var imgs = document.getElementsByTagName("img");
+	var config = {
+		refH : 80,
+		ani_bg : "ani_bg",
+		ani_end : "ani_end"
+	};
+	window.onload = function(){
+		reflect(imgs,config); 
+	}
+})();
+</script>	
+</body>
+</html>

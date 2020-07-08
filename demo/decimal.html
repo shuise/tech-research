@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>decimal</title>
+<link rel="stylesheet" href="../component/bootstrap/bootstrap.css">
+</head>
+<body>
+<div class="span10">
+	<h1>浏览器如何处理小数尺寸定义</h1>	
+
+
+	<div class="container">
+		<h2>1：直接定义</h2>
+		<div style="width:200px;background:#ccc;">200px</div>
+		<div style="width:200.2px;background:#ccc;">200.2px</div>
+		<div style="width:200.9px;background:#ccc;">200.9px</div>
+		<br>
+		<table class="table table-bordered">
+			<tr>
+				<th>浏览器</th>
+				<td>测试结果</td>
+			</tr>
+			<tr>
+				<th>IE6</th>
+				<td>去尾</td>
+			</tr>
+			<tr>
+				<th>IE8</th>
+				<td>进位</td>
+			</tr>
+			<tr>
+				<th>IE9,10</th>
+				<td>四舍五入</td>
+			</tr>
+			<tr>
+				<th>Chrome</th>
+				<td>四舍五入</td>
+			</tr>
+			<tr>
+				<th>Firefox</th>
+				<td>四舍五入</td>
+			</tr>
+			<tr>
+				<th>Opera</th>
+				<td>去尾</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="container">
+		<h2>2：百分比</h2>
+
+		<style>
+		.ff2grid{
+			width:201px;
+			font-size:0;
+			margin:20px 0;
+			background:#369;
+			padding-bottom:20px;
+		}
+		.ff2grid div{
+			width:50%;
+			/*height:200px;*/
+			display:inline-block;
+			font-size:14px;
+			line-height:100px;
+			background:#ccc;
+			text-align: center;
+		}
+		.ff2grid div:nth-child(2){
+			background:#f00;
+		}
+		.p45 div{
+			width:45%;
+		}
+		</style>
+		<div class="ff2grid">
+			<div>201*50%</div>
+			<div>201*50%</div>
+		</div>
+		<div class="ff2grid p45">
+			<div>201*45%</div>
+			<div>201*45%</div>
+		</div>
+
+		<br>
+
+		<table class="table table-bordered">
+			<tr>
+				<th>浏览器</th>
+				<td>测试结果(50%)</td>
+				<td>测试结果(45%)</td>
+			</tr>
+			<tr>
+				<th>Chrome</th>
+				<td>101+100</td>
+				<td>90+91</td>
+			</tr>
+			<tr>
+				<th>Firefox</th>
+				<td>101+100</td>
+				<td>90+91</td>
+			</tr>
+			<tr>
+				<th>Opera</th>
+				<td>100+100</td>
+				<td>90+90</td>
+			</tr>
+			<tr>
+				<th>IE6</th>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>IE7</th>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>IE8</th>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>IE9</th>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>IE10</th>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="container">
+		<h2>3：结论（未完待续）</h2>
+		<ol>
+			<li>Opera统一去尾处理</li>
+			<li>Chrome和Firefox四舍五入，但多列相对尺寸定义时，确保不超过总宽</li>
+		</ol>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+.area-list .col-l{width:116px;float:left;_overflow:hidden;}
+.area-list .col-r{width:842px;float:left;background:#f6f8f9;border:1px #d0d9e0 solid;padding:20px 0px 32px 0px;}
+
+/*车型图片左侧导航*/
+.area-list .col-l ul{margin-bottom:8px}
+.area-list .col-l ul a{width:117px;height:66px;position:relative;z-index:2;line-height:300px;float:left;overflow:hidden;}
+.area-list .col-l ul a.nav-facade{background:url(sprite_autoimg.png) no-repeat;height:67px;}
+.area-list .col-l ul a.nav-interior{background:url(sprite_autoimg.png) no-repeat 0px -67px}
+.area-list .col-l ul a.nav-details{background:url(sprite_autoimg.png) no-repeat 0px -133px}
+.area-list .col-l ul a.nav-color{background:url(sprite_autoimg.png) no-repeat 0px -199px}
+.area-list .col-l ul a.nav-official{background:url(sprite_autoimg.png) no-repeat 0px -265px}
+/*鼠标经过效果*/
+.area-list .col-l ul a.nav-facade:hover{background:url(sprite_autoimg.png) no-repeat -119px 0px;}
+.area-list .col-l ul a.nav-interior:hover{background:url(sprite_autoimg.png) no-repeat -119px -67px}
+.area-list .col-l ul a.nav-details:hover{background:url(sprite_autoimg.png) no-repeat -119px -133px}
+.area-list .col-l ul a.nav-color:hover{background:url(sprite_autoimg.png) no-repeat -119px -199px}
+.area-list .col-l ul a.nav-official:hover{background:url(sprite_autoimg.png) no-repeat -119px -265px}
+/*鼠标点击后效果*/
+.area-list .col-l ul .current a.nav-facade, .area-list .col-l ul .current a.nav-facade:hover{background:url(sprite_autoimg.png) no-repeat -238px 0px;width:128px;}
+.area-list .col-l ul .current a.nav-interior, .area-list .col-l ul .current a.nav-interior:hover{background:url(sprite_autoimg.png) no-repeat -238px -67px;width:128px;}
+.area-list .col-l ul .current a.nav-details, .area-list .col-l ul .current a.nav-details:hover{background:url(sprite_autoimg.png) no-repeat -238px -133px;width:128px;}
+.area-list .col-l ul .current a.nav-color, .area-list .col-l ul .current a.nav-color:hover{background:url(sprite_autoimg.png) no-repeat -238px -199px;width:128px;}
+.area-list .col-l ul .current a.nav-official, .area-list .col-l ul .current a.nav-official:hover{background:url(sprite_autoimg.png) no-repeat -238px -265px;width:128px;}
+
+.area-list .col-l ul .current a{cursor:default;}
+
+.area-list .col-l p{padding:5px 10px 5px 0px;text-align:right}
+.area-list .col-l p a{color:#336699}
+/*车型图片右侧图片列表*/
+.area-list .col-r .mod{width:792px;margin:0px auto;}
+.area-list .col-r h3{margin:0px 13px 7px 0px;text-align:right;}
+.area-list .col-r h3 span{background:url(sprite_autoimg_ico.png) no-repeat 0px -31px;height:16px;line-height:18px;display:inline-block;padding-left:20px;color:#666;}
+/*图片列表*/
+.area-list .col-r .bd li{float:left;margin:7px 13px;display:inline;width:172px;height:156px;overflow:hidden;}
+.area-list .col-r .bd a{width:162px;height:154px;overflow:hidden;border:1px #d5dae0 solid;background:#fff url(../img/loading.gif) no-repeat center center;float:left;padding:0px 4px;}
+.area-list .col-r .bd a:hover{border:2px #549de5 solid;height:152px;text-decoration:none;padding:0px 3px;box-shadow:3px 3px 4px #c3cfda}
+.area-list .col-r .bd h4{background:url(sprite_autoimg_ico.png) no-repeat 0px 0px;padding-left:23px;color:#307093;margin:8px 0px 4px 0px}
+.area-list .col-r .bd a:hover h4{color:#BA2636;margin-top:7px;}
+.area-list .col-r .bd img{width:160px;height:120px;overflow:hidden;border:1px #dedede solid;}
+
+.area-list .col-r .bd .gt-img a{padding-top:4px;height:150px}
+.area-list .col-r .bd .gt-img a:hover{padding-top:3px;height:149px}
+
+
+.area-list .col-r .ft{padding:0px 13px;margin-top:5px}
+.area-list .col-r .ft li{height:30px;float:left;white-space:nowrap;}
+.area-list .col-r .ft a{color:#4a7091;background:#fff url(sprite_autoimg_ico.png) no-repeat 5px 5px;padding:6px 4px 0px 25px;height:16px;border:1px #a5b8c8 solid;float:left;margin:3px 17px 3px 0px;text-decoration:none;}
+.area-list .col-r .ft a:hover{color:#BA2636;background:#fff url(sprite_autoimg_ico.png) no-repeat 4px 4px;padding:5px 3px 0px 24px;height:15px;border:2px #549de5 solid;box-shadow:3px 3px 4px #c3cfda;}
+
+
+.line{height:7px;overflow:hidden;margin-top:6px;background:url(../img/line.png) repeat-x left top;float:left;width:100%}

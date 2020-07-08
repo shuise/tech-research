@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<title>testImage</title>
+		<meta name="author" content="weixin" />
+		<!-- Date: 2014-01-17 -->
+		<script src="binaryajax.js"></script>
+		<script src="imageinfo.js"></script>
+		<script src="exif.js"></script>
+		<style type="text/css">
+			.img_item img{	
+				margin:0 20px;		
+			}	
+			#demo canvas{
+				vertical-align: top;
+			}		
+		</style>
+	</head>
+	<body>		
+		<h2>imageInfo</h2>
+		<p>img[test1.jpg]</p>
+		<div id="show"></div>	
+		<br />
+		<br />
+		<h2>FileReader&&ImageInfo</h2>
+		<p>图片校正</p>
+		<input type="file" name="imagefile" id="imagefile"/>
+		<div id="loadImageContent">
+		</div>
+		<script src="test.js"></script>		
+	</body>
+</html>
+

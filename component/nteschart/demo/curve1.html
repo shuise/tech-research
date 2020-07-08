@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <style>
+            #canvas,#canvas2 {margin:50px auto;width:800px;height:480px}
+        </style>
+    </head>
+    <body>
+        <div id="canvas"></div> 
+        <script>
+            var canvas = new NTESChart({
+                container : document.getElementById("canvas")
+            });
+
+            //绘制坐标轴边框
+            var data = {
+               '序列a' : [26,49,38,47,72,76,91,72,60,60,53,58,70,96,87,99,77,90,67,72,83,57,74,69,62,98,80,98,80,78,2],
+               '序列b' : [8,25,27,25,54,59,79,47,27,44,44,51,56,83,12,91,52,12,40,8,60,29,7,33,56,25,1,78,70,68,2]
+            };
+            canvas.xyChart(data, ["curve","dot"], {
+                label : "{y} 点击\n2012年7月{x}日",
+                yTitle : {title: "点击次数"},
+                xTick : {interval : 1, labels : "12-7-{x}", rotate: -50, shiftY:12},
+                yTick : {labels : "{y}", apronum: 5},
+                labelPos : "top",
+                anim : true, grid:{shadow: 0, nogrid: 1}
+            });
+        </script>
+    </body>
+</html>

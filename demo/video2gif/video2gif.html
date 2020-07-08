@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>video</title>  
+<style type="text/css">
+*{margin:0;padding:0;}
+video{
+	float:left;
+	margin:0;
+	padding:0;
+}
+#showArea{
+	float:right;
+	margin-left:240px;
+}
+#showArea img{
+	width:300px;
+	height:300px;
+	margin:5px;
+}
+.btns{
+	clear:both;
+	margin:10px;
+	padding:5px;
+}
+#create{
+	margin-top:10px;
+	background:#ccc;
+	padding:5px;
+	display:none;
+}
+</style>
+</head> 
+ 
+<body> 
+
+<p style="margin:10px;font-size:14px;">doc: <a href="http://jnordberg.github.io/gif.js/tests/video.html">http://jnordberg.github.io/gif.js/tests/video.html</a>
+</p>
+
+<div id="showArea"></div>
+<video src="../res/1.mp4" id="video" autoplay width=300 height=300></video>
+
+<div class="btns">
+	<input type="button" name="create" id="create" value="随机5s转gif" />
+</div>
+
+
+<script src="gif.js"></script>
+<script src="gif.worker.js"></script>
+
+<script type="text/javascript">
+(function(){
+	var video = document.querySelector('#video');
+	var showArea = document.querySelector('#showArea');
+	var btn = document.querySelector('#create');
+
+
+	video.addEventListener('loadedmetadata',function(){
+		video.addEventListener('timeupdate',function(){
+			btn.style.display = "inline-block";
+			btn.onclick = function(){
+				showGIF(video);		
+			}
+		});
+	});
+
+	function showGIF(video){
+		var gif = new GIF({
+			repeat:0,
+			workers:4,
+			quality:10,
+			workerScript:"gif.worker.js",
+			width:300,
+			height:300
+		});
+
+		showArea.innerHTML = "transforming......";
+		var times = 0;
+
+		var time = video.duration;
+			time = Math.random()*(time - 5);
+		
+		video.currentTime = time;
+		console.log(time);
+		// var end = Math.random()*time;
+	
+		// var times = Math.floor(t1/60);
+		var t = setInterval(function(){
+			gif.addFrame(video, {copy: true, delay:10});
+			times += 1;
+			if(times >= 50){
+				clearInterval(t);
+				gif.on('finished', function(blob) {
+					// console.log(blob);
+					var img = new Image();
+
+					// blob object 2 bolb url;
+						img.src = URL.createObjectURL(blob);
+					showArea.innerHTML = "";
+					showArea.appendChild(img);
+				});
+
+				gif.render();
+			}
+		},100);
+	}
+})();
+</script>
+</body> 
+</html>

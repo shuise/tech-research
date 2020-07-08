@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="@tabnav.css" type="text/css" />
+<div ne-module="/modules/tabs/tabs.js" ne-state="events:tap" class="clearfix">
+  <ul class="net-tabnav-leftnav">
+    <li ne-repeat="list" class="net-tabnav-leftnav-item" ne-role="tab-nav">{{title}}</li>
+  </ul>
+  <script ne-foreach="list" type="text/template"><div class="net-tabnav-body" ne-role="tab-body">
+    <%for(var i=0;i<links.length;i++){var item=links[i];%>
+      <a href="<%=item.url%>"><%=item.title%></a>
+    <%}%>
+  </div></script>
+</div>

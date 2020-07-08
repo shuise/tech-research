@@ -1,0 +1,8 @@
+.net-tag-wrap{ position:relative;height:128px;margin:8px 3.2% 5px;font-size:90%; }
+.net-tag-item { color:#333;text-decoration:none;position: absolute; text-align: center; border-left: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; z-index: 1; height: 41px; line-height: 41px; overflow: hidden; }
+.net-tag-0 {left:0;top:0; width: 61%; height: 83px; line-height: 68px; border-top: 1px solid #e0e0e0; font-size: 170%; font-weight: bold; }
+.net-tag-1 { left: 0; top: 83px; width: 30%; }
+.net-tag-2 { left: 30%; top: 83px; width: 31%;  }
+.net-tag-3 { left: 61%; top: 0; width: 39%; border-top: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; }
+.net-tag-4 { left: 61%; top: 83px; width: 39%; border-right: 1px solid #e0e0e0; }
+.net-tag-5 { left: 61%; top: 43px; width: 39%; border-right: 1px solid #e0e0e0;  }

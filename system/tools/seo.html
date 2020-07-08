@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>SEO工具 @ 网易</title>
+  <link rel="stylesheet" href="tools.css" />
+</head>
+
+<body>
+  <div class="f2e_wrap">
+    <div class="f2e_wrap_inner">
+      <div class="f2e_api_head">
+        <div class="f2e_api_logo">
+          <strong>网易Web技术研发</strong>
+        </div>
+        <address>developer.163.com</address>
+      </div>
+      <div class="f2e_api_body" ne-module="seo.js">
+        <div class="f2e_api_menu">
+          <div class="f2e_api_menu_item">
+            <h2><a href="#">SEO辅助工具</a></h2>
+            <ol>
+              <li><a href="#h2_hotword">相关热词</a></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="f2e_api_content" ne-module="hotword.js">
+          <h1>SEO辅助工具</h1>
+          <div class="f2e_api_section f2e_api_jsmerge">
+            <h2 id="h2_hotword">相关热词查询 &nbsp; <span class="help" ne-click="toggleHelp()">说明</span></h2>
+            <div class="help">
+              <ol>
+                <li>热词排序依据是百度风云榜、360热搜及微博热门话题</li>
+              </ol>
+            </div>
+            <textarea placeholder="输入要查询的关键词，每个关键词一行" ne-model="kw"></textarea>
+            <input type="button" value="开始查询" ne-click="query()" />
+            <div class="table_wrap">
+            <table>
+              <tr><th>输入词<th>耗时(ms)<th>关联热词</tr>
+              <tr class="f2e_js_build" ne-repeat="item in results">
+                <td>{{item.word}}</td><td>{{item.duration}}</td><td><span ne-repeat="item.relates">{{keyword}}; </span></td>
+              </tr>
+            </table>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <script src="/system/bowlder/src/bowlder.js"></script>
+</body>
+</html>

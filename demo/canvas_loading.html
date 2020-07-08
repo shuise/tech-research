@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META charset="utf-8">
+<TITLE>canvas loading</TITLE>
+</HEAD>
+<BODY>
+
+<canvas id="canvas01" style="background:skyblue;"></canvas>
+
+<SCRIPT type="text/javascript">
+var size = {
+	width : 600,
+	height : 300
+	};
+var canvas = document.getElementById("canvas01");
+	canvas.width = size.width;
+	canvas.height = size.height;	
+var data = {
+	x : 150,
+	y : 150,
+	r : 60,
+	width : 40
+};
+var len = 30,i=0,time=1500;
+
+var context = canvas.getContext('2d');
+var t = setInterval(function(){
+	var	s = Math.floor(360/len*(i));
+	var	e = Math.floor(360/len*(i+1)) - 1;
+	
+	var ii = Math.floor(256*i/len);
+	context.strokeStyle = 'rgb(' + ii + ', ' + ii + ', ' + ii + ')';
+	context.lineWidth = data.width;
+	
+	context.beginPath();
+	
+	context.arc(data.x,data.y,data.r,(Math.PI/180)*s,(Math.PI/180)*e,false);
+	
+	context.stroke();
+	
+	//context.closePath();
+	i += 1;
+	if(i>=len){
+		clearInterval(t);
+	}
+},time/len);
+	
+	//alert(context.isPointInPath(55, 55))
+	//arc(x, y, radius, startAngle, endAngle, anticlockwise)
+</SCRIPT>
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>SEO关键词排名</title>
+    <link href="rank.css" rel="stylesheet"/>
+  </head>
+  <body ne-module="rank.js">
+    <div class="fixed">
+      <div class="search-wrap">
+        <h1>SEO关键词排名跟踪</h1>
+        <div class="search-condition">
+          <label for="">关键词</label>
+          <input type="text" ne-model="keyword" ne-change="reset()"/><br />
+          <label for="">URL</label>
+          <input type="text" ne-model="url" ne-change="reset()"/>
+        </div>
+        <button ne-click="search()" class="search-btn">查询</button>
+        <div class="search-result">
+          <div ne-class="{typeof baidu == 'object'?'':'hidden'}">百度：第 {{baidu.page||''}} 页，第 {{baidu.rank||''}} 项</div>
+          <div ne-class="{typeof qh360 == 'object'?'':'hidden'}">360：第 {{qh360.page}} 页，第 {{qh360.rank}} 项</div>
+        </div>
+      </div>
+    </div>
+    <div class="mainarea" ne-module="/system/bowlder/mgallery/modules/route/route.js" ne-extend="@main.route"></div>
+    <script src="seo_catelist.js" charset="utf-8"></script>
+    <script src="/system/bowlder/src/bowlder.js"></script>
+    <script>define("@main.route", {
+     rules : [
+      {
+        when : '/list/:key*',
+        module : 'modules/list/list.js'
+      },
+      {
+        when : '/detail/:key*',
+        module : 'modules/detail/detail.js'
+      },
+      {
+        redirect : '/list/海外房产'
+      }
+    ]});</script>
+  </body>
+</html>

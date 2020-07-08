@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>密苏里3D Demo</title>
+    <script type="text/javascript" src="libs/three.js"></script>
+    <script type="text/javascript" src="libs/OBJLoader.js"></script>
+    <script type="text/javascript" src="libs/shaders/CopyShader.js"></script>
+
+    <script type="text/javascript" src="libs/stats.js"></script>
+    <script type="text/javascript" src="libs/dat.gui.js"></script>
+    <style>
+        body {
+            margin   : 0;
+            overflow : hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Stats-output">
+</div>
+
+<div id="WebGL-output">
+</div>
+
+<script type="text/javascript">
+
+    function init() {
+
+        var stats = initStats();
+
+        var scene = new THREE.Scene();
+
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+
+        var webGLRenderer = new THREE.WebGLRenderer();
+        webGLRenderer.setClearColor(new THREE.Color(0x5196e5, 1.0));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.antialias = true;
+
+        camera.position.x = 1000;
+        camera.position.y = 200;
+        camera.position.z = 1000;
+        camera.lookAt(scene.position);
+        scene.add(camera);
+
+        var spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.position.set(1500, 1500, 2050);
+        spotLight.intensity = 1;
+        spotLight.castShadow = true;
+        spotLight.shadowCameraNear = 0.1;
+        spotLight.shadowCameraFar = 10000;
+        spotLight.shadowCameraFov = 45;
+        spotLight.shadowMapHeight = 2048;
+        spotLight.shadowMapWidth = 2048;
+
+        scene.add(spotLight);
+
+        var ambiColor = "#111111";
+        var ambientLight = new THREE.AmbientLight(ambiColor);
+        scene.add(ambientLight);
+
+        var hemiLight = new THREE.HemisphereLight(0x80D2FB, 0x0B84FD, 0.6);
+        hemiLight.position.set(0, 500, 0);
+        scene.add(hemiLight);
+
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+        var step = 0;
+
+
+        var controls = new function () {
+           
+        };
+
+        var gui = new dat.GUI();
+        var mesh;
+
+        var loader = new THREE.JSONLoader;
+        loader.load('msl.js', function (loadedMesh) {
+
+            var material = new THREE.MeshLambertMaterial({color: 0x5C3A21});
+
+            var materials = [
+                new THREE.MeshLambertMaterial({color: 0x5196e5, shading: THREE.FlatShading})
+                // new THREE.MeshBasicMaterial({color: 0x66ccff, wireframe: true})
+            ];
+            material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+
+            loadedMesh = THREE.SceneUtils.createMultiMaterialObject(loadedMesh, materials);
+            loadedMesh.castShadow = true;
+            loadedMesh.receiveShadow = true;
+
+            mesh = loadedMesh;
+            loadedMesh.scale.set(0.2, 0.2, 0.2);
+            loadedMesh.position.y = -125;
+
+            loadedMesh.children.forEach(function (child) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            });
+            scene.add(loadedMesh);
+
+            var edges = new THREE.EdgesHelper( loadedMesh.children[0], 0xcef5fc);
+            edges.material.transparent=true;
+            edges.material.opacity=0.15;
+            edges.material.linewidth = 2;
+            scene.add(edges);
+
+                render();
+        });
+
+
+
+
+
+        function render() {
+            stats.update();
+
+            if (mesh) {
+                mesh.rotation.y += 0.006;
+            }
+
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
+
+        function initStats() {
+
+            var stats = new Stats();
+            stats.setMode(0); 
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            document.getElementById("Stats-output").appendChild(stats.domElement);
+
+            return stats;
+        }
+    }
+    window.onload = init;
+</script>
+</body>
+</html>

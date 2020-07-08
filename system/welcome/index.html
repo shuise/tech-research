@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<base target="_blank" />
+<title>网易网站与内部系统组 新人引导</title>
+<link rel="stylesheet" href="http://static.f2e.netease.com/component/bootstrap/bootstrap.css">
+<link rel="stylesheet" href="welcome.css" type="text/css" media="screen" />
+</head>
+<body ng-app="welcome" ng-controller="top" ng-class="{'available' : available}">
+
+<div class="alert time">
+    请新同学注意，入职的四个大步骤必须在两周内完成。
+</div>
+    
+    <div class="fixedbar">
+        <div class="fixedbar-inner">
+            <ul class="mainlnks">
+                <li ng-repeat="item in topnav" ng-class="{'active': step == item.id}"><a href="#/steps/{{item.id}}">{{item.name}}</a></li>
+            </ul>
+            <div class="newbie-adm" ng-show="isAdmin">
+                <a>新增组员</a>
+                <div class="newbie-form"><input placeholder="邮箱前缀" name="uid" type="text" /><br><input placeholder="姓名" name="name" type="text" /> <button class="btn btn-small">新增</button></div>
+            </div>
+            <div class="newbie-task" ng-hide="isAdmin">
+                <span>{{userInfo.name || userInfo.uid}}的新人任务({{tasks.done().length}}/{{tasks.length}})</span>
+                <span class="newbie-task-over" style="width:{{getProgress()}}%">{{userInfo.name || userInfo.uid}}的新人任务({{tasks.done().length}}/{{tasks.length}})</span>
+            </div>
+        </div>
+    </div>
+    <div class="welcome-wrap">
+        <div class="welcome-content" ng-view></div>
+    </div>
+
+    <script src="http://static.f2e.netease.com/libs/angular.js"></script>
+    <script src="http://static.f2e.netease.com/libs/angular_route.js"></script>
+    <script src="welcome.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title></title>
+<style id="system" type="text/css">body{}</style><style id="custom" type="text/css"></style></head>
+<body><h3>host</h3>
+<p>127.0.0.1   test.cross_domain.163.com
+
+</p>
+<h3>httpd-vhosts.conf</h3>
+<pre><code class="lang-xml">&lt;VirtualHost *:8080&gt;
+    DocumentRoot "D:\frontend\demo\cross_domain\server"
+    ServerName test.cross_domain.163.com
+
+    &lt;Directory "D:\frontend\demo\cross_domain\server"&gt;
+        Options Indexes FollowSymLinks Includes ExecCGI
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    &lt;/Directory&gt;
+
+&lt;/VirtualHost&gt;</code></pre>
+<p>Edit By <a href="http://mahua.jser.me">MaHua</a></p>
+</body></html>

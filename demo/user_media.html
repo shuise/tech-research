@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>user media</title>
+</head>
+
+<body onload="init()">
+
+<script>
+function init(){
+	var video = document.getElementById("show");
+	var app = document.getElementById("app");
+
+	if (navigator.webkitGetUserMedia) {
+		navigator.webkitGetUserMedia({audio:true, video:true},gotStream,function(){});
+	}
+	function gotStream(stream) {
+		video.src = webkitURL.createObjectURL(stream);
+		app.hidden = false;
+	}
+
+	if (navigator.mozGetUserMedia) {
+		navigator.mozGetUserMedia({audio:true, video:true}, gotStream2,function(){});
+	}
+	function gotStream2(stream) {
+		video.src = URL.createObjectURL(stream);
+		app.hidden = false;
+	}
+}
+
+
+// pc1 = new webkitRTCPeerConnection(servers);
+// // ...
+// pc1.addStream(localstream); 
+
+
+// pc1.createOffer(gotDescription1);
+// //...
+// function gotDescription1(desc){
+//   pc1.setLocalDescription(desc);
+//   trace("Offer from pc1 \n" + desc.sdp);
+//   pc2.setRemoteDescription(desc);
+//   pc2.createAnswer(gotDescription2);
+// }
+
+
+// pc2 = new webkitRTCPeerConnection(servers);
+// pc2.onaddstream = gotRemoteStream;
+// //...
+// function gotRemoteStream(e){
+//   vid2.src = URL.createObjectURL(e.stream);
+// }
+</script>
+
+<section id="app" hidden>
+	<video id="show" autoplay></video>
+</section>
+
+</body>
+</html>

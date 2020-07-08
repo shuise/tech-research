@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>geolocation</title>
+<style type="text/css">
+#info,#map,#mapobj {background:#f5f5f5;border:1px solid #ccc; padding:10px; font-size:12px; line-height:25px; font-family:Arial,宋体}
+#mapobj,#map {height:400px;width:500px;float:left;margin:20px 20px 0 0;}
+#info {width:1042px;margin:20px 0 0 0;}
+</style>
+</head>
+
+<body>
+
+<input type="button" id="getPos" value="获取我的位置" /> 
+<div id="info"></div> 
+<div id="map" class="hideMap"></div>
+<div id="mapobj"></div> 
+ 
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script src="http://app.mapabc.com/apis?&t=flashmap&v=2.3.4&key=0c3235346b1e00772eafe1c099f4b23fe5ec1202d393f952395e628567934baceedcaf1508ea044f" type="text/javascript"></script> 
+<script type="text/javascript"> 
+//http://ditu.google.com/
+//javascript:void(prompt(gApplication.getMap().getCenter()));
+//北大东门39.99219669988102，116.31566762924194
+//苏州街39.9755917，纬度116.2997884
+//39.904667,116.408198
+//latitude 纬度
+//longitude  精度
+//altitude   海拔
+//accuracy   精准度
+//altitudeAccuracy  海拔精准度
+//heading  
+//speed		   设备移动速度
+
+//北大东门39.99219669988102，116.31566762924194
+//苏州街39.9755917，纬度116.2997884
+
+//Haversine公式
+var dist = distance(39.99219669988102,116.31566762924194,39.9755917,116.2997884);
+	dist = Math.floor(dist*100)/100;
+var str = '苏州街距离北大东门约' + dist + 'km';
+
+	
+	var p1;
+	var t = 0;
+	var dom = {
+		btn : document.getElementById('getPos'),
+		info : document.getElementById('info'),
+		map : document.getElementById('map'),
+		mapabc : document.getElementById("mapObj") 
+	};
+	var gmap = {
+		map : null,
+		marker : null
+	}
+	dom.btn.onclick = function(){
+		if (navigator.geolocation) {
+			dom.info.innerHTML = "请等待查询结果返回";
+			navigator.geolocation.getCurrentPosition(getPositionSuccess,getPositionError,{timeout:5000});
+		}else {
+			 dom.info.innerHTML = "抱歉，您所使用的浏览器不支持 Geolocation 接口";
+		}
+	}
+	
+	function getPositionSuccess(position){
+		var lat = position.coords.latitude;
+		var lng = position.coords.longitude;
+		var alti = position.coords.altitude;   
+		var acc = position.coords.accuracy;   
+		//var lng = position.coords.altitudeAccuracy;
+		//var head = position.coords.heading  
+		//var speed = position.coords.speed	
+		dom.info.innerHTML = "您所在的位置： 经度" + lat + "，纬度" + lng + ',海拔' + alti + ',精准度' + acc;
+		
+		if(typeof position.address === "undefined"){
+			dom.info.innerHTML += "<br />您的浏览器目前仅提供坐标查询";
+		}else{
+			dom.info.innerHTML += "<br />" + position.address.country + " , " + position.address.region + " , " + position.address.city;
+		}
+		var wtach = navigator.geolocation.watchPosition(refreshPosition);
+		//for clear
+		mapabcInsert(lng,lat,position);
+		googlemapInsert(lng,lat,position);	
+		p1 = position;	
+	}
+	
+	function googlemapInsert(lng,lat,position){
+		//Load Google Map
+		var latlng = new google.maps.LatLng(lat, lng);
+		var myOptions = {
+			zoom : 16,
+			center : latlng,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		};
+		gmap.map = new google.maps.Map(document.getElementById("map"), myOptions);
+		
+		
+		//Add marker
+		gmap.marker = new google.maps.Marker({
+			position: latlng,
+			map: gmap.map
+		});
+	}
+	function mapabcInsert(lng,lat,position){
+		document.getElementById("mapobj").innerHTML = "";
+		var mapabc = { 
+	        map        : null, 
+	        marker    : null 
+	    };
+		var mapOptions = new MMapOptions();//构建地图辅助类 
+        mapOptions.zoom=16;//设置地图zoom级别 
+        mapOptions.center=new MLngLat(lng,lat);   //设置地图中心点 
+        mapOptions.toolbar = MINI;//工具条 
+        mapOptions.toolbarPos = new MPoint(15,15);  //工具条偏移 
+        mapOptions.overviewMap = SHOW;//是否显示鹰眼 
+        mapOptions.scale = SHOW;//是否显示比例尺 
+        mapOptions.returnCoordType = COORD_TYPE_OFFSET;//返回偏移明码坐标 
+        mapOptions.zoomBox = true;//鼠标滚轮缩放和双击放大时是否有红框动画效果。 
+        mapabc.map=new MMap("mapobj",mapOptions); //地图初始
+        if(typeof position.address !== "undefined"){ 
+                var country = position.address.country; 
+                var province = position.address.region; 
+                var city = position.address.city; 
+                //alert(' 您位于 ' + country + province + '省' + city +'市'); 
+        } 
+	}
+	
+	function getPositionError(error){
+		switch(error.code){
+			case error.TIMEOUT :
+				dom.info.innerHTML = "连接超时，请重试";
+				break;
+			case error.PERMISSION_DENIED :
+				dom.info.innerHTML = "您拒绝了使用位置共享服务，查询已取消";
+				break;
+			case error.POSITION_UNAVAILABLE : 
+				dom.info.innerHTML = "我们暂时无法为您提供位置服务";
+				break;
+		}
+	}
+	
+	function refreshPosition(position){
+		//监听设备移动，更新地图
+		if (t !== 0) {
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+			var latlng = new google.maps.LatLng(lat, lng);
+			dom.info.innerHTML = '您所在的位置： 经度' + lat + '，纬度' + lng;
+			
+			mapabcInsert(lng,lat,position);
+			googlemapInsert(lng,lat,position);
+		}else{
+			//丢弃第一次监听
+			t++;
+			return false;
+		}
+	}
+
+
+function toRadians(degree) {
+	return degree * Math.PI / 180;
+}
+
+function distance(latitude1, longitude1, latitude2, longitude2) {
+	var R = 6371;
+	var deltaLatitude = toRadians(latitude2-latitude1);
+	var deltaLongitude = toRadians(longitude2-longitude1);
+		latitude1 =toRadians(latitude1);
+		latitude2 =toRadians(latitude2);
+
+	var a = Math.sin(deltaLatitude/2) * Math.sin(deltaLatitude/2) +	Math.cos(latitude1) * Math.cos(latitude2) *	Math.sin(deltaLongitude/2) * Math.sin(deltaLongitude/2);
+
+	var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+	var d = R * c;
+	return d;
+}	
+</script> 
+		
+		
+
+</body>
+</html>

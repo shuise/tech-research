@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>slider</title>
+		<!-- Date: 2013-03-18 -->
+		<link rel="stylesheet" href="http://img1.cache.netease.com/cnews/css07/style.css" />
+		<link rel="stylesheet" href="slider.css" />
+		<style type="text/css">
+			.dtitle{height: 30px;line-height: 30px;text-align:center;margin-top: 100px;font-size: 18px;color: blue;font-weight:bold; text-shadow:1px 1px 3px #999;font-family:"MicroSoft YaHei";}
+		</style>
+		<script type="text/javascript" src="http://img1.cache.netease.com/cnews/js/ntes_jslib_1.x.js"></script>
+		<script type="text/javascript" src="slider.js"></script>	
+	</head>
+	<body>
+		<h2 class="dtitle">demo1</h2>		
+		<div style="width: 320px;margin:50px auto;">
+			<div id="slider1" class="bound_slide_cnt" >
+				<div class="bs_lower_bound bs_bound_tip" ></div>
+				<div class="bs_upper_bound bs_bound_tip"></div>
+				<div class="bs_hound"></div>
+				<a href="javascript:;" target="_self" class="bs_left_ctrl bs_ctrl" >←</a>
+				<a href="javascript:;" target="_self" class="bs_right_ctrl bs_ctrl" >→</a>			
+			</div>
+		</div>
+		<h2 class="dtitle">demo2(默认UI填充)</h2>
+		<div id="slider2" style="width: 500px;margin:50px auto;">
+		</div>
+		<h2 class="dtitle">demo3(重写boundclick事件，扩展范围点击)</h2>
+		<div style="width: 320px;margin:50px auto;">
+			<div id="slide3" class="bound_slide_cnt" >
+				<div class="bs_lower_bound bs_bound_tip" ></div>
+				<div class="bs_upper_bound bs_bound_tip"></div>
+				<div class="bs_hound"></div>
+				<a href="#slider2"  class="bs_left_ctrl bs_ctrl" >←</a>
+				<a href="#slider2"  class="bs_right_ctrl bs_ctrl" >→</a>			
+			</div>
+		</div>
+		<h2 class="dtitle">demo4(单值slider)</h2>
+		<div style="width: 320px;margin:50px auto;">
+			<div id="slide4" class="bound_slide_cnt" >
+				<div class="bs_upper_bound bs_bound_tip"></div>
+				<a href="javascript:;" target="_self" class="bs_right_ctrl bs_ctrl" >→</a>			
+			</div>
+		</div>
+		<h2 class="dtitle">demo5(垂直slider)</h2>
+		<div style="width: 30px;height:320px;margin:50px auto;">
+			<div id="slide_vertical" class="bound_slide_vertical_cnt" >	
+				<div class="bs_lower_bound bs_bound_tip" ></div>
+				<div class="bs_upper_bound bs_bound_tip"></div>						
+				<div class="bs_hound"></div>
+				<a href="#slider2"  class="bs_low_ctrl bs_ctrl" >↓</a>
+				<a href="#slider2"  class="bs_up_ctrl bs_ctrl" >↑</a>			
+			</div>
+		</div>									
+		<script type="text/javascript">
+			/*	@ui{//支持传入单个DOM结点，生成一个默认的UI集合,一般初始化如下：
+				 	slider,//sliderUI
+					highlight,//范围UI
+					upper,//上限控制UI
+					lower//下限控制UI		
+				}
+				@param{
+					slideClickbind,//true|false;默认true;是否需要绑定slidebody的click事件
+					orientation,//"vertical"|"horizontal";水平或垂直slider;默认"horizontal"
+					step,//步长
+					min,//范围下限
+					max,//范围上限
+					values//初始化上下限,[0]:下限值,[1]:上限值;送单值时，支持单侧slider		
+				}
+				@callback{
+					upperChange:function(value),
+					lowerChange:function(value),
+					upperStop:function(value),
+					lowerStop:function(value)
+				}
+			 */	
+			//demo1	
+			var _slide = new NE.slider(
+				{
+					slider:$("#slider1"),
+					highlight:$("#slider1 .bs_hound").$(0),
+					upper:$("#slider1 .bs_right_ctrl").$(0),
+					lower:$("#slider1 .bs_left_ctrl").$(0)
+				},
+				{
+					step:0.1,
+					min:0,
+					max:3,
+					values:[1.1,2.3]					
+				},
+				{
+					upperChange:function(value){
+						var node = $("#slider1 .bs_upper_bound").$(0);
+						_slide.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					},
+					lowerChange:function(value){
+						var node = $("#slider1 .bs_lower_bound").$(0);
+						_slide.setNodePosbyValue(node,value);
+						node.innerHTML = value;						
+					}					
+				}
+			);
+			_slide.init();
+			
+			//demo2 生成默认UI结构
+			var _slide2 = new NE.slider(
+				$("#slider2"),
+				{
+					step:5,
+					min:0,
+					max:100,
+					values:[20,50]					
+				},
+				{
+					upperChange:function(value){
+						//console.log("upper",value);					
+					},
+					lowerChange:function(value){
+						//console.log("lower",value);										
+					},
+					upperStop:function(value){
+						console.log("upper",value);
+					},
+					lowerStop:function(value){
+						console.log("lower",value);					
+					}										
+				}
+			);
+			_slide2.init();
+				
+			//demo3 重写bodyclick，支持范围选择，click选择匹配的最小范围
+			var _slide3 = new NE.slider(
+				{
+					slider:$("#slide3"),
+					highlight:$("#slide3 .bs_hound").$(0),
+					upper:$("#slide3 .bs_right_ctrl").$(0),
+					lower:$("#slide3 .bs_left_ctrl").$(0)
+				},
+				{
+					step:0.1,
+					min:0,
+					max:2.5,
+					values:[1.2,1.6]					
+				},
+				{
+					upperChange:function(value){
+						var node = $("#slide3 .bs_upper_bound").$(0);
+						_slide3.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					},
+					lowerChange:function(value){
+						var node = $("#slide3 .bs_lower_bound").$(0);
+						_slide3.setNodePosbyValue(node,value);
+						node.innerHTML = value;						
+					}					
+				}
+			);
+			_slide3.slideClickbind = function(){
+				var self = this;
+				$(self._ui.slider).addEvent("click",function(e){
+					var slide_offset_pos = self.getOffsetPos(self._ui.slider);					
+					var event_offset_dis = e[self._fix.pageAxis] - slide_offset_pos[self._fix.pos];						
+					var mod = event_offset_dis/self._dis_interval;
+					var flag = Math.round(mod)>mod;
+					
+					var curVale = self.posToValue(event_offset_dis)*1.0;
+					var lowerValue = curVale;
+					var upperValue = curVale+self._param.step;
+						upperValue = upperValue>self._param.max?self._param.max:upperValue;
+					if(flag){
+						upperValue = curVale;
+						lowerValue = curVale-self._param.step;
+						lowerValue = lowerValue<self._param.min?self._param.min:lowerValue;
+					}
+					self.updateUpperValue(self.digitFix(upperValue));
+					self.updateLowerValue(self.digitFix(lowerValue));
+					self.setBound();
+				});
+			}		
+			_slide3.init();	
+								
+			//demo4 单值slide 
+			var _slide4 = new NE.slider(
+				{//只需初始化upper即可
+					slider:$("#slide4"),
+					upper:$("#slide4 .bs_right_ctrl").$(0)
+				},
+				{
+					step:5,
+					min:0,
+					max:100,
+					values:30//单值初始化					
+				},
+				{
+					upperChange:function(value){//只需绑定upperChange即可
+						var node = $("#slide4 .bs_upper_bound").$(0);
+						_slide4.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					}					
+				}
+			);
+			_slide4.init();	
+			//demo5 垂直slider
+			var _slide5 = new NE.slider(
+				{
+					slider:$("#slide_vertical"),
+					highlight:$("#slide_vertical .bs_hound").$(0),
+					upper:$("#slide_vertical .bs_up_ctrl").$(0),
+					lower:$("#slide_vertical .bs_low_ctrl").$(0)
+				},
+				{
+					slideClickbind : true,
+					orientation : "vertical",					
+					step:0.1,
+					min:0,
+					max:3,
+					values:[1.1,2.3]					
+				},
+				{
+					upperChange:function(value){
+						var node = $("#slide_vertical .bs_upper_bound").$(0);
+						_slide5.setNodePosbyValue(node,value);
+						node.innerHTML = value;
+					},
+					lowerChange:function(value){
+						var node = $("#slide_vertical .bs_lower_bound").$(0);
+						_slide5.setNodePosbyValue(node,value);
+						node.innerHTML = value;					
+					}					
+				}
+			);
+			_slide5.init();					
+		</script>	
+	</body>
+</html>

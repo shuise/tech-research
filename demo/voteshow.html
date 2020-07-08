@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<script type="text/javascript" src="http://active.163.com/service/service-sample-0.1.js"></script>
+
+<!-- 内容区域 -->
+<script id="list_2214" type="text/plain">
+<%= id%> <%= name%> <%= gender%> <%= email%> <%= phone%> <%= danwei%> <%= zhiye%> <div id="<%=uid%>_vote_461_<%=id%>">投票：<span id="<%=uid%>_vote_value_461_<%=id%>"></span></div>
+</script>
+
+<script type="text/javascript">
+(function(){
+	active.sample.one({
+		formId: 2214,
+		voteId: 461,
+		content: ['list_2214']
+	});
+})();
+</script>
+
+</body>
+</html>

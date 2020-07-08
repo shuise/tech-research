@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style type="text/css">
+* {margin:0;padding:0;color:#333;font-family:arial;font-size:12px;}
+h1 {font-size:15px;margin:10px 0 20px 0;font-size:14px;}
+#result_title {margin:20px 10px 0;}
+#result {width:300px;margin-top:10px;padding:10px;}
+input {padding:4px 10px;margin:5px 10px 0 0;border-radius:3px;box-shadow:5px 2px 6px #ccc;}
+</style>
+</head>
+<body style="padding:10px;">
+<h1></h1>
+
+<input type="text" value="" name="text" />
+<input type="submit" value="" />
+
+<div id="result_title"></div>
+<textarea name="result" id="result" cols="30" rows="10"></textarea>
+<script src="m.js"></script>
+<script>
+(function(){
+	var MORSE = morseTranslation();
+	var _title = document.getElementById("result_title");
+	var _body = document.getElementById("result");
+	
+	document.title = MORSE.title;
+	document.getElementsByTagName("h1")[0].innerHTML = MORSE.title;
+	
+	var inputs = document.getElementsByTagName("input");
+	inputs[0].focus();
+	inputs[0].onkeyup = function(event){
+		var event = event || window.event;
+		var keyCode = event.which || event.keyCode;
+		if(keyCode == "13"){
+			show();
+		}
+	}
+	
+	inputs[1].value = MORSE.title; 
+	inputs[1].onclick = show;
+	
+	function show(){
+		var result = MORSE.getCode(inputs[0].value);
+		_title.innerHTML = result.name + "：";
+		_body.value = result.code;
+		MORSE.selectAll(_body,0,result.code.length);
+	}
+})();
+</script>
+
+</body>
+</html>

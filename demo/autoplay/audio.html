@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>audio</title>
+</head>
+<body>
+
+<!-- <audio src="a2.mp3" autoplay controls></audio> -->
+
+<hr>
+
+<script>
+var isiPad = false;
+if (navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i)) { 
+    isiPad = true; 
+}
+
+(function() { 
+    if (isiPad) { 
+        var audioElement2 = document.createElement('audio'); 
+        audioElement2.setAttribute("src", "a2.mp3"); 
+        audioElement2.controls = true; 
+        audioElement2.loop = true; 
+        document.body.appendChild(audioElement2);
+        audioElement2.load();
+        audioElement2.play();
+    }
+})();	
+</script>	
+</body>
+</html>

@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      flash中国地图
+    </title>
+    <link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css"/>
+    <link rel="stylesheet" href="api.css"/>
+  </head>
+  
+  <body>
+    <div class="f2e_wrap">
+      <div class="f2e_wrap_inner">
+        <div class="f2e_api_head">
+          <div class="f2e_api_logo">
+            <strong>
+              网易前端
+            </strong>
+          </div>
+          <address>
+            developer.163.com
+          </address>
+        </div>
+        <div class="f2e_api_body">
+          <div class="f2e_api_menu">
+            <!--#include virtual="/component/menu.html"-->
+          </div>
+          <div class="f2e_api_content">
+            <h1>flash中国地图</h1>
+            <div class="f2e_api_section">
+              <p>引用：<a href="http://img1.cache.netease.com/f2e/lib/js/ne.js" target="_blank">http://img1.cache.netease.com/f2e/lib/js/ne.js</a></p>
+              <p>引用：<a href="http://qa.developer.163.com/component/flashmap/js/flashmap.js" target="_blank">http://qa.developer.163.com/component/flashmap/js/flashmap.js</a></p>
+            </div>
+            <div class="f2e_api_section" id="login_login">
+              <h3>概述：</h3>
+              <p>中国地图flash组件，可以配置大小、颜色、透明度等。鼠标操作会通过回调通知。</p>
+              <h3>语法：</h3>
+              <pre id="f2e_api_code">
+var map = flashMap(config, data, callback);</pre>
+              <h3>参数：</h3>
+              <ul class="argu">
+                <li>
+                  <strong>config</strong>
+                  <table class="f2e_api_table">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>默认值</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>swf</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>swf地址</td>
+                      </tr>
+                      <tr>
+                        <td>targetId</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>替换元素的id</td>
+                      </tr>
+                      <tr>
+                        <td>width</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>地图宽，高度自适应</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+                <li>
+                  <strong>data</strong>
+                  <table class="f2e_api_table">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>默认值</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>fillcolor</td>
+                        <td>string</td>
+                        <td>#3881C2</td>
+                        <td>初始填充色</td>
+                      </tr>
+                      <tr>
+                        <td>fillalpha</td>
+                        <td>number</td>
+                        <td>1</td>
+                        <td>初始透明度</td>
+                      </tr>
+                      <tr>
+                        <td>overcolor</td>
+                        <td>string</td>
+                        <td>#FF0000</td>
+                        <td>鼠标移入颜色</td>
+                      </tr>
+                      <tr>
+                        <td>overalpha</td>
+                        <td>number</td>
+                        <td>1</td>
+                        <td>鼠标移入透明度</td>
+                      </tr>
+                      <tr>
+                        <td>downcolor</td>
+                        <td>string</td>
+                        <td>#5D5153</td>
+                        <td>鼠标按下颜色</td>
+                      </tr>
+                      <tr>
+                        <td>downalpha</td>
+                        <td>number</td>
+                        <td>1</td>
+                        <td>鼠标按下透明度</td>
+                      </tr>
+                      <tr>
+                        <td>bordercolor</td>
+                        <td>string</td>
+                        <td>#FFFFFF</td>
+                        <td>边界填充色</td>
+                      </tr>
+                      <tr>
+                        <td>borderalpha</td>
+                        <td>number</td>
+                        <td>1</td>
+                        <td>边界透明度</td>
+                      </tr>
+                      <tr>
+                        <td>borderthickness</td>
+                        <td>number</td>
+                        <td>1</td>
+                        <td>边界粗细</td>
+                      </tr>
+                      <tr>
+                        <td>labelenable</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>是否显示地区名称</td>
+                      </tr>
+                      <tr>
+                        <td>labelfontsize</td>
+                        <td>number</td>
+                        <td>12</td>
+                        <td>地区名称字体大小</td>
+                      </tr>
+                      <tr>
+                        <td>labelcolor</td>
+                        <td>string</td>
+                        <td>#000000</td>
+                        <td>地区名称颜色</td>
+                      </tr>
+                      <tr>
+                        <td>labelbgColor</td>
+                        <td>string</td>
+                        <td>#FFFFFF</td>
+                        <td>地区名称背景颜色</td>
+                      </tr>
+                      <tr>
+                        <td>labelbgAlpha</td>
+                        <td>number</td>
+                        <td>1</td>
+                        <td>地区名称背景透明度</td>
+                      </tr>
+                      <tr>
+                        <td>toggle</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>地区鼠标按下是否弹起</td>
+                      </tr>
+                      <tr>
+                        <td>radio</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>按下一个地区，其它地区是否弹起(toggle为true时有效)</td>
+                      </tr>
+                      <tr>
+                        <td>shadow</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>是否显示阴影</td>
+                      </tr>
+                      <tr>
+                        <td>initColor</td>
+                        <td>object</td>
+                        <td>null</td>
+                        <td>初始化时传入某些地区特殊颜色 initColor: {"110000": {"fillcolor":"#FF5F10", "overcolor":"#EEEEEE"}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+                <li>
+                  <strong>callBack</strong>
+                  <table class="f2e_api_table">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>默认值</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>positionData</td>
+                        <td>function</td>
+                        <td></td>
+                        <td>初始化后调用，返回object，包括各省位置信息</td>
+                      </tr>
+                      <tr>
+                        <td>click</td>
+                        <td>function</td>
+                        <td></td>
+                        <td>点击时回调，返回object，包括点击发生的位置信息</td>
+                      </tr>
+                      <tr>
+                        <td>hover</td>
+                        <td>function</td>
+                        <td></td>
+                        <td>移入时回调，返回object，包括移入发生的位置信息</td>
+                      </tr>
+                      <tr>
+                        <td>out</td>
+                        <td>function</td>
+                        <td></td>
+                        <td>移出时调用，返回object，包括移出发生的位置信息</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+              
+              </ul>
+              <h3>例子：</h3>
+              <pre id="f2e_api_code">
+//替换页面上ID为chinaMap的元素，设置宽为600，配置颜色；注册点击时回调
+var map = flashMap({
+    swf: "mapofchina.swf",              
+    targetId: "chinaMap",
+    width: "600"
+  },{
+    fillcolor: "#ED752D",
+    overcolor: "#FB9D64",
+    downcolor: "#6F6F6F"
+  },
+  {
+    click: function(data) {
+      data.code//点击区域代码
+      data.name//点击区域名
+      data.position//点击区域位置
+      data.selected//点击区域是否被选中
+    }
+  }
+);
+              </pre>
+              <p><a href="demo.html" target="_blank">demo</a></p>
+              <br>
+              <br>
+              <br>
+              <h3>附录：</h3>
+              <pre>
+/*城市代码对应表
+110000: "北京市"
+120000: "天津市"
+130000: "河北省"
+140000: "山西省"
+150000: "内蒙古自治区"
+210000: "辽宁省"
+220000: "吉林省"
+230000: "黑龙江省"
+310000: "上海市"
+320000: "江苏省"
+330000: "浙江省"
+340000: "安徽省"
+350000: "福建省"
+360000: "江西省"
+370000: "山东省"
+410000: "河南省"
+420000: "湖北省"
+430000: "湖南省"
+440000: "广东省"
+450000: "广西壮族自治区"
+460000: "海南省"
+500000: "重庆市"
+510000: "四川省"
+520000: "贵州省"
+530000: "云南省"
+540000: "西藏自治区"
+610000: "陕西省"
+620000: "甘肃省"
+630000: "青海省"
+640000: "宁夏回族自治区"
+650000: "新疆维吾尔自治区"
+810000: "香港"
+910000: "澳门"
+710000: "台湾"
+*/
+              </pre>
+            </div>
+          </div>
+            <br>
+          <div class="clear">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

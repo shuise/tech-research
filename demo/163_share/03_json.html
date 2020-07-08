@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ajax异步数据缓存</title>
+<link rel="stylesheet" href="share.css" />
+</head>
+
+<body id="top">
+
+<a href="#top" id="back_top">TOP</a>
+
+<h1>ajax异步数据缓存</h1>
+<ol class="menu" id="menu">
+	<li><a href="#a2">示例</a></li>
+	<li><a href="#a3">浏览器缓存</a></li>
+	<li><a href="#a4">实现方式</a></li>
+	<li><a href="#a5">demo演示</a></li>
+</ol>
+
+
+
+<div id="a2" class="sections">
+	<img src="images/03_json_1.png" alt="" />
+	<img src="images/03_json_2.png" alt="" />
+
+	<pre>
+		输入框每次改变值，向服务器发送一次请求。
+		当按back回退(删除)一个字符时，值也跟上次不一样了。但我们发现，此时并没有像服务器发送请求。
+		<a href="#a3">如何实现？</a>
+	</pre>
+</div>
+
+<div id="a3" class="sections">
+	<ol>
+		<li>get提交</li>
+		<li>cookie</li>
+		<li>保存到内存中(js变量存储)</li>
+	</ol>	
+</div>
+
+<div id="a4" class="sections">
+	<ol>
+		<li>onchange?  onkeyup?</li>
+		<li>cookie?</li>
+	</ol>	
+</div>
+
+<div id="a5" class="sections">	
+	<ol>
+		<li><a href="03_demo/a.html">json数据缓存 demo 1</a></li>
+		<li><a href="03_demo/b.html">json数据缓存 demo 2</a></li>
+	</ol>
+</div>
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" src="share.js"></script>
+</body>
+</html>

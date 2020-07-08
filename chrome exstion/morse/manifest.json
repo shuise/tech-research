@@ -1,0 +1,22 @@
+{
+	"name": "MORSE",
+	"version": "1.2",
+	"description": "morse code", 
+	"permissions": ["contextMenus","notifications"],
+	"background_page": "background.html",
+	"icons": { 
+		"16": "logo.png",             
+		"48": "logo.png",             
+		"128": "logo.png"
+	},  
+	"content_scripts": [{
+		"matches": ["http://*/*","https://*/*"],
+		"js": ["m.js"],
+		"all_frames" : true
+	}],
+	"browser_action": {
+		"popup": "popup.html",
+		"default_icon": "logo.png"
+	},
+	"update_url": "http://clients2.google.com/service/update2/crx"
+}

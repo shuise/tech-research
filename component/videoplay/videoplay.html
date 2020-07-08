@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>视频自动播放demo</title>
+<link href="http://qa.developer.163.com/common/common.css" type="text/css" rel="stylesheet" />
+<link href="videoplay.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+body{font-size:12px;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+.sect{width:960px; margin:0 auto;}
+.sect:after,.sect_bd:after{clear:both; height:0; overflow:hidden; display:block; visibility:hidden; content:".";}
+.sect,.sect_bd{*zoom:1;}
+.sect:after,.sect_bd:after{clear:both; height:0; overflow:hidden; display:block; visibility:hidden; content:"."; }
+.details, .details:visited, .details:hover, .tocomment, .tocomment:visited, .tocomment:hover{color:#f30100 !important;}
+.clearfix{*zoom:1;}
+.details,.details:visited,.details:hover{color:#ba2636;}
+.sect_video{background:#272727; color:#fff; margin-top:20px;}
+.sect_video a,.sect_video a:visited,.sect_video a:hover{color:#fff;}
+</style>
+</head>
+
+<body>
+<div class="sect_video sect" id="js_videoplay">
+	<div class="video_body">
+		<div class="video_show">
+			
+		</div>
+		<div class="video_info">
+			
+		</div>
+	</div>
+	<div class="video_list">
+		<ul>
+			<li _flashvars="pltype=7&topicid=0005&sid=V53Q322VL&vid=V90066P9E&coverpic=http://vimg1.ws.126.net/image/snapshot/2013/6/9/F/V90066P9F.jpg&hiddenR=true&iplimit=1" _format="flv" _vtitle="五佳扑救-德赫亚神级连环扑" _vdigest="英超第二轮五佳扑救 德赫亚神级连环扑救" _vsrc="http://v.sports.163.com/video/2012/8/R/S/V88VUDKRS.html" ><a href="http://v.sports.163.com/video/2012/8/R/S/V88VUDKRS.html">五佳扑救-德赫亚神级连环扑</a></li>
+
+			<li _flashvars="pltype=7&topicid=0005&sid=V53Q322VL&vid=V8VTIJQI0&coverpic=http://vimg2.ws.126.net/image/snapshot/2013/6/I/1/V8VTIJQI1.jpg&hiddenR=true&iplimit=1" _format="flv" _vtitle="斯特恩:NBA选秀也存在" _vdigest="书豪:NCAA存在种族歧视 斯特恩:NBA选秀也存在" _vsrc="http://v.sports.163.com/video/2012/8/H/B/V890A19HB.html" ><a href="http://v.sports.163.com/video/2012/8/H/B/V890A19HB.html">斯特恩:NBA选秀也存在</a></li>
+
+			<li _flashvars="pltype=7&topicid=0005&sid=V53Q322VL&vid=V8VQTBHAA&coverpic=http://vimg1.ws.126.net/image/snapshot/2013/6/A/B/V8VQTBHAB.jpg&hiddenR=true&iplimit=1" _format="flv" _vtitle="前瞻:掘金冲击主场20连胜" _vdigest="前瞻:掘金冲击主场20连胜 哈林率火箭避免被横扫" _vsrc="http://v.sports.163.com/video/2012/8/M/E/V890K3FME.html" ><a href="http://v.sports.163.com/video/2012/8/M/E/V890K3FME.html">前瞻:掘金冲击主场20连胜</a></li>
+		</ul>
+	</div>
+</div>
+
+<script src="http://img1.cache.netease.com/cnews/js/ntes_jslib_1.x.js" charset="gb2312"></script>
+<script src="tools.js" type="text/javascript" _grounp="videoplay"></script> 
+<script src="videoplay.js" type="text/javascript" _grounp="videoplay"></script> 
+<script type="text/javascript">
+
+(function(){
+	var vBox = NTES("#js_videoplay"),
+		vShow = vBox.NTES(".video_show").NTES(0),
+		vLists = vBox.NTES(".video_list li"),
+		vInfo = vBox.NTES(".video_info").NTES(0);
+
+	var nodes = {
+			vBox : vBox,
+			vShow : vShow,
+			vLists : vLists,
+			vInfo : vInfo
+		};
+	var	options = {
+			curIndex : 0,
+			selectedClass : "current",
+			switchEvent : "click",
+			isContinue : true
+		};
+	var	vParams = {
+			vWidth : 650,
+			vHeight : 556
+		};
+
+	var _setVideo = new videoPlay(nodes,options,vParams);
+	_setVideo.init();
+
+})();
+
+</script>
+</body>
+</html>

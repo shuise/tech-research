@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图片上传 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+		
+		<div class="f2e_api_content">
+			<h1>图片上传 image upload</h1>
+			
+			<div class="f2e_api_section">
+				<h2>使用之前请注意，上传组件必须在163及子域下开发调试。</h2>
+				<p>引入文件 <a href="http://qa.developer.163.com/component/upload_img/upload.js">http://qa.developer.163.com/component/upload_img/upload.js</a></p>
+			</div>
+			
+			<div class="f2e_api_section">
+				<h2>代码调用</h2>
+				<pre id="f2e_api_code">直接上传本地文件
+NE.uploadImg(node,function(data){
+
+});
+
+上传图片信息(base64)
+NE.uploadImgData(imageData,function(data){
+
+});</pre>
+			</div>	
+
+			<div class="f2e_api_section">
+				<h2>返回值说明</h2>
+				<pre id="f2e_api_desc">data = {
+	"ourl" : "http://……………….jpg",				//原图url
+	"ow" : 480,							//原图宽度
+	"oh" : 480,							//原图高度
+	"murl" : "http://……………….jpg",				//中图地址 750*750
+	"surl" : "http://……………….jpg",				//小图地址 240*240
+	"turl" : "http://……………….jpg",				//微小图地址 130*130
+	"squareurl" : "http://……………….jpg"			//方图地址 75*75
+};</pre>
+			</div>	
+			<div class="f2e_api_btns">
+				<a href="api.doc">杭研相册api文档(基于相册接口的封装)</a><br>
+				<a href="demo.html">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

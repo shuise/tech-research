@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cross_window_msg</title>
+<script src="http://img1.cache.netease.com/f2e/libs/jquery.js"></script>
+</head>
+
+<body>
+<button type="button" id="btn_post">post</button>
+<iframe src="http://test.cross_domain.163.com:8080/proxy_cross_window_msg.html" frameborder="0" id="proxy" style="position: absolute; left: 0; top: -9999px;"></iframe>
+<script>
+$(function(){
+	$("#btn_post").click(function(){
+		var $proxy = $("#proxy");
+		$proxy[0].contentWindow.postMessage("netease", "http://test.cross_domain.163.com:8080/proxy_cross_window_msg.html");
+	});
+
+	function validate(origin) {
+		//TODO
+		return true;
+	}
+
+	window.addEventListener("message", function(e){
+		validate(e.origin) && console.info(e.data);
+	});
+});
+</script>
+
+<dl style="position: fixed; left: 10px; bottom: 10px;">
+	<dt>参考资料</dt>
+	<dd><a href="https://developer.mozilla.org/zh-CN/docs/DOM/window.postMessage" target="_blank">window.postMessage</a></dd>
+</dl>
+</body>
+</html>

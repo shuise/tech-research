@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--#include virtual="/system/unit_test/inc/head.html"-->
+<title>Finance API(on line)</title>
+</head>
+<body>
+<!--正文开始-->
+
+<!-- include source files here... -->
+<script src="/finance/api/financeAPI.js"></script>
+<!-- include spec files here... -->
+<script src="/finance/api/financeAPISpec.js"></script>
+
+<div style="display:none;">
+    <ul>
+        <li class="a a_1"></li>
+        <li class="a a_2"></li>
+        <li class="a a_3"></li>
+    </ul>
+</div>
+<!--正文结束-->
+
+<!--#include virtual="/system/unit_test/inc/foot.html"-->
+</body>
+</html>

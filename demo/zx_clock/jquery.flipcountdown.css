@@ -1,0 +1,26 @@
+.xdsoft_flipcountdown{display:inline-block;}
+
+.xdsoft_flipcountdown .xdsoft_digit{float:left;background-repeat:no-repeat;}
+.xdsoft_flipcountdown .xdsoft_clearex{clear:both;float:none;}
+
+
+.xdsoft_flipcountdown >.xdsoft_digit{
+	background-position:0px 0px;
+}
+.xdsoft_flipcountdown >.xdsoft_digit.xdsoft_separator,.xdsoft_flipcountdown >.xdsoft_digit.xdsoft_dot{
+	opacity:0.9;
+}
+
+
+.xdsoft_flipcountdown.xdsoft_size_md >.xdsoft_digit{
+	width:36px; 
+	height:51px;
+	background-image:url(img/digit-md.png);
+}
+.xdsoft_flipcountdown.xdsoft_size_md >.xdsoft_digit.xdsoft_space,
+.xdsoft_flipcountdown.xdsoft_size_md >.xdsoft_digit.xdsoft_separator,
+.xdsoft_flipcountdown.xdsoft_size_md >.xdsoft_digit.xdsoft_dot{
+	width:10px;
+	background-position:-13px -3120px;
+}
+.time{margin-bottom: 10px;font-size: 16px;font-family: "微软雅黑";}

@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="http://qa.developer.163.com/common/common.css" />
+<link rel="stylesheet" href="http://qa.developer.163.com/component/select/select_mock.css" />
+<style type="text/css">
+.a {padding:20px;background:#ccc;height:50px;}
+.a span.items {float:left;margin-right:20px;}
+</style>
+<title>select模拟</title>
+</head>
+<body>
+
+    <input type="text" />
+<div class="a">
+  <select id="selectArea">
+    <option value="">不限</option>
+    <option value="450">北京市</option>
+    <option value="451">重庆市</option>
+    <option value="452">天津市</option>
+    <option value="453">上海市</option>
+    <option value="455">吉林省</option>
+    <option value="454">黑龙江省</option>
+    <option value="456">辽宁省</option>
+    <option value="457">青海省</option>
+    <option value="458">山西省</option>
+    <option value="459">陕西省</option>
+    <option value="460">河南省</option>
+    <option value="461">湖南省</option>
+    <option value="462">湖北省</option>
+    <option value="463">河北省</option>
+    <option value="464">安徽省</option>
+    <option value="465">江苏省</option>
+    <option value="466">浙江省</option>
+    <option value="467">江西省</option>
+    <option value="468">山东省</option>
+    <option value="469">广东省</option>
+    <option value="470">云南省</option>
+    <option value="471">贵州省</option>
+    <option value="472">四川省</option>
+    <option value="473">海南省</option>
+    <option value="474">福建省</option>
+    <option value="475">台湾省</option>
+    <option value="476">甘肃省</option>
+    <option value="477">宁夏回族自治区</option>
+    <option value="478">广西壮族自治区</option>
+    <option value="479">内蒙古自治区</option>
+    <option value="480">新疆维吾尔自治区</option>
+    <option value="481">西藏自治区</option>
+    <option value="482">香港特别行政区</option>
+    <option value="483">澳门特别行政区</option>
+  </select>
+
+
+<select id="selectArea2">
+    <option>请选择地区</option>
+</select>
+</div>
+
+<script type="text/javascript" src="http://qa.developer.163.com/component/select/select_mock.js"></script>
+<script type="text/javascript">
+
+function datas(node){
+    var data = {};
+    var options = node.options;
+    for(var i = 0,len = options.length;i < len; i++){
+        data[options[i].value] = getSubData(options[i].innerHTML);
+    }
+    return data;
+    function getSubData(str){
+        var _data = [];
+        for(var i=0;i<10;i++){
+            var id = 'NE' + (Math.random() * (1 << 30)).toString(16).replace('.', '');
+            _data.push({text:str + "-"  + i,value:id});
+        }
+        return _data;
+    }
+}
+
+(function(){
+    var node2 = document.getElementById("selectArea2");
+    var se2 = new selectMock(node2,{maxHeight:300});
+        se2.init(function(data){
+            alert(data.text + "---" + data.value);
+        }); 
+
+        
+    var node = document.getElementById("selectArea");
+    var subData = datas(node);
+    var se = new selectMock(node,{maxHeight:300});
+        se.init(function(data){
+            se2.getData = function(){
+                return subData[data.value];
+            }
+            se2.update();
+        });
+})();
+
+
+</script>
+</body>
+</html>

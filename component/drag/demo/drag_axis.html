@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+<style type="text/css">
+.drag {position: relative; width: 58px; height: 58px; border: 1px solid #89B; background: #BCE; cursor: move;}
+</style>
+</head>
+
+<body>
+<div id="div-1" class="drag" style="margin-left:200px; margin-top: 120px;">div1</div>
+<script>
+var div1 = document.getElementById("div-1");
+new Drag({
+	elem: div1,
+	drag: function(e, dd){
+		this.style.left = dd.left + dd.deltaX + "px";
+	}
+});
+
+
+</script>
+</body>
+</html>

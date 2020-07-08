@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+<style type="text/css">
+.container {position: relative; left: 100px; top: 150px; width: 600px; height: 300px; border: 1px dashed #000;}
+.drag {position: absolute; width: 58px; height: 58px; border: 1px solid #89B; background: #BCE; cursor: move;}
+</style>
+</head>
+
+<body>
+<div class="container" id="container">
+	<div id="div-1" class="drag" style="left:50px; top: 50px;">div1</div>
+</div>
+<script>
+var container = document.getElementById("container");
+var div1 = document.getElementById("div-1");
+new Drag({
+	elem: div1,
+	draginit: function(e, dd) {
+		dd.limit = {
+			x: container.offsetWidth - div1.offsetWidth,
+			y: container.offsetHeight - div1.offsetHeight
+		}
+	},
+	drag: function(e, dd){
+		this.style.left = Math.min(Math.max(0, dd.left + dd.deltaX), dd.limit.x) + "px";
+		this.style.top = Math.min(Math.max(0, dd.top + dd.deltaY), dd.limit.y) + "px";
+	}
+});
+
+
+</script>
+</body>
+</html>

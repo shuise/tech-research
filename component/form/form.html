@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>表单验证 form validator</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/shorter/batch.css" />
+<style type="text/css">
+.st_form_warning {margin-left:10px;}
+.st_form_valid {font-size:12px;color:green;}	
+</style>
+</head>
+<body>
+<div class="st_wrap2" id="st_wrap2">
+<div class="st_main2 clearfix" id="st_main2">
+	<div class="st_grid st_ask_key">
+		<form action="" method="post" id="form">
+		<div class="st_apply_form">
+			<ol>
+				<li>
+					<label for="st_form_name">邮箱：</label>
+					<input type="text" class="st_form_text st_form_name" id="st_form_name" _required="true" _type="email"
+					 _tips='{"_required":"请填入邮箱","_type":"必须是邮箱格式"}'  />
+					 <span class="st_form_tips">6~18个字符，包括字母、数字、连字符，开头和结尾必须是字母或者数字</span>
+				</li>
+				<li>
+					<label for="st_form_website">网址：</label>
+					<input type="text" class="st_form_text st_form_website" id="st_form_website" _type="url" />
+				</li>
+				<li>
+					<label for="st_form_desc">文本域：</label>
+					<textarea class="st_form_desc" id="st_form_desc" _required="true"></textarea>
+				</li>
+				<li>
+					<label for="st_form_contact">下拉框：</label>
+					<select name="st_form_select" id="st_form_select" _required="true">
+						<option value="">test</option>
+						<option value="1">11111</option>
+						<option value="2">22222</option>
+						<option value="3">33333</option>
+					</select>
+				</li>
+				<li>
+					<label for="st_form_teles">复选：</label>
+					<input type="checkbox" name="st_form_teles" value="1"  _required="true" />
+					<input type="checkbox" name="st_form_teles" value="2"  _required="true" />
+					<input type="checkbox" name="st_form_teles" value="3"  _required="true" />
+					<input type="checkbox" name="st_form_teles" value="4"  _required="true" />
+				</li>
+				<li>
+					<label for="st_form_teles">单选：</label>
+					<input type="radio" name="st_form_radio" value="1"  _required="true" />
+					<input type="radio" name="st_form_radio" value="2"  _required="true" />
+					<input type="radio" name="st_form_radio" value="3"  _required="true" />
+					<input type="radio" name="st_form_radio" value="4"  _required="true" />
+				</li>
+				<li>
+					<label>密码：</label>
+					<input type="password" class="st_form_text st_form_website" id="st_form_pwd" _required="true" _type="minlength" _minlength="5" />
+				</li>
+				<li>
+					<label>密码2：</label>
+					<input type="password" class="st_form_text st_form_website" id="st_form_pwd2" _required="true" _type="equalTo" _equalTo="st_form_pwd" />
+				</li>
+				<li>
+					<label>最大长度：</label>
+					<input type="text" class="st_form_text st_form_website" id="st_form_test1" _required="true" _type="maxlength" _maxlength="10" />
+				</li>
+				<li>
+					<label>长度区间：</label>
+					<input type="text" class="st_form_text st_form_website" id="st_form_test2" _required="true" _type="rangelength" _maxlength="10" _minlength="5" />
+				</li>
+				<li>
+					<label>值区间：</label>
+					<input type="text" class="st_form_text st_form_website" id="st_form_test3" _required="true" _type="range" _max="10" _min="5" />
+				</li>
+				<li>
+					<label>最大值：</label>
+					<input type="text" class="st_form_text st_form_website" id="st_form_test4" _required="true" _type="max" _max="10" _min="5" />
+				</li>
+			</ol>
+			<div class="st_form_btns">
+				<input type="submit" style="font-size:16px;padding:5px 20px;" />
+			</div>
+		</div>
+		</form>
+	</div>	
+</div>
+</div>
+<script src="http://qa.developer.163.com/component/form/validator.js"></script>
+<script type="text/javascript">
+(function(){
+	var form = document.getElementById("form");	
+	var params = {
+		autoCheck : true
+	};
+	var validator1 = new validator(form,params);
+		validator1.beforeCheck = function(node){
+			var obj = getElsClass(node.parentNode,"","st_form_tips")[0];
+			this.hide(obj);
+		}
+		validator1.init();
+})();	
+</script>
+</body>
+</html>

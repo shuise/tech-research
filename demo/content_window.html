@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Demo</title>
+	<script>
+    (function () {
+        var domainFields = document.domain.split('.');
+        var len = domainFields.length;
+        document.domain = domainFields[len - 2] + "." + domainFields[len - 1];
+    })();
+	</script>
+</head>
+<body>
+    <h1>Default</h1>
+    <p>
+        问题：IE6下，域名降级后，第二次访问（有缓存）iframe的contentWindow时，报权限错误；
+    </p>
+
+
+	<script>
+    (function () {
+        var _this = this;
+        var src = 'javascript:document.open();document.domain="' + document.domain + '";document.close();';
+
+        var iframe = document.createElement("iframe");
+            iframe.src = src;
+        iframe.onreadystatechange = function(){
+            if (iframe.readyState == "complete"){
+                // var iframeWin = iframe.contentWindow;
+                // alert(iframeWin.document)
+                try{
+                    document.title = "iframe domain: " + iframe.contentWindow.document.domain;    
+                }catch(e){
+                    alert("第二次访问时，报这个错： " + e.message);
+                }
+                
+            }
+        };
+        document.body.appendChild(iframe);
+    })();
+
+	</script>
+</body>
+</html>

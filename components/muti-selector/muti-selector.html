@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>多级联动 select 选择组件</title>
+</head>
+<body>
+<style>
+input{width:200px;}
+</style>
+<script src="../libs/vue-2.6.10.js"></script>
+<!-- area data -->
+<script src="data.js"></script>
+<!-- counties data -->
+<script src="counties.js"></script>
+
+<!-- component file -->
+<script src="muti-selector.js"></script>
+
+<div class="form" id="app">
+	<h1>多级联动</h1>
+	<div class="form-control">
+		<label>所在区域：</label>
+		<input type="text" v-model="areas.value">
+		<muti-selcetor v-bind:val="areas.value" v-bind:data="areas" v-on:changed="getValue"></muti-selcetor>
+	</div>
+	
+	<br><br><br><br><br><br>
+
+	<h1>多级联动</h1>
+	<div class="form-control">
+		<label>所在区域：</label>
+		<input type="text" v-model="areas2.value">
+		<muti-selcetor v-bind:val="areas2.value" v-bind:data="areas2" v-on:changed="getValue2"></muti-selcetor>
+	</div>
+
+	<br><br><br><br><br><br>
+	<div class="form-control">
+		<label>所在国家：</label>
+		<input type="text" v-model="a3.value">
+		<muti-selcetor v-bind:val="a3.value" v-bind:data="a3" v-on:changed="getValue3"></muti-selcetor>
+	</div>
+</div>
+
+<script>
+(function(){
+	// console.log(AREAS)
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			areas: {
+		        v: [AREAS.provinces,AREAS.cities,AREAS.locals],
+				value: '',
+				// value: '130000-131100-131102',
+		        render: true 	//下一级没有传入数据时是否渲染，默认为 true
+			},
+
+			areas2: {
+		        v: [AREAS.provinces,AREAS.cities,AREAS.locals],
+				value: '130000-131100-131102',
+		        render: true 	//下一级没有传入数据时是否渲染，默认为 true
+			},
+
+			a3: {
+				v: [counties],
+				value: ''
+			}
+		},
+		methods: {
+			getValue: function(val){
+				this.$data.areas.value = val;
+			},
+			getValue2: function(val){
+				this.$data.areas2.value = val;
+			},
+			getValue3: function(val){
+				this.$data.a3.value = val;
+			}
+		}
+	});
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+a{text-decoration: none;color: #555;}
+a:hover{text-decoration: underline;color: #888;}
+.header{
+	height: 49px;
+	border-bottom: 1px solid #ddd;
+}
+.header .logo{
+	float: left;_display: inline;
+	margin: 15px 0 0 15px;
+}
+.header .hd_ttl{
+	float: left;
+	margin: 20px 0 0 20px;
+	font:12px/16px Arial;
+}
+.body{
+	width: 960px;
+	margin: 0 auto;
+}
+.ad_top{
+	margin: 20px 0;
+}
+.content{
+	overflow: hidden;
+}
+.crumb{
+	padding: 15px 0 20px;
+	border-top: 1px solid #ddd;
+	font:12px/16px "Sim sun";
+}
+.content_main{
+
+}
+h1{
+	font: 26px/30px "Microsoft Yahei";color: #444;font-weight: bold;letter-spacing: -1px;
+}
+.share_wrap{
+	margin: 20px 0 0;padding-bottom: 18px;
+	border-bottom: 1px solid #ddd;
+}
+.share_ttl{
+	float: left;
+	font:14px/28px "Microsoft Yahei";
+}
+.content_main{
+	float: left;
+	width: 630px;
+}
+.content_side{
+	float: right;
+	position: fixed;left: 50%;top: 20px;
+	width: 300px;margin-left: 180px;
+}
+.content_text{
+	padding-top: 20px;
+}
+.content_text h2{
+	font:bold 16px/24px "Microsoft Yahei";
+	margin-bottom: 5px;
+}
+.content_text p{
+	font:14px/24px "Sim sun";
+	margin-bottom: 10px;
+}
+.content_text ul{
+	margin-left: 20px;margin-bottom: 20px;
+}
+.content_text li{
+	list-style-type: square;
+	font:14px/24px "Sim sun";color: #666;
+	margin-bottom: 5px;
+}
+.content_text table{
+	margin-bottom: 20px;
+	font-size: 14px;line-height: 1.5;
+}
+.content_side h3{
+	font:18px/24px "Microsoft Yahei";
+}
+.content_side ul{
+
+}
+.content_side ul>li{
+	overflow: hidden;margin-top: 10px;
+	font:14px/24px "Sim sun";
+	border-bottom: 1px dotted #ccc;
+}
+.content_side li a{
+	display: block;
+	overflow: hidden;
+	font:14px/24px "Sim sun";
+}
+.content_side .sharetitle{
+	float: left;margin-top: 10px;color: #555;
+}

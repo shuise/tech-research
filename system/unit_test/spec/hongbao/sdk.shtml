@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+<!--#include virtual="/system/unit_test/inc/head.html"-->
+<title>红包JS接口</title>
+</head>
+<body>
+
+<script src="http://hongbao.live.163.com/jssdk/redapi.js" charset="utf-8"></script>
+<script src="/news/red_sdk/test/core_test.js"></script>
+
+<!--#include virtual="/system/unit_test/inc/foot.html"-->
+</body>
+</html>

@@ -1,0 +1,25 @@
+.f2e_api_section p {
+  margin-left: 8px;
+}
+
+.f2e_api_section pre {
+  margin: 10px 0 10px 30px;
+}
+
+.argu {
+  margin:10px 0 10px 30px;
+  width:100%;
+}
+
+.argu li {
+  margin: 10px 0;
+}
+
+.argu table {
+  table-layout: fixed;
+  width: 690px;
+}
+
+.argu strong {
+  background: #DDD;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>头像剪裁</title>
+		<meta name="description" content="">
+		<meta name="author" content="bj_hejie">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1">
+		<link rel="stylesheet" href="avatar.css"/>
+		<link rel="stylesheet" href="cropbox.css">
+	</head>
+
+	<body>
+		<form id="" action="" >
+			<input id="imageData" type="file" accept=""/>
+			<img id="imageShow" class="imageShow" src=""/>
+		</form>
+		
+		<div id="popup_cut" class="popup_cut">
+			<div class="popup_btn">
+				<span class="popup_btn_back">返回</span>
+				<span class="popup_btn_cut" _dataurl="">剪裁</span>
+			</div>
+			<div class="popup_content">
+				<img id="cropimage" class="cropimage" alt="" src="" cropwidth="300" cropheight="300"/>
+			</div>
+			
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="http://img1.cache.netease.com/f2e/libs/jquery.js"></script>
+	<script type="text/javascript" src="hammer.js"></script>
+	<script type="text/javascript" src="cropbox.js"></script>
+	<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+	<script src="crop_init.js"></script>
+</html>

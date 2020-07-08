@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>input_date</title>
+		<meta name="author" content="Administrator" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<!-- Date: 2013-12-30 -->
+		<style type="text/css">
+			div{
+				margin:10px 0;
+			}
+			.select{
+				height:60px;
+				font-size:16px;
+				border:1px solid #bfbfbf;
+				padding:0 30px 0 60px;
+				background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdFNDkzRTBENzM1QjExRTNBNzdGQzg1QzAzQzhDOThFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjdFNDkzRTBFNzM1QjExRTNBNzdGQzg1QzAzQzhDOThFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0U0OTNFMEI3MzVCMTFFM0E3N0ZDODVDMDNDOEM5OEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0U0OTNFMEM3MzVCMTFFM0E3N0ZDODVDMDNDOEM5OEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz42kGVGAAAB3UlEQVR42qRVMUtCURR+XhycolElGq2gQRxqCpxcGvsBOmSCk/9AamgznARxcmtpdHGS3BrEwMEcDcJRnBoE+87ju3K4vWepBz7e9b5zPs8959zvRVarledar9ezyyiQAdJAnHszYAgMgKUXYNls1g8MsgOgApSAZIjPF9AE6sDCfWkCss3h8QHcK1LJ8o2YcS9JH/HNbSQGaQGPDo/9DTwBZ0ACuCQS3HuiT5wxBc0VsTVmph3WdQTcABNvs6WAF+Cc9b4GulJjQ1KpaVuRXjmkd8BnAPGEviPGttmfdSkq6viS6dwhkHdHIVnPGWPLUvGJkW2U3Rdr4Bh/Hd8LybzBdUk4DefUdr/l7W4tNS0Zw+H3RwrZjvcgHqtRTBt1o6be/mY54mbLwJWD2zDHqEr/eAPhc8j+q/PbcsyiFBQ/fXTzNKTO0vWHP05zqso6NFSpL24U96hvUYnTwCDDJVVKrIysUzuQSkyZ66Zw2ubVWesY7/7hFqSHjImRo76+0vgH0dM8hUQEpc8s/pNpX4lQ3mqzUarfZZ0s+TtQY1OCGlWjjyWV2O4v2XSEvq06bIV+qkbKfZfXpGvZdL5X4nACVNW0CNEFEVfdr9K3G3RBgmzBuX3c5WMq9iPAAH9akkxoB6Q7AAAAAElFTkSuQmCC) no-repeat 30px center;
+			}
+			select{
+				width:100%;
+				line-height:60px;
+				-webkit-appearance:none;
+				padding:0;
+				margin:0;
+				border:0;
+				background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkRGN0RCNjUzNzM1QjExRTM4N0VDRDczNTRCNEM3QUY5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkRGN0RCNjU0NzM1QjExRTM4N0VDRDczNTRCNEM3QUY5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6REY3REI2NTE3MzVCMTFFMzg3RUNENzM1NEI0QzdBRjkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6REY3REI2NTI3MzVCMTFFMzg3RUNENzM1NEI0QzdBRjkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4p9XSxAAAAi0lEQVR42pzT6w3AEBAAYLSDmKQxmP6qvWoUm+CaEn2cOy7RBPVxHjLGKLz3h8hhjNnFRLTjl/yBis1lCyGsWutzAqvj1avfltkGsRrqTtONoj+YA0s1e8dGMexaYWnhoj3sAXJQCoOQcG04qygT9DAUxE6Qwj4pE+mTWBdEUEe9JjRl7GlR/yYBBgCvdGRt/T0+qAAAAABJRU5ErkJggg==) no-repeat right center;				
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<label for="">date：</label>
+			<input type="date"  />
+		</div>
+		<div>
+			<label for="">datetime：</label>
+			<input type="datetime"  />
+		</div>
+		<div>
+			<label for="">time：</label>
+			<input type="time"  />
+		</div>
+		<div>
+			<label for="">datetime-local	：</label>
+			<input type="datetime-local"  />
+		</div>	
+		
+		<div>
+			<label for="">month	：</label>
+			<input type="month"  />
+		</div>				
+		<div>
+			<label for="">week	：</label>
+			<input type="week"  />
+		</div>
+		<div class="select">
+			<select name="" id="">
+				<option value="1" selected >12:00</option>
+				<option value="2">12:00</option>
+				<option value="3">12:00</option>
+				<option value="4">12:00</option>
+				<option value="5">12:00</option>
+				<option value="6">12:00</option>
+			</select>			
+		</div>
+
+
+	<a href="tel:33094877\n33094878">33094877</a>
+							
+	</body>
+</html>
+

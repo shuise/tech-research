@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>test_editor</title>
+		<meta name="author" content="weixin" />
+		<!-- Date: 2014-09-15 -->
+	</head>
+	<body>
+		
+		<link href="/auto/dealer_member/editor/default/_css/umeditor.css" type="text/css" rel="stylesheet">
+		<link href="/auto/dealer_member/editor/upload.css" type="text/css" rel="stylesheet">
+		<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+		<script src="/libs/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/auto/dealer_member/editor/umeditor.config.js" _group="editor"></script>
+		<script type="text/javascript" charset="utf-8" src="/auto/dealer_member/editor/umeditor.min.js" _group="editor"></script>
+		<script type="text/javascript" src="/auto/dealer_member/editor/zh-cn.js" _group="editor"></script>
+		<script src="/component/upload_img/upload.js" _group="editor"></script>
+		<script type="text/javascript" src="upload_img.js" _group="editor"></script>
+		
+		<!--style给定宽度可以影响编辑器的最终宽度-->
+		<textarea id="dealerEditor" name="content" style="width:600px;height:400px;">
+			<div style="height:400px;">222222222222222</div>
+			<div style="background: #000;"></div>
+
+
+		</textarea>		
+		<script>
+		var um = UM.getEditor("dealerEditor",{
+			toolbar:[
+	            'bold italic underline | removeformat |',
+	            ' selectall cleardoc ' ,
+	            '| justifyleft justifycenter justifyright justifyjustify |',
+	            ' myupload'
+	        ],
+		    autoHeightEnabled: true,
+		    autoFloatEnabled: true
+		});			
+			
+			
+		</script>
+		
+
+	</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>	
+<head>		
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+<style type="text/css">
+#wrap {float:left;width:400px;height:300px;margin:10px 0 0 0;border:1px solid #015EAC;color:#666;overflow:hidden;clear:left;font-size:12px;}
+#wrap img {margin:5px;}
+</style>	
+<title>拖拽本地图片</title>        
+
+<script type="text/javascript">            
+window.onload = function() {                
+	var wrap = document.getElementById('wrap');                           
+	wrap.addEventListener('dragover', function(e) {                    
+		e.stopPropagation();                    
+		e.preventDefault();                
+	}, false);                
+
+	wrap.addEventListener('drop', handleDrop, false);                                
+
+	function handleDrop(e) {  
+		wrap.innerHTML = '';
+		e.stopPropagation();　　                
+		e.preventDefault();                                        
+		var fileList  = e.dataTransfer.files;　　//获取拖拽文件
+		console.log(fileList)  
+		for(var i=0,len=fileList.length;i<len;i++){
+			drawImg(fileList[i]);
+		}
+	}
+	function drawImg(file){
+		var fileType = file.type;		//get file type
+		if (fileType.indexOf('image') == -1) {                        
+			alert('请拖拽图片~');                        
+			return;                    
+		}                    　                 
+		reader = new FileReader();  
+		reader.readAsDataURL(file); 
+		reader.onload = function(e) {  
+			var oImg = document.createElement('img');　                      
+			oImg.src = this.result;   
+			wrap.appendChild(oImg);                         
+		}   
+	}　            
+}        
+</script>	
+</head>	
+
+<body>	    
+
+<div id="wrap">			
+	拖拽图片到这里！	    
+</div>	
+</body>
+</html>
+

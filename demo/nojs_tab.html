@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>no js tab</title>
+</head>
+<body>
+
+
+<style>
+.tab{
+	width:300px;
+	margin-top:200px;
+}
+.tab_head_item{
+	padding:10px;
+	line-height:30px;
+}
+.tab_contents{
+	height:200px;
+	overflow:hidden;
+}	
+.tab_content_item{
+	height:200px;
+	line-height:200px;
+	font-size:50px;
+	text-align:center;
+	color:#fff;
+}
+#tab_content_item1{
+	background:red;
+}
+#tab_content_item2{
+	background:green;
+}
+</style>
+
+<div class="tab">
+	<div class="tab_heads">
+		<a href="#tab_content_item1" class="tab_head_item">tab1</a>
+		<a href="#tab_content_item2" class="tab_head_item">tab2</a>
+	</div>
+	<div class="tab_contents">
+		<div class="tab_content_item" id="tab_content_item1">content1</div>
+		<div class="tab_content_item" id="tab_content_item2">content2</div>
+	</div>
+</div>
+	
+</body>
+</html>

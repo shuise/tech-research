@@ -1,0 +1,66 @@
+当你在看我前面所写的HTML 5例子时，我正在思考创建一个简单但又适用的例子、以一种更新奇的方式来演练这些HTML5新特性。我的目标并不是想单纯的展示这些HTML 5 API，而是想用例子来告诉开发人员如何真正的以一种实用的和创新的方式实现这些API。
+
+
+
+在HTML5里，从Web网页上访问本地文件系统变的十分的简单，那就是使用File API。这个File规范说明里提供了一个API来表现Web应用里的文件对象，你可以通过编程来选择它们，访问它们的信息。这个File API包括：
+
+
+
+一个FileList序列，代表着由本地系统里选中的单个的文件组成的数组。用来选择文件的用户接口可以通过<input type=”file”>调用实现。
+
+
+一个Blob接口，它代表原始二进制数据，通过Blob对象你可以访问里面的字节数据。
+
+
+一个File接口，它里面存有文件的只读属性信息，像文件名，文件类型，文件数据访问的地址。
+
+
+一个FileReader接口，它提供了读取一个文件的方法，和一个获取文件读取结果的事件模型。
+
+
+一个FileError接口和一个FileException对象，它们用来定义这个规范中的错误产生条件。
+
+
+如何使用这个例子：在这个例子中，我给出了一个画板，你可以从本地文件系统里拖拽进去一个图片，或者你也可以用文件选择框来选择图片。例子中，请只选择图片文件，我并没有添加文件过滤和文件类型检查。请记住，没有一个浏览器完全实现了HTML5，这个例子需要在支持HTML5的浏览器上运行，比如Firefox3.5以上。 
+
+
+
+下面就是这个例子 (拖拽一个图片到画板里)：
+
+
+
+
+
+
+
+
+ 
+实现File API的主要方法非常的简单，就像下面：
+
+
+
+function imagesSelected(myFiles) {
+  for (var i = 0, f; f = myFiles[i]; i++) {
+    var imageReader = new FileReader();
+    imageReader.onload = (function(aFile) {
+      return function(e) {
+        var span = document.createElement(‘span‘);
+        span.innerHTML = ['<img class="images" src="', e.target.result,'" title="', aFile.name, '"/>'].join(”);
+        document.getElementById(‘thumbs’).insertBefore(span, null);
+      };
+    })(f);
+    imageReader.readAsDataURL(f);
+  }
+}
+
+function dropIt(e) {  
+   imagesSelected(e.dataTransfer.files); 
+   e.stopPropagation();  
+   e.preventDefault();   
+}  
+
+我选择在<td>上放置我的ondrop事件：
+
+<td align=”left” height=”105″ ondragenter=”return false” ondragover=”return false” ondrop=”dropIt(event)”>    
+   <output id=”thumbs”></output> 
+</td>

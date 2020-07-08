@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+    <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../chart.pie.js" charset="utf-8"></script>
+    <style>
+        body{background:#f2f2f2;}
+        #canvas {margin:20px auto;width:80%;height:420px;background:#fff;border:1px solid #ccc}
+    </style>
+</head>
+<body>
+    <div id="canvas"></div> 
+    <script>
+       var canvas = new NTESChart({
+            container : document.getElementById("canvas")
+        });
+       var data = {"Chrome19":3,"IE9":2,"FF14":6,"Chrome14":2,"Chrome21":7,"FF9":2,"Chrome6.8872":1,"IE6":11,"Chrome17":2,"Chrome20":24};
+       var subData = [{title:"IE6",value:15},{title:"IE7",value:28}];
+       canvas.pie(data, {
+           tips : "{title}\n{percent}% [{fmtval}]",
+           tipRatio : 0.2, 
+           animate: true,
+           legend: 'bottom',
+           fmtPercent : function(val){ return val.toFixed(2); }
+       });
+
+var tm_resize, _resize;
+if(window.onresize) _resize = window.onresize;
+window.onresize = function(){
+    if(tm_resize) clearTimeout(tm_resize);
+    tm_resize = setTimeout(function(){
+        if(_resize) _resize();
+        eve("winResize");
+        tm_resize = null;
+    }, 50);
+}
+    </script>
+
+</body>
+</html>

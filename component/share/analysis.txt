@@ -1,0 +1,36 @@
+snstj.163.com
+snstj.news.163.com
+snstj.j.news.163.com
+
+
+var channels = [
+	{"id":"yixin","name":"易信",url:""},
+	{"id":"lofter","name":"LOFTER",url:""},
+	{"id":"weixin","name":"微信",url:""},
+	{"id":"qzone","name":"qq空间",url:"http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={url}&title={title}summary={desc}&site={source}&pics={images}"},
+	{"id":"weibo","name":"微博",url:"http://service.weibo.com/share/share.php?url={url}&title={title}&pic={images}"},
+	{"id":"renren","name":"人人",url:"http://share.renren.com/share/buttonshare.do?link={url}"},
+	{"id":"youdao","name":"有道",url:""},
+	{"id:"douban","name":"豆瓣","url":"http://www.douban.com/recommend/?url={url}&title={title}"}
+];
+
+var _data = {
+	"title" : document.title, //页面title标题
+	"url" : location.href, //分享的页面地址
+	"desc" : "", //摘要
+	"images" : [], //自定义图片
+	"source" : "网易", //来源
+	"sourceLink": "http://www.163.com", //来源域名
+	"customIcon" : false,  //是否自定义图标内容，false否，ture自定义
+	"date" : new Date().getTime()
+};
+
+
+var analysisData = {
+	product : "",		业务/频道
+	user : ""
+	page : "",	//分享所在页面
+	position : [100,200],		//坐标，分享按钮的位置
+	channel : "weibo"			//分享的渠道
+	url	 : ""			//分享的链接
+};

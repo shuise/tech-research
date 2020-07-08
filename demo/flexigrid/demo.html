@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>flexigrid</title>
+<script src="http://qa.developer.163.com/libs/jquery.js"></script>
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<script src="flexigrid.js"></script>
+<link rel="stylesheet" type="text/css" href="flexigrid.css" />
+</head>
+<body>
+
+<h1><a href="http://flexigrid.info/">flexigrid</a></h1>
+
+<table class="flexme4" style="display: none"></table>
+
+<script>
+// (function(){
+	var tpl = ['<a href="http://club.163.com/{employeeID}_{name}.html">163—{employeeID}</a>'].join("");
+
+    var url = "mock.json";//"data.php";
+    var colModel = [
+        {
+            display : 'EmployeeID',
+            name : 'employeeID',
+            width : 90,
+            sortable : true,
+            align : 'center',
+            tpl : tpl
+        }, 
+        {
+            display : 'Name',
+            name : 'name',
+            width : 120,
+            sortable : true,
+            align : 'left'
+        }, 
+        {
+            display : 'Primary Language',
+            name : 'primary_language',
+            width : 120,
+            sortable : true,
+            align : 'left'
+        }, 
+        {
+            display : 'Favorite Color',
+            name : 'favorite_color',
+            width : 80,
+            sortable : true,
+            align : 'left',
+            hide : true
+        }, 
+        {
+            display : 'Favorite Animal',
+            name : 'favorite_pet',
+            width : 80,
+            sortable : true,
+            align : 'right'
+        } 
+    ];
+    var buttons = [
+        { name:'Add', bclass:'add', onpress:callback },
+        { name:'Edit', bclass:'edit', onpress:callback },
+        { name:'Delete', bclass:'delete', onpress:callback },
+        { separator:true } 
+    ];
+    var searchitems = [
+    	{
+	        display : 'EmployeeID',
+	        name : 'employeeID'
+        },
+        {
+            display : 'Name',
+            name : 'name',
+            isdefault : true
+    	}
+    ];
+// })();
+
+$(".flexme4").flexigrid({
+    url : url,
+    dataType : "json",
+    colModel : colModel,
+    buttons : buttons,
+    searchitems : searchitems,
+    sortname : "iso",
+    sortorder : "asc",
+    usepager : true,
+    title : "Employees",
+    useRp : true,
+    rp : 5,
+    showTableToggleBtn : true,
+    width : 750,
+    height : 200
+});
+
+function callback(com, grid) {
+    if (com == 'Delete') {
+        var conf = confirm('Delete ' + $('.trSelected', grid).length + ' items?')
+        if(conf){
+            $.each($('.trSelected', grid),
+                function(key, value){
+                    $.get(url, { Delete: value.firstChild.innerText}
+                        , function(){
+                            // when ajax returns (callback), update the grid to refresh the data
+                            $(".flexme4").flexReload();
+                    });
+            });    
+        }
+    }
+    else if (com == 'Edit') {
+        var conf = confirm('Edit ' + $('.trSelected', grid).length + ' items?')
+        if(conf){
+            $.each($('.trSelected', grid),
+                function(key, value){
+                    // collect the data
+                    var OrgEmpID = value.children[0].innerText; // in case we're changing the key
+                    var EmpID = prompt("Please enter the New Employee ID",value.children[0].innerText);
+                    var Name = prompt("Please enter the Employee Name",value.children[1].innerText);
+                    var PrimaryLanguage = prompt("Please enter the Employee's Primary Language",value.children[2].innerText);
+                    var FavoriteColor = prompt("Please enter the Employee's Favorite Color",value.children[3].innerText);
+                    var FavoriteAnimal = prompt("Please enter the Employee's Favorite Animal",value.children[4].innerText);
+
+                    // call the ajax to save the data to the session
+                    $.get(url, 
+                        { Edit: true
+                            , OrgEmpID: OrgEmpID
+                            , EmpID: EmpID
+                            , Name: Name
+                            , PrimaryLanguage: PrimaryLanguage
+                            , FavoriteColor: FavoriteColor
+                            , FavoritePet: FavoriteAnimal  }
+                        , function(){
+                            // when ajax returns (callback), update the grid to refresh the data
+                            $(".flexme4").flexReload();
+                    });
+            });    
+        }
+    }
+    else if (com == 'Add') {
+        // collect the data
+        var EmpID = prompt("Please enter the Employee ID","5");
+        var Name = prompt("Please enter the Employee Name","Mark");
+        var PrimaryLanguage = prompt("Please enter the Employee's Primary Language","php");
+        var FavoriteColor = prompt("Please enter the Employee's Favorite Color","Tan");
+        var FavoriteAnimal = prompt("Please enter the Employee's Favorite Animal","Dog");
+
+        // call the ajax to save the data to the session
+        $.get('data.php', { Add: true, EmpID: EmpID, Name: Name, PrimaryLanguage: PrimaryLanguage, FavoriteColor: FavoriteColor, FavoritePet: FavoriteAnimal  }
+            , function(){
+                // when ajax returns (callback), update the grid to refresh the data
+                $(".flexme4").flexReload();
+        });
+    }
+}
+
+function test(com, grid) {
+    if (com == 'Delete') {
+        confirm('Delete ' + $('.trSelected', grid).length + ' items?')
+    } else if (com == 'Add') {
+        alert('Add New Item');
+    }
+}
+</script>
+</body>
+</html>

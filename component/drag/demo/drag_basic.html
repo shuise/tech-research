@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+<style type="text/css">
+.drag {position: relative; left: 50px; width: 58px; height: 58px; border: 1px solid #89B; background: #BCE; cursor: move;}
+</style>
+</head>
+
+<body>
+<div style="margin:50px 0 0 50px;">
+	<button type="button" id="enable">启用drag</button>
+	<button type="button" id="disable">禁用drag</button>
+</div>
+
+<div id="div-1" class="drag" style="margin-left:100px; margin-top: 120px;">div1</div>
+<script>
+function $(id) {
+	return document.getElementById(id);
+}
+
+var drag;
+
+addEvent($("enable"), "click", function(){
+	drag = new Drag({
+		elem: $("div-1"),
+		drag: function(e, dd){
+			this.style.left = dd.left + dd.deltaX + "px";
+			this.style.top = dd.top + dd.deltaY + "px";
+		}
+	});
+});
+
+addEvent($("disable"), "click", function(){
+	drag && drag.destroy();
+});
+
+</script>
+</body>
+</html>

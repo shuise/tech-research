@@ -1,0 +1,8 @@
+[{
+  title : "省市选择联动框",
+  desc : "基于杭研院数据的省市选择组件",
+  mod : "area.html",
+  demo : "area.html",
+  doc : "http://pip.netease.com/area.html",
+  tags : ["地区选择"]
+}]

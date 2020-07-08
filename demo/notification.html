@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>notification</title>
+<meta paper="https://developer.mozilla.org/zh-CN/docs/Web/API/notification">
+</head>
+<body>
+
+<a href="#" id="requestButton">request permission</a>
+
+<div><p> </p> <p></p></div>
+
+<a href="#" id="notifyButton">send notification</a>
+
+<script>
+var title = "Hello?";
+var notice = {
+    title : "Anybody?",
+    dir : "rtl",
+    lang : "",
+    body : "You don’t change guys,They are who they are.",
+    tag : "testID",
+    icon : "http://news.sznews.com/images/attachement/jpg/site3/20130625/4437e641f1261333ba590e.jpg"
+};
+
+var info = {
+    show : "I`m coming.",
+    click : "Do not touch me",
+    close : "Bye Bye",
+    error : "what`s wrong?"
+};
+
+document.getElementById('requestButton').onclick = function (){
+    Notification.requestPermission();
+};
+
+document.getElementById('notifyButton').onclick = function () {
+    if (window.Notification && Notification.permission === 'granted'){
+        var notification = new Notification(title,notice);
+
+        for(var funcName in info){
+            notification["on" + funcName] = function(){
+                alert(info[funcName]); //闭包，懒得解决了
+            }
+        }
+
+        console.log(notification)
+    }else {
+        alert('no support or no permission');
+    }
+};
+</script>
+</body>
+</html>

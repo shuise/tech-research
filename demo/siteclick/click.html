@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>首页点击行为分析(有/无有效点击对比)</title>
+        <link rel="stylesheet" href="noclick.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <h1>首页点击行为分析( 有/无有效点击对比
+<a href="brclick.html">按浏览器</a>
+<a href="hrclick.html">按时辰</a>
+<a href="refclick.html">按来源</a>
+<a href="byuser.html">以用户为单位</a> 
+<a href="trend.html">关联分析</a> )</h1>
+        <div class="main_wrap">
+            <select id="day_sel"><option>请选择日期</option></select>
+            <fieldset class="chart_wrap">
+                <legend align="center"><select id="tab_hds">
+                <option value="button">鼠标按键分析</option>
+                <option value="scroll">滚动高度分析</option>
+                <option value="login">登录状况分析</option>
+                <option value="time">停留时间分析</option>
+                <option value="hour">时辰分析</option>
+                <option value="browser">浏览器分析</option>
+                <option value="new">首次访问分析</option>
+                <option value="firstload">首屏加载分析</option>
+                <option value="domload">DOM加载分析</option>
+                <option value="load">资源加载分析</option>
+            </select></legend>
+                <div class="tab_con" id="main_chart"></div>
+            </fieldset>
+        </div>
+
+        <div class="switch_wrap">
+            <div class="blank20"></div>
+            <label class="switch-label">显示具体数值：</label>
+            <div class="onoffswitch">
+                <input type="checkbox" id="valswitch" class="onoffswitch-checkbox">
+                <label for="valswitch" class="onoffswitch-label">
+                    <div class="onoffswitch-inner"></div>
+                    <div class="onoffswitch-switch"></div>
+                </label>
+            </div>
+        </div>
+        <div class="table_wrap" id="table_wrap"></div>
+        <div class="dm_tips">
+            <h2>帮助信息</h2>
+            <div class="dm_tips_corner"></div>
+            <dl>
+<dt>柱顶百分比：</dt><dd>左侧柱图均基于无有效点击的访问数计算；右侧柱图基于有有效点击的访问数计算</dd>
+<dt>表格中百分比：</dt><dd>"无有效点击"一列均基于无有效点击的访问数计算；"有有效点击"一列均基于有有效点击的访问数计算</dd>
+<dt>无效点击：</dt><dd>空白区域处发生的点击</dd>
+<dt>有效点击：</dt><dd>收集并体现到热点图中的有效点击(包括链接、提交按钮、转发按钮等..)</dd>
+<dt>超前有效点击：</dt><dd>在DOM加载完成前发生的有效点击(由于此时章鱼代码未初始化，超前有效点击未被收集统计)。</dd>
+<dt>左键点击：</dt><dd>包括有效或无效的左键点击。</dd>
+<dt>中键点击：</dt><dd>包括有效或无效的中键点击。</dd>
+<dt>右键点击：</dt><dd>包括有效或无效的右键点击。</dd>
+<dt>首次访问：</dt><dd>用户浏览器第一次访问网易。</dd>
+<dt>回访：</dt><dd>该用户浏览器之前曾访问过网易(可以是今天之前的访问)。</dd>
+    		</dl>
+		</div>
+        <script src="http://qa.developer.163.com/common/ntes.js" charset='utf-8'></script>
+        <script src="http://qa.developer.163.com/libs/raphael.js" _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.core.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.pie.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.frame.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.dualchart.js" charset='utf-8' _group="nchart"></script>
+        <script src="click.js" charset='utf-8'></script>
+    </body>
+</html>

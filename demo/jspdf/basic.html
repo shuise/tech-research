@@ -1,0 +1,79 @@
+<!doctype>
+<html>
+<head>
+<title>jsPDF</title>
+<script type="text/javascript" src="http://static.f2e.netease.com/libs/jquery.js"></script>
+<script type="text/javascript" src="jspdf.js"></script>
+<script type="text/javascript" src="jspdf_fonts_metrics.js"></script>
+<script type="text/javascript" src="jspdf_text.js"></script>
+<script type="text/javascript" src="jspdf_image.js"></script>
+<script type="text/javascript" src="jspdf_html.js"></script>
+</head>
+<body>
+
+<script>
+function getImageFromUrl(url, callback) {
+	var img = new Image, data, ret={data: null, pending: true};
+	
+	img.onError = function() {
+		throw new Error('Cannot load image: "'+url+'"');
+	}
+	img.onload = function() {
+		var canvas = document.createElement('canvas');
+		document.body.appendChild(canvas);
+		canvas.width = img.width;
+		canvas.height = img.height;
+
+		var ctx = canvas.getContext('2d');
+		ctx.drawImage(img, 0, 0);
+		// Grab the image as a jpeg encoded in base64, but only the data
+		data = canvas.toDataURL('image/jpeg').slice('data:image/jpeg;base64,'.length);
+		// Convert the data to binary form
+		data = atob(data)
+		document.body.removeChild(canvas);
+
+		ret['data'] = data;
+		ret['pending'] = false;
+		if (typeof callback === 'function') {
+			callback(data);
+		}
+	}
+	img.src = url;
+
+	return ret;
+}
+
+// Since images are loaded asyncronously, we must wait to create
+// the pdf until we actually have the image data.
+// If we already had the jpeg image binary data loaded into
+// a string, we create the pdf without delay.
+function createPDF(imgData) {
+	var doc = new jsPDF();
+
+	//add images
+	doc.addImage(imgData, 'JPEG', 10, 10, 50, 50);
+	doc.addImage(imgData, 'JPEG', 70, 10, 100, 120);
+
+	//add page
+	doc.addPage();
+
+	doc.text(20, 20, 'Hello world!');
+	doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+	
+	doc.text(20, 60, 'Do you like that?');
+		
+	doc.setDrawColor(0);
+	doc.setFillColor(255,0,0);
+	doc.rect(20, 90, 10, 10, 'FD'); // filled red square with black borders
+		// Output as Data URI
+	doc.output('datauri');
+}
+
+function create(){
+	getImageFromUrl('monkey.jpg', createPDF);
+}
+</script>	
+
+<input type="button" onclick="create()" value="create">
+</body>
+</html>

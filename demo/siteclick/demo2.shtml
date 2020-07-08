@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>章鱼锚点统计(新)</title>
+
+    <link href="demo.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="screen1" data-7000="top:0%" data-7500="top:-100%" class="screen">
+        <div id="toolbar" data-4000="opacity:1" data-6000="opacity:0">
+            <div class="left_tab"></div>
+            <div id="clickclose" class="click" data-0="display:none" data-4000="right:-28px;top:-28px;display:block;transform:scale(0);opacity:1" data-5000="transform:scale(1);opacity:0"></div>
+        </div>
+        <div id="webpage_wrap" data-4000="opacity:1" data-6000="opacity:0">
+            <div id="webpage" data-0="height:0%;" data-500="height:100%"></div>
+            <div id="clicklink" class="click" data-0="display:none" data-1500="right:60px;top:170px;display:block;transform:scale(0);opacity:1" data-2500="transform:scale(1);opacity:0"></div>
+        </div>
+        <pre id="ntes" data-500="transform:scale(0);left:25%;top:500px" data-1000="transform:scale(1);left:62.5%;top:45px;height:90px;white-space:pre" data-1500="height:90px" data-2000="height:19px">http://analytics.163.com/ntes_u?
+    _nacc=siteclick
+    _npurl=http%3A//wine.163.com/products/addanchor/xwsy.shtml
+    _nch=xwsya     <span>//页面编号</span>
+    _msl=1087      <span>//页面打开时间(Dom Ready)</span></pre>
+
+        <pre id="ntes_p" data-2500="transform:scale(0);left:43%;top:220px" data-3000="transform:scale(1);left:62.5%;top:110px;height:112px;white-space:pre" data-3800="height:112px" data-4000="height:19px;">http://analytics.163.com/ntes_p?
+            _nacc=siteclick
+            _nct=74           <span>//已停留时间</span>
+            _npurl=http%3A//news.163.com
+            _nah=http%3A//news.163.com/13/0530/14/904MHS9B00014JB5.html
+            _nat=xwsya_2102   <span>//区块编号</span></pre>
+
+
+        <pre data-5400="transform:scale(0);left:30%;top:250px" data-6400="transform:scale(1);left:62.5%;top:175px;height:130px;white-space:pre">http://analytics.163.com/ntes_u?
+    _nacc=siteclick
+    _npurl=http%3A//news.163.com
+    _nch=xwsya
+    _nct=9
+    _mcn=0        <span>//总点击数</span>
+    _msl=7635     <span>//页面打开时间(Dom Load)</span></pre>
+
+        <pre data-5400="transform:scale(0);left:30%;top:250px" data-6400="transform:scale(1);left:62.5%;top:315px;height:324px;white-space:pre">http://analytics.163.com/ntes?
+    _nacc=siteclick
+    _nvid=7ed219aca0e985e8f379c0d9ff2081c7
+    _nvtm=0
+    _nvsf=0
+    _nvfi=0
+    _nlag=zh-cn
+    _nlmf=1370237892
+    _nres=1600x900
+    _nscd=24-bit
+    _nstm=0
+    _nurl=http://163.com?st=0&cl=1:1&ti=2&lo=50,0&si=1&re=
+    _ntit=%u7F51%u6613
+    _nref=
+    _nfla= 11.2 r202
+    _nssn=test@163.com
+    _nxkey=78967180.42124
+    _end1</pre>
+
+        <fieldset id="server">
+            <legend align=center>章鱼服务器[ncaa=siteclick]</legend>
+            <label style="top:30px" data-1000="opacity:0" data-1400="opacity:1">页面加载完成：</label>
+            <label style="top:94px" data-3000="opacity:0" data-3400="opacity:1">点击(按钮、链接、表单..)：</label>
+            <label style="top:161px" data-6300="opacity:0" data-6700="opacity:1">关闭页面：</label>
+        </fieldset>
+    </div>
+    <div id="screen2" data-7000="top:100%" data-7500="top:0%" class="screen">
+        <fieldset class="step"  data-7000="left:100%" data-7500="left:2%">
+            <legend >1. 在页面中添加一个监控脚本</legend>
+            <ul>
+                <li>_nat=xwwza_1601<br>//新闻文章页 - 分享网易微博
+                <li>_nat=nesya_1201<br>//网易首页 - 头部导航新闻
+                <li>区域划分依据：DOM定位或clkid属性
+            </ul>
+            <ul class="info" data-10000="height:0px" data-11000="height:120px" class="warn">
+                <li>统计范围：除站外iframe和flash之外的有效点击<br><br>
+                <li>使用事件代理，按区域进行监控
+                <li>业务与统计功能完全解耦<br><br>
+                <li>不会影响页面功能
+            </ul>
+        </fieldset>
+        <fieldset class="step"  data-8000="left:100%" data-8500="left:33%">
+            <legend >2. 章鱼收集、数据合并</legend>
+            <ul>
+                <li>profile: load/unload次数，总点击数，有点击的unload数，停留时间..
+                <li>details: 每个锚点编号的点击数
+                <li>exports: 每个锚点编号的导出详情
+            </ul>
+            <ul class="info" data-11000="height:0px" data-12000="height:100px" class="warn">
+                <li>数据集中、格式统一<br><br>
+                <li>方便于扩展
+            </ul>
+        </fieldset>
+        <fieldset class="step" data-9000="left:100%" data-9500="left:64%">
+            <legend >3. 后端计算、前端展示</legend>
+            <ul>
+                <li>http://stats.ws.netease.com/article
+                <li>http://stats.ws.netease.com/article/hotSpot
+                <li>章鱼系统：点击统计(siteclick)
+            </ul>
+            <ul class="info" data-12000="height:0px" data-12500="height:100px" class="warn">
+                <li>数据可视化程度高<br><br>
+                <li>操作直接、方便
+            </ul>
+        </fieldset>
+    </div>
+
+    <script src="http://static.f2e.netease.com/common/ntes.js" charset='utf-8'></script>
+    <script type="text/javascript" src="skrollr.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+</body>
+</html>

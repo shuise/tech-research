@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>下拉框模拟selectmock @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>下拉框模拟selectmock</h1>
+			
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/select/select_mock.css">http://qa.developer.163.com/component/select/select_mock.css</a></p>
+				<p>引入文件 <a href="http://qa.developer.163.com/component/select/select_mock.js">http://qa.developer.163.com/component/select/select_mock.js</a></p>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>参数解释</h2>
+				<pre id="f2e_api_code">node : 模拟的select对象
+params : {
+	widthDiff : 3, 		//宽度调整值，默认值为3
+	maxHeight : 200,	//最大高度
+	classes : {
+		wrapperOpen : "c_select_mock_open",		//展开状态的样式
+		wrapper : "c_select_mock"				//默认状态的样式
+		selected : "selected"					//默认状态切换的样式
+	},
+	temp : {
+		header : '&lt;div class="c_select_arr">' + 
+				'&lt;input value="{text}" _value="{value}" readonly>' + 
+				'&lt;span>&lt;/span>&lt;/div>&lt;ul>',
+		repeater : '&lt;li lang="{value}" class="{selected}" _index="{index}">{text}&lt;/li>',
+		footer : '&lt;/ul>'
+	}
+}</pre>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>代码调用</h2>
+				<pre id="f2e_api_code">var _select = new selectMock(node,params);</pre>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>返回值</h2>
+				<pre id="f2e_api_code">_select = {
+	getNodes				//获取操作dom的方法，基于temp的改变需要做调整,
+	getData				//数据定制
+	createUI 				//生成UI的方法，返回值为html
+	insertWrapper			//在select旁放入模拟控件
+	attach				//（点击选择，滚动条自动定位，键盘支持）等交互事件处理
+	toggle				//切换select的状态（打开或者关闭）
+	setSelectData			//将用户选中的值进行存储操作
+	getSelectedData		//获取用户选中的值并返回
+	update				//更新下拉选项数据，可用于两级联动
+	init : init(function(data){			//模拟执行方法,可传入回调，
+		data = {
+			value 		//select操作后的选中项值
+			text			//select操作后的选中项文本
+		}
+	})		
+}</pre>
+			</div>
+
+			<div class="f2e_api_btns">
+				<a href="selectmock_demo.html">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

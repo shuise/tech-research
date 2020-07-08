@@ -1,0 +1,13 @@
+﻿html,body{ border:0;}
+.datepicker_title{ height:35px; line-height:35px; background-color:#363636;}
+.datepicker_wrapper{ width:210px; display:none; border:1px solid #ccc; background-color:#fff; position:absolute; left:0; top:20px; z-index:50; font:12px arial,\5B8B\4F53,serif; color:#dfdfdf; text-align:center;}
+.datepicker_wrapper .prev_btn,.datepicker_wrapper .next_btn{ display: inline-block; width:7px; height:35px; line-height:35px; color:#000;text-decoration: none; text-align:center; margin:0 10px; background:url(images/dp_icon.png) left 13px no-repeat; float:left;}
+.datepicker_wrapper .next_btn{ float:right; background-position:right 13px;}
+.datepicker_wrapper .prev_btn:hover,.datepicker_wrapper .next_btn:hover{ font-weight:bold;}
+.date_selector{border-collapse:collapse;border-spacing:0; margin-left: -1px; width:100%;}
+.date_selector th{ font-weight:bolder; text-align:center; line-height:20px; color: #727272;}
+.date_selector td{border-top:1px solid #b6b6b6; border-left:1px solid #b6b6b6; background:#fefefe;padding: 0;}
+.date_selector td a,.date_selector td .disabled:hover{ font:bold 12px '黑体'; display:block; border-top:1px solid #fff; border-left:1px solid #fff; height:29px;cursor:pointer; line-height:29px; text-align:center; color:#676767; padding:0;position: static; background:url(images/date_bg.gif) left 1px repeat-x #ededed;text-decoration:none;}
+.date_selector td a:visited{color:#000;}
+.date_selector td a:hover,.date_selector .active{ background:url(images/date_bg.gif) left -77px repeat-x #eee;color:#fff; border-color:#5d1513; }
+.date_selector td .disabled,.date_selector td .disabled:hover{cursor:text;}

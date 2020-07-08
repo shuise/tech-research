@@ -1,0 +1,17 @@
+{
+	"name": "autoLogin",
+	"manifest_version": 2,
+	"version" : "1.2",
+	"description": "autoLogin", 
+	"permissions": ["contextMenus","notifications"],
+	"icons": { 
+		"16": "logo.png",             
+		"48": "logo.png",             
+		"128": "logo.png"
+	},  
+	"content_scripts": [{
+		"matches": ["http://*.hitalk.im/*","https://*.sealtalk.im/*"],
+		"js": ["m.js"],
+		"all_frames" : true
+	}]
+}

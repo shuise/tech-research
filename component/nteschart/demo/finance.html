@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.pie.js" charset="utf-8"></script>
+        <style>
+            #canvas1 {margin:10px auto;width:450px;height:250px;border:1px solid #ddd}
+            #canvas2 {margin:10px auto;width:450px;height:250px;border:1px solid #ddd}
+            #canvas3 {margin:10px auto;width:450px;height:250px;border:1px solid #ddd}
+            #canvas4 {margin:10px auto;width:450px;height:250px;border:1px solid #ddd}
+            #canvas5 {margin:10px auto;width:450px;height:300px;border:1px solid #ddd}
+        </style>
+        <title>财经数据</title>
+    </head>
+    <body>
+        <div id="canvas1"></div> 
+        <div id="canvas2"></div> 
+        <div id="canvas3"></div> 
+        <div id="canvas4"></div> 
+        <div id="canvas5"></div> 
+<script>
+//柱图
+var canvas1 = new NTESChart({
+    container : document.getElementById("canvas1")
+});
+var data1 = [
+    {
+        title : "新增贷款", 
+        data: [789,871,1861,1855,1852,1858,1860,2012,2210,2130],
+        chart : ["bar"]
+    },
+    {
+        title : "新增贷款2", 
+        data: [589,891,1761,1835,1952,1958,1840,1912,2010,2230],
+        chart : ["line", "dot"], label : "{x}:{y}%"
+    }
+];
+canvas1.xyChart(data1, [], {
+    xTick : {
+        rotate : "270",shiftY : 12, rotate : -45,
+        _labels : ["2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月", "2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月"], 
+        txtAttr: {fill : '#333'}
+    },
+    colors : ['#94B8F3', '#E31010'],
+    showLegend : true, 
+    label : "{y}",
+    padding: {y:15, x:30}, xpadding:1, 
+    grid : {
+        shadow : false, 
+        plotAttr : {stroke: '#ccc', 'stroke-dasharray': '. '}
+    },
+    yTick : {
+        startY : [0,0],
+        labels : "{y}", 
+        txtAttr: {fill : '#333'}, 
+        fixNum : function(n){return n}
+    }
+});
+//canvas1._R.text(21, 10, "(亿元)").attr({'font-size':'10px'});
+//线图
+var canvas2 = new NTESChart({
+    container : document.getElementById("canvas2")
+});
+var data2 = [
+    {
+        title : "进出口", 
+        data: [-15, -10, -9, -4,20,15,14,40,20,40],
+        config : { 
+                        dotAttr:{ fill : '#D88282', type : 'rect', stroke: 'none', fixedLabel:"right" }
+                     }
+    },
+    {
+        title : "进出口", 
+        data: [55, 60, 49, 24,20,35,24,40,10,50]
+    }
+];
+canvas2.xyChart(data2, ["line", "dot"], {
+    xTick : {
+        rotate : "270", shiftY : 14, rotate: -45,
+        _labels : ["2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月", "2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年120月"], 
+        txtAttr: {fill : '#333'}
+    },
+    showLegend : false, 
+    label : "{title}: {y}",
+    padding: {y:25, x:30}, xpadding:1, 
+    grid : {
+        shadow: false, 
+        plotAttr : {stroke: '#ccc', 'stroke-dasharray': '. '}
+    },
+    yTick : {
+        labels : "{y}%", 
+        txtAttr: {fill : '#333'}, 
+        fixNum : function(n){return n.toFixed(2)}
+    }
+});
+//曲线
+var canvas3 = new NTESChart({
+    container : document.getElementById("canvas3")
+});
+var data3 = [
+    {
+        title : "进口", 
+        data: [-15, -10, -9, -4,20,15,14,40,20,40,10],
+        config : { 
+                        dotAttr:{ fill : '#D88282', type : 'rect', stroke: 'none' },
+                        plotAttr:{ stroke : '#D88282'}
+                     }
+    },
+    {
+        title : "出口", 
+        data: [55, 60, 49, 24,20,35,24,40,10,50,70]
+    }
+];
+canvas3.xyChart(data3, ["curve", "dot"], {
+    //colors : ['#000000'],
+    xTick : {
+        rotate : "270", shiftY : -1,
+        _labels : ["2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月", "2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月", "2011年12月"], 
+        txtAttr: {fill : '#333'}
+    },
+    showLegend : true, 
+    label : "{title}: {y}",
+    padding: {y:15, x:30}, xpadding:0, 
+    grid : {
+        shadow:false, 
+        plotAttr : {stroke: '#ccc'},
+        borderAttr : null
+    },
+    yTick : {
+        labels : "{y}", 
+        txtAttr: {fill : '#333'}, 
+        fixNum : function(n){return n}
+    }
+});
+
+//曲线
+var canvas4 = new NTESChart({
+    container : document.getElementById("canvas4")
+});
+var data4 = [
+    {
+        title : "进口", 
+        data: [-15, -10, -9, -4,20,15,14,40,20,40,10]
+    },
+    {
+        title : "出口", 
+        data: [55, 60, 49, 24,20,35,24,40,10,50,70]
+    }
+];
+canvas4.xyChart(data4, ["line", "dot"], {
+    xTick : {
+        rotate : "-45", shiftY : 12, interval : 2,
+        _labels : ["2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月", "2010年1月", "2010年2月", "2010年3月", "2010年4月", "2010年5月", "2011年6月"], 
+        txtAttr: {fill : '#333'}
+    },
+    showLegend : true, 
+    label : "{title}: {y}",
+    padding: {y:15, x:30}, xpadding:1, 
+    grid : {
+        shadow:false, 
+        plotAttr : {stroke: '#ccc'},
+        borderAttr : null
+    },
+    yTick : {
+        labels : "{y}", 
+        txtAttr: {fill : '#333'}, 
+        fixNum : function(n){return n}
+    }
+});
+
+//曲线
+var canvas5 = new NTESChart({
+    container : document.getElementById("canvas5")
+});
+var data5 = [{title:"Chrome18",value:9},{title:"IE8",value:28},{title:"FF13",value:31},{title:"IE7",value:9},{title:"Opera9",value:2},{title:"IE9",value:2},{title:"FF14",value:6},{title:"Chrome14",value:2},{title:"Chrome21",value:7},{title:"FF9",value:2},{title:"Chrome6",value:1},{title:"IE6",value:11},{title:"Chrome17",value:2},{title:"Chrome20",value:24}];
+canvas5.pie(data5, {
+    labels : "{title} {percent}% [{fmtval}]"
+});
+</script>
+
+    </body>
+</html>

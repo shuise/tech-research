@@ -1,0 +1,8 @@
+[{
+  title : "区间划块选择",
+  desc : "用于汽车参数选择",
+  mod : "slider.html",
+  doc : "doc.html",
+  demo : "demo.html",
+  tags : ["划块"]
+}]

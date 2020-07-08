@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js canvas - particles - sprites</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			a {
+				color: #0078ff;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script src="three.min.js"></script>
+
+		<script src="js/renderers/Projector.js"></script>
+		<script src="js/renderers/CanvasRenderer.js"></script>
+
+		<script src="js/libs/stats.min.js"></script>
+		<script src="js/libs/tween.min.js"></script>
+    <script>
+ var p=[];
+
+ var audioMgr=function(url) {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.context = new AudioContext();
+    this.source=this.context.createBufferSource();
+    
+    this.loadBuffer(url);
+
+  }
+  audioMgr.prototype.loadBuffer=function(url){
+  	var self=this;
+
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.responseType = "arraybuffer";
+
+
+    request.onload = function() {
+      self.buffer=request.response;
+      self.play();
+      
+    }
+
+    request.onerror = function() {
+      alert('BufferLoader: XHR error');
+    }
+
+    request.send();
+  }
+  audioMgr.prototype.play=function(){
+    var self=this;
+
+    this.context.decodeAudioData(
+            self.buffer,
+            function(buffer) {
+              if (!buffer) {
+                alert('error decoding file data: ' + url);
+                return;
+              }
+              self.source.buffer = buffer;
+              self.analyse();
+              self.source.loop = true;
+              self.source.start(0);
+              self.draw();
+
+            },
+            function(error) {
+              console.error('decodeAudioData error', error);
+            }
+    );
+
+  }
+  audioMgr.prototype.stop=function(){
+    try{this.source.stop(0);}
+    catch(e){};
+  }
+  audioMgr.prototype.start=function() {
+    this.source=this.context.createBufferSource();
+    this.source.buffer = this.buffer;
+    this.source.connect(this.context.destination);
+    this.source.loop = true;
+    this.source.start(0);
+  }
+  audioMgr.prototype.analyse=function(){
+    this.analyser = this.context.createAnalyser();
+
+
+    this.analyser.fftSize = 32;
+    this.source.connect(this.analyser);
+    this.analyser.connect(this.context.destination);
+  }
+  audioMgr.prototype.draw=function(){
+    
+    audiomgr.dataArray = new Uint8Array(audiomgr.analyser.frequencyBinCount);
+    audiomgr.analyser.getByteFrequencyData(audiomgr.dataArray);
+
+    requestAnimationFrame(audiomgr.draw);          
+    
+    for(var i=0;i<audiomgr.dataArray.length;i++){
+  
+    	p[i].position.y=audiomgr.dataArray[i]*2;
+    }
+    
+  }
+  function loadAudio(uri,callback)
+{
+    var audio = new Audio();
+    //audio.onload = isAppLoaded; // It doesn't works!
+    audio.addEventListener('canplaythrough', callback, false); // It works!!
+    audio.src = uri;
+    return audio;
+}
+  var audiomgr;
+  loadAudio('s.mp3',function(){
+  	audiomgr=new audioMgr('s.mp3');
+  })
+  
+  document.addEventListener('contextmenu',function(){
+    audiomgr.stop();
+  });
+</script>
+		<script>
+
+			var container, stats;
+			var camera, scene, renderer, particle;
+			var mouseX = 0, mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			init();
+			animate();
+      
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 5000 );
+				camera.position.z = 1000;
+
+				scene = new THREE.Scene();
+
+				var material = new THREE.SpriteMaterial( {
+					map: new THREE.CanvasTexture( generateSprite() ),
+					blending: THREE.AdditiveBlending
+				} );
+
+				for ( var i = 0; i < 16; i++ ) {
+
+					particle = new THREE.Sprite( material );
+          p.push(particle);
+					initParticle( particle, i * 10 );
+
+					scene.add( particle );
+				}
+
+				renderer = new THREE.CanvasRenderer();
+				renderer.setClearColor( 0x000040 );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				container.appendChild( stats.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+				document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				windowHalfX = window.innerWidth / 2;
+				windowHalfY = window.innerHeight / 2;
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function generateSprite() {
+
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 16;
+				canvas.height = 16;
+
+				var context = canvas.getContext( '2d' );
+				var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+				gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+				gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
+				gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
+				gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+
+				context.fillStyle = gradient;
+				context.fillRect( 0, 0, canvas.width, canvas.height );
+
+				return canvas;
+
+			}
+
+			function initParticle( particle, delay ) {
+
+				var particle = this instanceof THREE.Sprite ? this : particle;
+				var delay = delay !== undefined ? delay : 0;
+       
+				particle.position.set( (delay/10-8)*70, -20, 0 );
+				particle.scale.x = particle.scale.y = Math.random() * 32 + 32;
+        /*
+				new TWEEN.Tween( particle )
+					.delay( delay )
+					.to( {}, 10000 )
+					.onComplete( initParticle )
+					.start();
+
+				new TWEEN.Tween( particle.position )
+					.delay( delay )
+					.to( { x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000 )
+					.start();
+
+				new TWEEN.Tween( particle.scale )
+					.delay( delay )
+					.to( { x: 0.01, y: 0.01 }, 10000 )
+					.start();
+					*/
+
+			}
+
+			//
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = event.clientX - windowHalfX;
+				mouseY = event.clientY - windowHalfY;
+			}
+
+			function onDocumentTouchStart( event ) {
+
+				if ( event.touches.length == 1 ) {
+
+					event.preventDefault();
+
+					mouseX = event.touches[ 0 ].pageX - windowHalfX;
+					mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+				}
+
+			}
+
+			function onDocumentTouchMove( event ) {
+
+				if ( event.touches.length == 1 ) {
+
+					event.preventDefault();
+
+					mouseX = event.touches[ 0 ].pageX - windowHalfX;
+					mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+				}
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+        /*
+				TWEEN.update();
+        
+				camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+				camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+				camera.lookAt( scene.position );
+        */
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>

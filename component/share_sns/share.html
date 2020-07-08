@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>分享组件 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap">
+    <div class="f2e_wrap_inner">
+    	<div class="f2e_api_head">
+    		<div class="f2e_api_logo">
+    			<strong>网易前端</strong>
+    		</div>
+    		<address>developer.163.com</address>
+    	</div>
+    	<div class="f2e_api_body">
+    		<div class="f2e_api_menu">
+    			<!--#include virtual="../menu.html"-->
+    		</div>
+
+    		<div class="f2e_api_content">
+    			<h1>分享组件</h1>
+    			
+    			<div class="f2e_api_section">
+    				<p>依赖文件 <a href="http://img1.cache.netease.com/f2e/lib/js/ne.js">http://img1.cache.netease.com/f2e/lib/js/ne.js</a></p>
+    				<p>引入文件 <a href="http://qa.developer.163.com/component/share_sns/share.js">http://qa.developer.163.com/component/share_sns/share.js</a></p>
+    			</div>
+                <div class="f2e_api_btns">
+                    <a href="js_share_test.html" target="_blank">查看demo</a>
+                </div>
+                <div class="f2e_api_section">
+                    <h2>说明</h2>
+                    <pre id="f2e_api_code">
+  需要引入NE库 http://img1.cache.netease.com/f2e/lib/js/ne.js
+
+  一. 默认绑定
+
+    默认为包含 .js_share 类名的元素进行点击事件绑定，按照该元素的属性 data-type 的值 或 类名 .js_share_{type}
+    的后缀进行分享渠道区分。{type}与渠道的对应关系见附录一。
+
+    当 window.js_share_unbind = true 时不进行绑定。
+
+    例如：&lt;i class="js_share js_share_sina" title="分享到新浪微博"&gt;分享到新浪微博&lt;/i&gt;
+    或者：&lt;i class="js_share" data-type="weibo" title="分享到新浪微博"&gt;分享到新浪微博&lt;/i&gt;
+
+    分享参数可用全局对象 js_share_config 定义，见下面的代码实例。
+
+  二. 直接调用分享方法
+
+    除默认的类名绑定外，也可以使用 shareto 方法进行分享，分享参数可单独设置。
+    方法为：shareto(type, url, title, description, pic, source, anchor, appkey, ralateUid)
+    
+    参数均为str类型，均为非必须。参数依次为：
+    type : 分享渠道
+    url : 分享链接
+    title : 分享标题
+    description : 分享摘要
+    pic : 分享图片地址
+    source : 分享来源，仅对Lofter生效
+    anchor : 分享回流链接中的标记，使用"#"或者"?"，默认使用"#"，
+             如http://host.com/index.html#ntes_share_count=1&ntes_share=sns_weibo
+    appkey : 分享appkey，用于分享到微博时显示"来自网易新闻"处，根据host自动匹配频道appkey，具体匹配见附录二
+    ralateUid : 分享ralateUid，用于分享到微博时分享正文处自动@相关频道官方微博，根据host自动匹配频道官方微博，
+             具体匹配见附录二
+  
+  分享出去的链接会带有 “ntes_share_count={\d}&ntes_share=sns_{type}” 形式的参数，其中 ntes_share
+  的值为 “sns_” + 本次分享渠道type ，ntes_share_count 的值为累计二次分享次数
+
+  分享按钮点击时，会按文章页现有规则给 http://analytics.163.com/ntes 发送点击日志
+                    </pre>
+                </div>
+                <div class="f2e_api_section">
+                    <h2>待改进部分</h2>
+                    <pre id="f2e_api_code">
+  1.微信扫码 2.分享到微信
+                    </pre>
+                </div>
+    			<div class="f2e_api_section">
+    				<h2>代码实例</h2>
+    				<pre id="f2e_api_code">
+&lt;script&gt;
+var js_share_config = {
+
+    "title": document.title,
+    // 分享的标题，若没有则设置为 document.title
+
+    "url": location.href,
+    // 分享的链接，若没有则设置为 window.location.href
+
+    "description": "",
+    // 分享的摘要，若没有则设置为 document.title
+
+    "pic": "",
+    // 分享的图片，若没有则设置为 页面中宽和高都大于300px的图片，若依然没有，则设置默认图
+    // http://yixinpublic.nos-yx.netease.com/pr_jnlnzlvg1ld4d1pg_stl_w==_1406024379_14023902    
+			
+    "source": "网易",
+    // 分享的来源，若没有则设置为 网易
+		
+    "anchor": "#",
+    // 分享时标记符使用hash("#")或search("?")，默认为#
+	
+    "appkey": "",
+    // 分享appkey for 新浪微博，作用于分享结果底部，若没有则设置为 网易新闻(appkey = 603437721) 
+
+    "ralateUid": ""
+    // 分享ralateUid for 新浪微博，作用于分享内容后@网易频道，若没有则设置为 网易新闻(ralateUid = 1929329727)
+};
+&lt;/script&gt;
+&lt;ul&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_sina"&gt;分享到新浪微博&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_rr"&gt;分享到人人网&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_youdao"&gt;分享到有道云笔记&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_qzone"&gt;分享到QQ空间&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_yx"&gt;分享到易信&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_lofter"&gt;分享到Lofter&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;i class="js_share js_share_hot"&gt;分享到网易热&lt;/i&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+                    </pre>
+    			</div>
+
+
+                <div class="f2e_api_section">
+                    <h2>附录一：分享渠道对应type</h2>
+                    <table style="text-indent:1em;">
+                        <tr>
+                            <th align="left">渠道</th>
+                            <th></th>
+                            <th align="left">type</th>
+                        </tr>
+                        <tr>
+                            <td>新浪微博</td>
+                            <td> ：</td>
+                            <td>"sina" 、 "weibo"、 "sinawb"</td>
+                        </tr>
+                        <tr>
+                            <td>人人网</td>
+                            <td> ：</td>
+                            <td>"rr" 、 "renren"</td>
+                        </tr>
+                        <tr>
+                            <td>有道云笔记</td>
+                            <td> ：</td>
+                            <td>"yodao" 、 "youdao" 、 "ydCloud"</td>
+                        </tr>
+                        <tr>
+                            <td>QQ空间</td>
+                            <td> ：</td>
+                            <td>"qzone" 、 "qqZone"</td>
+                        </tr>
+                        <tr>
+                            <td>Lofter</td>
+                            <td> ：</td>
+                            <td>"163" 、 "lofter"</td>
+                        </tr>
+                        <tr>
+                            <td>易信</td>
+                            <td> ：</td>
+                            <td>"yx" 、 "yixin"</td>
+                        </tr>
+                        <tr>
+                            <td>易信图片</td>
+                            <td> ：</td>
+                            <td>"yx_image" 、 "yixin_image"</td>
+                        </tr>
+                        <tr>
+                            <td>网易热</td>
+                            <td> ：</td>
+                            <td>"hot163" 、 "163hot" 、 "hot"</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="f2e_api_section">
+                    <h2>附录二：默认新浪微博appkey及官方微博关联列表</h2>
+                    <table width="100%">
+                        <tr>
+                            <th align="left">频道</th>
+                            <th align="left">appkey</th>
+                            <th align="left">ralateUid</th>
+                        </tr>
+                        <tr>
+                            <td>网易新闻</td>
+                            <td>603437721</td>
+                            <td>1929329727</td>
+                        </tr>
+                        <tr>
+                            <td>网易女人</td>
+                            <td>1411153063</td>
+                            <td>2696068553</td>
+                        </tr>
+                        <tr>
+                            <td>网易艺术</td>
+                            <td>-</td>
+                            <td>2678435373</td>
+                        </tr>
+                        <tr>
+                            <td>网易体育</td>
+                            <td>618670090</td>
+                            <td>2757394263</td>
+                        </tr>
+                        <tr>
+                            <td>网易汽车</td>
+                            <td>3619578257</td>
+                            <td>2293532401</td>
+                        </tr>
+                        <tr>
+                            <td>网易娱乐</td>
+                            <td>2935209169</td>
+                            <td>2674977220</td>
+                        </tr>
+                        <tr>
+                            <td>网易房产</td>
+                            <td>1228447084</td>
+                            <td>2121786037</td>
+                        </tr>
+                        <tr>
+                            <td>网易游戏</td>
+                            <td>886946399</td>
+                            <td>1871103515</td>
+                        </tr>
+                        <tr>
+                            <td>网易财经</td>
+                            <td>3369952587</td>
+                            <td>1974561081</td>
+                        </tr>
+                        <tr>
+                            <td>网易科技</td>
+                            <td>3628156158</td>
+                            <td>1905687615</td>
+                        </tr>
+                        <tr>
+                            <td>网易手机</td>
+                            <td>3009011254</td>
+                            <td>2088265107</td>
+                        </tr>
+                        <tr>
+                            <td>网易数码</td>
+                            <td>515790538</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>网易家居</td>
+                            <td>1915520969</td>
+                            <td>2295046842</td>
+                        </tr>
+                        <tr>
+                            <td>网易教育</td>
+                            <td>3453163099</td>
+                            <td>1712102637</td>
+                        </tr>
+                        <tr>
+                            <td>网易校园</td>
+                            <td>405912016</td>
+                            <td>1712102637</td>
+                        </tr>
+                        <tr>
+                            <td>网易旅游</td>
+                            <td>2026652209</td>
+                            <td>1663688317</td>
+                        </tr>
+                        <tr>
+                            <td>网易公益</td>
+                            <td>3492075339</td>
+                            <td>1929329727</td>
+                        </tr>
+                        <tr>
+                            <td>网易君子</td>
+                            <td>3831755683</td>
+                            <td>3755283417</td>
+                        </tr>
+                        <tr>
+                            <td>网易酒香</td>
+                            <td>2706186385</td>
+                            <td>3194595594</td>
+                        </tr>
+                        <tr>
+                            <td>网易花田</td>
+                            <td>2946569561</td>
+                            <td>2213659842</td>
+                        </tr>
+                        <tr>
+                            <td>网易健康</td>
+                            <td>-</td>
+                            <td>5341241739</td>
+                        </tr>
+                    </table>
+                </div>
+    		</div>
+    		<div class="clear"></div>
+    	</div>
+    </div>
+</div>
+
+</body>
+</html>

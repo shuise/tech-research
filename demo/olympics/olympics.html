@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>border_radius</title>
+<style type="text/css">
+.a_wrap {width:160px;height:160px;border-radius:85px;float:left;margin:10px;border:5px solid #fff;}
+.a4 {margin-left:105px;clear:both;}
+.a4,.a5 {margin-top:-125px;}
+
+.a {border:20px solid blue;height:120px;border-radius:80px;}
+.b {height:110px;width:110px;border-radius:60px;border:5px solid #fff;}
+
+
+.a1 .a {border-color:#0085C7;}
+.a2 .a{border-color:#000;}
+.a3 .a{border-color:#DF0024;}
+.a4 .a{border-color:#F4C300;}
+.a5 .a{border-color:#009f3d;}
+
+.arc {position:absolute;left:140px;top:65px;width:42px;height:85px;overflow:hidden;}
+.arc_red {left:430px;top:112px;}
+.arc_black {left:221px;top:116px;width:60px;height:65px;}
+.arc_black2 {left:330px;}
+.arc_blue .a_wrap {margin:-55px 0 0 -130px;}
+.arc_red .a_wrap {margin:-102px 0 0 -40px;}
+.arc_black .a_wrap {margin:-106px 0 0 -21px;}
+.arc_black2 .a_wrap {margin:-55px 0 0 -130px;}
+</style>
+</head>
+
+<body>
+<img src="olympics_logo.gif" onclick="a()">
+
+
+<div style="margin:20px;position:relative;">
+	<div class="a_wrap a1">
+		<div class="a">
+			<div class="b"></div>
+		</div>
+	</div>
+	<div class="a_wrap a2">
+		<div class="a">
+			<div class="b"></div>
+		</div>
+	</div>
+	<div class="a_wrap a3">
+		<div class="a">
+			<div class="b"></div>
+		</div>
+	</div>
+	<div class="a_wrap a4">
+		<div class="a">
+			<div class="b"></div>
+		</div>
+	</div>
+	<div class="a_wrap a5">
+		<div class="a">
+			<div class="b"></div>
+		</div>
+	</div>
+	<div class="arc arc_blue">
+		<div class="a_wrap a1">
+			<div class="a">
+				<div class="b"></div>
+			</div>
+		</div>
+	</div>
+	<div class="arc arc_red">
+		<div class="a_wrap a3">
+			<div class="a">
+				<div class="b"></div>
+			</div>
+		</div>
+	</div>
+	<div class="arc arc_black">
+		<div class="a_wrap a2">
+			<div class="a">
+				<div class="b"></div>
+			</div>
+		</div>
+	</div>
+	<div class="arc arc_black2">
+		<div class="a_wrap a2">
+			<div class="a">
+				<div class="b"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+function a(){
+	var T1 = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+	alert(T1)
+}
+</script>
+
+</body>
+</html>

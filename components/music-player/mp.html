@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="title">html5 audio MusicPlayer</title>
+<style>
+*{margin:0;padding:0;}	
+</style>
+<!-- <link rel="stylesheet" href="http://static.qa.gip.happyelements.com/common/lib_0_1.css" />
+<link rel="stylesheet" href="http://static.qa.gip.happyelements.com/component/pop/pop.css" />
+
+<script type="text/javascript" src="http://static.qa.gip.happyelements.com/component/pop/pop.js"></script> -->
+<script type="text/javascript" src="./lib.js"></script>
+<script type="text/javascript" src="musicplayer.js"></script>
+<link href="musicplayer.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="playing"></div>
+<script type="text/javascript">
+loadMusicPlayer();
+
+function loadMusicPlayer(){
+	var songInfo = [
+		{"singer":"宗次亮","name":"故乡的原风景","url":"http://www.kf-cn.com/cn/miimg/sound.mp3"},
+		{"singer":"cara dillon","name":"craigie hill","url":"http://friends.chyangwa.com/kelly/song2/Craigie%20Hill.mp3"},
+		{"singer":"def leppard","name":"Long long way to go","url":"http://space.wzdsb.net/space_beijiguang/Longlongwaytogo.mp3"},
+		{"singer":"Matthew Lien","name":"Bressanon","url":"http://lottery.sz.net.cn/images/2006-08/18/570803181102890167453.mp3"},
+		{"singer":"scorpions","name":"still loving you","url":"http://3393.voxcdn.com/classicrock/scorpions_crgold014_stilllovingyou.mp3"},
+		{"singer":"sinead o'connor","name":"a perfect indian","url":"http://rm.sina.com.cn/wm/VZ200807031731477717VK/music/MUSIC0807031732007910.mp3"}
+		]
+	var obj = HE.$("#playing");
+	var mp = new musicPlayer(obj,songInfo);
+		mp.init();
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSSKeyframeRule</title>
+</head>
+<body>
+	
+<style>
+/* Standard syntax */ 
+@-webkit-keyframes move {
+    0% {top:0;left:0;}
+    10% {top:10%;left:10%;-webkit-transform: rotate(15deg);}
+    20% {top:20%;left:20%;-webkit-transform: rotate(25deg);}
+    30% {top:30%;left:30%;-webkit-transform: rotate(35deg);}
+    40% {top:40%;left:40%;-webkit-transform: rotate(55deg);}
+    50% {top:50%;left:50%;-webkit-transform: rotate(65deg);}
+    60% {top:40%;left:40%;-webkit-transform: rotate(75deg);}
+    70% {top:30%;left:30%;-webkit-transform: rotate(85deg);}
+    80% {top:20%;left:20%;-webkit-transform: rotate(95deg);}
+    90% {top:10%;left:10%;-webkit-transform: rotate(115deg);}
+    100% {top:5%;left:5%;-webkit-transform: rotate(135deg);}
+}
+
+#rotate{
+	width: 260px;
+	height: 120px; 
+	background:#000;
+    background: url(./demo/a30/brown.png);
+    background-size: 100% 100%;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.rotate-hover{
+	animation-name: move;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}	
+</style>
+
+<div id="rotate"></div>
+<script> 
+var t = document.getElementById("rotate");
+
+setTimeout(function(){
+	var t1 = new Date().getTime();
+	t.classList.add("rotate-hover");
+	t.addEventListener("webkitAnimationEnd", endt, false);
+
+	function endt(){
+		var t2 = new Date().getTime();
+		console.log((t2 - t1)/200)
+	}
+});	
+</script>
+</body>
+</html>

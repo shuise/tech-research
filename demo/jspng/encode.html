@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>文本生成PNG</title>
+<link href="main.css" rel="Stylesheet" type="text/css">
+</head>
+<body>
+<div class="main">
+	<div>
+		<a href="index.html">简介</a> |
+		<a href="encode.html" class="on">编码</a> |
+		<a href="decode.html">解码</a> |
+		<a href="demo.html">示例</a> |
+	</div>
+
+	<h2 id="c-tab" class="c-tab">
+		<span class="current" post-url="makebytext.php">输入文本转换成PNG图像</span> |
+		<span post-url="makebyfile.php">上传文本文件转换</span> |
+		<span post-url="makebyurl.php">载入线上文件url转换</span>
+	</h2>
+	<div id="c-main" class="c-main">
+		<form action="makebyfile.php" method="post" enctype="multipart/form-data">
+			生成文件名<input type="text" id="data-filename" name="filename" onkeyup="value=value.replace(/[^a-z\^0-9\^.\^_]/g,'')" ><span class="desc">(可以为空，如果填写必须为数字、小写字母、点号和下划线的组合)</span>
+			<p class="current">
+				<textarea id="data-data" name="data" style="width:570px;height:200px;"></textarea>
+			</p>
+			<p>
+				文件<input type="file"  id="data-file" name="file" id="file" />
+			</p>
+			<p>
+				URL<input type="text" id="data-url" name="url" size="80"/>
+			</p>
+			<input type="reset" value="重置">
+			<input type="button" value="提交转换"  onclick="makePNG()">
+			<input id="data-submit" type="submit" value="提交转换" class="none">
+		</form>
+	</div>
+
+	<div id="result">
+	</div>
+</div>
+<script src="http://static.f2e.netease.com/libs/jquery.js"></script>
+<script>
+function initTab(){
+	$('#c-tab span').each(function(i,item){
+		$(item).click(function(){
+			$('#c-tab span').removeClass('current');
+			$('#c-tab span:eq('+i+')').addClass('current');
+			$('#c-main p').removeClass('current');
+			$('#c-main p:eq('+i+')').addClass('current');
+		});
+	});
+}
+
+function makePNG(){
+	var url = $('#c-tab span.current').attr('post-url');
+	var d_filename = $('#data-filename').val();
+	var d_data = $('#data-data').val();
+	var d_file = $('#data-file').val();
+	var d_url = $('#data-url').val();
+	if(url != 'makebyfile.php'){
+		$.post(url,{'filename':d_filename,'data':d_data,'file':d_file,'url':d_url},function(json){
+			if(json.ret){
+				$('#result').html('生成图片路径为：<a href="'+json.url+'" target="_blank">'+json.url+'</a><br><img src="'+json.url+'">(可右键图片另存为)');
+			}
+		
+		},'json');
+	}else{
+		$('#data-submit').click();
+	}
+}
+
+$(document).ready(function(){
+	initTab();
+});
+</script>
+</body>
+</html>

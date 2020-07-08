@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>API文档 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://static.f2e.netease.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<div class="f2e_api_menu_item">
+				<h2><a href="#">分类一 </a></h2>
+				<ol>
+					<li><a href="#">子类1 english texts</a></li>
+					<li><a href="#">子类2 english texts</a></li>
+					<li><a href="#">子类3 english texts</a></li>
+					<li><a href="#">子类4 english texts</a></li>
+					<li><a href="#">子类5 english texts</a></li>
+				</ol>
+			</div>
+
+			<div class="f2e_api_menu_item">
+				<h2><a href="#">分类二 </a></h2>
+				<ol>
+					<li><a href="#">子类1 english texts</a></li>
+					<li><a href="#">子类2 english texts</a></li>
+					<li><a href="#">子类3 english texts</a></li>
+					<li><a href="#">子类4 english texts</a></li>
+					<li><a href="#">子类5 english texts</a></li>
+				</ol>
+			</div>
+
+			<div class="f2e_api_menu_item">
+				<h2><a href="#">分类三 </a></h2>
+				<ol>
+					<li><a href="#">子类1 english texts</a></li>
+					<li><a href="#">子类2 english texts</a></li>
+					<li><a href="#">子类3 english texts</a></li>
+					<li><a href="#">子类4 english texts</a></li>
+					<li><a href="#">子类5 english texts</a></li>
+				</ol>
+			</div>
+
+			<div class="f2e_api_menu_item">
+				<h2><a href="#">categories</a></h2>
+				<ol>
+					<li><a href="#">子类1 english texts</a></li>
+					<li><a href="#">子类2 english texts</a></li>
+					<li><a href="#">子类3 english texts</a></li>
+					<li><a href="#">子类4 english texts</a></li>
+					<li><a href="#">子类5 english texts</a></li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>前端API文档管理说明</h1>
+			
+			<div class="f2e_api_section">
+				<p>虽然理论上不一定，但既然要同时在Node.js和浏览器里进行测试，那么很自然的选择便是使用同时支持两者的单元测试工具。Jscex使用Mocha作为单元测试框架，并使用Chai作为断言类库——真可谓一边喝咖啡一边品茶。</p>
+				<p>之前我用过一段时间的should.js，但它不支持浏览器，更重要的是它的作者说“有Chai所以就不做浏览器支持了”让我稍觉不爽，因此全面切换为Chai。不过平心而论，should.js相比Chai还是有其优势，例如它对于错误的描述更为详细，而Chai的优势主要是支持各种断言形式，而should.js显然只支持一种。</p>
+
+				<p>Mocha可以搭配任何断言类库使用，它只关注测试过程中有没有抛出异常，而Chai只关注各种断言API，并再断言失败的时候抛出异常。在Node.js中使用这两个组件基本只需require进来</p>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>代码片段</h2>
+				<pre>function substitute(template, data, regexp){
+if(!(Object.prototype.toString.call(data) === "[object Array]")){
+	data = [data]
+}
+var ret = [];
+for(var i=0,j=data.length;i< j;i++){
+	ret.push(replaceAction(data[i]));
+}
+return ret.join("");
+
+function replaceAction(object){
+	return template.replace(regexp || (/\\?\{([^}]+)\}/g), function(match, name){
+	if (match.charAt(0) == '\\') return match.slice(1);
+	return (object[name] != undefined) ? object[name] : '';
+	});
+}
+}</pre>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>代码实例</h2>
+				<pre>var temp = "",data1 = [],data2 = {};
+data2 = {
+	"title" : "title",
+	"texts" : "texts"
+};
+data1 = [data2,data2];
+
+temp = '<div>{title}</div><p>{texts}</p>';
+
+substitute(temp,data2) == '<div>title</div><p>texts</p>';				
+substitute(temp,data1) == '<div>title</div><p>texts</p><div>title</div><p>texts</p>';				
+				</pre>
+			</div>
+
+			<div class="f2e_api_btns">
+				<input type="button" value="运行代码" />
+				<a href="a.js">下载源代码</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

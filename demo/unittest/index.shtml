@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我为智能主页代言——为bobo女神点赞</title>
+	<!--#include file="inc/head.html"-->
+</head>
+<body>
+	<div class="bobo_wrap">
+		<!--fixed nav-->
+		<div class="fixed-nav">
+		    <div class="nav-container">
+		        <ul>
+		            <li class="ne-index"><a href="http://e.163.com" target="_blank">智能主页</a></li>
+		            <li class="nav-date"></li>
+		            <li class="week-num"></li>
+		        </ul>
+		    </div>
+		</div>
+		<!--fixed nav end-->
+		<div class="bobo_content">
+			<!-- 头部导航start -->
+
+			<!-- 头部导航end -->
+			<!-- banner title -->
+			<div class="bobo_banner">
+				<h1>我为智能主页代言——为bobo女神点赞</h1>
+			</div>
+			<!-- 投票导语 -->
+			<div class="bobo_intro">
+				<div class="bobo_intro_content">
+					<div class="intro_text">
+						<p>网之易智能云主页携手bobo共同举办“智能主页bobo主播人气大赛”, 活动期间每周将由粉丝投票选出人气最高的主播，该主播将登陆智能云主页<a href="http://e.163.com" style="color:#90c">e.163.com</a>进行直播互动。那么谁将是本周的人气明星呢？快为你的女神投票上“头条”吧！</p>
+					</div>
+					<div class="sign_in">
+						<a href="javascript:;" id='sign_up'></a>
+						<p>可增加1次投票机会</p>
+					</div>
+				</div>
+			</div>
+			<!-- 全民票选 -->
+			<div class="bobo_people_vote">
+				<div class="vote_title">
+					<h2 class="bottom_line">全民票选</h2>
+					<p>All the people voted</p>
+				</div>
+				<div class="vote_candidate">
+					<ul id='item-container'>
+					</ul>
+				</div>
+			</div>
+			<!-- 活动规则 -->
+			<div class="bobo_competition_rules">
+				<div class="rules_title">
+					<h2 class="bottom_line">活动规则</h2>
+					<p>Competition Rules</p>
+				</div>
+				<div class="rules_content">
+					<ul>
+						<li>
+							<span class="left_line">活动时间<em>本次人气大赛从8月3日开始，至8月31日结束，共分为4期，每期有30名bobo人气主播参与评比，每期比赛时间为一周。</em></span>							
+						</li>
+						<li>
+							<span class="left_line">活动形式<em>本次活动为线上投票活动，粉丝可在主播头像下为主播投票。每周得票数最高的主播将会登陆网之易智能云主页<a href="http://e.163.com" target="_blank">e.163.com</a>，有机会获得更多</em></span>
+							<p>的粉丝。</p>							
+						</li>
+						<li>
+							<span class="left_line">评比方式<em>1.粉丝投票 ，每位用户每天拥有一次投票机会。</em></span>
+           					<p>2.每日签到一次，可额外增加一次投票机会。</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--#include file="inc/foot_static.html"-->
+	<script type='text/template' id="bobo_item">
+		<li>
+			<a href="http://www.bobo.com/{{roomid}}" target="_blank" class="girl_img">
+				<div class='img_wrap'>
+					<img src="{{img}}" alt="">
+				</div>
+				<img src="http://img4.cache.netease.com/shoucang/2015/7/27/2015072717075753d20.png" class="hover_img">
+			</a>
+			<p class="video_zhibo_0">直播</p>
+			<div class="candidate_intro">
+				<em data-id="{{id}}">{{vote}}票</em>
+				<p class="girl_name">{{name}}</p>
+				<p class="girl_intro">{{desc}}</p>
+			</div>
+			<a href="javascript:;" class="vote_button" data-id="{{id}}"></a>
+		</li>
+	</script>
+	<script src="libs/lodash.min.js"></script>
+	<script src="libs/bluebird.js"></script>
+	<script src="http://img1.cache.netease.com/f2e/libs/jquery.js"></script>
+	<script src="src/config.js"></script>
+	<script src="src/ajax.js"></script>
+	<script src="src/utils.js"></script>
+	<script src="src/main.js"></script>
+	<!--#include file="inc/foot.html"-->
+</body>
+</html>

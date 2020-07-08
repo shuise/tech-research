@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>首页点击行为分析(以用户为单位)</title>
+        <link rel="stylesheet" href="noclick.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <h1>首页点击行为分析( <a href="click.html">有/无有效点击对比</a>
+<a href="brclick.html">按浏览器</a>
+<a href="hrclick.html">按时辰</a>
+<a href="refclick.html">按来源</a>
+以用户为单位
+<a href="trend.html">关联分析</a> )</h1>
+        <div class="main_wrap">
+            <select id="day_sel"><option>请选择日期</option></select>
+            <fieldset class="chart_wrap">
+                <legend align="center"><select id="tab_hds">
+                <option value="clk_visit">每人日点击量分析</option>
+                <option value="visit">累计访问次数分析</option>
+            </select></legend>
+                <div class="tab_con" id="main_chart"></div>
+            </fieldset>
+        </div>
+        <div class="table_wrap" id="table_wrap"></div>
+        <div class="table_wrap" id="table_wrap2"></div>
+        <div class="dm_tips">
+            <h2>帮助信息</h2>
+            <div class="dm_tips_corner"></div>
+            <dl>
+<dt>无效点击：</dt><dd>空白区域处发生的点击</dd>
+<dt>有效点击：</dt><dd>收集并体现到热点图中的有效点击(包括链接、提交按钮、转发按钮等..)</dd>
+<dt>超前有效点击：</dt><dd>在DOM加载完成前发生的有效点击(由于此时章鱼代码未初始化，超前有效点击未被收集统计)。</dd>
+<dt>无点击：</dt><dd>无有效点击。</dd>
+<dt>左键：</dt><dd>包括有效或无效的左键点击。</dd>
+<dt>中键：</dt><dd>包括有效或无效的中键点击。</dd>
+<dt>右键：</dt><dd>包括有效或无效的右键点击。</dd>
+    		</dl>
+		</div>
+        <script src="http://qa.developer.163.com/common/ntes.js" charset='utf-8'></script>
+        <script src="http://qa.developer.163.com/libs/raphael.js" _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.core.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.ring.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.frame.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.dualchart.js" charset='utf-8' _group="nchart"></script>
+        <script src="byuser.js" charset='utf-8'></script>
+    </body>
+</html>

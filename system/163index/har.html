@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>163.com request</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/component/bootstrap/bootstrap.css">
+</head>
+<body>
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js" _group="ntes"></script>
+<script src="data.js"></script>
+
+<style>
+.wrap{
+	margin:20px;
+}
+.wrap h1 {
+	font-size:20px;
+}
+.wrap h1 small {
+	font-size:14px;
+}
+.wrap h2,
+.wrap h3{
+	font-size:16px;
+	margin:20px 0 0;
+}
+.table caption{
+	text-align:left;
+	border-top:2px solid #ccc;
+	background:#f5f5f5;
+	padding:10px;
+}
+#show{
+	margin-top:50px;
+}
+</style>
+
+<div class="wrap">
+	<div class="title">
+		<h1>163.com首页请求统计分析 <small>采集样本时间：2013.9.9 11：00</small></h1>
+	</div>
+
+
+	<div class="desc">
+		<div id="domains">
+			<h2>内部域26，请求数186，总体积650848B(651K)</h2>
+			<p>
+				www.163.com, jiu.163.com, news.163.com, t.163.com, api.money.126.net, img2.quotes.ws.126.net,  <br>
+				g.163.com, adgeo.163.com, api.pr.163.com, ip.ws.126.net, web.stat.ws.126.net, analytics.163.com, oimageb5.ydstatic.com, <br>
+				img1.cache.netease.com, img2.cache.netease.com, img3.cache.netease.com, img4.cache.netease.com, img5.cache.netease.com, img6.cache.netease.com, <br>
+
+				img1.126.net, img2.126.net, img3.126.net, l.bst.126.net, s.cimg.163.com,<br>
+				 p3.music.126.net, imgcdn.ph.126.net   
+
+			</p>
+			<h2>外部域30，请求数125，总体积669351(669K)</h2>
+			<p>
+				163.wrating.com,<br>
+				s13.cnzz.com, hzs13.cnzz.com, c.cnzz.com<br>
+				ads.moonbasa.com, an.moonbasa.com, trace.moonbasa.com, <br>
+				img11.360buyimg.com, img13.360buyimg.com, img10.360buyimg.com, img30.360buyimg.com,  <br>
+				static.mediav.com, material.mediav.com, show.g.mediav.com,  
+				p.tanx.com, cdn.tanx.com, toruk.tanx.com, <br>
+				jm.mbscss.com, cm.mbscss.com, <br>
+				js.miaozhen.com, g.cn.miaozhen.com,  <br>
+				gtms02.alicdn.com, img03.taobaocdn.com, strip.taobaocdn.com, 
+				tns.simba.taobao.com, img04.taobaocdn.com, <br>
+				img02.taobaocdn.com, img01.taobaocdn.com, <br>
+				www.gongheshengshi.com,<br>
+				i.mmcdn.cn<br>
+			</p>
+		</div>	
+		<div class="detail">
+			<h3>有页面分析功能的请求</h3>
+			<table class="table">
+				<tr>
+					<td>次数</td>
+					<td>地址规则</td>
+					<td>备注</td>
+				</tr>
+				<tr>
+					<td>23</td>
+					<td>http://g.163.com/r?site=netease*********</td>
+					<td>广告相关</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>http://web.stat.ws.126.net/front/?project=index_www*******</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>http://analytics.163.com/ntes?_nacc=www******</td>
+					<td>章鱼</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>http://163.wrating.com/a.gif?a=141009cf0c9********</td>
+					<td>万瑞</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>http://hzs13.cnzz.com/stat.htm?id=3745189*****</td>
+					<td>cnzz</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>http://g.cn.miaozhen.com/x.gif?&ax=239&ay=522d3687****</td>
+					<td>疑似通过分析页面投放广告代码</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>http://toruk.tanx.com****</td>
+					<td>疑似通过分析页面投放广告代码</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div id="show"></div>
+</div>
+<script>
+var temp = '<tr><td>{host}</td> <td>{size}</td><td><a href="{url}">{url}</a></td> </tr>';
+var subs = NE.template.replace;
+var node = NE.$("#show");
+
+// var hosts = {};
+
+var count = 0;
+var countp = 0;
+var size = 0;
+var sizep = 0;
+var _domains = NE.$("#domains p")[0].innerHTML.split("<br>").join("").split("\n").join("").split(" ").join("").split("\t").join("").split(",");
+
+for(var i=0,len=data.length;i<len;i++){
+	var _host = data[i].url.split("//")[1].split("/")[0];
+	data[i]["host"] = _host;
+	// hosts[_host] = true;
+	if(NE.array.indexOf(_domains,_host) > -1){
+		count += 1;
+		size += data[i].size;		
+	}else{
+		countp += 1;
+		sizep += data[i].size;
+	}
+}
+
+var _head = '<table class="table">'
+			+ '<caption>详情列表</caption>'
+			+ '<thead><tr><th>host</th> <th>size</th> <th>request</th> </tr></thead>';
+
+var _foot = '</table>';
+
+node.innerHTML = _head + subs(temp,data) + _foot;
+
+
+// ;(function(){
+// 	var _host = [];
+// 	for(var i in hosts){
+// 		_host.push(i);
+// 	}
+// 	// NE.$("#total").innerHTML = _host.length;
+// 	// NE.$("#domains").innerHTML = _host.join(", ");
+// })();
+</script>
+</body>
+</html>

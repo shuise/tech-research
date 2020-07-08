@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link href="slidewindow.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="slidewindow.js"></script>
+</head>
+<body>
+
+<div class="slidepic ">
+   <div class="container">
+	  <a id="slides" style="width:410px" href="http://club.auto.163.com/" target="_top">
+	     <img src="images/0.jpg" title="" alt="" target="" >
+		 <img src="images/1.jpg" title="" alt="" target="" >
+		 <img src="images/2.jpg" title="" alt="" target="" >
+		 <img src="images/3.jpg" title="" alt="" target="" >
+	  </a>
+	  <div class="rightside">
+	     <span class="toprightside">
+		    <a class="ad">01234567</a>
+		 </span>
+		 <div id="guide">
+			<div class="guidelist">
+			   <a href="http://club.auto.163.com/">
+				  <img src="images/0.jpg">
+		          <span class="title" >00000000</span>
+			   </a>
+			</div>
+			<div class="guidelist">
+			   <a href="http://club.auto.163.com/">
+			       <img src="images/1.jpg">
+				   <span class="title">11111111</span>
+			   </a>
+			</div>
+			<div class="guidelist">
+			   <a href="http://club.auto.163.com/">
+				  <img src="images/2.jpg">
+			      <span class="title">22222222</span>
+			   </a>
+			</div>
+			<div class="guidelist">
+			    <a href="http://club.auto.163.com/">
+				   <img src="images/3.jpg">
+				   <span class="title">33333333</span>
+				</a>
+			</div>
+		 </div>
+	  </div>
+   </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+
+var left = document.getElementById("slides");
+var right = document.getElementById("guide");
+
+var _doms = {
+                "leftdom":left,
+				"rightdom":right
+            }
+
+var _parameters ={
+                     "LeftImgWidth":left.style.width,
+					 "RightWidth":210
+                 }
+
+var _options ={
+                  "RightToLeftSpeed":400,   //切换速度,数值越大越慢
+				  "ChangeSpeed":2000,     //自动切换时间ms
+				  "RightToLeft": true,    //切换时是否有滑动
+				  "changePic":true     //是否自动切换
+              }
+slidewindow(_doms,_parameters,_options);
+</script>
+
+</body>
+</html>

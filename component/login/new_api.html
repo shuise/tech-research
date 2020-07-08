@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      登录组件
+    </title>
+    <link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css"/>
+    <link rel="stylesheet" href="new_api.css"/>
+  </head>
+  
+  <body>
+    <div class="f2e_wrap">
+      <div class="f2e_wrap_inner">
+        <div class="f2e_api_head">
+          <div class="f2e_api_logo">
+            <strong>
+              网易前端
+            </strong>
+          </div>
+          <address>
+            developer.163.com
+          </address>
+        </div>
+        <div class="f2e_api_body">
+          <div class="f2e_api_menu">
+            <!--#include virtual="/component/menu.html"-->
+          </div>
+          <div class="f2e_api_content">
+            <h1>登录组件</h1>
+            <div class="f2e_api_section">
+              <h3>包括单独的登录验证功能，和默认的界面模板</h3>
+              <p>引用：<a href="http://img1.cache.netease.com/f2e/lib/js/ne.js" target="_blank">http://img1.cache.netease.com/f2e/lib/js/ne.js</a></p>
+              <p>引用：<a href="http://qa.developer.163.com/component/login/login.js" target="_blank">http://qa.developer.163.com/component/login/login.js</a></p>
+            </div>
+            <div class="f2e_api_section" id="login_login">
+              <h2>
+                NTESCommonLogin.login
+              </h2>
+              <h3>概述：</h3>
+              <p>实现登录验证功能。</p>
+              <h3>语法：</h3>
+              <pre id="f2e_api_code">
+NTESCommonLogin.login(authData, callback(userInfo));</pre>
+              <h3>参数：</h3>
+              <ul class="argu">
+                <li>
+                  <strong>authData</strong>
+                  <table class="f2e_api_table">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>默认值</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>email</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>通行证账号</td>
+                      </tr>
+                      <tr>
+                        <td>password</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>密码</td>
+                      </tr>
+                      <tr>
+                        <td>rememberMe</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>是否记录登录状态</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+                <li id="userInfo">
+                  <strong>userInfo</strong>
+                  <table class="f2e_api_table">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>默认值</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>status</td>
+                        <td>string</td>
+                        <td></td>
+                        <td>验证返回状态码</td>
+                      </tr>
+                      <tr>
+                        <td>msg</td>
+                        <td>string</td>
+                        <td></td>
+                        <td>验证返回消息</td>
+                      </tr>
+                      <tr>
+                        <td>name</td>
+                        <td>string</td>
+                        <td></td>
+                        <td>通行证‘@’之前的部份</td>
+                      </tr>
+                      <tr>
+                        <td>email</td>
+                        <td>string</td>
+                        <td></td>
+                        <td>通行证账号</td>
+                      </tr>
+                      <tr>
+                        <td>ip</td>
+                        <td>string</td>
+                        <td> </td>
+                        <td>登录ip</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+              </ul>
+              <h3>例子：</h3>
+              <pre id="f2e_api_code">
+//点击btn，验证登录
+btn.click = function () {
+  NTESCommonLogin.login({
+    email: "xxx@163.com",//通行证
+    password: "xxxxxx",   //密码
+    rememberMe: true     //记住我
+  }, function(userInfo) {
+    userInfo.status         //验证返回状态码
+    userInfo.msg            //验证返回消息
+    userInfo.name         //通行证‘@’之前的部份
+    userInfo.email         //电邮
+    userInfo.ip              //ip
+  });
+};</pre>
+            <div class="f2e_api_btns">
+              <h3><a href="demo2.shtml" target="_blank">demo</a></h3>
+            </div>
+            </div>
+          </div>
+          <div class="clear">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<!--#include virtual="/system/unit_test/inc/head.html"-->
+<title>NETS Lib单元测试(static)</title>
+</head>
+<body>
+
+<!--正文开始-->
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/core.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/event.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/string.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/array.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/json.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/browser.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/cookie.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/date.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/template.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/swf.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/para.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/hash.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/store.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/ajax.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/utils/prop.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/element/dom.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/element/class.js"></script>
+
+<div id="div1">
+	<div id="class1" class="class1">
+		<span id="span1"></span>
+	</div>
+</div>
+<div id="div2">
+	<div id="class2" class="class1">
+		<span id="span1"></span>
+	</div>
+</div>
+
+<script type="text/javascript" src="http://static.f2e.netease.com/lib/core_test.js"></script>
+<!--正文结束-->
+
+<!--#include virtual="/system/unit_test/inc/foot.html"-->
+</body>
+</html>

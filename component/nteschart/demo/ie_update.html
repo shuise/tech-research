@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+        <style>
+            #canvas1 {margin:25px auto 0;width:1200px;height:550px}
+            #canvas2 {margin:0 auto;width:1200px;height:350px}
+            #canvas3 {margin:0 auto;width:1200px;height:350px}
+        </style>
+        <title>浏览器升级统计</title>
+    </head>
+    <body>
+        <div id="canvas1"></div> 
+        <script>
+            function draw(json){
+            var xlabels = json['time'];
+
+            var canvas1 = new NTESChart({
+            container : document.getElementById("canvas1")
+            });
+
+            //绘制图表
+            canvas1.xyChart(json['count'], ["line","dot"], {
+            dotInterval : 2,
+            label : "{y}次下载\n{title}",
+            Title : {title: "安装包下载次数"},
+            yTitle : {title: "下载次数"},
+            xTick : {interval : 1, _labels : xlabels},
+            yTick : {labels : "{y}"},
+            anim : true
+            });
+            }
+        </script>
+        <script src="http://project.f2e.netease.com/cgi-bin/ie_update/exe3.cgi"></script>
+    </body>
+</html>

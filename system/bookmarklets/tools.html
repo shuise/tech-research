@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>书签君 bookmarklets</title>
+</head>
+
+<body>
+
+<p>将"链接"保存入书签栏, 在网页中点击该书签即可</p>  
+
+<hr>
+
+<a href='javascript:(function(){var host=location.protocol+"//qa.developer.163.com",bd=document.getElementsByTagName("body")[0],w=window;if(!bd)bd=window.frames[window.frames.length-1].document.body,w=window.frames[window.frames.length-1].window;var loader=function(){w.bowlder.rootWidget.load(host+"/system/webhelper/loader.js",document.createElement("div"))};if(w.bowlder)loader();else{var node;node=document.createElement("script");node.type="text/javascript";node.charset="utf-8";bd.appendChild(node);node.src=host+"/system/bowlder/src/bowlder.js";node.onload=loader}}());'>WebHelper</a>
+
+<hr>
+
+<a href='javascript:(function(){var node;var d=document;var bd=d.getElementsByTagName("body")[0];if(!node){node=d.createElement("script");node.type="text/javascript";node.charset="utf-8";node.src="http://static.f2e.netease.com/system/bowlder/src/bowlder.js";bd.appendChild(node);node.onload=function(){node=d.createElement("script");node.type="text/javascript";node.charset="utf-8";node.src="http://static.f2e.netease.com/tie/utils/extractor.js";bd.appendChild(node)}}}());'>正文提取</a>
+
+<hr>
+
+
+<a href='javascript:(function(){var e=document.createElement("script");var _v = new Date().getTime(); e.setAttribute("language","javascript"); e.setAttribute("src","http://qa.developer.163.com/system/bookmarklets/seo_check.js?v=" + _v);document.body.appendChild(e);})();'>SEO check</a>
+
+<hr>
+
+<a href='javascript:(function(){var e=document.createElement("script");var _v = new Date().getTime(); e.setAttribute("language","javascript"); e.setAttribute("src","http://qa.developer.163.com/system/bookmarklets/trans.js?v=" + _v);document.body.appendChild(e);})();'>qa<>dev</a>
+
+<hr>
+
+<a href="javascript:(function(){var v = prompt('输入CMS频道拼音缩写'); var config = {'xw':'0001','sy':'0002','yl':'0003','wb':'0004','ty':'0005','ly':'0006','qc':'0008','kj':'0009', 'sj':'0011','bk':'0012','lt':'0015','sm':'0016','cj':'0025','nx':'0026','jy':'0029','yx':'0031', 'ls':'0080','bj':'0082','sp':'0085','xy':'0091','ds':'0092'}; if(config[v]){window.location.href='https://cms.ws.netease.com/login.jsp?principalAuthorityEnable=true&channel='+config[v]; } })();">快速进入CMS</a>
+
+
+<hr>
+
+<a href="javascript:(function(){  var script = document.createElement('script');  script.src = 'http://qa.developer.163.com/component/qrcode/qrcode.js';  script.onload = function(){    var div = document.createElement('div');    document.body.appendChild(div);    div.style.position = 'fixed';    div.style.top = '100px';    div.style.right = '100px';    div.style.zIndex='1000000';    new QRCode(div, location.href.toString());  };  document.head.appendChild(script);})();">二维码</a>
+
+<hr>
+
+<a href="javascript:(function(){  var script = document.createElement('script');  script.src = 'http://qa.developer.163.com/system/bookmarklets/auto_qrcode.js';document.head.appendChild(script);})();">汽车二维码</a>
+
+<hr>
+
+<a href="javascript:(function () {
+        if (!window.NEHTMLHandlerScript) {
+            window.NEHTMLHandlerScript = document.createElement('script');
+            window.NEHTMLHandlerScript.type = 'text/javascript';
+            window.NEHTMLHandlerScript.charset = 'utf-8';
+            window.NEHTMLHandlerScript.src = 'http://qa.developer.163.com/system/bookmarklets/htmlhandler/htmlhandler.js?' + (+new Date());
+            document.getElementsByTagName('body')[0].appendChild(window.NEHTMLHandlerScript);
+        }
+}())">网页剪辑</a>
+
+<hr>
+
+<a href="javascript:(function(){var spritemejs=document.createElement('SCRIPT');spritemejs.type='text/javascript';spritemejs.src='http://spriteme.org/spriteme.js';document.getElementsByTagName('head')[0].appendChild(spritemejs);})();">SpriteMe</a>
+
+<hr>
+
+<a href="javascript:(function(){var node=window.touchallNode;var d=document;var bd=d.body;if(!node){node=d.createElement('script');node.charset='utf-8';node.src='http://static.f2e.netease.com/system/touchall/dist/touchall.js';bd.appendChild(node);}}());">移动适配</a>
+
+</body>
+</html>

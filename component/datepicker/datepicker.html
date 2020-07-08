@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>日期选择datapicker</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+<style>
+	.f2e_api_content{ margin-bottom:50px;}
+	.cRed,.cRed:visited,.cRed a{color:Red;}
+	.cGreen,.cGreen:visited{color:#008000;}
+	.cWhite,.cWhite:visited,.cWhite a{color:#fff;}
+	.cYellow,.cYellow:visited{color:#ff0;}
+	.cGray,.cGray:visited,.cGray a{color:#333;}
+	.cDGray,.cDGray:visited,.cDGray a{color:#727171;}
+	.cBlack,.cBlack:visited,.cBlack a{color:#000;}
+	.cBlue,.cBlue:visited,.cBlue a{color:#1E50A2;}
+	.upbg{background:#FFD4D4;}
+	.downbg{background:#D9EFD3;}
+</style>
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>日期选择datapicker</h1>
+			
+			<div class="f2e_api_section">
+				<p><strong>引入js：</strong></span><a href="http://qa.developer.163.com/component/datepicker/datepicker.js">http://qa.developer.163.com/component/datepicker/datepicker.js</a></p>
+				<p><strong>默认css：</strong></span><a href="http://qa.developer.163.com/component/datepicker/datepicker.css">http://qa.developer.163.com/component/datepicker/datepicker.css</a></p>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>javascript代码</h2>
+				<pre>var dp = new tinyDatepicker(elem,opt);
+				
+<strong>参数说明：</strong>
+<strong>elem </strong>: 日期的输入域
+<strong>opt </strong>: 配置项：
+{
+	temp : {
+		row :'&lt;tr&gt;{0}&lt;/tr&gt;', 			<span class="cGreen">//行标签模版</span>
+		col :'&lt;td&gt;{0}&lt;/td&gt;',				<span class="cGreen">//列标签模版</span>
+		centent : ['&lt;div&gt;&lt;table&gt;',
+				'	&lt;thead&gt;&lt;tr&gt;',
+				'		&lt;th&gt;1&lt;/th&gt;&lt;th&gt;2&lt;/th&gt;&lt;th&gt;3&lt;/th&gt;',
+				'		&lt;th&gt;4&lt;/th&gt;&lt;th&gt;5&lt;/th&gt;&lt;th&gt;6&lt;/th&gt;&lt;th&gt;7&lt;/th&gt;',
+				'	&lt;/tr&gt;&lt;/thead&gt;',
+				'&lt;tbody&gt;{0}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;'].join(""),	<span class="cGreen">//日历主体容器模版</span>
+		title : ['&lt;div class="datepicker_title"&gt;',
+					'&lt;a href="" class="next_btn"&gt;&lt;/a&gt;&lt;a href="" class="prev_btn"&gt;&lt;/a&gt;',
+					'&lt;span class="title_year"&gt;{year}&lt;/span&gt;年',
+					'&lt;span class="title_month"&gt;{month}&lt;/span&gt;月',
+			 '&lt;/div&gt;''].join("")			<span class="cGreen">//日历顶部年和月显示</span>
+	},		
+	format : 'yyyy/mm/dd'				<span class="cGreen">//日期格式</span>
+	value : '2012/10/01'					<span class="cGreen">//初始日期，格式要对于相应的日期格式，默认为当前日期</span>
+	custom : function(date,elem){			<span class="cGreen">//自定义生成的表格元素节点</span>
+		<span class="cGreen">//date 节点对于日期</span>
+		<span class="cGreen">//elem 节点dom</span>
+	}
+	cls : {							<span class="cGreen">//自定义class名称</span>
+		'wrapper':'datepicker_wrapper',<span class="cGreen">	//整体外部容器class</span>
+		'title':'datepicker_title', 		<span class="cGreen">	//顶部年月指示条</span>
+		'selector':'date_selector'		<span class="cGreen">	//主体的日期面板</span>
+	}
+	validateMonth : function(year,month){	<span class="cGreen">//控制月份是否可选</span>
+		if(month<=6||month>=10){
+			return false;
+		}
+		return true;
+	}
+	customCell : function(date,elem){		<span class="cGreen">//定制日期的dom节点</span>
+		if(date.getMonth()==11&&date.getDate()=='31')
+		elem.innerHTML = '元旦';
+	}
+	showOtherMonth:true/false <span class="cGreen">//前后补齐其他月份</span>
+}
+
+dp = {
+	formatDate:function(year,month,date){}<span class="cGreen">//将给定的年,月,日格式化为指定的日期格式</span>
+	getOneMonth:function(year,month){}	<span class="cGreen">//返回一个包含自定月份所有日期的数组</span>
+	prevMonth：						<span class="cGreen">//显示上一个月</span>
+	nextMonth：						<span class="cGreen">//显示下一个月</span>
+	show:							<span class="cGreen">//显示日历组件</span>
+	hide:							<span class="cGreen">//隐藏日历组件</span>
+	disable:function(elem){}				<span class="cGreen">//将某一天的样式置为不可选</span>
+}
+</pre>
+			</div>
+			<div class="f2e_api_btns">
+				<a href="demo.html">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+</div>
+</body>
+</html>

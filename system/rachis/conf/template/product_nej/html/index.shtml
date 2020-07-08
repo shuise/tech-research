@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<!--[if IE 6 ]> <html class="ne_ua_ie6 ne_ua_ielte8"> <![endif]-->
+<!--[if IE 7 ]> <html class="ne_ua_ie7 ne_ua_ielte8"> <![endif]-->
+<!--[if IE 8 ]> <html class="ne_ua_ie8 ne_ua_ielte8"> <![endif]-->
+<!--[if IE 9 ]> <html class="ne_ua_ie9"> <![endif]-->
+<!--[if (gte IE 10)|!(IE)]><!--> <html> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{ProjectName}_首页</title>
+<!--#include virtual="../inc/head_static.html"-->
+<!-- @Style -->
+<link rel="stylesheet" href="../css/{ProjectName}.css" />
+</head>
+<body>
+<div class="{ProjectName}_wrap" id="{ProjectName}_wrap">
+    <!--#include virtual="../inc/topnav.html"-->
+
+    <div class="{ProjectName}_content" id="app">
+        <!-- 项目内容 -->
+    </div>
+
+   	<!--#include virtual="../inc/footnav.html"-->
+</div>
+<!-- @Style -->
+<script src="/hy/nej/0.2/src/define.js?pro=../javascript/"></script>
+<script src="../javascript/{ProjectName}.js"></script>
+<!--#include virtual="../inc/foot_static.html"-->
+</body>
+</html>

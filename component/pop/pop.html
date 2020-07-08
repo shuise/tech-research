@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>弹窗 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>弹窗popOut</h1>
+			
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/pop/pop.css">http://qa.developer.163.com/component/pop/pop.css</a></p>
+				<p>引入文件 <a href="http://qa.developer.163.com/component/pop/pop.js">http://qa.developer.163.com/component/pop/pop.js</a></p>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>代码实例</h2>
+				<pre id="f2e_api_code">
+var _pop = popOut(html,params);
+
+参数解释：
+	html : 弹窗内容
+	
+	params : {
+		width : 500,			//弹窗宽度，默认500
+		height : 'auto',			//弹窗高度，默认自适应
+		left : 'auto',			//弹窗距离左侧的距离
+		top : 'auto',			//弹窗距离顶部的距离
+		mask : false,			//是否显示弹窗遮罩层，默认不显示
+		zIndex : 300,			//弹窗的层级，默认300
+		html : '',				//弹窗内容，默认为空
+		temp : '&lt;div class="common_popup common_popup_border"&gt;{html}&lt;/div&gt;'
+							//弹窗边框自定义，自定义{html}外面div，可自定义边框
+	}
+	
+	_pop : {
+		removeObj 			//删除子节点方法，传递需删除的节点
+		popMask 				//生成遮罩层方法
+		popClose 				//关闭弹窗方法
+		nodes 				//访问弹窗Dom结构方法
+		init 					//初始化弹窗
+	}
+	</pre>
+			</div>
+
+			<div class="f2e_api_btns">
+				<a href="pop_demo.html" target="_blank">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

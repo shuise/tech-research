@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<meta charset="UTF-8">
+<title>area</title>
+</head>
+<body>
+	
+<script type="text/javascript" src="data1.js"></script>
+<script type="text/javascript" src="data2.js?123"></script>
+<script type="text/javascript" src="data3.js?123"></script>
+<script type="text/javascript" src="select.js"></script>
+
+
+<div id="a1"></div>
+<div id="a2"></div>
+<div id="a3"></div>
+<div id="a4"></div>
+<div id="a5"></div>
+
+<script type="text/javascript">
+	areaSelect(NE.$("#a1"),function(result){
+		NE.trace(result);
+	});
+</script>
+</body>
+</html>

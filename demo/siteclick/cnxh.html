@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>首页猜你喜欢点击行为分析</title>
+        <link rel="stylesheet" href="noclick.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <h1>首页猜你喜欢点击行为分析 ( <a href="cnxh.html?pv" id="pv">按PV统计</a>  <a href="cnxh.html" id="uv">按UV统计</a> )</h1>
+        <div class="main_wrap">
+            <select id="day_sel"><option>请选择日期</option></select>
+            <span class="hint" id="sample_desc">* 采样样本：根据用户标识符抽取1/30进行全日统计。采样时机为页面关闭时，可能会有30%的样本丢失</span>
+            <fieldset class="chart_wrap">
+                <legend align="center"><select id="tab_hds">
+                <option value="region">猜你喜欢区域的点击次数</option>
+                <option value="first">猜你喜欢首屏的点击次数</option>
+                <option value="second">猜你喜欢次屏的点击次数</option>
+                <option value="third">猜你喜欢三屏的点击次数</option>
+                <option value="button">猜你喜欢刷新的点击次数</option>
+            </select></legend>
+                <div class="tab_con" id="main_chart"></div>
+            </fieldset>
+        </div>
+
+        <div class="table_wrap" id="table_wrap0"></div>
+        <div class="switch_wrap">
+            <div class="blank20"></div>
+            <label class="switch-label">显示具体数值：</label>
+            <div class="onoffswitch">
+                <input type="checkbox" id="valswitch" class="onoffswitch-checkbox">
+                <label for="valswitch" class="onoffswitch-label">
+                    <div class="onoffswitch-inner"></div>
+                    <div class="onoffswitch-switch"></div>
+                </label>
+            </div>
+        </div>
+        <div class="table_wrap" id="table_wrap"></div>
+        <script src="http://qa.developer.163.com/common/ntes.js" charset='utf-8'></script>
+        <script src="http://qa.developer.163.com/libs/raphael.js" _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.core.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.ring.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.frame.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.dualchart.js" charset='utf-8' _group="nchart"></script>
+        <script src="cnxh.js" charset='utf-8'></script>
+    </body>
+</html>

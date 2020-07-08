@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>文本生成PNG</title>
+<link href="main.css" rel="Stylesheet" type="text/css">
+</head>
+<body>
+<div class="main">
+	<div>
+		<a href="index.html" class="on">简介</a> |
+		<a href="encode.html">编码</a> |
+		<a href="decode.html">解码</a> |
+		<a href="demo.html">示例</a> |
+	</div>
+	<h2>简介</h2>
+	<p>
+		一般我们编写的js文件中，90%以上都是由a-z，A-Z，0-9，再加上一些符号组成的，重合度很高。如果，我们用其ASCII码作为位深去描绘一个像素点的灰度的话，那么一整个js文件就可以用一张图片来存储，而且每个点的RGB不外乎0-255或者透明不存在可视像素。那么根据图像存储的算法，也许生成的文件会比纯文本会小。这样可以在页面部分用脚本将图片做解码，加载真正的js代码。
+	</p>
+	<p>
+		不过，根据相关文章的原理中提到的信息，可以看到，js脚本对图片解码的过程中，需要创建canvas对象，因此不支持HTML5的浏览器无法使用该脚本。
+	</p>
+	<p>
+		相关链接：<br>
+		<a href ="http://blog.nihilogic.dk/2008/05/compression-using-canvas-and-png.html" target="_blank">
+			原理（英文）：http://blog.nihilogic.dk/2008/05/compression-using-canvas-and-png.html
+		</a><br>
+		<a href ="http://www.nihilogic.dk/labs/canvascompress/" target="_blank">
+			解码demo：http://www.nihilogic.dk/labs/canvascompress/
+		</a><br>
+		<a href ="http://ikeepu.com/bar/10430331" target="_blank">
+			你想不到的压缩方法：将javascript文件压缩成PNG图像存储http://ikeepu.com/bar/10430331
+		</a><br>
+
+	</p>
+</div>
+</body>
+</html>

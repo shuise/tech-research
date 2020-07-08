@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Force layout</title>
+		<script type="text/javascript" src="d3/d3.v3.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 640;
+			var h = 1008;
+
+			//Original data
+			var dataset = {
+				nodes: [
+					{ name: "周永康" },//0
+					{ name: "余刚" },//1
+					{ name: "李东生" },//2
+					{ name: "汤灿" },//3
+					{ name: "葛根塔娜" },//4
+					{ name: "李明" },//5
+					{ name: "车峰" },//6
+					{ name: "郭文贵" },//7
+					{ name: "马建" },//8
+					{ name: "张艺谋" }//9
+				],
+				edges: [
+					{ source: 0, target: 1 },
+					{ source: 0, target: 2 },
+					{ source: 0, target: 8 },
+					{ source: 0, target: 4 },
+					{ source: 1, target: 3 },
+					{ source: 2, target: 5 },
+					{ source: 3, target: 4 },
+					{ source: 3, target: 5 },
+					{ source: 4, target: 5 },
+					{ source: 4, target: 6 },
+					{ source: 5, target: 2 },
+					{ source: 5, target: 3 },
+					{ source: 5, target: 4 },
+					{ source: 5, target: 6 },
+					{ source: 6, target: 4 },
+					{ source: 6, target: 5 },
+					{ source: 6, target: 7 },
+					{ source: 7, target: 6 },
+					{ source: 7, target: 8 },
+					{ source: 7, target: 9 },
+					{ source: 8, target: 7 },
+					{ source: 8, target: 0 },
+					{ source: 9, target: 7 }
+				]
+			};
+
+			//Initialize a default force layout, using the nodes and edges in dataset
+			var force = d3.layout.force()
+					 .nodes(dataset.nodes)
+					 .links(dataset.edges)
+					 .size([w, h])
+					 .linkDistance([200])
+					 .charge([-100])
+					 .start();
+
+			var colors = d3.scale.category10();
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			
+			//Create edges as lines
+			var edges = svg.selectAll("line")
+				.data(dataset.edges)
+				.enter()
+				.append("line")
+				.style("stroke", "#ccc")
+				.style("stroke-width", 1);
+
+			//Create nodes as circles
+			var nodes = svg.selectAll("circle")
+				.data(dataset.nodes)
+				.enter()
+			           .append("circle")
+				.attr("r", 20)
+				.style("fill", function(d, i) {
+					return colors(i);
+				})
+				.call(force.drag);
+			var texts = svg.selectAll("text")
+				.data(dataset.nodes)
+				.enter()
+				.append("text")
+			           .attr("dy", ".35em")
+			           .attr("text-anchor", "center")
+			           .text(function(d) {return d.name; })
+			           .call(force.drag);
+
+
+			//Every time the simulation "ticks", this will be called
+			force.on("tick", function() {
+
+				edges.attr("x1", function(d) { return d.source.x; })
+					 .attr("y1", function(d) { return d.source.y; })
+					 .attr("x2", function(d) { return d.target.x; })
+					 .attr("y2", function(d) { return d.target.y; });
+			
+				nodes.attr("cx", function(d) { return d.x; })
+					 .attr("cy", function(d) { return d.y; });
+
+				texts.attr("x", function(d) { return d.x; })
+					 .attr("y", function(d) { return d.y; });
+	
+			});
+
+
+		</script>
+	</body>
+</html>

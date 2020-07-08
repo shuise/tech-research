@@ -1,0 +1,20 @@
+* {margin:0; padding:0;}
+img { border:none; }
+a {text-decoration:none; }
+.slidepic { width: 594px; height: 250px; overflow: hidden; zoom: 1; position: relative; display: block; margin: 0 auto;}
+.container { overflow: hidden; width:604px; height: 250px;; zoom: 1; position: relative; float: left; display: inline; }
+#slides { height: 250px; overflow: hidden; float: left; display: block; position: relative; overflow: hidden;}
+#slides img {position: absolute; top: 0px; opacity: 1;}
+.rightside,.guidelist { width: 204px; }
+.rightside { position: absolute; right: 0; top: 0; zoom: 1; z-index: 2; float: left; display: block; height: 250px;}
+.toprightside {background: url(images/downarrows.gif) no-repeat 166px center #263850; background: url(downarrows.gif) no-repeat 176px center #263850\9; display:block; position: relative; z-index: 3; width: 194px; height: 19px; margin: 0 0 0 10px;}
+.ad {color: #999; font-size: 10px; font-weight: bold; z-index: 1; text-align: right; padding: 4px 20px 0; }
+#guide {  padding: 0 0 0 10px; display: block; zoom: 1; height:240px; overflow:hidden;}
+.guidelist {height: 58px; cursor: pointer !important; z-index: 2; position: relative; font-weight: bold; float:left; display:inline;}
+.guidelist a , .flowbg{ background: url(images/slidebg.gif) right 0; height: 46px; padding: 6px 7px;}
+.guidelist a {width: 180px; color: white; position: relative; display:block; float:left;}
+.guidelist a span, .guidelist a img { padding: 0;}
+.guidelist a span {display: inline; float: left;}
+.guidelist a img {float: right; height: 45px; width: 80px; margin-right: 0px;  margin-right:10px; margin-right: 0px\9; z-index: 2;  position:relative; }
+.title {z-index: 2; width: 87px; padding: 6px 0 3px 6px; line-height: 16px; font-size: 12px; position:relative;}
+.flowbg {width: 203px; height: 58px; z-index: 1; top: 9px; background-position: 0 -57px; left: auto; display: block; margin: -10px 0 0; position: absolute;}

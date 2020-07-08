@@ -1,0 +1,13 @@
+{
+	"num": 128,
+	"delay": 25,
+	"duration": 100,
+	"reverse": false,
+	"rollback": false,
+	"random": false,
+	"useDefaultStyle": false,
+	"nameSpace": "nesl",
+	"dotClass": "dot",
+	"separator": "_",
+	"dotType": "div"
+}

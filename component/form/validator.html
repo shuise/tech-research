@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>表单验证 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+		
+		<div class="f2e_api_content">
+			<h1>表单验证form validator</h1>
+			
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/form/validator.js">http://qa.developer.163.com/component/form/validator.js</a></p>
+			</div>
+						
+			<div class="f2e_api_section">
+				<h2>验证说明</h2>
+				<table class="f2e_api_table">
+					<thead><tr>
+						<td>验证规则</td>
+						<td>验证项</td>
+						<td>代码参考</td>
+					</tr></thead>
+					<tr>
+						<td>必填项</td>
+						<td>required</td>
+						<td>_required = "true/false"</td>
+					</tr>
+					<tr>
+						<td>邮箱</td>
+						<td>email</td>
+						<td>_type = "email"</td>
+					</tr>
+					<tr>
+						<td>网址</td>
+						<td>url</td>
+						<td>_type = "url"</td>
+					</tr>
+					<tr>
+						<td>日期</td>
+						<td>date</td>
+						<td>_type = "date"</td>
+					</tr>
+					<tr>
+						<td>ISO日期</td>
+						<td>dateISO</td>
+						<td>_type = "dateISO"</td>
+					</tr>
+					<tr>
+						<td>数字</td>
+						<td>number</td>
+						<td>_type = "number"</td>
+					</tr>
+					<tr>
+						<td>信用卡</td>
+						<td>creditcard</td>
+						<td>_type = "creditcard"</td>
+					</tr>
+					<tr>
+						<td>两次输入验证</td>
+						<td>equalTo</td>
+						<td>_type = "equalTo" _equalTo = "对比值的控件id"</td>
+
+					</tr>
+					<tr>
+						<td>文件类型限制</td>
+						<td>accept</td>
+						<td>_type = "accept" _accept=".jpg,.png"</td>
+					</tr>
+					<tr>
+						<td>最大长度</td>
+						<td>maxlength</td>
+						<td>_type = "maxlength" _maxlength="20"</td>
+					</tr>
+					<tr>
+						<td>最小长度</td>
+						<td>minlength</td>
+						<td>_type = "minlength" _minlength="10"</td>
+					</tr>
+					<tr>
+						<td>长度区间</td>
+						<td>rangelength</td>
+						<td>_type = "rangelength" _maxlength="20" _minlength="10"</td>
+					</tr>
+					<tr>
+						<td>最大值</td>
+						<td>max</td>
+						<td>_type = "max" _max="100"</td>
+					</tr>
+					<tr>
+						<td>最小值</td>
+						<td>mix</td>
+						<td>_type = "mix" _mix="100"</td>
+					</tr>
+					<tr>
+						<td>值区间</td>
+						<td>range</td>
+						<td>_type = "range"  _max="100" _min="50"</td>
+					</tr>
+					<tr>
+						<td>验证提示信息</td>
+						<td>_tips</td>
+						<td>_tips='{"_required":"请填入必填项","_type":"格式有误，请重新输入"}' </td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="f2e_api_section">
+				<h2>参数说明</h2>
+				<pre id="f2e_api_code">
+var form = document.getElementById("form");	
+var params = {
+	autoCheck : true		//是否当输入项值发生改变时立即验证
+	defaults : {
+		errorClass: "st_form_warning",			//错误信息的样式名
+		validClass: "st_form_valid",			//正确信息的样式名
+		infoElement: "span"						//提示信息的标签
+		}			
+	messages : {
+		required: "请输入必填项",
+		email: "请输入正确的邮箱格式",
+		url: "请输入正确的url",
+		date: "请输入正确的日期",
+		dateISO: "请输入一个合法的(ISO)时间",
+		number: "请输入合法的数字",
+		digits: "请输入整数",
+		creditcard: "请输入合法的信用卡号",
+		equalTo: "两次输入不一致，请重新输入",
+		accept: "请输入正确后缀的值",
+		maxlength: "请输入{1}个字符以下的内容",
+		minlength: "请输入{0}个字符以上的内容",
+		rangelength: "请输入长度在{0}和{1}之间的内容",
+		range: "输入值必须在{0}与{1}之间",
+		max: "输入值必须小于等于{1}",
+		min: "输入值必须大于等于{0}",
+		right : "信息输入正确"
+		}
+	methods : {
+		与meesage的key一一对应的验证方法（除right）
+		}
+};</pre>
+			</div>
+			
+			<div class="f2e_api_section">
+				<h2>代码调用</h2>
+				<pre id="f2e_api_code">validator1 = new validator(form,params);
+validator1 = {
+	beforeCheck : function(node)			//通过此方法在验证之前加入其他逻辑，node为验证的输入控件
+	attach: function (node)				//验证事件注册
+	check: function (node)				//验证规则
+	getTipsNode: function (node)			//获得显示提示信息的相关dom
+	hide: function (obj) 					//隐藏方法
+	hideTips: function (node)				//隐藏所有提示框
+	show: function (obj) 				//显示方法
+	showError: function (node,info)		//显示错误信息
+	showRight: functon(node)			//显示正确信息
+	init: function ()						//执行验证
+};
+	</pre>
+			</div>			
+			<div class="f2e_api_btns">
+				<a href="form.html">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

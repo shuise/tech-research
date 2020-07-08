@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>简易时间轴</title>
+<base target="_blank" />
+<link type="text/css" rel="stylesheet" href="http://img1.cache.netease.com/cnews/css07/style.css" />
+<style type="text/css">
+#hd:after,#bd:after,#ft:after,.hd:after,.bd:after,.ft:after,.area:after,.ahd:after,.abd:after,.aft:after,.col-l:after,.col-m:after,.col-r:after,.col-lm:after,.col-mr:after,.mod:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+#hd,#bd,#ft,.hd,.bd,.ft,.area,.ahd,.abd,.aft,.col-l,.col-m,.col-r,.col-lm,.col-mr,.mod{zoom:1;}
+#hd,#bd,#ft,.area,.mod{clear:both;}
+table{margin:auto; border-collapse:collapse;border-spacing:0;}
+p{ margin:0;}
+button,.btn{outline:none;}
+button.hidefocus::-moz-focus-inner {border:none;}
+.details, .details:visited, .details:hover, .details a,.details a:visited, .details a:hover{color:#fff;}
+.col-l{float:left; _display:inline; width:303px; margin-right:10px;}
+.col-m{float:left;width:422px;}
+.col-mr{float:right;width:622px;}
+.col-r{ float:right;width:201px;}
+/* 布局 */
+body{color:#f6c188; text-align:left; font-size:13px;}
+.bg1{background:#4b0026 url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/body_bg1.jpg) no-repeat center 35px;}
+.bg2{background:#4b0026 url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/body_bg2.jpg) no-repeat center 35px;}
+a,a:visited ,a:hover,a:active{color:#f6c188;}
+a:hover{text-decoration:underline;}
+#bd{width:946px; margin:0 auto; background:#650435; padding:1px 7px 0; border-top:#5b0430 solid 1px;}
+#ft{width:960px; margin:20px auto;}
+.area_fh:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.area_fh{margin-top:12px; zoom:1}
+.area_fh .ahd{height:49px; line-height:49px; padding-right:20px; background:url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/spr_fh.png) no-repeat 0 -148px;}
+.area_fh .ahd h2{float:left;}
+.area_fh .ahd .more{float:right; height:18px; line-height:18px; padding:0 6px 0 16px; margin-top:14px; color:#fff; background:#6c0035 url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/ico_fh.png) no-repeat -82px 4px;}
+.area_fh .abd{padding:0 7px;}
+#nav_top{font-size:12px;}
+/* 标题二 */
+.hd-title{height:33px; line-height:33px; padding:0 10px; background:#3c0000; border-top:#8c0c3c solid 2px;}
+.hd-title h3{float:left; font-size:16px; font-weight:bold; letter-spacing:2px; font-family:"Microsoft YaHei", SimSun, Arial; color:#fff5c7;}
+.hd-title .more{float:right; height:18px; line-height:18px; padding:0 6px 0 16px; margin-top:8px; color:#fff; background:#6c0035 url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/ico_fh.png) no-repeat -82px 4px;}
+/* 大事记 */
+.events_fh{margin-top:16px;}
+.events_fh .bd{margin-top:12px; background:url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/bg4.png) no-repeat 0 0;}
+.events_fh .bd .tabs{width:176px; float:right;}
+.events_fh .bd .tabs li{height:91px; font-family:"Microsoft YaHei", SimSun, Arial; line-height:25px; cursor:pointer;}
+.events_fh .bd .tabs li div{height:51px; padding:20px 20px;}
+.events_fh .bd .tabs li .current{color:#ecd5aa; border-right:#ecd5aa solid 3px;}
+.events_fh .bd .tabs .t1 .current{background:url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/eventtab_hover.png) no-repeat 0 0; }
+.events_fh .bd .tabs .t2 .current{background:url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/eventtab_hover.png) no-repeat 0 -91px;}
+.events_fh .bd .tabs li h4{font-family:"Microsoft YaHei", SimSun, Arial; font-size:18px;}
+.events_fh .bd .tabs li span{font-size:16px;}
+.events_fh .bd .panels{width:756px; float:left;}
+.events_fh .bd .panel{padding:20px 30px 20px 18px;/* display:none;*/}
+.events_fh .bd div.current{display:block;}
+.events_fh .timelinewrap .timeline_content li{overflow:hidden; zoom:1; display:none;}
+.events_fh .timelinewrap .timeline_content li.on{display:block;}
+.events_fh .timelinewrap .timeline_content li img{float:left; _display:inline; margin-right:20px; border:#ecd5aa solid 3px;}
+.events_fh .timelinewrap .timeline_content li h4{font-size:20px; margin-bottom:6px; font-family:"Microsoft YaHei", SimSun, Arial; color:#ecd5aa; font-weight:bold;}
+.events_fh .timelinewrap .timeline_content li p{line-height:22px; text-indent:2em;}
+.events_fh .timelinewrap .timeline_handler{margin-top:24px;}
+.events_fh .timelinewrap .timeline_handler .timeline{height:2px; background:#4b0026; width:100%; overflow:hidden;}
+.events_fh .timelinewrap .timeline_handler .timeline .inside{height:2px; line-height:2px; font-size:0; width:0; background:#ecd5aa;}
+.events_fh .timelinewrap .timeline_handler .timetxt{margin-top:-6px; width:100%; overflow:hidden;}
+.events_fh .timelinewrap .timeline_handler .timetxt ul{overflow:hidden; zoom:1; width:110%;}
+.events_fh .timelinewrap .timeline_handler .timetxt li{float:left;}
+.events_fh .timelinewrap .timeline_handler .timetxt li span{display:block; margin:0 auto; width:10px; height:10px; background:url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/ico_fh.png) no-repeat 0 -168px; cursor:pointer;}
+.events_fh .timelinewrap .timeline_handler .timetxt li p{line-height:22px; margin-top:4px; text-align:center;}
+.events_fh .timelinewrap .timeline_handler .timetxt li span.on{background-position:0 -232px;}
+.events_fh .timelinewrap .timeline_handler .timetxt li p.on{color:#ecd5aa; font-weight:bold;}
+.events_fh .panel .txtbox{margin-top:16px;}
+.events_fh .panel .txtbox dt{float:left; width:143px; padding-left:12px; height:34px; line-height:34px; font-size:14px; font-weight:bold; color:#ecd5aa; border-left:#ecd5aa solid 3px; background:#4c0026;}
+.events_fh .panel .txtbox dd{float:left; _display:inline; margin-left:20px; width:143px; padding-left:14px; height:42px; line-height:34px; font-size:14px; font-weight:bold; color:#4b0026; background:url(http://img1.cache.netease.com/auto/projects/zhuanti/69978/css/spr_fh.png) no-repeat -486px -263px;}
+.events_fh .panel .txtbox dt a{color:#ecd5aa;}
+.events_fh .panel .txtbox dd a{color:#4b0026;}
+</style>
+</head>
+
+<body>
+<div id="bd">
+
+	<div class="area_snfy area_fh">
+		<div class="abd">
+			<!-- Begin：大事记 -->
+			<div class="events_fh" id="eventstab_js">
+				<div class="hd hd-title"><h3>嘉宾风采</h3><a class="more" href="#">更多</a></div>
+				<div class="bd">
+					<div class="panels">
+						<div class="panel current">
+							<div class="timelinewrap">
+								<div class="timeline_content">
+									<ul>
+										<li class="on">
+											<a title="2003年网易汽车频道正式上线" href="http://auto.163.com/editor/030418/030418_680.html"><img src="http://img1.cache.netease.com/auto/2012/6/7/20120607142054ef3d8.jpg" alt="2003年网易汽车频道正式上线" width="200" height="150"></a>
+											<h4>2003年网易汽车频道正式上线</h4>
+											<p>2003年4月上海车展前，网易汽车频道正式上线，并在上海举办隆重发布仪式<a class="details" href="http://auto.163.com/editor/030418/030418_680.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2004年开始建设三大专业服务平台" href="http://auto.163.com/04/0609/21/0OFF7PBR000816BV.html"><img src="http://img6.cache.netease.com/auto/2012/6/10/201206101131539be4c.jpg" alt="2004年开始建设三大专业服务平台" width="200" height="150"></a>
+											<h4>2004年开始建设三大专业服务平台</h4>
+											<p>2004年6月网易汽车开始建设三大专业服务平台：新闻资讯平台、服务导购、交流互动<a class="details" href="http://auto.163.com/04/0609/21/0OFF7PBR000816BV.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2005年开始采用专题形式的新车报道" href="http://auto.163.com/special/00081HK9/aveo.html"><img src="http://img5.cache.netease.com/auto/2012/6/10/201206101135044844b.jpg" alt="2005年开始采用专题形式的新车报道" width="200" height="150"></a>
+											<h4>2005年开始采用专题形式的新车报道</h4>
+											<p>2005年7月网易汽车开始采用专题形式的新车报道<a class="details" href="http://auto.163.com/special/00081HK9/aveo.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2006年网易试驾首创杂志封面形式" href="http://auto.163.com/special/00081RF5/GMlova_Testdrive_0.html"><img src="http://img4.cache.netease.com/auto/2012/6/10/20120610113722a0450.jpg" alt="2006年网易试驾首创杂志封面形式" width="200" height="150"></a>
+											<h4>2006年网易试驾首创杂志封面形式</h4>
+											<p>2006年3月网易试驾首创杂志封面形式<a class="details" href="http://auto.163.com/special/00081RF5/GMlova_Testdrive_0.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2007年首次现场报道法兰克福车展" href="http://auto.163.com/special/00082D16/2007iaa.html"><img src="http://img4.cache.netease.com/auto/2012/6/10/201206101139317ee9e.jpg" alt="2007年首次现场报道法兰克福车展" width="200" height="150"></a>
+											<h4>2007年首次现场报道法兰克福车展</h4>
+											<p>网易汽车首次现场报道法兰克福车展、东京车展<a class="details" href="http://auto.163.com/special/00082D16/2007iaa.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2008年网易汽车倡议各界捐助灾区" href="http://auto.163.com/special/00084T2P/080512_earthquake.html"><img src="http://img5.cache.netease.com/auto/2012/6/10/20120610114221130e8.jpg" alt="2008年网易汽车倡议各界捐助灾区" width="200" height="150"></a>
+											<h4>2008年网易汽车倡议各界捐助灾区</h4>
+											<p>2008年5月12日，汶川地震后，网易汽车第一时间连线全国各地车企，了解各地车企的捐助情况，并向社会各界发<a class="details" href="http://auto.163.com/special/00084T2P/080512_earthquake.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2009年中国汽车市场营销论坛" href="http://auto.163.com/special/00083A9S/gaofengluntan.html"><img src="http://img1.cache.netease.com/auto/2012/6/10/20120610114452fabc9.jpg" alt="2009年中国汽车市场营销论坛" width="200" height="150"></a>
+											<h4>2009年中国汽车市场营销论坛</h4>
+											<p>2009年4月19日，网易汽车主办的"中国汽车市场营销论坛"在上海成功举行，主题为"21世纪全球最大汽车市场<a class="details" href="http://auto.163.com/special/00083A9S/gaofengluntan.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2010年首届网易汽车嘉年华" href="http://auto.163.com/10/1115/14/6LHO4HM500084KCD.html"><img src="http://img1.cache.netease.com/auto/2012/6/10/2012061011461542220.jpg" alt="2010年首届网易汽车嘉年华" width="200" height="150"></a>
+											<h4>2010年首届网易汽车嘉年华</h4>
+											<p>2012年11月13日，首届网易汽车嘉年华在北京朝阳区酷车小镇盛大举行。千余名网友共享这场汽车盛宴。通过这个<a class="details" href="http://auto.163.com/10/1115/14/6LHO4HM500084KCD.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2011年全球汽车媒体峰会" href="http://auto.163.com/special/autofenghui/"><img src="http://img4.cache.netease.com/auto/2012/6/10/20120610114933f37a3.jpg" alt="2011年全球汽车媒体峰会" width="200" height="150"></a>
+											<h4>2011年全球汽车媒体峰会</h4>
+											<p>2011年10月13日，网易汽车与贸促会汽车行业分会将在中国成都娇子国际会议中心共同推出"2011全球汽车媒体峰<a class="details" href="http://auto.163.com/special/autofenghui/">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="2012年全球汽车产业精英沙龙" href="http://auto.163.com/special/automotiveforum/"><img src="http://img6.cache.netease.com/auto/2012/6/10/201206101155354b3c5.jpg" alt="2012年全球汽车产业精英沙龙" width="200" height="150"></a>
+											<h4>2012年全球汽车产业精英沙龙</h4>
+											<p>2012年1月网易汽车与底特律中国工程师协会专业委员会在底特律联合主办2012全球汽车产业精英沙龙，旨在为中<a class="details" href="http://auto.163.com/special/automotiveforum/">[详细]</a></p>
+										</li>						
+									</ul>
+								</div>
+								<div class="timeline_handler">
+									<div class="timeline">
+										<div class="inside"><!----></div>
+									</div>
+									<div class="timetxt">
+										<ul>
+											<li>
+												<span class="on"></span>
+												<p class="on">2003</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2004</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2005</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2006</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2007</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2008</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2009</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2010</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2011</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2012</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="txtbox">
+								<dl class="clearfix">
+									<dt><a href="#">标题：</a></dt>
+									<dd><a href="#">内容1</a></dd>
+									<dd><a href="#">内容1</a></dd>
+									<dd><a href="#">内容1</a></dd>
+								</dl>
+							</div>
+						</div>
+						
+						<div class="panel">
+							<div class="timelinewrap">
+								<div class="timeline_content">
+									<ul>
+										<li class="on">
+											<a title="奇瑞QQ开创新车上市数字营销新纪元" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_2.html"><img src="http://img5.cache.netease.com/auto/2012/6/10/201206101518334206d.jpg" alt="奇瑞QQ开创新车上市数字营销新纪元" width="200" height="150"></a>
+											<h4>奇瑞QQ开创新车上市数字营销新纪元</h4>
+											<p>2003年5月23日"竞猜价格，赢取新车"的活动举办，这次活动成为继网络价格竞猜活动之后最为热门的网络事件之一。奇瑞由此开辟了一个新的汽车细分市场，引领了年轻人的汽车消费时尚<a class="details" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_2.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="马自达6依托网络"精准"寻价" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_3.html"><img src="http://img3.cache.netease.com/auto/2012/6/10/20120610152319149a8.jpg" alt="马自达6依托网络"精准"寻价" width="200" height="150"></a>
+											<h4>马自达6依托网络"精准"寻价</h4>
+											<p>2004年的北京国际车展，马自达6率先业界举办了一次网上竞猜价格活动，短短的一周得到20万条信息反馈，最终，马6依托网络的"精准"寻价带来一路畅销<a class="details" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_3.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="福克斯:基于网络的电影营销" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_4.html"><img src="http://img4.cache.netease.com/auto/2012/6/10/201206101525596bda8.jpg" alt="福克斯:基于网络的电影营销" width="200" height="150"></a>
+											<h4>福克斯:基于网络的电影营销</h4>
+											<p>2005年7月15日，＂动感生活聚焦福克斯＂首次播出。它既是一次成功的事件营销，同时也是一次名人营销、文化营销、电影营销、置入营销，电影和营销界人士评价＂此次活动是中国电影和汽车营销的一次革命＂<a class="details" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_4.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="POLO机器人实现智能沟通" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_5.html"><img src="http://img2.cache.netease.com/auto/2012/6/10/201206101537221e895.jpg" alt="POLO机器人实现智能沟通" width="200" height="150"></a>
+											<h4>POLO机器人实现智能沟通</h4>
+											<p>POLO在采用在MSN上的网络机器人——一种全新的营销工具作为它市场推广的重要武器，通过MSN平台上的网络机器人去实现POLO与目标客户、新老客户的智能沟通，用"智能"的"黏力"获得了更多用户的"忠诚度"<a class="details" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_5.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="奇瑞A1采用网络订单销售" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_6.html"><img src="http://img3.cache.netease.com/auto/2012/6/10/20120610153846f9980.jpg" alt="奇瑞A1采用网络订单销售" width="200" height="150"></a>
+											<h4>奇瑞A1采用网络订单销售</h4>
+											<p>奇瑞A1上市销售实行国内首创网络客户订单销售模式，这种突破性的尝试，成为了中国汽车营销革命的里程碑。随着汽车的网络营销模式的发展，这种新的汽车营销模式必然会成为汽车营销中的重要补充<a class="details" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_6.html">[详细]</a></p>
+										</li>						
+										<li>
+											<a title="大众奥运营销线上线下结合" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_7.html"><img src="http://img5.cache.netease.com/auto/2012/6/10/201206101540052195c.jpg" alt="大众奥运营销线上线下结合" width="200" height="150"></a>
+											<h4>大众奥运营销线上线下结合</h4>
+											<p>大众不仅从其他奥运合作伙伴、奥运冠军处借力，而且通过奥运活动赞助、奥运节目植入等多重手法进行传播，同时还紧扣"绿色、科技、人文"三大奥运主题，深入开展线上宣传和线下活动<a class="details" href="http://auto.163.com/12/0611/10/83NA3KCT00085130_7.html">[详细]</a></p>
+										</li>																
+									</ul>
+								</div>
+								<div class="timeline_handler">
+									<div class="timeline">
+										<div class="inside"><!----></div>
+									</div>
+									<div class="timetxt">
+										<ul>
+											<li>
+												<span class="on"></span>
+												<p class="on">2003</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2004</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2005</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2006</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2007</p>
+											</li>
+											<li>
+												<span></span>
+												<p>2008</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="txtbox">
+								<dl class="clearfix">
+									<dt><a href="#">标题：</a></dt>
+									<dd><a href="#">内容1</a></dd>
+									<dd><a href="#">内容1</a></dd>
+									<dd><a href="#">内容1</a></dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+					<div class="tabs">
+						<ul>
+							<li class="t1"><div class="current"><h4>嘉宾风采大事记</h4><span>2001~2012</span></div></li>
+							<li class="t2"><div><h4>嘉宾风采大事记</h4><span>2001~2012</span></div></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- End：大事记 -->
+		</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript" src="http://img1.cache.netease.com/cnews/js/ntes_jslib_1.x.js" ></script> 
+<script type="text/javascript" src="http://img1.cache.netease.com/cnews/js/ntes_jslib_ui_0.x.js" ></script> 
+<script type="text/javascript" src="http://img1.cache.netease.com/auto/projects/pindao/js/nui.js"></script> 
+<script type="text/javascript"> 
+
+(function($){ 
+	NUI.namespace('LY');
+	
+	NUI.LY.Load={
+		timelineFunc : function(){
+			var o = $('#eventstab_js');
+			if(o){
+				var tlineFunc2;
+				var cge = new NTES.ui.Slide(o.$('.tabs li div'), o.$('.panels .panel'), 'current', 'mouseover',0,50);
+				cge.onShow = function(index,ctrl,content){
+					$('.panels .panel').addCss('display:none;');
+					$('.panels div.current').addCss('display:block;');
+				}
+			}
+			var TimeLine = function(elem){
+				var t = this;
+				var tWidth,handlers,handlerspans,tParentn;
+				t.Obj = elem;
+				tWidth= $('.timeline_handler .timeline',t.Obj).$(0).offsetWidth;
+				handlers = $('.timeline_handler li',t.Obj);  
+				handlerspans = $('.timeline_handler li span',t.Obj);
+				t.handlers_len = handlers.length;
+				t.liWidth = Math.ceil(tWidth/t.handlers_len);
+				handlers.addCss('width:'+t.liWidth+'px');
+				t.tbg = $('.timeline_handler .timeline .inside',t.Obj).$(0);
+				if(t.tbg.offsetWidth == 0){
+					t.sWidth = Math.ceil(t.liWidth/2);
+					t.tbg.addCss('width:'+ t.sWidth +'px');
+				}
+				t.timeSld();
+				tParentn = $(t.Obj.parentNode);
+				if(tParentn.hasClass('current')){tParentn.addCss('display:block;');}
+				else{tParentn.addCss('display:none;');}
+			};
+			TimeLine.prototype = {
+				timeSld : function(){
+					var t = this;
+					var sld = new NTES.ui.Slide($('.timeline_handler li span',t.Obj), $('.timeline_content li',t.Obj), 'on', 'mouseover',0,50);
+					sld.onShow = function(index,ctrl,content){
+						var ctrlP,ssWidth,cindex;
+						ctrlP = ctrl.parentNode;
+						cIndex = parseInt(index);
+						if(cIndex == t.handlers_len-1) ssWidth = t.sWidth*2 + parseInt(t.liWidth)*cIndex;
+						else ssWidth = t.sWidth + parseInt(t.liWidth)*cIndex;
+						t.tbg.addCss('width:'+ ssWidth +'px;position:relative;z-index:1');
+						$('.timeline_handler p',t.Obj).removeCss('on');
+						$('p',ctrlP).$(0).addCss('on');
+					}
+				}
+			}
+			$('.timelinewrap').each(function(){
+				new TimeLine(this);
+			})
+		}
+	}
+
+	NUI.LY.Load.timelineFunc();  //大事记
+
+})(NTES);
+</script>
+</body>
+</html>

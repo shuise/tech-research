@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cookie的那些事儿 @ 前端</title>
+<link rel="stylesheet" href="share.css" />
+</head>
+
+<body id="top">
+
+<a href="#top" id="back_top">TOP</a>
+
+<h1>cookie的那些事儿</h1>
+<ol class="menu" id="menu">
+	<li><a href="#a1">cookie产生的背景</a></li>
+	<li><a href="#a2">cookie的属性</a></li>
+	<li><a href="#a4">cookie的存取</a></li>
+	<li><a href="#a5">cookie的其他</a></li>
+	<li><a href="#a3">案例</a></li>
+	<li><a href="#a6">demo演示</a></li>
+</ol>
+
+
+<div id="a1" class="sections">
+	<ol>
+		<li>作用</li>
+		<li>利弊</li>
+	</ol>	
+</div>
+
+<div id="a2" class="sections">
+	<ol>
+		<li>expires</li>
+		<li>domain</li>
+		<li>path</li>
+		<li>secure</li>
+		<li>HttpOnly</li>
+	</ol>	
+</div>
+
+
+<div id="a4" class="sections">
+	<ol>
+		<li>跨域(主域、二级域)</li>
+		<li>不同路径</li>
+	</ol>	
+	<pre>同名的 cookie，不同的 domain 或不同的 path，属不同的 cookie；
+同名的 cookie，相同的 domain 且相同的 path，不同的 expires，属同一个 cookie。
+	</pre>
+</div>
+
+<div id="a5" class="sections">
+	<ol>
+		<li>个数限制</li>
+		<li>大小限制</li>
+		<li>名/值中的值不允许包含分号，逗号和空格符</li>
+		<li>编码&解码 (escape unescape)</li>
+	</ol>	
+</div>
+
+<div id="a3" class="sections">
+	<ul>
+		<li>外部js引发的问题</li>
+	</ul>	
+</div>
+
+<div id="a6" class="sections">	
+	<ol>
+		<li><a href="04_demo/cookie.html" target="_blank">cookie demo</a></li>
+		<li><a href="http://static.f2e.netease.com/developer/api/index.php?q=NE.cookie"  target="_blank">NE cookie</a></li>
+	</ol>
+</div>
+
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" src="share.js"></script>
+</body>
+</html>

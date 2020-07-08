@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>首页无点击用户行为分析</title>
+        <link rel="stylesheet" href="noclick.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <div class="main_wrap">
+            <select id="tab_hds">
+                <option value="scroll">滚屏操作</option>
+                <option value="click">按键操作</option>
+                <option value="time">停留时间</option>
+                <option value="domload">DOM加载</option>
+                <option value="load">资源加载</option>
+                <option value="login">登录状态</option>
+            </select>
+            <fieldset id="tab_bds" class="tab_bds">
+                <legend align="center"></legend>
+                <div class="tab_con" id="scroll_chart"></div>
+                <div class="tab_con" id="click_chart"></div>
+                <div class="tab_con" id="time_chart"></div>
+                <div class="tab_con" id="domload_chart"></div>
+                <div class="tab_con" id="load_chart"></div>
+                <div class="tab_con" id="login_chart"></div>
+            </fieldset>
+        </div>
+        <script src="http://qa.developer.163.com/common/ntes.js" charset='utf-8'></script>
+        <script src="http://qa.developer.163.com/libs/raphael.js" _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.core.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.pie.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.frame.js" charset='utf-8' _group="nchart"></script>
+        <script src="noclick.js" charset='utf-8'></script>
+    </body>
+</html>

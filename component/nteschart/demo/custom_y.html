@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>自定义Y坐标轴的刻度</title>
+		<script type="text/javascript" src="http://qa.developer.163.com/libs/raphael.js"></script>
+		<script type="text/javascript" src="../chart.core.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../chart.frame.js" charset="utf-8"></script>
+		<style>
+			#canvas1 {
+				margin: 25px auto 0;
+				width: 800px;
+				height: 350px
+			}
+            .nteschart-tip{display:none;position:absolute;left:50px;top:50px;font-size:12px;white-space:nowrap;background:rgba(0,0,0,0.75);color:#fff;padding:5px;-webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+       -o-border-radius: 4px;
+          border-radius: 4px;
+-moz-transition: all 0.2s ease-in 0s; -webkit-transition: all 0.2s ease-in 0s;o-transition: all 0.2s ease-in 0s; transition: all 0.2s ease-in 0s;
+}
+            .nteschart-tip table{border:none;}
+            .nteschart-tip th{color:#999;font-weight:normal;}
+            .nteschart-tip td:nth-child(1){color:#fff;font-weight:bold}
+            .nteschart-tip td:nth-child(2),.nteschart-tip td:nth-child(3){color:#FACC99;font-weight:bold}
+            .nteschart-tip td:nth-child(1) i{display:inline-block;width:12px;height:12px;content:" ";margin-right:3px;vertical-align:-1px;
+-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+       -o-border-radius: 2px;
+          border-radius: 2px;
+}
+		</style>
+	</head>
+
+	<body>
+		<h1>自定义Y坐标轴的刻度，设置yTick.startY, yTick.interval, grid.rows</h1>
+		<div id="canvas1"></div>
+		
+		
+		<script>
+			var canvas1 = new NTESChart({
+				container: document.getElementById("canvas1")
+			});
+
+			var data = {
+				'天下三': [{y:35155, s:12}, {y:34268, s:12},{y:32920, s:12}, {y:31303 , s:12},{y:35247, s:12},{y:34169, s:12}]
+			};
+			var frame1 = canvas1.xyChart(data, ["line", "dot"], {
+				htmlTips : {single: "2012年7月{x}日<br/>均价：{y} <br/>套数：{s}"},
+				//tips: '{x}\n{y}\n{xtick}\n{milestone}\n{title}',
+				//label:"2012年7月{x}日<br/>均价：{y} <br/>套数：{s}",
+				Title: {
+					title: "微门户各频道PV"
+				},
+				yTitle: {
+					title: "点击次数"
+				},
+				xTick: {
+					interval: 1,
+					labels: "2012-7-{x}"
+				},
+				yTick: {
+					labels: "{y}",
+					startY: [27000], //开始值
+					interval: 2000 //间隔值
+				},
+				anim: true,
+				grid: {
+					rows: 5, //行数
+					shadow: 0,
+					nogrid: 0
+				}
+			});
+			
+			var sum = 6, i=0;
+			setInterval(function(){
+				eve("frame.seriesOver", frame1, 0, i);
+				i++;
+				if(i === sum) i=0;
+			}, 1000);
+
+		</script>
+	</body>
+
+</html>

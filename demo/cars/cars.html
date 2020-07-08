@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cars</title>
+<style type="text/css">
+body {padding:100px 200px;}
+.cars {width:500px;height:500px;position:relative;border:1px solid #ccc;}
+.cars_item {border-radius:3px;width:100px;height:80px;position:absolute;background:#ccc;text-align:center;padding:5px;z-index:40;left:250px;top:250px;margin:-55px 0 0 -45px;}
+.cars_item img {width:90px;height:60px;margin-bottom:5px;}
+.cars_item span {color:#333;font-size:12px;}
+
+.cars_item_send {
+	-webkit-transition-property:left top;
+	-webkit-transition-duration:1.0s;
+	transition-timing-function:ease-out;
+}
+
+.main:hover {
+	-webkit-transform: scale(2);
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:0.5s;
+	transition-timing-function:ease-out;	
+}
+.line {width:2px;height:0;background:green;border-radius:1px;position:absolute;left:250px;top:250px;-webkit-transform-origin:0 250px;}
+.line_send {height:250px;top:0;
+	-webkit-transition-property:left top;
+	-webkit-transition-duration:1.0s;
+	transition-timing-function:ease-out;}
+
+.zoom_out {
+	-webkit-transform: scale(2);
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:0.5s;
+	transition-timing-function:ease-out;
+}
+.zoom_in {
+	-webkit-transform: scale(0.8);
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:0.5s;
+	transition-timing-function:ease-out;
+}
+</style>
+</head>
+
+<body>
+
+
+<script type="text/javascript">
+var main = {
+		name : "主车名",
+		thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F23ENGL2V2M0008.jpg"
+	};
+var	relations = [
+	{name : "比较车型1",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-28/t_7F23EOKK2V2M0008.jpg"},
+	{name : "比较车型2",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F23EP1E2V2M0008.jpg"},
+	{name : "比较车型3",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-28/t_7F23EQ6E2V2M0008.jpg"},
+	{name : "比较车型4",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F241BJA2V2M0008.JPG"},
+	{name : "比较车型5",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F241BUO2V2M0008.JPG"},
+	{name : "比较车型6",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F241C952V2M0008.JPG"},
+	{name : "比较车型7",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-28/t_7F241DAT2V2M0008.JPG"},
+	{name : "比较车型8",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-09/t_7DH5LDIH2V2M0008.JPG"},
+	{name : "比较车型9",thumb : "http://img3.cache.netease.com/photo/0008/2010-09-14/t_6GIEL0AQ2V2M0008.JPG"}
+	];	
+</script>
+
+<div class="cars" id="cars">
+	
+</div>
+
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript">
+createUI();
+events();
+scales();
+
+function events(){
+	var items = HE.$('#cars div.item');
+	var lines = HE.$('#cars div.line');
+	var w = 250;
+	var d = 360/items.length;
+	HE.array.forEach(items,function(node,index){
+		var d1 = d*index;
+			d2 = d1*Math.PI/180;
+		node.style.left = w + Math.floor(w*Math.sin(d2)) + "px";
+		node.style.top = w - Math.floor(w*Math.cos(d2)) + "px";
+		items[index].className += " cars_item_send";
+		var transform = 'rotate(' + d1 + 'deg)';
+		lines[index].style.webkitTransform = transform;
+		lines[index].className += " line_send";
+	});
+}
+function scales(){
+	var items = HE.$('#cars div.item');
+	HE.array.forEach(items,function(node,index){
+		node.onmouseover = function(){
+			node.className += " zoom_out";
+			HE.array.forEach(items,function(_node){
+				if(node !== _node){
+					HE.addClass(_node,"zoom_in");	
+				}				
+			});
+		}
+		node.onmouseout = function(){
+			HE.removeClass(node,"zoom_out");
+			HE.array.forEach(items,function(_node){
+				HE.removeClass(_node,"zoom_in");				
+			});
+		}
+	});	
+}
+function createUI(){
+	var temp = '<div class="cars_item {type} item_{index}"><img src="{thumb}"><span>{name}</span></div>';
+	var tempLine = '<div class="line line_{index}"></div>';
+	var obj = HE.$('#cars');
+		obj.innerHTML = createMain(main,temp) +  createItems(relations,temp + tempLine);
+}
+function createMain(data,temp){
+	data.type = "main";
+	return HE.substitute(temp,data);
+}
+function createItems(data,temp){
+	HE.array.forEach(data,function(item,index){
+		item.type = "item";
+		item.index = index;
+	});
+	return HE.substitute(temp,data);	
+}
+</script>
+</body>
+</html>

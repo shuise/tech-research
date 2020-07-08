@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>drop</title>
+<style>
+body {margin: 0; padding: 0;}
+.select {position: absolute;border: 1px solid #89B;background: #BCE;background-color: #BEC;border-color: #8B9; opacity:0.65; filter:alpha(Opacity=65);}
+.drop_list {width: 60%;}
+.drop_list div {float: left; display: inline; margin: 20px 0 0 20px; width: 30px; padding: 20px; border: 1px dashed #aaa; background-color: #eee;}
+.drop_list .dropped {background-color: #EBC; border-color: #B89;}
+.drop_list .active {background-color: #CEB; border-color: #9B8;}
+</style>
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+</head>
+
+<body>
+<h1>框选元素</h1>
+<div class="drop_list" id="drop_list">
+	<div>1</div>
+	<div>2</div>
+	<div>3</div>
+	<div>4</div>
+	<div>5</div>
+	<div>6</div>
+	<div>7</div>
+	<div>8</div>
+	<div>9</div>
+	<div>10</div>
+	<div>11</div>
+	<div>12</div>
+	<div>13</div>
+	<div>14</div>
+	<div>15</div>
+	<div>16</div>
+	<div>17</div>
+	<div>18</div>
+	<div>19</div>
+	<div>20</div>
+</div>
+<script>
+var drops = [];
+var divs = document.getElementById("drop_list").getElementsByTagName("div");
+for(var i = 0, length = divs.length; i< length; i++) {
+	drops.push(divs[i]);
+}
+
+new Drag({
+	elem: document,
+	draginit: function(){
+		var div = document.createElement("div");
+		div.className = "select";
+		document.body.appendChild(div);
+		return div;
+	},
+	drag: function(e, dd){
+		this.style.left = Math.min(e.pageX, dd.startX) + "px";
+		this.style.top = Math.min(e.pageY, dd.startY) + "px";
+		this.style.width = Math.abs(dd.deltaX) + "px";
+		this.style.height = Math.abs(dd.deltaY) + "px";
+	},
+	dragend: function(e, dd){
+		var drag = dd.drag[0];
+		drag.parentNode.removeChild(drag);
+	},
+	dropTarget: drops,
+	dropstart: function(){
+		this.classList.add("active");
+	},
+	drop: function(){
+		this.classList.toggle("dropped");
+	},
+	dropend: function(){
+		this.classList.remove("active");
+	}
+});
+</script>
+</body>
+</html>

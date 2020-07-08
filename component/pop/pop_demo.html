@@ -1,0 +1,84 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>弹出框</title>
+<link rel="stylesheet" type="text/css" href="http://qa.developer.163.com/common/common.css">
+<link rel="stylesheet" type="text/css" href="http://qa.developer.163.com/component/pop/pop.css">
+<!-- <script src="http://qa.developer.163.com/component/pop/pop.js"></script> -->
+<script src="http://code.rongcloud.cn/webpack/pop.class.js"></script>
+
+<style type="text/css">
+a {background:#ccc; float:left; clear:both; margin-top:50px;}
+.close {float:right;border-radius:4px;background:#000;color:#fff;padding:5px 10px;cursor:pointer;}
+</style>
+</head>
+
+<body style="padding-top:500px;">
+
+<a href="javascript:;" onclick="pop1()">相对定位</a>
+<a href="javascript:;" onclick="pop1_2()">相对定位(加遮罩)</a>
+
+<a href="javascript:;" onclick="pop2()">绝对居中</a>
+<a href="javascript:;" onclick="pop3()">自定义边框、关闭方式</a>
+
+<script type="text/javascript">
+
+function pop1(){
+	var html = '<div style="height:200px;">弹出框的内容1<span id="close1" class="close">close</span></div>';
+	var _pop = new popOut(html,{left:200,top:10});
+		_pop.init();
+		
+	var _close = document.getElementById("close1");
+	_close.onclick = function(){
+		_pop.popClose();
+	};
+}
+
+function pop1_2(){
+	var html = '<div style="height:200px;">弹出框的内容1-2<span id="close1_2" class="close">close</span></div>';
+	var _pop = new popOut(html,{left:0,top:100,mask:true,pageWidth:"90%"});
+		_pop.init();
+		
+	var _close = document.getElementById("close1_2");
+		_close.onclick = function(){
+			_pop.popClose();
+		};
+}
+
+function pop2(){
+	var html = '<div style="height:300px;padding:20px;">弹出框的内容2<span id="close2" class="close">close</span></div>';
+	var _pop = new popOut(html);
+		_pop.init();
+		
+		// console.log(_pop.nodes.popBox);
+	var _close = document.getElementById("close2");
+		_close.onclick = function(){
+			_pop.popClose();
+		};
+}
+
+function pop3(){
+	var html = '<div style="height:300px;width:400px;padding:20px;">弹出框的内容3<span id="close3" class="close">close</span></div>';
+	var temp = '<div style="border:3px solid #cd0000;border-radius:5px;">{html}</div>';
+	var _pop = new popOut(html,{temp:temp});
+		_pop.popClose = function(){
+			var popBox = _pop.popBox;
+			var step = 100;
+			var t = setInterval(function(){
+				step -= 1;
+				if(step <= 0){
+					clearInterval(t);
+					popBox.parentNode.removeChild(popBox);
+				}
+				popBox.style.opacity = step/100;
+			},5);
+		}
+		_pop.init();
+	var _close = document.getElementById("close3");
+		_close.onclick = function(){
+			_pop.popClose();
+		};
+}
+</script>
+</body>
+</html>

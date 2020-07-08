@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>移动适配模块</title>
+<style>
+table{font-size:14px;color:#333;border:1px solid #aaa;border-collapse:collapse;width:90%;max-width:1100px;margin:0 auto 40px}
+td,th{padding:4px;border:1px solid #aaa;}
+th{background-image:linear-gradient(#FFFFFF, #EBEBEB);background-image:-webkit-linear-gradient(#fff, #ebebeb);font-weight:normal;}
+</style>
+  </head>
+  <body ne-module="" ne-extend="todo.js">
+<table>
+  <tbody ne-repeat="item in redirects">
+    <tr><th colspan="4">{{item.title}}</th></tr>
+    <tr><th>页面<th>原地址<th>跳转地址<th>备注</tr>
+    <tr ne-repeat="item.list"><td title="{!{id}}">{{name||from}}</td><td>{{from}}</td><td align="center">{{to}}</td><td>{!{note}}</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody ne-repeat="todo in todos">
+    <tr><th colspan="3">{{todo.title}}</th></tr>
+    <tr><th>模块名<th>描述<th>状态</tr>
+    <tr ne-repeat="todo.list"><td title="{!{id}}">{{name}}</td><td>{{desc}}</td><td align="center">{{status}}</td></tr>
+  </tbody>
+</table>
+  <script src="/system/bowlder/src/bowlder.js"></script>
+  </body>
+</html>

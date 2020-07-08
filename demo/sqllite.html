@@ -1,0 +1,80 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>sql lite</title>
+</head>
+<body>
+
+<input type="submit" value="createDB" onclick="createDB()" />
+<input type="submit" value="createTable" onclick="createTable()" />
+<input type="submit" value="insertData" onclick="insertData()" />
+<input type="submit" value="updateData" onclick="updateData()" />
+<input type="submit" value="getData" onclick="getData()" />
+<input type="submit" value="deleteData" onclick="deleteData()" />
+
+<p>打开控制台里的资源项，查看web sql里的视图</p>
+
+<script type="text/javascript">
+var db;
+
+function createDB(){
+	var shortName = 'Concerts' + (Math.random()+"").split(".").join("");
+	var version = '1.0';
+	var displayName = 'ConcertsInfo';
+	var maxSize = 65536; //bytes
+	db = openDatabase(shortName,version,displayName,maxSize);
+}
+function createTable(){
+	db.transaction(
+		function (transaction){
+			transaction.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, titel TEXT, note TEXT NOT NULL, date DATE);',[],nullDataHandler, errorHandler);
+		}
+	);
+}
+function insertData(){
+	var date = new Date();
+	var noteTit = "title" + date;
+	var noteCont = "content" + date;
+	db.transaction(
+		function (transaction){
+			transaction.executeSql('INSERT INTO notes (titel,note,date) VALUES ("'+noteTit+'","'+noteCont+'","'+date+'");',[],nullDataHandler,errorHandler);
+		}
+	);
+}
+function updateData(obj,type){
+	var nid = 1;
+	db.transaction(
+		function (transaction){
+			transaction.executeSql("update notes set titel='titel update' WHERE id="+nid+";",[],nullDataHandler, errorHandler);
+		}
+	);
+}
+function getData(){
+	db.transaction(
+		function (transaction){
+			transaction.executeSql("SELECT * from notes;",[],dataHandler, errorHandler);
+		}
+	);
+}
+
+function nullDataHandler(){
+	//alert('nullDataHandler');
+}
+function errorHandler(){
+	//alert('errorHandler');
+}
+function dataHandler(transaction, results){
+	console.log(results);
+}
+
+function deleteData(){
+	db.transaction(
+		function (transaction){
+			transaction.executeSql('delete from notes where id=1;',[],nullDataHandler,errorHandler);
+		}
+	);
+}
+</script>
+</body>
+</html>

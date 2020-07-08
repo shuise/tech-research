@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--#include virtual="/system/unit_test/inc/head.html"-->
+<title>Bowlder单元测试(static)</title>
+</head>
+<body>
+<script type="text/javascript" src="/system/bowlder/src/bowlder.js"></script>
+
+<script type="text/javascript" src="/system/unit_test/spec/bowlder/specs.js"></script>
+<!--#include virtual="/system/unit_test/inc/foot.html"-->
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>cats</title>
+</head>
+<style>
+#show {
+	margin:10px;
+}
+#show img {
+	margin:5px;
+	width:75px;
+	height:75px;
+}
+</style>
+<body>
+
+<div id="show"></div>
+
+
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<script>
+var _api = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=47f833616d0d6cd201717500b4370a6f&sort=date-taken-desc&per_page=120&page=1&text=猫&format=json&r=" + Math.random();
+
+var index = 0;
+
+NE.load.js(_api,function(){});
+var t = setInterval(function(){
+	index += 1;
+	NE.load.js(_api,function(){});
+},20*1000*60);
+
+function jsonFlickrApi(rsp){
+	// if (rsp.stat != "ok"){
+	// 	return false;
+	// }
+	if(index >= 1){
+		var imgs = NE.$("#show img");
+		var as = NE.$("#show a");
+		for (var i=0; i<rsp.photos.photo.length; i++){
+			var photo = rsp.photos.photo[i];
+			var _link = 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg';
+			var _src= 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_s.jpg';
+			as[i].href = _link;
+			imgs[i].src = _src;
+		}
+	}else{
+		var photoHTML='';
+		
+		for (var i=0; i<rsp.photos.photo.length; i++){
+			var photo = rsp.photos.photo[i];
+			var alt = '';
+			if (photo.farm<3) alt='被屏蔽';
+			photoHTML+='<a href="http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg" target="_blank"><img src="http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_s.jpg" alt="'+alt+'" /></a>';
+		}
+
+		NE.$("#show").innerHTML=photoHTML;
+	}
+}
+</script>
+
+</body>
+</html>

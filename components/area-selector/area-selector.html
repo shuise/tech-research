@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>地区选择组件</title>
+</head>
+<body>
+<style>
+input{
+	width:200px;
+}	
+</style>
+<script src="../libs/vue-2.6.10.js"></script>
+<script src="area.data.js"></script>
+<script src="area.js"></script>
+
+<div class="form" id="app">
+	<h1>表单</h1>
+	<div class="form-control">
+		<label>所在区域：</label>
+		<input type="text" v-model="a1">
+		<area-selcetor v-bind:val="a1" v-bind:areas="areaDatas" v-on:changed="getValue"></area-selcetor>
+	</div>
+	<br><br><br><br><br><br>
+	<div class="form-control">
+		<label>所在区域：</label>
+		<input type="text" v-model="a2">
+		<area-selcetor val="" v-bind:areas="areaDatas" v-on:changed="getValue2"></area-selcetor>
+	</div>
+</div>
+
+<script>
+(function(){
+	// console.log(AREAS)
+	var app = new Vue({
+		el: "#app",
+		data: {
+			a1: '130000-130500-130523',
+			a2: '',
+			areaDatas: AREAS
+		},
+		methods: {
+			getValue: function(val){
+				this.$data.a1 = val;
+			},
+			getValue2: function(val){
+				this.$data.a2 = val;
+			}
+		}
+	});
+})();
+</script>
+
+</body>
+</html>

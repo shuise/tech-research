@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>cross_img_download</title>
+		<meta name="author" content="Administrator" />
+		<!-- Date: 2014-03-11 -->
+	</head>
+	<body>
+		<img id="test_img" src="http://img5.cache.netease.com/auto/2014/4/15/20140415161527199c4.jpg" alt="" />
+	
+		<script type="text/javascript">
+			(function(){
+				function getImageData(src){
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', src);
+					xhr.responseType = 'blob';
+					xhr.onload = function(e) {
+						var reader = new FileReader();
+						reader.readAsDataURL(xhr.response);
+						reader.onload = function(e){
+							console.log("########XHR2.0##########");
+							console.log(this.result);
+						};
+					};					
+					xhr.send();
+				}
+				
+				function drawImage(img){
+					var canvas = document.createElement("canvas");		
+					var ctx = canvas.getContext("2d");							
+					var width = img.width;
+					var height = img.height;
+					canvas.width = width;
+					canvas.height = height;														
+					ctx.drawImage(img, 0,0, width, height);
+					console.log(canvas.toDataURL("image/jpeg"));									
+				}
+				
+				setTimeout(function(){
+					console.log("#########11111#########");						
+					var img = document.getElementById("test_img");
+					drawImage(img);
+				},2000);					
+				
+				var img1 = new Image();
+				//img1.id = "test_img2";
+				img1.src = "http://img5.cache.netease.com/auto/2014/4/15/20140415161527199c4.jpg";
+				img1.onload = function(){
+					document.body.appendChild(img1);	
+					console.log("#########2222222222222#########");						
+					drawImage(img1);
+					//drawImage(document.getElementById("test_img2"));							
+				}
+				
+				console.log("#########3333333333333333#########");		
+				getImageData("http://img5.cache.netease.com/auto/2014/4/15/20140415161527199c4.jpg");
+			})();
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,37 @@
+@import "http://static.f2e.netease.com/common/common.css";
+
+body{font-size:12px;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+.sect{width:960px; margin:0 auto;}
+.sect:after,.sect_bd:after{clear:both; height:0; overflow:hidden; display:block; visibility:hidden; content:".";}
+.sect,.sect_bd{*zoom:1;}
+.sect:after,.sect_bd:after{clear:both; height:0; overflow:hidden; display:block; visibility:hidden; content:"."; }
+.details, .details:visited, .details:hover, .tocomment, .tocomment:visited, .tocomment:hover{color:#f30100 !important;}
+
+.mod_video{overflow:hidden; background:#272727;; *zoom:1; color:#767676}
+.mod_video a,.mod_video a:visited,.mod_video a:hover{color:#767676}
+.video_body{float:left; width:650px;}
+.video_con{height:556px;}
+.video_info{height:153px; padding:0 9px;}
+.video_infodt{height:40px; line-height:40px; font-size:14px; font-weight:bold; color:#ddd;}
+.video_infodt a,.video_infodt a:visited,.video_infodt a:hover{color:#ddd;}
+.video_infodd{padding:16px; height:70px; background:url(http://img1.cache.netease.com/sports/img12/ycvideo/bg_info.png) no-repeat 0 0; line-height:26px;}
+.video_infodd p{text-indent:2em;}
+.video_infodetail{float:right; clear:both;}
+.video_ctrl{float:left; width:310px; height:709px; overflow-x:hidden; overflow-y:auto; *zoom:1;}
+.video_ctrls{height:auto;}
+.video_ctrls h2{height:37px; line-height:37px; margin-right:2px; font-size:14px; font-weight:bold; text-align:center; color:#ddd; background:url(http://img1.cache.netease.com/sports/img12/ycvideo/bg_title_rpt.png) repeat-x 0 0;}
+.video_ctrls h2 a,.video_ctrls h2 a:visited,.video_ctrls h2 a:hover{color:#ddd;}
+.video_ctrls ul{margin-right:9px;}
+.video_ctrls_tab{height:30px; line-height:30px; overflow:hidden; *zoom:1; padding:0 9px 0 28px; color:#767676; background:url(http://img1.cache.netease.com/sports/img12/ycvideo/yc_spr.png) no-repeat 11px -247px;}
+.video_ctrls_tab span{float:right;}
+.video_ctrls_panel{padding:10px; height:92px; background:#000; overflow:hidden; *zoom:1; /*position:relative; */display:none;}
+.video_ctrls_panel img{border:#454545 solid 1px; float:left; _display:inline; margin-right:10px;}
+.video_ctrls_panel h4{line-height:24px;}
+.video_ctrls_panel h4 a,.video_ctrls_panel h4 a:visited,.video_ctrls_panel h4 a:hover{color:#ddd;}
+.video_ctrls_panel p{margin-left:130px; width:128px; margin-top:6px; line-height:21px; color:#767676; overflow:hidden; *zoom:1;}
+.video_ctrls li.current .video_ctrls_tab{display:none;}
+.video_ctrls li.current .video_ctrls_panel{display:block;}
+.video_infotime,.video_infocount{display:block;}
+
+

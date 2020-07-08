@@ -1,0 +1,13 @@
+{
+  "skipRes": true,
+  "distSsi": "virtual",
+  "whiteList": {
+    "touchall.shtml": 1
+  },
+  "depends": {
+    "touchall.shtml": "modules/*/*.html /modules/nelogin/nelogin.js /m/plugins/gesture.js /m/plugins/sidebar.js /modules/hotnews/list.phone.html /modules/photoset/photoset2.js /products/photoset/mobile/modules/share/share.html /modules/ne2015/tie/tie.touch.html"
+  },
+  "dependsExclude": {
+    "touchall.shtml": "modules/*/demo*.html modules/live/live.html"
+  }
+}

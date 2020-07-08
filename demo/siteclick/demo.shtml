@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>章鱼锚点统计(旧)</title>
+
+    <link href="demo.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="screen1" data-7000="top:0%" data-7500="top:-100%" class="screen">
+        <div id="toolbar" data-4000="opacity:1" data-6000="opacity:0">
+            <div class="left_tab"></div>
+            <div id="clickclose" class="click" data-0="display:none" data-4000="right:-28px;top:-28px;display:block;transform:scale(0);opacity:1" data-5000="transform:scale(1);opacity:0"></div>
+        </div>
+        <div id="webpage_wrap" data-4000="opacity:1" data-6000="opacity:0">
+            <div id="webpage" data-0="height:0%;" data-500="height:100%"></div>
+            <div id="clicklink" class="click" data-0="display:none" data-1500="right:60px;top:170px;display:block;transform:scale(0);opacity:1" data-2500="transform:scale(1);opacity:0"></div>
+        </div>
+        <pre id="ntes" data-500="transform:scale(0);left:25%;top:500px" data-1000="transform:scale(1);left:62.5%;top:45px;height:342px;white-space:pre" data-1500="height:342px" data-2000="height:19px">http://analytics.163.com/ntes?
+    _nacc=news
+    _nfla= 11.2 r202     <span>//Flash版本</span>
+    _nlag=zh-cn          <span>//浏览器语言</span>
+    _nlmf=1370194201     <span>//document.lastModified</span>
+    _nref=               <span>//referer</span>
+    _nres=1024x768
+    _nscd=24-bit
+    _nssn=test@163.com   <span>//通行证</span>
+    _nstm=0              <span>//登录状态</span>
+    _ntit=网易新闻
+    _nurl=http://news.163.com/
+    _nvfi=0              <span>//初次访问</span>
+    _nvid=66dac2550f5de9ae83072ce93991f0a3
+                         <span>//唯一标识</span>
+    _nvsf=0
+    _nvtm=0
+    _nxkey=42444360.14924 <span>//时间戳</span>
+    _end1=</pre>
+
+        <pre id="ntes_p" data-2500="transform:scale(0);left:43%;top:220px" data-3000="transform:scale(1);left:62.5%;top:110px;height:270px;white-space:pre" data-3500="height:270px" data-4000="height:19px;">http://analytics.163.com/ntes_p?
+    _nacc=news
+    _npurl=http%3A//news.163.com/
+    _nah=http%3A//news.163.com/photoview/00AP0001/35086.html
+    _nat=%u4E2D%u56FD%u591A%u4E2A%u57CE%u5E02%u73B0%u5C71%u5BE8%u5927%u9EC4%u9E2D
+    _ncw=1009
+    _nch=455
+    _nsl=0
+    _nst=0
+    _nmx=913
+    _nmy=356
+    _nct=3375
+    _end</pre>
+
+
+        <pre id="ntes_u" data-5400="transform:scale(0);left:30%;top:300px" data-6400="transform:scale(1);left:62.5%;top:175px;height:234px;white-space:pre">http://analytics.163.com/ntes_u?
+    _nacc=news
+    _npurl=http%3A//news.163.com/
+    _ncw=1009
+    _nch=402
+    _nsl=0
+    _nst=0
+    _nct=4864
+    _msl=0
+    _mcn=1
+    _end</pre>
+
+        <fieldset id="server">
+            <legend align=center>章鱼服务器[ncaa=news]</legend>
+            <label style="top:30px" data-1000="opacity:0" data-1400="opacity:1">页面末尾：</label>
+            <label style="top:94px" data-3000="opacity:0" data-3400="opacity:1">点击链接(neteaseClickStat)：</label>
+            <label style="top:161px" data-6300="opacity:0" data-6700="opacity:1">关闭页面(neteaseClickStat)：</label>
+        </fieldset>
+    </div>
+    <div id="screen2" data-7000="top:100%" data-7500="top:0%" class="screen">
+        <fieldset class="step"  data-7000="left:100%" data-7500="left:2%">
+            <legend >1. 在链接后添加锚点</legend>
+            <ul>
+                <li>#from=wzy
+                <li>#from=ntes_product
+                <li>?fromService
+            </ul>
+            <ul class="warn" data-10000="height:0px" data-11000="height:120px" class="warn">
+                <li>统计范围：静态的a, input.submit, button, area
+                <li>统计死角：功能按钮、动态内容、站外链接..<br><br>
+                <li>每个链接均需添加锚点，工作量大
+                <li>业务耦合严重，沟通成本高<br><br>
+                <li>可能影响页面功能
+            </ul>
+        </fieldset>
+        <fieldset class="step"  data-8000="left:100%" data-8500="left:33%">
+            <legend >2. 章鱼收集、分析/ntes</legend>
+            <ul>
+                <li>_nacc=news<br>
+                    _npurl=http://news.163.com/#from=wzy
+            </ul>
+            <ul class="warn" data-11000="height:0px" data-12000="height:100px" class="warn">
+                <li>导出页需要埋有章鱼代码..<br><br>
+            </ul>
+        </fieldset>
+        <fieldset class="step" data-9000="left:100%" data-9500="left:64%">
+            <legend >3. 根据正则查询</legend>
+            <ul>
+                <li>^http://www.163.com.*#anchor=xwwzy_0001
+                <li>^http://mail.163.com.*#from=ntes_product
+                <li>.*?fromService
+            </ul>
+            <ul class="warn" data-12000="height:0px" data-12500="height:100px" class="warn">
+                <li>逐站、逐锚点统计..<br><br>
+                <li>需要大量的数据合并工作
+            </ul>
+        </fieldset>
+    </div>
+    <script src="http://static.f2e.netease.com/common/ntes.js" charset='utf-8'></script>
+
+    <script type="text/javascript" src="skrollr.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+</body>
+</html>

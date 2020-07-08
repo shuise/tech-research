@@ -1,0 +1,66 @@
+html, body{ margin:0;padding:0;font-size:14px;font-family:microsoft yahei,"宋体",arial;background:#fcfcfc;color:#333; }
+.clearfix:after{content:" "; display: block; height:0; clear:both;}
+a{ color:#1E50A2;text-decoration:none; }
+a:hover{ color:#cc1b1b;text-decoration:underline; }
+h2{ font-weight:normal;font-size:20px;padding:10px 0;width:910px;margin:0 auto; }
+h2 span{ line-height:1.6; }
+.h2-options{ display:inline-block;margin-left:20px;font-size:14px;color:#999;vertical-align: middle; }
+.h2-right{ float:right;color:#999;font-size:14px;margin-top: 3px; }
+.h2-options a{ margin-left:8px;color:#888;cursor:pointer; }
+.search-query{ width:180px;background-color: #f8f8f8;
+    border: 1px solid #bbb;padding:4px 9px 3px;font-size:12px;color: #888;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.8);
+    border-radius: 14px;
+    -webkit-border-radius: 14px; }
+.rachis-header{ margin:0 auto;margin:0 0 25px 0;height:51px;
+   border-bottom: 1px solid #AAAAAA;
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+background: url("/demo/ngallery/images/icn2.png") repeat-x scroll 0 -160px rgba(0, 0, 0, 0);color:#666;
+}
+.rachis-block{ width:960px;padding:15px 0;margin:0 auto;border:1px solid #ccc;background:#F5F5F5; }
+.rachis-formitem{ display:inline-block;padding:12px 0; }
+.rachis-formitem select,.rachis-formitem input[type="text"]{ width:210px; }
+.rachis-formitem input[type="text"]{ border:1px solid #ccc;padding:3px 0;text-indent:3px; }
+.rachis-formitem label{ display:inline-block;margin-right:10px;width:80px;text-align:left;padding-left:25px; }
+.rachis-formitem input{ vertical-align:middle;margin-left:0; }
+.rachis-formitem label.label-full{ width:auto }
+.rachis-formitem-short{ width:33%; }
+.rachis-formitem-medium{ width:49%; }
+.rachis-formitem-long{ width:100%; }
+.rachis-hugebutton{ font-size:18px;margin:0 23px; }
+.rachis-success{  }
+.rachis-fail{ color:red }
+
+.switch-label,.onoffswitch{ display:inline-block;vertical-align:middle; }
+.onoffswitch {position: relative; width: 58px; webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;margin-right:20px;}
+.onoffswitch-checkbox {display: none; }
+.onoffswitch-label {display: block; overflow: hidden; cursor: pointer; border: 1px solid #999; border-radius: 22px; }
+.onoffswitch-inner {width: 200%; margin-left: -100%;  -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s; o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s; }
+.onoffswitch-inner:before, .onoffswitch-inner:after {float: left; width: 50%; height: 22px; padding: 0; line-height: 22px; font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border-radius: 22px; box-shadow: 0px 15px 0px rgba(0,0,0,0.08) inset;}
+.onoffswitch-inner:before {content: "开";padding-left: 12px;background-color: #6BB2ED; color: #FFFFFF;border-radius: 22px 0 0 22px;}
+.onoffswitch-inner:after {content: "关";padding-right: 13px;background-color: #FFFFFF; color: #888;text-align: right;border-radius: 0 22px 22px 0; }
+.onoffswitch-switch {width: 22px; margin: 0px;background: #FFFFFF;border: 1px solid #999; border-radius: 22px;position: absolute; top: 0; bottom: 0; right: 34px;box-shadow: 0 1px 1px white inset;-moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+    background-image: -moz-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    background-image: -webkit-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    background-image: -o-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {margin-left: 0; }
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {right: 0px;}
+.rachis-formitem input[type="text"].fake-input{ border:none;background:#F5F5F5; }
+.rachis-block fieldset{ margin:10px 22px;border:1px solid #ccc;padding:10px; }
+.rachis-block fieldset:after{ content:"";display:block;clear:both;height:0; }
+.rachis-block fieldset hr{background:#ddd;height:1px;border:none;clear:both;margin:5px 0}
+.rachis-block fieldset legend{ padding:0 5px;color:#444; }
+.rachis-block fieldset label{ width:33.3%;float:left;padding:5px 0; }
+.rachis-block fieldset label>*{ vertical-align:middle;display: inline-block; }
+.rachis-block fieldset label .mod-conf{display:inline-block;width:16px;height:16px;background: url(images/config.png) no-repeat 0 0;margin-left:2px}
+.tabs-wrap{ margin:10px 0;height:50%; }
+.tabs-nav{ padding:0;margin:0; }
+.tabs-nav:after{ content:"";display:block;height:0;clear:both; }
+.tabs-nav li{ display:inline-block;padding:8px 12px;list-style:none;color:#999;cursor:pointer;height:17px;line-height:17px; }
+.tabs-nav li:hover{ color:#555; }
+.tabs-nav li.current{ color:#555;border:1px solid #ccc;border-bottom:none;position:relative;top:1px;z-index:99;background:#fff;margin-right:-1px; }
+.tabs-body{ display:none;border:1px solid #ccc;padding:15px;background: #FFF; }
+.tabs-body.current{ display:block;height:85%;overflow:auto }

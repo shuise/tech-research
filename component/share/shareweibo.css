@@ -1,0 +1,13 @@
+.shareweibo h3{text-align:left;float:left;margin-top:3px;}
+.shareweibo .weibolist{float:left;}
+.shareweibo a{width:16px;height:16px;line-height:300px;overflow:hidden;float:left;margin-right:10px;background:url(images/sprite_share.png) no-repeat;_background:url(images/sprite_share_8.png) no-repeat}
+.shareweibo .t163{background-position:0 0}
+.shareweibo .tsina{background-position:0 -20px}
+.shareweibo .tsohu{background-position:0 -100px}
+.shareweibo .tqq{background-position:0 -80px}
+.shareweibo .qzone{background-position:0 -140px}
+.shareweibo .kaixin001{background-position:0 -120px}
+.shareweibo .douban{background-position:0 -60px}
+.shareweibo .renren{background-position:0 -40px}
+.shareweibo .msn{background-position:0 -160px}
+.shareweibo .dream{background-position:0 -181px}

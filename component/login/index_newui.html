@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录组件</title>
+    <link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+    <link rel="stylesheet" href="css_newui.css" />
+</head>
+<body>
+    <div class="f2e_wrap">
+        <div class="f2e_wrap_inner">
+            <div class="f2e_api_head">
+                <div class="f2e_api_logo">
+                    <strong>网易前端</strong>
+                </div>
+                <address>developer.163.com</address>
+            </div>
+            <div class="f2e_api_body">
+                <div class="f2e_api_menu">
+                    <!--#include virtual="/component/menu.html"-->
+                </div>
+                <div class="f2e_api_content">
+                    <h1>登录组件</h1>
+                    <div class="f2e_api_section">
+                    	<div class="fun_info">
+                    		<h2>概述</h2>
+                    		<p>本组件提供了163.com域下，与登录相关的功能。</p>
+<ul class="func_list">
+							<li><a href="#NTESCommonLogin.submitLogin">NTESCommonLogin.submitLogin</a><span> 登录方法</span></li>
+							<li><a href="#NTESCommonLogin.Login">NTESCommonLogin.Login</a><span> 提供UI的登录方法</span></li>
+							<li><a href="#NTESCommonLogin.refresh">NTESCommonLogin.refresh</a><span> 获取用户当前状态</span></li>
+							<li><a href="#NTESCommonLogin.Suggestion">NTESCommonLogin.Suggestion</a><span> 添加自动完成，邮箱后缀自动填充</span></li>
+						</ul>
+                    		<h2>引用</h2>
+                    		<pre class="f2e_api_code">&lt;script src='<a href="http://qa.developer.163.com/component/login/login.js" target="_blank">http://qa.developer.163.com/component/login/login.js</a>'&gt;&lt;/script&gt;</pre>
+                    	</div>
+			          
+
+<div class="fun_info">
+							<h2 id="NTESCommonLogin.submitLogin">NTESCommonLogin.submitLogin</h2>
+                        	<pre class="f2e_api_code">
+//登录方法
+NTESCommonLogin.submitLogin(data,callback);
+</pre>
+
+	                        <h2>参数</h2>
+	                        <ul class="argu">
+	                        	<li><code>data</code> {username,password,type,product,savelogin}</li>
+				                <li>
+	                            <table class="f2e_api_table">
+	                        <thead>
+						                <tr>
+							                <th>参数名</th>
+							                <th>类型</th>
+							                <th>描述</th>
+						                </tr>
+	                        </thead>
+					                <tbody>
+						                <tr>
+							                <td>username</td>
+							                <td>String</td>
+							                <td>提供的用户名.</td>
+						                </tr>
+						                <tr>
+							                <td>password</td>
+							                <td>String</td>
+							                <td>提供的用户密码</td>
+						                </tr>
+						                <tr>
+							                <td>type</td>
+							                <td>Number</td>
+							                <td>0表示password经过md5加密，对用户密码做MD5前需要对密码中的'和\做转换，其前再加上一个\字符。1表示password为明文<span class="default_data">【1】</span></td>
+						                </tr>
+						                <tr>
+							                <td>product</td>
+							                <td>String</td>
+							                <td>产品标识<span class="default_data">【163.com】</span></td>
+						                </tr>
+						                <tr>
+							                <td>savelogin</td>
+							                <td>Number</td>
+							                <td>是否保留用户登录信息，设置cookie:NTES_PASSPORT。1保留，0不保留<span class="default_data">【0】</span></td>
+						                </tr>
+					                </tbody>
+				                </table>
+	                            </li>
+				                <li><code>callback</code> {Function} - 登录成功后调用的函数传入<a href="#userInfo">userInfo</a>   callback(<a href="#userInfo">userInfo</a>)</li>
+			                </ul>
+			                <h2><a href="demo2.shtml" target="_blank">demo</a></h2>
+						</div>
+
+						<div class="fun_info">
+							<h2 id="NTESCommonLogin.Login">NTESCommonLogin.Login</h2>
+                        	<pre class="f2e_api_code">
+//提供UI的登录方法
+NTESCommonLogin.Login(callback,<a href="#options">options</a>);
+
+//默认无UI时，此方法会创建出一段代码结构.
+//但是需要使用者自定义样式.
+//参考引用样式 <a target="_blank" href="http://qa.developer.163.com/component/login/login.css">http://qa.developer.163.com/component/login/login.css</a>
+</pre>
+	                        
+	                        <h2>参数</h2>
+	                        <ul class="argu">
+				                <li><code>callback</code> {Function} - 登录成功后调用的函数传入<a href="#userInfo">userInfo</a>   callback(<a href="#userInfo">userInfo</a>)</li>
+				                <li><code>options</code> {obj,top,left,template,mask,center} 非必要参数</li>
+			                <li>
+	                            <table class="f2e_api_table" id="options">
+	                        <thead>
+						                <tr>
+							                <th>参数名</th>
+							                <th>类型</th>
+							                <th>描述</th>
+						                </tr>
+	                        </thead>
+					                <tbody>
+						                <tr>
+							                <td>obj</td>
+							                <td>Object</td>
+							                <td>参考对象的坐标值作为登录框的显示位置.</td>
+						                </tr>
+						                <tr>
+							                <td>top</td>
+							                <td>Number</td>
+							                <td>当有obj存在的前提，对于top值的偏移量</td>
+						                </tr>
+						                <tr>
+							                <td>left</td>
+							                <td>Number</td>
+							                <td>当有obj存在的前提，对于left值的偏移量</td>
+						                </tr>
+						                <tr>
+							                <td>template</td>
+							                <td>string</td>
+							                <td>可以将登录容器中的结构传入，但是一定要保留form中的所有表单.不能遗漏</td>
+						                </tr>
+						                <tr>
+							                <td>mask</td>
+							                <td>Boolean</td>
+							                <td>是否存在蒙板层<span class="default_data">【true】</span></td>
+						                </tr>
+						                <tr>
+							                <td>center</td>
+							                <td>Boolean</td>
+							                <td>是否居中显示<span class="default_data">【true】</span></td>
+						                </tr>
+						                <tr>
+							                <td>boxId</td>
+							                <td>String</td>
+							                <td>登录框容器的ID<span class="default_data">【component_js_N_login_wrap】</span></td>
+						                </tr>
+						                <tr>
+							                <td>openSuggestion</td>
+							                <td>Boolean</td>
+							                <td>是否启用自动完成. true|flase<span class="default_data">【true】</span></td>
+						                </tr>
+						                <tr>
+							                <td>display</td>
+							                <td>String</td>
+							                <td>默认登录容器的display属性<span class="default_data">【block】</span></td>
+						                </tr>
+					                </tbody>
+				                </table>
+	                            </li>
+			                </ul>
+			                <h2><a href="demo.shtml" target="_blank">demo</a></h2>
+						</div>
+                        
+
+                        <div class="fun_info">
+							<h2 id="NTESCommonLogin.Suggestion">NTESCommonLogin.Suggestion</h2>
+                        	<pre class="f2e_api_code">
+//自动完成填充用户类型
+Passport = new NTESCommonLogin.Suggestion();
+Passport.bind(Element);
+//每一个被实例化出来的对象只能绑定一个对象实体
+//demo中可以有多个自动感应对象
+</pre>
+
+	                        <h2>参数</h2>
+	                        <ul class="argu">
+				                <li><code>Element</code> {Element} - 需要自动完成的input Dom 对象 比如：Passport.bind(document.getElementById("xxx"));</li>
+				                <li>
+	                            </li>
+			                </ul>
+
+			                <h2><a href="suggestion.shtml" target="_blank">demo</a></h2>
+						</div>
+
+						<div class="fun_info">
+							<h2 id="NTESCommonLogin.refresh">NTESCommonLogin.refresh</h2>
+                        	<pre class="f2e_api_code">
+//获取用户当前状态
+var UserInfo = NTESCommonLogin.refresh();
+</pre>
+
+	                        <h2>返回值</h2>
+	                        <ul class="argu">
+	                        	<li id="userInfo"><code>UserInfo </code>{userName,userMail,userDomain,userIp,userLogin}</li>
+				                <li>
+				                	<table class="f2e_api_table">
+				                <thead>
+					                <tr>
+						                <th>参数名</th>
+						                <th>类型</th>
+						                <th>描述</th>
+					                </tr>
+				                </thead>
+				                <tbody>
+					                <tr>
+						                <td>userName</td>
+						                <td>String</td>
+						                <td>用户名.</td>
+					                </tr>
+					                <tr>
+						                <td>userMail</td>
+						                <td>String</td>
+						                <td>用户邮箱名</td>
+					                </tr>
+					                <tr>
+						                <td>userDomain</td>
+						                <td>String</td>
+						                <td>邮箱主域 如：163.com</td>
+					                </tr>
+					                <tr>
+						                <td>userIp</td>
+						                <td>string</td>
+						                <td>例如：61.135.255.84.1373258834864378 用户IP + 登录时间戳【 】</td>
+					                </tr>
+					                <tr>
+						                <td>userLogin</td>
+						                <td>Boolean</td>
+						                <td>用户是否登录状态<span class="default_data">【false】</span></td>
+					                </tr>
+				                </tbody>
+			                </table></li>
+			                <li>
+	                        
+						</div>
+						<div class="fun_info" id="ps">
+							<h2>使用说明：</h2>
+	                        <p>1，域名必须为163.com下的产品才能使用此组件，如果需要测试，请自己模拟一个163.com的域名</p>
+	                        <p>2，NTESCommonLogin.Login 方法，必须传入callback,否则不进行后续操作</p>
+						</div>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

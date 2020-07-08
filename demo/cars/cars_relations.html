@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cars</title>
+<style type="text/css">
+body {padding:50px 200px;font-size:12px;}
+</style>
+<link type="text/css" rel="stylesheet" href="cars_relations.css" />
+</head>
+
+<body>
+
+
+<div id="cars_relations">
+</div>
+
+
+<script src="lib.js"></script>
+<script src="cars_relations.js"></script>
+<script src="excanvas.js"></script>
+<script type="text/javascript">
+var main = {
+		name : "主车名",
+		thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F23ENGL2V2M0008.jpg"
+	};	
+var	relations = [
+	{name : "比较车型0",thumb : "http://img3.cache.netease.com/photo/0008/2010-09-14/t_6GIEL0AQ2V2M0008.JPG",re_type:0,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型6",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F241C952V2M0008.JPG",re_type:1,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型1",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-28/t_7F23EOKK2V2M0008.jpg",re_type:2,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型2",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F23EP1E2V2M0008.jpg",re_type:3,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型3",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-28/t_7F23EQ6E2V2M0008.jpg",re_type:4,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型4",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F241BJA2V2M0008.JPG",re_type:5,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型5",thumb : "http://img4.cache.netease.com/photo/0008/2011-09-28/t_7F241BUO2V2M0008.JPG",re_type:6,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型7",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-28/t_7F241DAT2V2M0008.JPG",re_type:7,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]},
+	{name : "比较车型8",thumb : "http://img3.cache.netease.com/photo/0008/2011-09-09/t_7DH5LDIH2V2M0008.JPG",re_type:8,cars_pop:[
+		{text : "车系首页",link : "###"},
+		{text : "关系探究",link : "###"}
+		]}
+	];	
+var colors = ["#000","#FFFF00","#6A5ACD","#3D9140","#A020F0","#5E2612","#9C661F","#7FFFD4","#4169E1"];
+
+loadDemo();
+
+function loadDemo(){
+	var obj = HE.$('#cars_relations');
+	var data = {
+		main : main,
+		relations : relations,
+		colors : colors
+		};
+	var params = {
+		x : 400,
+		y : 200
+		};	
+	var times = {
+		radiation : 10,
+		scale : 300,
+		slideUp : 30
+		};
+	var cars = new carRelations(obj,data,params,times);
+		cars.init();
+}
+
+</script>
+</body>
+</html>

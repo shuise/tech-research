@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>path</title>
+<style type="text/css">
+* {list-style:none;}
+.path {margin:20px;position:relative;width:245px;height:245px;}
+.del {position:absolute;left:0;bottom:0;width:40px;height:40px;border-radius:20px;-moz-border-radius:20px;border:1px solid #ccc;}
+.del span {background:#cd0000;color:#fff;border-radius:16px;-moz-border-radius:16px;display:block;margin:4px;height:32px;
+	font-size:24px;line-height:32px;text-align:center;font-family:verdana;
+	}
+.path li {width:30px;height:30px;border:1px solid #ccc;border-radius:15px;-moz-border-radius:15px;position:absolute;margin:-16px 0 0 -16px;}	
+.path li span {margin:2px;display:block;height:26px;border-radius:13px;-moz-border-radius:13px;text-align:center;background:#666;color:#fff;line-height:26px;font-size:18px;}
+.path li{left:22px;top:224px;}
+.anima {
+	-webkit-transition-property:left top;
+	-webkit-transition-duration:0.3s;
+	transition-timing-function:ease-out;
+	}
+</style>
+</head>
+
+<body>
+
+<div class="path">
+	<ul>
+		<li><span>★</span></li>
+		<li><span>★</span></li>
+		<li><span>★</span></li>
+		<li><span>★</span></li>
+		<li><span>★</span></li>
+		<li><span>★</span></li>
+	</ul>
+	<div class="del"><span>✖</span></div>
+</div>
+
+
+<script type="text/javascript">
+function anima(){
+	var lis = document.getElementsByTagName('li');
+	var w = 240;
+	for(var i=2;i<8;i++){
+		var d = i*10;
+		var d1 = d*Math.PI/180;
+		var d2 = (90-d)*Math.PI/180;
+		lis[i-2].style.left = Math.floor(w*Math.sin(d1)) + "px";
+		lis[i-2].style.top = (240-Math.floor(w*Math.sin(d2))) + "px";
+		lis[i-2].className += ' anima';
+	}
+}
+window.onload = function(){
+	setTimeout(anima,100)
+}
+</script>
+
+</body>
+</html>

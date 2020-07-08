@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+<style type="text/css">
+.drag {position: relative; left: 50px; width: 58px; height: 58px; border: 1px solid #89B; background: #BCE;}
+.drag div {border-bottom: 1px solid #89B; background-color: #99AACC; cursor: move; text-align: center;}
+</style>
+</head>
+
+<body>
+<div id="div-1" class="drag" style="margin-left:200px; margin-top: 120px;"><div id="handle">HANDLE</div></div>
+<script>
+var handle = document.getElementById("handle");
+new Drag({
+	elem: handle,
+	draginit: function(e, dd) {
+		var div = this.parentNode;
+		var pos = getStyle(div),
+		left = parseInt(pos.left),
+		top = parseInt(pos.top);
+		dd.div = {
+			left: isNaN(left) ? 0 : left,
+			top: isNaN(top) ? 0 : top
+		}
+	},
+	drag: function(e, dd){
+		var div = this.parentNode;	
+		div.style.left = dd.div.left + dd.deltaX + "px";
+		div.style.top = dd.div.top + dd.deltaY + "px";
+	}
+});
+
+function getStyle(elem) {
+	var ret;
+	if(window.getComputedStyle) {
+		ret = window.getComputedStyle(elem);
+	} else if(elem.currentStyle) {
+		ret = elem.currentStyle;
+	}
+	return ret;
+}
+</script>
+</body>
+</html>

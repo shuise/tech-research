@@ -1,0 +1,9 @@
+.video_body{float:left; width:650px; color:#fff;}
+.video_show{width:650px; height:556px;}
+.video_list{float:left; width:310px;}
+.video_list ul{padding:10px 0;}
+.video_list li{height:36px; line-height:36px; padding:0 15px; color:#fff; cursor: pointer}
+.video_list .current{background: #000;}
+.video_info{padding:20px;}
+.video_info_title{font-size:14px; font-weight:bold; line-height:30px;}
+.video_info_digest{line-height:22px;}

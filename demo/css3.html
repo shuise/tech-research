@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC  "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>css3 animation test</TITLE>
+</HEAD>
+<BODY>
+<style type="text/css">
+#rotate {
+	margin: 0 auto;
+	width: 200px;
+	height: 200px; 
+	
+	-webkit-transform-style: preserve-3d;
+	-webkit-animation-name: anim;
+	-webkit-animation-duration: 3s;
+	-webkit-animation-iteration-count: 3;
+	-webkit-animation-timing-function: linear;
+	background:-webkit-linear-gradient(-45deg, transparent 15%, black 15%, black 30%, transparent 30%, transparent 75%, black 75%, black)
+}
+#rotate:hover{
+	background:black;	
+	-webkit-transition-property:background;
+	-webkit-transition-duration:2s;
+	transition-timing-function:ease-out
+}
+
+.wrap {margin:50px;}
+.rotate {
+	width:150px;height:150px;display:block;margin:15px;background:slateGray;float:left;
+	overflow:hidden;
+	counter-increment:demo;
+	line-height:150px;text-align:center;color:#fff;font-size:60px;font-family:verdana;text-decoration:none;
+	}
+.rotate:before {
+	content: counter(demo);
+}	
+.rotate:hover {
+	-webkit-transition-duration:1s;
+	transition-timing-function:ease-out
+}	
+#rotate1:hover{
+	background:red;	
+	-webkit-transition-property:background;
+}	
+
+#rotate2{
+	background:-webkit-linear-gradient(-45deg, slateGray 25%, black 25%, black 50%, slateGray 50%, slateGray 75%, black 75%, black);	
+	background-size:20px 20px;
+}		
+#rotate2:hover{
+	background:-webkit-linear-gradient(-45deg, black 25%, slateGray 25%, slateGray 50%, black 50%, black 75%, slateGray 75%, slateGray);	
+	-webkit-transition-property:background;
+}	
+#rotate3:hover{
+	background-color: #E04332; 
+	background-repeat: repeat-x; 
+	background-size: 24px 300px; 
+	background-image: -webkit-linear-gradient(-45deg, slategray 25%, transparent 25%), -webkit-linear-gradient(45deg, transparent 75%, slategray 75%), -webkit-linear-gradient(45deg, slategray 25%, transparent 25%), -webkit-linear-gradient(-45deg, transparent 75%, slategray 75%);
+	-webkit-transition-property:background-size;
+}
+#rotate4:hover{
+	background-image: -webkit-repeating-radial-gradient(transparent, transparent 9px, black 11px, black 20px); 
+	background-position:center;
+	background-size:50px 50px;
+	-webkit-transition-property:background-size;
+}		
+#rotate5:hover{
+	border-radius:75px;	
+	-webkit-transition-property:border-radius;
+}
+
+#rotate6{
+	border-radius:0 100%;
+}		
+#rotate6:hover{
+	border-radius:100% 0;
+	-webkit-transition-property:border-radius;
+}	
+
+#rotate7:hover{
+	border:75px solid #000;
+	width:0;
+	height:0;
+	line-height:300px;
+	text-indent:50px;
+	-webkit-transition-property:line-height text-indent border width height;
+}
+#rotate8:hover{
+	border:35px dashed #000;
+	width:80px;
+	height:80px;
+	-webkit-transition-property:border width height;
+}
+#rotate9:hover{
+	border:35px double #000;
+	width:0px;
+	height:0px;
+	-webkit-transition-property:border width height;
+}
+#rotate10:hover{
+	box-shadow:0 150px 10px -50px rgba(0,0,0,.5);
+	-webkit-transition-property:box-shadow;
+}
+#rotate11:hover{
+	box-shadow:inset -75px -75px 400px #000;
+	-webkit-transition-property:box-shadow;
+}
+#rotate12:hover{
+	box-shadow:0 0 50px #000;
+	-webkit-transition-property:box-shadow;
+}
+
+
+
+#rotate13:hover{
+	color:#cd0000;
+	-webkit-transition-property:color;
+}
+#rotate14:hover{
+	font-size:150px;
+	-webkit-transition-property:font-size;
+}
+#rotate15:hover{
+	height:0;
+	-webkit-transition-property:height;
+}
+#rotate16:hover{
+	letter-spacing:60px;
+	-webkit-transition-property:letter-spacing;
+}
+#rotate17:hover{
+	line-height:20px;
+	-webkit-transition-property:line-height;
+}
+#rotate18:hover{
+	opacity:0;
+	-webkit-transition-property:opacity;
+}
+
+#rotate19:hover{
+	outline:50px solid #000;
+	-webkit-transition-property:outline;
+}
+#rotate20:hover{
+	outline:30px solid #000;
+	outline-offset:20px;
+	-webkit-transition-property:outline-offset;
+}
+#rotate21:hover{
+	outline:50px solid #ccc;
+	outline-color:#0000;
+	-webkit-transition-property:outline-color;
+}
+#rotate22:hover{
+	padding:20px;
+	-webkit-transition-property:padding;
+}
+#rotate23:hover{
+	text-indent:50px;
+	-webkit-transition-property:text-indent;
+}
+#rotate24:hover{
+	text-shadow:50px 30px 20px #cd0000;
+	-webkit-transition-property:text-shadow;
+}
+
+#rotate25:hover{
+	text-shadow:-10px -10px 10px #ccc;
+	-webkit-transition-property:text-shadow;
+}
+#rotate26:hover{
+	text-shadow:0 0 rgba(255,255,255,0), -45px -45px 0 red, -30px -30px 0 orange, -15px -15px 0 yellow, 0 0 0 green, 15px 15px 0 blue, 30px 30px 0 indigo, 45px 45px 0 violet;
+	-webkit-transition-property:text-shadow;
+}
+#rotate27:hover{
+	position:relative;
+	top:50px;
+	-webkit-transition-property:top;
+}
+#rotate28:hover{
+	-webkit-transform: rotateZ(360deg);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate29:hover{
+	-webkit-transform: scale(2);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate30:hover{
+	-webkit-transform: rotate(180deg) skew(-180deg);
+	-webkit-transition-property:-webkit-transform;
+}
+
+#rotate31:hover{
+	-webkit-transform: rotateZ(360deg) scale(0);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate32:hover{
+	-webkit-transform: rotateY(360deg);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate33:hover{
+	-webkit-transform: rotateX(360deg);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate34:hover{
+	-webkit-transform: rotateY(360deg) scale(1.5);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate35:hover{
+	-webkit-transform: rotate(90deg) scale(0);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate36:hover{
+	transform-origin : 0 0;
+	-webkit-transform: rotateY(90deg) skew(-180deg);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate37:hover{
+	-webkit-transform-origin :100% 50%;
+	-webkit-transform: rotateY(180deg);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate38{
+	-webkit-transform: rotate(45deg);
+	-webkit-transition-property:-webkit-transform;
+}
+#rotate38:hover{
+	position:relative;
+	top:50px;
+	left:50px;
+	-webkit-transition-property:top left;
+}
+#rotate39:hover{
+	width:300px;
+	-webkit-transition-property:width;
+}
+</style>
+
+<div class="wrap" id="wrap">
+
+</div>
+
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<script type="text/javascript">
+(function(){
+	var html = "";
+	for(var i=1;i<40;i++){
+		html += ['<a class="rotate" id="rotate',i,'" href="###"></a>'].join('');
+	}
+	NE.$('#wrap').innerHTML = html;
+})();
+</script>
+</BODY>
+</HTML>

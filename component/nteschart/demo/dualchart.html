@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>多图表混合测试</title>
+        <script type="text/javascript" src="http://static.f2e.netease.com/libs/raphael.js"></script>
+        <script type="text/javascript" src="http://static.f2e.netease.com/component/nteschart/chart.core.js" charset="utf-8"></script>
+        <script type="text/javascript" src="http://static.f2e.netease.com/component/nteschart/chart.frame.js" charset="utf-8"></script>
+        <script type="text/javascript" src="http://static.f2e.netease.com/component/nteschart/chart.dualchart.js" charset="utf-8"></script>
+        <style>
+body{padding:0;margin:10px;}
+.chart{margin:15px auto;width:750px;height:400px;border:1px solid #ddd}
+        </style>
+    </head>
+    <body>
+<div class="chart" id="main1"></div>
+        <script>
+        var data1 = [{
+            title : '测试1',
+            config : {dotAttr : {type: 'rect'}, fixMeanNum : function(n){return Math.round(n)}},
+            meanTips : "AVG: {ave}",
+            data : [10,20,14,31,14,50,70,82]
+        }];
+        var chart = new NTESChart({
+            container : document.getElementById("main1")
+        });
+        /*var graph1 = chart.xyChart(data1, ["hbar"], {
+            padding : {bottom:10, x:25},
+            meanLine : true,
+            //mirror : true,
+            invalid : 0,
+            label : "{title}: {y}",
+            //topLabel : "{y}",
+            //midLabel : "{y}",
+            showLegend : false,
+            grid : {shadow : false},
+            Title : {title : '一组数据'},
+            xTick : {_labels:["Long", "Long", "Long", "Long Long", "Long", "Long Long", "Long", "Long Long Long Long Long ago"]},
+            yTick : {apronum:5, labels : "{y}", startY: [0,0]}
+        });*/
+        chart.dualChart(data1, data1, {
+            padding : {bottom:10, x:25},
+            mirror : true,
+            invalid : 0,
+            label : "{title}: {y}",
+            topLabel : "{y}",
+            //midLabel : "{y}",
+            showLegend : false,
+            grid : {shadow : false},
+            Title : {title : '一组数据'},
+            yTick : {apronum : 5, labels : "{y}", startY: [0,0]}
+        }, {
+            padding : {bottom:10},
+            invalid : 0,
+            label : "{title}: {y}",
+            topLabel : "{y}",
+            //midLabel : "{y}",
+            showLegend : false,
+            grid : {shadow : false},
+            Title : {title : '二组数据'},
+            yTick : {apronum : 5, labels : "{y}"}
+        }, 
+        ["Long", "Long Long", "Long", "Long Long", "Long", "Long Long", "Long", "Long Long Long Long"]);
+        </script>
+    </body>
+</html>

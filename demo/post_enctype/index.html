@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>参数有中包含空格且使用Post提交时须将空格转换成加号enctype="text/plain"</title>
+<link rel="stylesheet" href="http://www.w3school.com.cn/c3.css" />
+<link rel="stylesheet" href="http://static.f2e.netease.com/system/docs_temp/api.css" />
+<style type="text/css">
+body{text-align: left;}
+</style>
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<div class="f2e_api_menu_item">
+				<h2>前端 代码库</h2>
+				<ol id="menu">
+				<li><a href="vedio.html">视频播放（需chrome）</a></li>
+				<li><a href="audio/mp.html">音频播放（需chrome）</a></li>
+				<li><a href="linebetween/index.html">js动态添加分隔线</a></li>
+				<li><a href="copy/index.html">兼容所有浏览器的复制功能--多个复制</a></li>
+				<li><a href="timeline/timeline.html">简易时间轴</a></li>
+				<li><a href="turnpage/index.html">js+css3翻书效果</a></li>
+				<li><a href="autoslide/pageslide_demo.html">文章页-车款展示slide</a></li>
+				<li><a href="wgraph/index.html" target="_blank">UML图表绘制(基于Raphael绘图库)</a></li>
+				<li><a href="xampp/index.html" target="_blank">Windows下XAMPP环境配置</a></li>
+				<li><a href="canvas/canvas.html">canvas</a></li>
+				<li><a href="colorPicker.html">colors</a></li>
+				<li><a href="localstorage/localstorage.html" target="_blank">localstorage封装接口（localstrage+userdata）</a></li>
+				<li><a href="jspng/index.html" target="_blank">文本与PNG图片之间的转换demo（HTML5）</a></li>
+				<li><a href="slidewindow/NormalJS/index.html" target="_blank">图片轮换(原生JS)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="slidewindow/UseJquery/index.html" target="_blank">图片轮换(JQuery版)</a></li>
+				<li><a href="utf8bom/index.html" target="_blank">UTF8文件编码的两种模式</a></li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>参数有中包含空格且使用Post提交时须将空格转换成加号</h1>
+			
+			<div class="f2e_api_section">
+				<p>参数有中包含空格且使用Post提交时须将空格转换成加号。</p>
+				<p>
+
+定义和用法
+</br>
+enctype 属性规定在发送到服务器之前应该如何对表单数据进行编码。
+</br>
+默认地，表单数据会编码为 "application/x-www-form-urlencoded"。就是说，在发送到服务器之前，所有字符都会进行编码（空格转换为 "+" 加号，特殊符号转换为 ASCII HEX 值）。
+
+				</p>
+<table class="dataintable">
+<tbody><tr>
+<th>值</th>
+<th>描述</th>
+</tr>  
+<tr>
+<td>application/x-www-form-urlencoded</td>
+<td>在发送前编码所有字符（默认）</td>
+</tr>
+<tr>
+<td>multipart/form-data</td>
+<td>
+<p>不对字符编码。</p>
+<p>在使用包含文件上传控件的表单时，必须使用该值。</p>
+</td>
+</tr>
+<tr>
+<td>text/plain</td>
+<td>空格转换为 "+" 加号，但不对特殊字符编码。</td>
+</tr>
+</tbody></table>
+				<form action="receive.php" method="POST" target="_blank">
+					<input type="text" name="a">
+					<input type="submit" value="默认编码提交">
+				</form>
+				<form>
+					<input type="text" name="a" id="jsV">
+					<input type="button" value="jqPost提交" onclick="jqPost()">
+					<input type="button" value="jqGet提交" onclick="jqGet()">
+					<input type="button" value="nePost提交" onclick="neRequest()">
+				</form>
+				<form action="receive.php" method="POST" enctype="text/plain" target="_blank" hidden="true">
+					<input type="text" name="a">
+					<input type="submit" value="text/plain提交">
+				</form>
+				<form action="receive.php" method="POST" enctype="multipart/form-data" target="_blank">
+					<input type="text" name="a">
+					<input type="submit" value="multipart/form-data提交">
+				</form>
+			
+			</div>
+
+<!--
+			<div class="f2e_api_section">
+				<h2>代码实例</h2>
+				<pre id="f2e_api_code"> 
+
+				</pre>
+			</div>
+-->
+			<div class="f2e_api_btns">
+				<!-- <a href="utf8nobom.shtml" target="_blank">UTF8编码页面</a> -->
+				<!-- <a href="utf8bom.shtml" target="_blank">UTF8+BOM编码页面</a> -->
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+<script type="text/javascript" src="http://static.f2e.netease.com/libs/jquery.js"></script>
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+<script type="text/javascript">
+function jqPost(){
+	var v=jQuery('#jsV').val(),u='receive.php';
+	jQuery.post(u,{'a':v},function(r){
+		alert(r);
+	});
+}
+function jqGet(){
+	var v=jQuery('#jsV').val(),u='receive.php';
+	jQuery.get(u,{'a':v},function(r){
+		alert(r);
+	});
+}
+function neRequest(){
+	var v=NE('#jsV')[0].value,u='receive.php';
+	// NE.load.request({
+	// 		url:u,data:{'a':v},method:'post'
+	// },function(r){
+	// 	r = eval('('+r.responseText+')');
+	// 	alert(r);
+	// });
+
+	NE.load.ajax({
+			url:u,data:{'a':v},method:'post'
+	},function(r){
+		// r = eval('('+r.responseText+')');
+		// alert(r);
+	});
+}
+</script>
+</body>
+</html>

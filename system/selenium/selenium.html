@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>自动化测试文档 @ 前端 @ 网易</title>
+    <link rel="stylesheet" href="api.css" />
+    <style>
+        pre b { color: #a79f4f; font-weight: normal;}
+        pre i,pre i *,pre i .d { color: #7bb967; font-style: normal;}
+        pre .s {color: #b78e31;}
+        pre .d {color: #ff7a5c;}
+        pre .c,pre .c * {color: #88c; }
+        .f2e_api_body {padding-top:0}
+        .f2e_api_menu {padding-left:16px;padding-top:55px}
+        .f2e_api_section ul{padding-left:42px;}
+        .f2e_api_section ul li{list-style-type:disc;list-style:inside;color:#343434}
+    </style>
+</head>
+<body>
+    <div class="f2e_wrap">
+        <div class="f2e_wrap_inner">
+            <div class="f2e_api_head">
+	            <div class="f2e_api_logo">
+		            <strong>网易前端</strong>
+	            </div>
+	            <address>自动化测试文档</address>
+            </div>
+            <div class="f2e_api_body">
+	            <div class="f2e_api_menu">
+		            <div class="f2e_api_menu_item">
+			          <h2><a href="#">自动化测试文档</a></h2>
+                      <ol><li><a href='#basic'>使用流程</a></li><li><a href='#locator'>DOM定位</a><ul><li><a href='#xpath'>xpath </a></li><li><a href='#id'>id</a></li><li><a href='#css'>css </a></li><li><a href='#name'>name</a></li><li><a href='#tag_name'>tag_name</a></li><li><a href='#class_name'>class_name</a></li><li><a href='#link'>link</a></li><li><a href='#link_text'>link_text</a></li></ul></li><li><a href='#operator'>操作函数</a><ul><li><a href='#open'>open</a></li><li><a href='#window_resize'>window_resize</a></li><li><a href='#wait'>wait</a></li><li><a href='#is_element_present'>is_element_present</a></li><li><a href='#move_to_element'>move_to_element</a></li><li><a href='#click_element'>click_element</a></li><li><a href='#double_click_element'>double_click_element</a></li><li><a href='#clear_element'>clear_element</a></li><li><a href='#type'>type</a></li><li><a href='#send_keys'>send_keys</a></li><li><a href='#save_screenshot'>save_screenshot</a></li><li><a href='#print_title'>print_title</a></li><li><a href='#print_url'>print_url</a></li><li><a href='#print_window_size'>print_window_size</a></li><li><a href='#check_alert'>check_alert</a></li><li><a href='#refresh'>refresh</a></li><li><a href='#go_back'>go_back</a></li><li><a href='#go_forward'>go_forward</a></li><li><a href='#execute_script'>execute_script</a></li><li><a href='#cookie'>cookie</a></li><li><a href='#delete_cookie'>delete_cookie</a></li><li><a href='#delete_all_cookies'>delete_all_cookies</a></li></ul></li><li><a href='#assert'>断言(ok)</a><ul><li><a href='#is_element_present_ok'>is_element_present_ok</a></li><li><a href='#isnt_element_present_ok'>isnt_element_present_ok</a></li><li><a href='#is_element_displayed_ok'>is_element_displayed_ok</a></li><li><a href='#isnt_element_displayed_ok'>isnt_element_displayed_ok</a></li><li><a href='#hasnt_alert_ok'>hasnt_alert_ok</a></li></ul></li><li><a href='#assert2'>断言(is|isnt|like|unlike)</a><ul><li><a href='#title_*'>title_*</a></li><li><a href='#current_url_*'>current_url_*</a></li><li><a href='#element_attribute_*'>element_attribute_*</a></li><li><a href='#element_css_attribute_*'>element_css_attribute_*</a></li><li><a href='#element_location_x_*'>element_location_x_*</a></li><li><a href='#element_location_y_*'>element_location_y_*</a></li><li><a href='#element_view_x_*'>element_view_x_*</a></li><li><a href='#element_view_y_*'>element_view_y_*</a></li><li><a href='#element_width_*'>element_width_*</a></li><li><a href='#element_height_*'>element_height_*</a></li><li><a href='#element_value_*'>element_value_*</a></li><li><a href='#element_text_*'>element_text_*</a></li></ul></li><li><a href='#util'>辅助函数</a><ul><li><a href='#rand'>rand</a></li><li><a href='#randnum'>randnum</a></li><li><a href='#randaz'>randaz</a></li><li><a href='#randaznum'>randaznum</a></li><li><a href='#randstr'>randstr</a></li><li><a href='#randdate'>randdate</a></li></ul></li></ol>
+		            </div>
+	            </div>
+	            <div class="f2e_api_content">
+                  
+	<div class="f2e_api_section">
+		<h2 id="basic">使用流程</h2>
+        <p>1. 创建测试表(<a href="http://tools.f2e.netease.com/yice/test_unit.html" target="_blank">示例下载</a>)，测试内容需要写在table > tbody内</p>
+        <ul>
+            <li>测试表格式如下，四列内容分别为：命令、参数1、参数2、描述<br />
+                <table class="bordered"><tbody>
+                        <tr>
+	                        <td>open</td>
+	                        <td>http://126.am</td>
+	                        <td></td>
+	                        <td>打开首页</td>
+                        </tr>
+                        <tr>
+	                        <td>click_element</td>
+	                        <td>css=li.st_top_menu_about</td>
+	                        <td>5000</td>
+	                        <td>点击关于按钮(如果按钮不存在，将重试直到5000ms超时)</td>
+                        </tr>
+                        <tr>
+	                        <td>wait</td>
+	                        <td>1000</td>
+	                        <td></td>
+	                        <td>等待动画完成(1000ms)</td>
+                        </tr>
+                        <tr>
+	                        <td>save_screenshot</td>
+	                        <td>about1.png</td>
+	                        <td>0x600+0+0</td>
+	                        <td>截图(图片高度自定义为600)</td>
+                        </tr>
+            </tbody></table></li>
+            <li>每行tr可设置id, if, ifnot属性，示例如下<pre>
+&lt;tr id="test1"&gt;...  &lt;/tr id=""&gt;
+&lt;tr if="test1"&gt;...  &lt;/tr id=""&gt;      //表示第一条测试通过时才执行此行
+&lt;tr ifnot="test1"&gt;...  &lt;/tr id=""&gt;      //表示第一条测试不通过时才执行此行</pre>
+            </li>
+            <li>可配置参数(窗口尺寸、浏览器列表、标题)<pre>
+&lt;meta name="window_size" content="1024x780" /&gt;
+&lt;meta name="browsers" content="chrome/win7,chrome/linux" /&gt;
+&lt;title&gt;汽车车型对比&lt;/title&gt;</pre>
+            </li>
+            <li>其它命令与参数可参考后半部分文档</li>
+        </ul>
+        <p>2. 开始测试：在<a href="http://tools.f2e.netease.com/yice/" target=_blank>易测首页</a>上传创建好的表格，测试将自动开启</p>
+        <ul>
+            <li>默认情况下，会同时在ie6/ie7/ie8/ie9/firefox/chrome/opera下执行单元测试
+            </li>
+        </ul>
+        <p>3. 输出报表：</p>
+        <ul>
+            <li>按不同浏览器/操作系统分别输出报表，目前支持的测试环境如下：<br />
+                <table class="bordered">
+                    <tr><th>浏览器</th><th>操作系统</th></tr>
+                    <tr><td>IE6</td><td>windows xp</td></tr>
+                    <tr><td>IE8</td><td>windows xp</td></tr>
+                    <tr><td>IE9</td><td>windows 7</td></tr>
+                    <!--tr><td>IE10</td><td>windows 7</td></tr-->
+                    <tr><td>Chrome</td><td>windows xp</td></tr>
+                    <tr><td>Chrome</td><td>windows 7</td></tr>
+                    <tr><td>Chrome</td><td>Ubuntu 12.10</td></tr>
+                    <tr><td>Firefox</td><td>windows xp</td></tr>
+                    <tr><td>Firefox</td><td>windows 7</td></tr>
+                    <tr><td>Firefox</td><td>Ubuntu 12.10</td></tr>
+                    <!--tr><td>Safari</td><td>windows xp</td></tr>
+                    <tr><td>Safari</td><td>windows 7</td></tr-->
+                    <tr><td>Opera</td><td>windows xp</td></tr>
+                    <tr><td>Opera</td><td>windows 7</td></tr>
+                    <tr><td>Opera</td><td>Ubuntu 12.10</td></tr>
+                </table>
+            </li>
+        </ul>
+	</div>
+
+    <div class="f2e_api_section">
+	    <h2 id="locator">DOM定位</h2>
+	    <h3 id="xpath">xpath <a href="http://zh.wikipedia.org/zh/XPath" target=_blank>[wiki]</a></h3>
+        <div class="f2e_api_subsection">
+            <p>selenium中默认按xpath定位dom节点，可省略描述开头的"xpath="</p>
+            <p>例子: </p>
+            <ul>
+                    <li>/html/body/div[@id='st_main']/div[2]/ul/li[3]/span</li>
+                    <li>//img[@alt='The image alt text']</li>
+                    <li>//a[contains(@href,'#id1')]</li>
+                    <li>//input[@name='name2' and @value='yes']</li>
+                    <li>//*[text()="right"]</li>
+                    <li>//form[input/@name='username']</li>
+                    <li>a[@href='help.php'][name(..)='div'][../@class='header']/@target</li>
+            </ul>
+        </div>
+	    <h3 id="id">id</h3>
+        <div class="f2e_api_subsection">
+            <p>例子: id=ZeroClipboardMovie_1</p>
+        </div>
+	    <h3 id="css">css <a href="http://www.w3.org/TR/css3-selectors/" target=_blank>[w3.org]</a></h3>
+        <div class="f2e_api_subsection">
+            <p>例子: </p>
+            <ul>
+                    <li>css=div.popOut</li>
+                    <li>css=div.searchcar_types .searchcar_types_flag_0:nth-child(3)</li>
+            </ul>
+        </div>
+	    <h3 id="name">name</h3>
+        <div class="f2e_api_subsection">
+            <p>根据name定位</p>
+            <p>例子: name=username</p>
+        </div>
+	    <h3 id="tag_name">tag_name</h3>
+        <div class="f2e_api_subsection">
+            <p>根据标签名定位</p>
+            <p>例子: tag_name=pre</p>
+        </div>
+	    <h3 id="class_name">class_name</h3>
+        <div class="f2e_api_subsection">
+            <p>根据className定位</p>
+            <p>例子: class_name=popOut</p>
+        </div>
+	    <h3 id="link">link</h3>
+        <div class="f2e_api_subsection">
+            <p>例子: link=#123</p>
+        </div>
+	    <h3 id="link_text">link_text</h3>
+        <div class="f2e_api_subsection">
+            <p>例子: link_text=标题</p>
+        </div>
+    </div>
+
+    <div class="f2e_api_section">
+	    <h2 id="operator">操作函数</h2>
+	    <h3 id="open">open</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：打开页面</p>
+            <p>输入：url<ul>
+                <li>url(必填): 要打开的页面url</li>
+            </ul></p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="window_resize">window_resize</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：改变浏览器大小</p>
+            <p>输入：size<ul>
+                <li>size(必填): {width}x{height}，如1280x800</li>
+            </ul></p>
+            <p>输出：无</p>
+        </div>
+	    <h3 id="wait">wait</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：等待</p>
+            <p>输入：wait<ul>
+                <li>wait(必填): 等待时间(ms)</li>
+            </ul></p>
+            <p>输出：无</p>
+        </div>
+	    <h3 id="is_element_present">is_element_present</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：等待元素出现直到timeout(不作测试)</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="move_to_element">move_to_element</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：将元素滚动到可见视图内，同时鼠标移动到元素上</p>
+            <p>输入：locator [, offset]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>offset(选填): x, y。鼠标相对元素左上角的位移，如果不指定，鼠标将移到元素中心。</li>
+            </ul></p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="click_element">click_element</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：点击元素</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：selenium log。如果元素不存在，追加一条is_element_present_ok检查测试</p>
+        </div>
+	    <h3 id="double_click_element">double_click_element</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：双击元素</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：selenium log。如果元素不存在，追加一条is_element_present_ok检查测试</p>
+        </div>
+	    <h3 id="clear_element">clear_element</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：清空元素value</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：selenium log。如果元素不存在，追加一条is_element_present_ok检查测试</p>
+        </div>
+	    <h3 id="type">type</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：在当前聚焦元素内输入</p>
+            <p>输入：lkeystring<ul>
+                <li>keystring(必填): 输入字符串，可用"{控制符}+{字符串}"的格式，如control+c, alt+v </li>
+            </ul></p>
+            <p>输出：selenium log。</p>
+        </div>
+	    <h3 id="send_keys">send_keys</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：元素内键盘输入</p>
+            <p>输入：locator, keystring<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>keystring(必填): 输入字符串，可用"{控制符}+{字符串}"的格式，如control+c, alt+v </li>
+            </ul></p>
+            <p>输出：selenium log。如果元素不存在，追加一条is_element_present_ok检查测试</p>
+        </div>
+	    <h3 id="save_screenshot">save_screenshot</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：保存截图</p>
+            <p>输入：png_name [, size_description]<ul>
+                <li>png_name(必填): 输出图片名</li>
+                <li>size_description(选填): 截图范围描述，格式为locator,{width}x{height}+{dx}+{dy}。如果只给定locator，则截取元素所在范围；如果只给定尺寸描述，则按尺寸描述符截取；如果同时给定locator和尺寸描述，则基于元素左上角开始截取。
+                    <table class="bordered">
+                        <tr>
+	                        <td>save_screenshot</td>
+	                        <td>full.png</td>
+	                        <td></td>
+	                        <td>完整页面截图(opera中，不可见部分全黑)</td>
+                        </tr>
+                        <tr>
+	                        <td>save_screenshot</td>
+	                        <td>full.png</td>
+	                        <td>1000x600+20+30</td>
+	                        <td>在完整截图基础上裁剪1000x600的区域，左上角起始点向右偏移20px，向下30px</td>
+                        </tr>
+                        <tr>
+	                        <td>save_screenshot</td>
+	                        <td>searchcar.png</td>
+	                        <td>id=searchcar</td>
+	                        <td>截取id为searchcar的元素区域</td>
+                        </tr>
+                        <tr>
+	                        <td>save_screenshot</td>
+	                        <td>searchcar2.png</td>
+	                        <td>id=searchcar,0x450+2+3</td>
+	                        <td>截取区域如下：左上角在所选元素左上角基础上位移(2,3)，宽度为元素宽度，高度为450px</td>
+                        </tr>
+                </table></li>
+            </ul></p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="print_title">print_title</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：输出页面标题</p>
+            <p>输入：空</p>
+            <p>输出：页面标题</p>
+        </div>
+	    <h3 id="print_url">print_url</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：输出页面地址</p>
+            <p>输入：空</p>
+            <p>输出：页面地址</p>
+        </div>
+	    <h3 id="print_window_size">print_window_size</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：输出当前窗口大小</p>
+            <p>输入：空</p>
+            <p>输出：width: **, height: **</p>
+        </div>
+	    <h3 id="check_alert">check_alert</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检查是否有alert对话框，有则关闭</p>
+            <p>输入：空</p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="refresh">refresh</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：刷新当前页面</p>
+            <p>输入：空</p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="go_back">go_back</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：页面后退</p>
+            <p>输入：空</p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="go_forward">go_forward</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：页面前进</p>
+            <p>输入：空</p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="execute_script">execute_script</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：执行javascript片断</p>
+            <p>输入：code<ul>
+                <li>code(必填): 要执行的js代码</li>
+            </ul></p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="cookie">cookie</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：添加cookie</p>
+            <p>输入："name=value", "path, domain[, secure]"<ul>
+                <li>name=value(必填): cookie名称/值</li>
+                <li>path, domain[, secure](path, domain必填，secure选填): cookie路径/域名/secure(默认为0)<br><table class="bordered">
+                        <tr>
+	                        <td>cookie</td>
+	                        <td>foo=bar</td>
+	                        <td>/, 163.com</td>
+	                        <td>添加cookie示例</td>
+                        </tr>
+                </table></li>
+            </ul></p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="delete_cookie">delete_cookie</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：删除当前页指定cookie</p>
+            <p>输入：name</p>
+            <p>输出：selenium log</p>
+        </div>
+	    <h3 id="delete_all_cookies">delete_all_cookies</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：删除当前页所有cookie</p>
+            <p>输入：无</p>
+            <p>输出：selenium log</p>
+        </div>
+    </div>
+
+    <div class="f2e_api_section">
+	    <h2 id="assert">断言(ok)</h2>
+	    <h3 id="is_element_present_ok">is_element_present_ok</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：判断元素是否存在</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：0(元素不可见)/1(元素可见)</p>
+        </div>
+	    <h3 id="isnt_element_present_ok">isnt_element_present_ok</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：判断元素是否不存在</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：0(元素可见)/1(元素不可见)</p>
+        </div>
+	    <h3 id="is_element_displayed_ok">is_element_displayed_ok</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：判断元素是否可见</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：0(元素不存在)/1(元素存在)</p>
+        </div>
+	    <h3 id="isnt_element_displayed_ok">isnt_element_displayed_ok</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：判断元素是否不可见</p>
+            <p>输入：locator [, timeout]<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>timeout(选填): 等待元素出现的时间(毫秒)</li>
+            </ul></p>
+            <p>输出：0(元素存在)/1(元素不存在)</p>
+        </div>
+	    <h3 id="hasnt_alert_ok">hasnt_alert_ok</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检查当前有无alert对话框，有则失败</p>
+            <p>输入：空</p>
+            <p>输出：selenium log</p>
+        </div>
+    </div>
+
+    <div class="f2e_api_section">
+	    <h2 id="assert2">断言(is|isnt|like|unlike)</h2>
+        <ul>
+            <li>is断言：判断输入参数是否与期望值相同。</li>
+            <li>isnt断言：判断输入参数是否与期望值不同。</li>
+            <li>like断言：判断输入参数是否满足给定的正则式。</li>
+            <li>unlike断言：判断输入参数是否不满足给定的正则式。</li>
+        </ul>
+	    <h3 id="title_*">title_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：校验页面title</p>
+            <p>输入：value<ul>
+                <li>value(必填): 标题期望值(is|isnt)或正式表达式(like|unlike)<br />
+                    <table class="bordered">
+                        <tr>
+	                        <td>title_like</td>
+	                        <td>.*?_网易汽车论坛</td>
+	                        <td></td>
+	                        <td>标题为“*_网易汽车论坛”</td>
+                        </tr>
+                        <tr>
+	                        <td>title_unlike</td>
+	                        <td>^\s*$</td>
+	                        <td></td>
+	                        <td>标题不为空</td>
+                        </tr>
+                </table></li>
+            </ul></p>
+            <p>输出：0(页面标题与期望不一致)/1(页面标题与期望一致)</p>
+        </div>
+	    <h3 id="current_url_*">current_url_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：校验页面url</p>
+            <p>输入：value<ul>
+                <li>value(必填): 标题期望值(is|isnt)或正式表达式(like|unlike)<br />
+                    <table class="bordered">
+                        <tr>
+	                        <td>current_url_like</td>
+	                        <td>http://club2011.auto.163.com/post/\d+.html</td>
+	                        <td></td>
+	                        <td>发帖后是否跳转到正确地址</td>
+                        </tr>
+                </table></li>
+            </ul></p>
+            <p>输出：0(页面url与期望不一致)/1(页面url与期望一致)</p>
+        </div>
+	    <h3 id="element_attribute_*">element_attribute_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素属性</p>
+            <p>输入：locator,  value<ul>
+                <li>locator(必填): DOM定位描述、属性名，中间用逗号","分隔</li>
+                <li>value(必填): 元素属性期望值(is|isnt)或正式表达式(like|unlike)<br />
+                    <table class="bordered">
+                        <tr>
+	                        <td>element_attribute_is</td>
+	                        <td>id=test,href</td>
+	                        <td>http://www.baidu.com</td>
+	                        <td>元素属性判断示例</td>
+                        </tr>
+                </table></li>
+            </ul></p>
+            <p>输出：0(元素属性与期望不一致)/1(元素属性与期望一致)</p>
+        </div>
+	    <h3 id="element_css_attribute_*">element_css_attribute_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素css属性</p>
+            <p>输入："locator, attr",  value<ul>
+                <li>locator[, attr](必填): DOM定位描述、属性名，中间用逗号","分隔</li>
+                <li>value(必填): 元素属性期望值(is|isnt)或正式表达式(like|unlike)<br />
+                    <table class="bordered">
+                        <tr>
+	                        <td>element_css_attribute_is</td>
+	                        <td>id=test,width</td>
+	                        <td>200</td>
+	                        <td>css属性判断示例</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul></p>
+            <p>输出：0(元素css属性与期望不一致)/1(元素css属性与期望一致)</p>
+        </div>
+	    <h3 id="element_location_x_*">element_location_x_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素屏幕坐标x(从页面左上角算起)</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素坐标期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素宽度与期望不一致)/1(元素宽度与期望一致)</p>
+        </div>
+	    <h3 id="element_location_y_*">element_location_y_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素屏幕坐标y(从页面左上角算起)</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素坐标期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素宽度与期望不一致)/1(元素宽度与期望一致)</p>
+        </div>
+	    <h3 id="element_view_x_*">element_view_x_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素坐标x(从当前可见区域左上角算起)</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素坐标期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素宽度与期望不一致)/1(元素宽度与期望一致)</p>
+        </div>
+	    <h3 id="element_view_y_*">element_view_y_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素坐标y(从当前可见区域左上角算起)</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素坐标期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素宽度与期望不一致)/1(元素宽度与期望一致)</p>
+        </div>
+	    <h3 id="element_width_*">element_width_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素宽度</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素宽度期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素宽度与期望不一致)/1(元素宽度与期望一致)</p>
+        </div>
+	    <h3 id="element_height_*">element_height_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：检验元素高度</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素高度期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素高度与期望不一致)/1(元素高度与期望一致)</p>
+        </div>
+	    <h3 id="element_value_*">element_value_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：校验元素value</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素值与期望不一致)/1(元素值与期望一致)</p>
+        </div>
+	    <h3 id="element_text_*">element_text_*</h3>
+        <div class="f2e_api_subsection">
+            <p>描述：校验元素innerText</p>
+            <p>输入：locator, value<ul>
+                <li>locator(必填): DOM定位描述</li>
+                <li>value(必填): 元素期望值(is|isnt)或正式表达式(like|unlike)</li>
+            </ul></p>
+            <p>输出：0(元素innerText与期望不一致)/1(元素innerText与期望一致)</p>
+        </div>
+    </div>
+
+    <div class="f2e_api_section">
+	    <h2 id="util">辅助函数</h2>
+        <ul>
+            <li>可在断言条件的参数中使用辅助函数，语法为{?func(args)?}；还可使用简单的计算表达式，如{?rand(30)+1?}</li>
+            <li>示例：<br />
+                <table class="bordered">
+                    <tr>
+	                    <td>click_element</td>
+	                    <td>//select[@id='provins']/option[{?rand(15)+1?}]</td>
+	                    <td></td>
+	                    <td>随机选省份</td>
+                    </tr>
+                    <tr>
+	                    <td>send_keys</td>
+	                    <td>id=birthday</td>
+	                    <td>{?rand(12)+1980?}-{?rand(12)+1, "%02d"?}-{?rand(30)+1, "%02d"?}</td>
+	                    <td>随机输入生日</td>
+                    </tr>
+                    <tr>
+	                    <td>send_keys</td>
+	                    <td>id=qq</td>
+	                    <td>{?rand(10)+1?}{?randnum(7)?}</td>
+	                    <td>随机输入QQ</td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+	    <h3 id="rand">rand</h3>
+        <div class="f2e_api_subsection">
+            <p>输入：number</p>
+            <p>输出：介于0和number之间的整数</p>
+        </div>
+	    <h3 id="randnum">randnum</h3>
+        <div class="f2e_api_subsection">
+            <p>输入：length</p>
+            <p>输出：长度为length的随机数字串</p>
+        </div>
+	    <h3 id="randaz">randaz</h3>
+        <div class="f2e_api_subsection">
+            <p>输入：length</p>
+            <p>输出：长度为length的随机小写字母串</p>
+        </div>
+	    <h3 id="randaznum">randaznum</h3>
+        <div class="f2e_api_subsection">
+            <p>输入：length</p>
+            <p>输出：长度为length的随机小写字母/数字串</p>
+        </div>
+	    <h3 id="randstr">randstr</h3>
+        <div class="f2e_api_subsection">
+            <p>输入：length</p>
+            <p>输出：输出长度为length的随机字符串(0-9, a-z, A-Z, :;&lt;=&gt;?@[\]^_`{|})</p>
+        </div>
+	    <h3 id="randdate">randdate</h3>
+        <div class="f2e_api_subsection">
+            <p>输入：format, fromdate, todate<ul>
+                <li>format(选填): 默认为yyyymmdd。可用yyyy或yy表示年份，mm或m表示月份，dd或d表示日期，hh或h表示小时，MM或M表示分钟，ss或s表示秒</li>
+                <li>fromdate(选填): 默认为1970-1-1，可接受的输入格式有：19940203, 1994-02-03, 1994-02-03 14:15:29</li>
+                <li>todate(选填): 默认为当前时间，可接受的输入格式有：19940203, 1994-02-03, 1994-02-03 14:15:29</li>
+                <li>示例：<br />
+                <table class="bordered">
+                    <tr>
+	                    <td>send_keys</td>
+	                    <td>id=birthday</td>
+	                    <td>{?randdate('yyyy/mm/dd','19800101','19900101')?}</td>
+	                    <td>随机输入生日</td>
+                    </tr>
+                </table></li>
+            </ul></p>
+            <p>输出：按format定义的格式输出介于fromdate和todate之间的随机日期字符串</p>
+        </div>
+    </div>
+
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

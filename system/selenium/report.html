@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>短地址测试 - 测试报告</title>
+<link rel="stylesheet" href="selenium.css" />
+</head>
+<body>
+
+<div class="reports_tools">
+    <div class="reports_tools_inner">
+        <div class="right">
+            <label>当前测试：</label> <span id="test_name"><a>test.html</a></span>
+        </div>
+        <label class="leftmost">测试时间：</label>
+		<select name="date" id="test_date">
+			<option value="12021422">2012.12.02 14:22</option>
+			<option value="12011522">2012.12.01 15:22</option>
+		</select>
+        <input type="button" id="deltest" value="删除" /> &nbsp;
+        <input type="button" id="retest" value="重新测试" /> &nbsp;
+        <a href="http://tools.f2e.netease.com/yice/" class="tools_link">返回首页</a>
+    </div>
+</div>
+<div class="report_wrapper">
+	<div class="reports_tabs">
+        <div class="tab_title">&nbsp;</div>
+		<div class="reports_browsers" id="browsers_list">
+			<div class="reports_win7">
+				<a href="#" class="driver done">win7.chrome</a>
+				<a href="#" class="driver pending">win7.firefox<span class="status">pending</span></a>
+				<a href="#" class="driver fail">win7.safari<span class="status">4/5</span></a>
+				<a href="#" class="driver error">win7.opera<span class="status">done</span></a>
+				<a href="#" class="driver pass">win7.ie10<span class="status">5/5</span></a>
+				<a href="#" class="driver fail">win7.ie9<span class="status">4/5</span></a>
+			</div>
+
+			<div class="reports_xp">
+				<a href="#">xp.chrome</a>
+				<a href="#">xp.firefox</a>
+				<a href="#">xp.safari</a>
+				<a href="#">xp.opera</a>
+				<a href="#">xp.ie8</a>
+				<a href="#">xp.ie6</a>
+			</div>
+
+			<div class="reports_ubuntu">
+				<a href="#">ubuntu.chrome</a>
+				<a href="#">ubuntu.firefox</a>
+				<a href="#">ubuntu.safari</a>
+				<a href="#">ubuntu.opera</a>
+			</div>
+		</div>
+	</div>
+	<div class="report" id="report_div">
+		<table>
+			<caption>短地址测试 - 测试报告</caption>
+			<thead>
+			<tr><th width="23%">描述</th><th>命令</th><th>DOM</th><th>参数</th><th>测试日志</th></tr>
+			</thead>
+			<tr><td>截图(隐藏简介)</td><td>save_screenshot</td><td><a href="t1/firefox/about2.png" target="_blank">about2.png</a></td><td>1500</td><td class='status'>Saving screenshot to t1/firefox/about2.png ..done.</td></tr>
+            <tr><td>登录按钮(有动画，稍等)</td><td>click</td><td>css=a.st_login_btn > span</td><td>1</td><td class='status'></td></tr>
+            <tr class='pass'><td>检查弹出窗口是否已生成</td><td>is_element_present_ok</td><td>css=div.popOut</td><td></td><td class='status'></td></tr>
+            <tr class='pass'><td>检查弹出窗口是否可见</td><td>is_element_displayed_ok</td><td>css=div.popOut</td><td></td><td class='status'></td></tr>
+            <tr><td>在弹出的登录对话框中输入</td><td>send_keys</td><td>id=st_logpop_username</td><td>selenium126am</td><td class='status'></td></tr>
+            <tr><td>Tab补全用户名后缀</td><td>save_screenshot</td><td><a href="t1/firefox/input1.png" target="_blank">input1.png</a></td><td>1</td><td class='status'>Saving screenshot to t1/firefox/input1.png ..done.</td></tr>
+            <tr><td>用户名提示，截图</td><td>send_keys</td><td>id=st_logpop_username</td><td>\t</td><td class='status'></td></tr>
+            <tr><td>用户名补全，截图</td><td>save_screenshot</td><td><a href="t1/firefox/input2.png" target="_blank">input2.png</a></td><td>1</td><td class='status'>Saving screenshot to t1/firefox/input2.png ..done.</td></tr>
+            <tr class='pass'><td>用户名是否正确补齐</td><td>value_is</td><td>id=st_logpop_username</td><td>selenium126am@163.com</td><td class='status'></td></tr>
+            <tr><td>关闭登录窗口</td><td>click</td><td>css=div.popOut a.st_logpop_close</td><td>1</td><td class='status'></td></tr>
+		</table>
+	</div>
+    <div class="yice_help">
+	    <a href="http://tools.f2e.netease.com/yice/selenium.html" target="_blank">说明文档</a>
+	    <a href="report.html">报告示例</a>
+	    <a href="http://192.168.68.67/cgi-bin/tools/yice.cgi">历史测试</a>
+	    <a href="test_unit.html">模板下载</a>
+	    <a href="mailto:zfxue@corp.netease.com">意见反馈</a>
+	    <a href="mailto:f2e_product@corp.netease.com">联系开发者</a>
+	    <p>Copyright &copy; 2012-2013 developer.163.com</p>
+    </div>
+</div>
+
+<script>var work_dir = "/yice/anonym/tmp/1212010000";</script>
+<script src="report.js"></script>
+</body>
+</html>

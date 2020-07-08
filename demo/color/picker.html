@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>拾色器</title>
+<style type="text/css">
+* { margin:0; padding:0; border:0; list-style:none; font-size:12px; line-height:20px; font-family:Arial}
+body { padding:50px;}
+
+.area {width:200px;height:200px; border:1px solid #ccc; clear:both;float:left; line-height:200px; text-align:center;font-size:24px;position: relative;}
+.colorlist {border:1px solid #ccc; padding:0 0 1px 1px;width:170px;height:170px;position:absolute;left:200px;top:-2px;}
+.colorlist li {float:left;width:16px;height:16px; margin:1px 1px 0 0; cursor:pointer;}
+
+</style>
+</head>
+
+<body>
+
+
+
+<div id="area" class="area" style="background:rgb(255,0,0)">
+	点击换色
+</div>
+
+<script src="colors.js"></script>
+<script type="text/javascript">
+clickColor();
+
+function clickColor(){
+	var nodeP = document.getElementById("area");
+	var node = document.getElementById("list");
+	if(!node){
+		node = document.createElement("ul");
+		node.id = "list";
+		node.className = "colorlist";
+		nodeP.appendChild(node);
+		node.innerHTML = PickerInsert();
+	}
+	node.style.display = "block";
+}
+
+function clickItem(node){
+	var target = node.parentNode.parentNode;
+	target.style.background = node.getAttribute("_color");
+	target.style.color = node.getAttribute("_colorOpp");
+}
+
+function PickerInsert(){
+	var len = colors.length;	
+	var tpl = '<li style="background:{color}" title="{name}" _color="{color}" _colorOpp="{colorOpp}" onclick="clickItem(this)"></li>'; 
+
+	colors = colors.sort(function(a,b){
+		var _ra = parseInt((a.color[1] + "" + a.color[2]),16);
+		var _rb = parseInt((b.color[1] + "" + b.color[2]),16);
+		var _ga = parseInt((a.color[3] + "" + a.color[4]),16);
+		var _gb = parseInt((b.color[3] + "" + b.color[4]),16);
+		var _ba = parseInt((a.color[5] + "" + a.color[6]),16);
+		var _bb = parseInt((b.color[6] + "" + b.color[6]),16);
+
+		return getValue(a.color) > getValue(b.color) && (_ra > _rb && _ga > _gb && _ba > _bb);
+	});
+	for (var n=0;n<len;n++){
+		colors[n].colorOpp = colorOpp(colors[n].color);
+	}
+	var html = substitute(tpl,colors);
+	return html;
+}
+
+function getValue(_c){
+	_c = _c.split("#")[1];
+	var _r = parseInt((_c[0] + "" + _c[1]),16);
+	var _b = parseInt((_c[2] + "" + _c[3]),16);
+	var _g = parseInt((_c[4] + "" + _c[5]),16);
+	return Math.sqrt(Math.pow(_r,2) + Math.pow(_b,2) + Math.pow(_g,2));  
+}
+
+function colorOpp(c){
+	var arr = c.split("#")[1];
+	var r =	toHex(255 - parseInt((arr[0] + "" + arr[1]),16));
+	var g = toHex(255 - parseInt((arr[2] + "" + arr[3]),16));
+	var b = toHex(255 - parseInt((arr[4] + "" + arr[5]),16));
+	return "#" + r + g + b;
+	
+	function toHex(_c){
+		_c = _c.toString(16);
+		_c = "000" + "" + _c;
+		_c = _c.substring(_c.length-2);
+		return _c;
+	}
+}
+
+function substitute(template, data, regexp){
+  if(!(Object.prototype.toString.call(data) === "[object Array]")){
+    data = [data]
+  }
+  var ret = [];
+  for(var i=0,j=data.length;i<j;i++){
+    ret.push(replaceAction(data[i]));
+  }
+  return ret.join("");
+  
+  function replaceAction(object){
+    return template.replace(regexp || (/\\?\{([^}]+)\}/g), function(match, name){
+     if (match.charAt(0) == '\\') return match.slice(1);
+     return (object[name] != undefined) ? object[name] : '';
+    });
+  }
+}
+function insertAfter(newElement,targetElement) {   
+	var parent = targetElement.parentNode;   
+	if (parent.lastChild == targetElement) {   
+		parent.appendChild(newElement);   
+	} else {   
+		parent.insertBefore(newElement,targetElement.nextSibling);   
+	}
+}
+</script>
+</body>
+</html>

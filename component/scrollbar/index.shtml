@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js模拟滚动条 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+    <div class="f2e_api_head">
+        <div class="f2e_api_logo">
+            <strong>网易前端</strong>
+        </div>
+        <address>developer.163.com</address>
+    </div>
+    <div class="f2e_api_body">
+        <div class="f2e_api_menu">
+            <!--#include virtual="../menu.html"-->
+        </div>
+
+        <div class="f2e_api_content">
+            <h1>js模拟滚动条</h1>
+            
+            <div class="f2e_api_section">
+                <p>引入文件 <a href="http://qa.developer.163.com/component/component/scrollbar/scrollbar.css">http://qa.developer.163.com/component/scrollbar/scrollbar.css</a></p>
+                <p>引入文件 <a href="http://qa.developer.163.com/component/scrollbar/scrollbar.js">http://qa.developer.163.com/component/scrollbar/scrollbar.js</a></p>
+            </div>
+
+            <div class="f2e_api_section">
+                <h2>参数说明</h2>
+                <pre id="f2e_api_code"> 
+//自定义参数
+var opt = {
+    "barId" : "textscrollbar", //滚动条的id名
+    "barspacing" : 15, //滚动条跟内容之间的间距，默认为0
+    "barAutoHeight" : true //滚动条是否随内容设置高，默认false固定高
+};
+                </pre>
+            </div>
+            
+        <div class="f2e_api_section">
+            <h2>代码调用</h2>
+            <pre id="f2e_api_code"> 
+var bar = new ScrollBar();
+bar.init(document.getElementById("main"));
+
+
+var opt = {
+    "barId" : "textscrollbar",
+    "barspacing" : 15,
+    "barAutoHeight" : true
+};
+var bar2 = new ScrollBar();
+bar2.init(document.getElementById("main2"),opt);
+                </pre>
+            </div>
+            
+            
+            <div class="f2e_api_btns">
+                <a href="scrollbar.html">js模拟查看demo</a><br/>
+                <a href="scrollbar_css.shtml">css模拟查看demo</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div></div>
+
+</body>
+</html>

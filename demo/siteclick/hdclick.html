@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>首页导航点击行为分析</title>
+        <link rel="stylesheet" href="noclick.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <h1>首页导航点击行为分析</h1>
+        <div class="main_wrap">
+            <select id="day_sel"><option>请选择日期</option></select>
+            <fieldset class="chart_wrap">
+                <legend align="center"><select id="tab_hds">
+                <option value="hdtime">导航点击发生时间</option>
+                <!--option value="tall">有道/头部导航点击发生时间</option>
+                <option value="t12">头部导航点击发生时间</option>
+                <option value="t54">有道导航点击发生时间</option-->
+                <option value="call">有道/频道导航点击次数</option>
+                <option value="c12">头部导航点击次数</option>
+                <option value="c54">有道导航点击次数</option>
+            </select></legend>
+                <div class="tab_con" id="main_chart"></div>
+            </fieldset>
+        </div>
+        <div class="table_wrap" id="table_wrap"></div>
+        <script src="http://qa.developer.163.com/common/ntes.js" charset='utf-8'></script>
+        <script src="http://qa.developer.163.com/libs/raphael.js" _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.core.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.ring.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.frame.js" charset='utf-8' _group="nchart"></script>
+        <script src="http://qa.developer.163.com/component/nteschart/chart.dualchart.js" charset='utf-8' _group="nchart"></script>
+        <script src="hdclick.js" charset='utf-8'></script>
+    </body>
+</html>

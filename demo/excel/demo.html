@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>在浏览器端导出表格为Excel文件</title>
+<style type="text/css">
+	html,body{
+		width: 100%;
+		height: 100%;
+		font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+	}
+	section{
+		width: 800px;
+		margin: 50px auto;
+		padding: 20px 10px;
+		border: 1px dashed #ccc;
+		border-radius: 8px;
+	}
+	nav{
+		float: right;
+	}
+	header{
+		margin: 20px 0;
+		padding-left: 20px;
+	}
+	header h1{
+		font-size: 24px;
+	}
+	article{
+		padding: 20px 10px;
+	}
+	article p{
+		line-height: 30px;
+		padding: 10px 0;
+		color: #666;
+		text-indent: 2em;
+	}
+	article code{
+		display: block;
+		margin: 1em;
+		padding: 1em;
+		color: #555;
+		font-size: 1em;
+		font-family: "source-code-pro", Consolas, monospace;
+		background: #eee;
+		border-radius: 5px;
+	}
+	article pre{
+		margin: 0.5em;
+		font-family: "source-code-pro", Consolas, monospace;
+		color: #555;
+		text-indent: 0em;
+	}
+	article pre.indent4{
+		text-indent: 2em;
+	}
+	article pre.indent6{
+		text-indent: 4em;
+	}
+	article pre.indent8{
+		text-indent: 6em;
+	}
+	article pre.indent10{
+		text-indent: 8em;
+	}
+	article pre.indent12{
+		text-indent: 10em;
+	}
+	article ul{
+		line-height: 24px;
+		margin-left: 4em;
+		color: #3F6D4C;
+		font-size: 12px;
+	}
+	.keyword{
+		color: #6868BB;
+		font-style: italic;
+	}
+	.red{
+		color: #F37272;
+	}
+	.blue{
+		color: #00f;
+	}
+	.gray{
+		color: #666;
+	}
+	.date{
+		float: right;
+		color: gray;
+		font-size: 12px;
+	}
+	.export_table{
+		padding: 10px;
+	}
+	table{
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		border: 1px solid #ccc;
+		box-shadow: 0 1px 5px #ccc;
+	}
+	tr{
+		height: 45px;
+		line-height: 45px;
+		-webkit-transition: all 0.1s ease-in-out;
+		-moz-transition: all 0.1s ease-in-out;
+		-o-transition: all 0.1s ease-in-out;
+		-ms-transition: all 0.1s ease-in-out;
+		transition: all 0.1s ease-in-out;
+	}
+	tr:nth-child(even){
+		background: #efefef;
+	}
+	tr:hover{
+		background: #fbf8e9;
+	}
+	th,td{
+		text-align: center;
+		border-left: 1px solid #ccc;
+		border-top: 1px solid #ccc;
+	}
+	th{
+		background-color: #dce9f9;
+        background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+        background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+        background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+        background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+        background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+        box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+	}
+	td{
+		color: #f69;
+	}
+	td i{
+		color: #00f;
+	}
+	td:nth-child(2){
+		color: #999;
+		font-size: 14px;
+	}
+
+	button{
+		margin: 1em 0;
+		width: 120px;
+		height: 35px;
+	}
+</style>
+</head>
+<body>
+	<section>
+		<nav><a href="/demo/index.html">Demo</a></nav>
+		<header><h1>在浏览器端导出表格为Excel文件</h1><span class="date">2014-12-4 17:30 by bjluoying</span></header>
+		<article>
+			<div class="export_table">
+				<table>
+					<thead>
+						<tr>
+							<th>页面类型</th>
+							<th>PV</th>
+							<th>UV</th>
+							<th>导出量</th>
+							<th>跳出率</th>
+							<th>退出率</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>频道总体</td>
+							<td>1,197,949,970</td>
+							<td>143,564,782</td>
+							<td>23,395,472</td>
+							<td>*</td>
+							<td>*</td>
+						</tr>
+						<tr>
+							<td>频道首页</td>
+							<td>14,728,671</td>
+							<td>9,836,197</td>
+							<td>23,395,472</td>
+							<td>41.91%</td>
+							<td>37.94%</td>
+						</tr>
+						<tr>
+							<td>文章页</td>
+							<td>250,969,516</td>
+							<td>112,862,379</td>
+							<td>45,079,117</td>
+							<td>58.63%</td>
+							<td>30.36%</td>
+						</tr>
+						<tr>
+							<td>专题</td>
+							<td>29,604,801</td>
+							<td>16,232,851</td>
+							<td>19,223,452</td>
+							<td>35.81%</td>
+							<td>20.78%</td>
+						</tr>
+						<tr>
+							<td>图集</td>
+							<td>713,633,727</td>
+							<td>36,520,921</td>
+							<td>8,881,698</td>
+							<td>8.05%</td>
+							<td>3.6%</td>
+						</tr>
+						<tr>
+							<td>视频</td>
+							<td>34,146</td>
+							<td>23,850</td>
+							<td>4,453</td>
+							<td>80.47%</td>
+							<td>59.74%</td>
+						</tr>
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+				<button onclick="export_excel()">导 出</button>
+			</div>
+			<p>全部代码如下：</p>
+			<code>
+				<pre><span class="gray">/*浏览器端导出表格为excel文件</span></pre>
+			    <pre><span class="gray"> *浏览器支持：chrome,firefox,safari</span></pre>
+			    <pre><span class="gray"> *@filename：excel文件名</span></pre>
+			    <pre><span class="gray"> *@sheetname：sheet名称</span></pre>
+			    <pre><span class="gray"> *@source：table表格或JSON数据；若是table表格，可以DOM对象或selector；JSON格式要求见下：</span></pre>
+			    <pre><span class="gray"> *  {</span></pre>
+			    <pre><span class="gray"> *      columns:[{name:"head1",key:"value1"},{name:"head2",key:"value2"}...],</span></pre>
+			    <pre><span class="gray"> *      dataset:[{value1:111,value2:222},{value1:111,value2:222}...]</span></pre>
+			    <pre><span class="gray"> *  }</span></pre>
+			    <pre><span class="gray"> *@returnUri：指令值，将Base64编码后的数据返回出来；默认不返回，直接下载导出</span></pre>
+			    <pre><span class="gray"> */</span></pre>
+			    <pre><span class="keyword">function</span> export_excel(filename, sheetname, source, returnUri) {</pre>
+			    <pre class="indent4"><span class="keyword">var</span> $table = null;</pre>
+			    <br>
+			    <pre class="indent4"><span class="keyword">if</span>($.isPlainObject(source)) {</pre>
+			    <pre class="indent6">$table = json2table(source);</pre>
+			    <pre class="indent4">} <span class="keyword">else</span> {</pre>
+			    <pre class="indent6">$table = <span class="keyword">typeof</span> source === 'string' ? $(source) : $(source.cloneNode(<span class="blue">true</span>));</pre>
+			    <br>
+			    <pre class="indent6"><span class="gray">//将隐藏的行显示出来；因为不会导出隐藏内容</span></pre>
+			    <pre class="indent6">$table.find('tr:hidden').each(<span class="keyword">function</span>() {</pre>
+			    <pre class="indent8"><span class="keyword">this</span>.style.display = '';</pre>
+			    <pre class="indent6">});</pre>
+			    <pre class="indent4">}</pre>
+			    <br>
+			    <pre class="indent4"><span class="keyword">var</span> container = document.createElement('div');</pre>
+			    <pre class="indent4">container.appendChild($table[0]);</pre>
+			    <br>
+			    <pre class="indent4">filename || (filename = '表格'), sheetname || (sheetname = '表格');</pre>
+			    <br>
+			    <pre class="indent4"><span class="gray">//创建excel文件页</span></pre>
+			    <pre class="indent4"><span class="keyword">var</span> excel = ['&lt;html xmlns:o="urn:schemas-microsoft-com:office:office"<br> xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"&gt;'];</pre>
+			    <pre class="indent4">excel.push('&lt;head&gt;');</pre>
+			    <pre class="indent4">excel.push('&lt;meta http-equiv="Content-type" content="text/html;charset=utf-8" /&gt;');</pre>
+			    <pre class="indent4">excel.push('&lt;!-- [if gte mso 9]&gt;');</pre>
+			    <pre class="indent4">excel.push('&lt;xml&gt;');</pre>
+			    <pre class="indent4">excel.push('&lt;x:ExcelWorkbook&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;x:ExcelWorksheets&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;x:ExcelWorksheet&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;x:Name&gt;');</pre>
+		        <pre class="indent4">excel.push(sheetname);</pre>
+		        <pre class="indent4">excel.push('&lt;/x:Name&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;x:WorksheetOptions&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;x:DisplayGridlines&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/x:WorksheetOptions&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/x:ExcelWorksheet&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/x:ExcelWorksheets&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/x:ExcelWorkbook&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/xml&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;![endif]--&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/head&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;body&gt;');</pre>
+		        <pre class="indent4">excel.push(container.innerHTML);</pre>
+		        <pre class="indent4">excel.push('&lt;/body&gt;');</pre>
+		        <pre class="indent4">excel.push('&lt;/html&gt;');</pre>
+		        <br>
+		        <pre class="indent4"><span class="gray">//指定为excel文件头部且base64编码</span></pre>
+		        <pre class="indent4"><span class="keyword">var</span> uri = "data:application/vnd.ms-excel;base64,";</pre>
+		        <pre class="indent4"><span class="keyword">var</span> uri += base64(excel.join(''));</pre>
+				<br>
+		        <pre class="indent4"><span class="red">if</span> (returnUri) {</pre>
+		        <pre class="indent6"><span class="red">return</span> uri;</pre>
+		        <pre class="indent4">}</pre>
+				<br>
+				<pre class="indent4"><span class="gray">//创建隐藏链接，自动触发下载</span></pre>
+		        <pre class="indent4"><span class="keyword">var</span> link = document.createElement('a');</pre>
+		        <pre class="indent4"><span class="gray">//a标签的html5新属性，必须指定，否则不会命名为指定的文件名</span></pre>
+		        <pre class="indent4">link.download = filename + '.xls';</pre>
+		        <pre class="indent4">link.href = uri;</pre>
+				<br>
+		        <pre class="indent4"><span class="keyword">var</span> evt = document.createEvent("MouseEvents");</pre>
+		        <pre class="indent4">evt.initEvent("click", <span class="blue">true</span>, <span class="blue">false</span>);</pre>
+		        <pre class="indent4">link.dispatchEvent(evt);</pre>
+			    <pre>}</pre>
+				<br>
+			    <pre><span class="keyword">function</span> base64(s) {</pre>
+			    <pre class="indent4"><span class="red">return</span> window.btoa(unescape(encodeURIComponent(s)));</pre>
+			    <pre>}</pre>
+				<br>
+			    <pre><span class="keyword">function</span> json2table(source) {</pre>
+			    <pre class="indent4"><span class="keyword">var</span> $table = $(document.createElement('table')),</pre>
+			    <pre class="indent6">html = ['&lt;thead&gt;&lt;tr&gt;'];</pre>
+			    <br>
+			    <pre class="indent4">html.push($.map(source.columns, <span class="keyword">function</span>(col) {</pre>
+			    <pre class="indent6"><span class="keyword">return</span> '&lt;th&gt;' + col.name + '&lt;/th&gt;';</pre>
+			    <pre class="indent4">}).join(''));</pre>
+			    <br>
+			    <pre class="indent4">html.push('&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;');</pre>
+			    <br>
+			    <pre class="indent4">html.push($.map(source.dataset, <span class="keyword">function</span>(row) {</pre>
+			    <pre class="indent6"><span class="keyword">var</span> s = ['&lt;tr&gt;'];</pre>
+			    <br>
+		        <pre class="indent6">s.push($.map(source.columns, <span class="keyword">function</span>(col) {</pre>
+		        <pre class="indent8"><span class="keyword">return</span> '&lt;td&gt;' + row[col.key] + '&lt;/td&gt;';</pre>
+		        <pre class="indent6">}).join(''));</pre>
+		        <br>
+		        <pre class="indent6">s.push('&lt;/tr&gt;');</pre>
+            	<pre class="indent6"><span class="keyword">return</span> s.join('');</pre>
+			    <pre class="indent4">}).join(''));</pre>
+			    <pre>}</pre>
+			</code>
+			<p><a href="http://qa.developer.163.com/products/aurora/export_excel.js" target="_blank">源代码查看</a></p>
+		</article>
+	</section>
+	<script type="text/javascript" src="http://img1.cache.netease.com/f2e/libs/jquery.js"></script>
+	<script type="text/javascript" src="http://qa.developer.163.com/products/aurora/export_excel.js"></script>
+	<script type="text/javascript">
+		function export_excel(){
+			jQuery.export_excel&&jQuery.export_excel('测试表格','测试表格',$('.export_table table')[0]);
+		}
+	</script>
+</body>
+</html>

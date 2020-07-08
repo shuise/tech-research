@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>flash_跨域</title>
+<script src='http://img1.cache.netease.com/f2e/lib/js/ne.js'></script>
+</head>
+<body>
+	<div id="postSwf"></div>
+	<input type="button" value="post" onclick="clickBtn();">
+	<script>
+		var swfConfig = {
+			swf: "post.swf",
+			targetId:"postSwf",
+			width: "1",
+			height: "1",
+			talker:"POST_LAYER",
+			allowScriptAccess:"always"
+		};
+
+		var swf;
+		NE.swf.embed(swfConfig, function(_swf){
+			swf = _swf; 
+		});
+		
+		POST_LAYER.post = function(key, params){
+			console.info(params.target.data);
+		};
+
+		function clickBtn() {
+			swf.call("post", {
+				"url": "http://test.cross_domain.163.com:8080/?date=1396684617824",
+				"data": {
+					"username": "netease",
+					"age": 14
+				}
+			});
+		}
+	</script>
+</body>
+</html>

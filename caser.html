@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>caser</title>
+</head>
+<body>
+
+<style>
+input {
+
+}	
+</style>
+
+
+<div>
+	<label>加密长度</label>
+	<input type="text" id="len" value="5">
+</div>
+
+<div>
+	<label>明文</label>
+	<input type="text" id="content">
+</div>
+
+<div>
+	<label>密文</label>
+	<input type="text" id="password">
+</div>
+
+<script>
+
+var list = [
+	"a","b","c","d","e","f","g",
+	"h","i","j","k","l","m","n",
+	"o","p","q","r","s","t",
+	"u","v","w","x","y","z"
+];
+
+var input1 = document.getElementById("content");	
+var input2 = document.getElementById("password");
+var len = document.getElementById("len");
+var _length = len.value/1;
+
+var object1 = {}, object2 = {};
+for(var i=0;i<list.length;i++){
+	object1[list[i]] = list[(i + _length)%26];
+	object2[list[i]] = list[(i -  _length + 26)%26];
+}
+
+len.onkeyup = function(){
+	var v = len.value;
+	_length = v/1;
+	for(var i=0;i<list.length;i++){
+		object1[list[i]] = list[(i + _length)%26];
+		object2[list[i]] = list[(i -  _length + 26)%26];
+	}
+}
+
+
+input1.onkeyup = function(){
+	var v = input1.value;
+	input2.value = _encode(v);
+}
+
+input2.onkeyup = function(){
+	var v = input2.value;
+	input1.value = _decode(v);
+}
+
+
+
+function _encode(str){
+	var reslut = [];
+	str = str.toLowerCase();
+	for(var i=0;i<str.length;i++){
+		var v = object1[str[i]] ? object1[str[i]] : str[i];
+		reslut.push(v);
+	}
+	return reslut.join("");
+}	
+
+function _decode(str){
+	var reslut = [];
+	str = str.toLowerCase();
+	for(var i=0;i<str.length;i++){
+		var v = object2[str[i]] ? object2[str[i]] : str[i];
+		reslut.push(v);
+	}
+	return reslut.join("");
+}
+</script>
+</body>
+</html>

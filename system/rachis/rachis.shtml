@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Rachis - 前端项目架构工具</title>
+    <link href="rachis.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="rachis-main" ne-module="/modules/route/route.js" ne-extend="%main.route"></div>
+  <div ne-module="modules/popform/popform.js"></div>
+  <script src="/modules/bowlder.js"></script>
+  <script>
+  if(!window.module) window.module = {};
+  define("%main.route", {
+   routeRules : [
+    {
+      when : '/create',
+      moduleid : 'modules/create/create.js'
+    },
+    /*{
+      when : '/list',
+      moduleid : 'modules/list/list.js'
+    },*/
+    {
+      when : '/manage/:path*',
+      moduleid : 'modules/create/create.js'
+    },
+    {
+      redirect : '/create',
+      initOnly : true
+    }
+  ]});
+  </script>
+</body>
+</html>

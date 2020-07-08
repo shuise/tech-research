@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>read link</title>
+</head>
+<body>
+<style>
+*{
+    line-height:20px;
+    font-size:14px;
+}
+#show{
+    font-size:12px;
+}
+</style>
+
+<p>
+    站外页面地址：<br>
+    <input id="url" type="text" style="width:500px;" value="http://www.douban.com/note/475225522/">
+    <input type="button" value="执行" id="btn">
+</p>
+
+
+阅读效果：
+<div id="show" style="border:1px solid red;padding:20px;">
+
+</div>
+
+<script type="text/javascript" src="163_share/lib.js"></script>
+<script type="text/javascript">
+function loadJsonP(url, callback){
+    var callbackName = HE.guid();
+    window[callbackName] = callback;
+    var url = HE.setPara(url,"callback",callbackName);
+    var node = document.createElement('script');
+    node.src = url;
+    document.getElementsByTagName('head')[0].appendChild(node);
+}
+</script>
+
+</script>
+<script>
+var t = document.getElementById("url");
+var btn = document.getElementById("btn");
+var show = document.getElementById("show");
+btn.onclick = t.onblur = function(){
+    var url = t.value;
+    var api = "http://tag.163.com/readability?&url=" + url;
+    loadJsonP(api,function(data){
+        show.innerHTML = data.html + "<br>" + '<a href="' + data.url + '">访问原文</a>';
+    });
+}
+</script>
+</body>
+</html>

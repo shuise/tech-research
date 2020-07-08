@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>循环显示列表</title>
+		<meta name="description" content="" />
+		<link type="text/css" rel="stylesheet" href="http://static.f2e.netease.com/common/common.css">
+		<style type="text/css">
+			body{font-size: 12px;}
+			.userlooking{width: 170px;margin: 100px auto; }
+			.userlooking .c_bd{height: 240px;overflow:hidden; }
+			.userlooking .user_lst li{color:#999;overflow: hidden;}
+			.userlooking .user_lst li .lst_content{padding: 10px 0;zoom: 1;}
+			.userlooking .user_lst li strong.pk{font-family: Arial;color: #CD0100;margin:0 3px;font-weight: bold;}
+			.userlooking .user_lst li img{display: inline-block;float: left;margin-right: 8px;}
+			.userlooking .user_lst li .u_info,.userlooking .user_lst li .u_active{line-height: 20px;}
+			.userlooking .user_lst li .u_info .u_name{color:#4F8DC4;margin-right: 5px;}
+			.userlooking .user_lst li .u_active a{margin-left: 5px;color: #4F8DC4;}
+		</style>
+	</head>
+	<body>
+		<div class="userlooking cell" id="userlooking">
+			<div class="c_bd">
+				<ul class="user_lst">
+					<li><div class="lst_content"><img width="38" height="38" alt="" src="http://img2.cache.netease.com/auto/2012/9/3/2012090310145517074.jpg"><div class="u_info"><span class="u_name">北京网友</span><span class="time">17分钟前</span></div><div class="u_active">在看<a href="#" title="大众POLO">大众POLO</a></div></div></li>																											
+					<li><div class="lst_content"><img width="38" height="38" alt="" src="http://img2.cache.netease.com/auto/2012/9/3/2012090310145517074.jpg"><div class="u_info"><span class="u_name">北京网友</span><span class="time">17分钟前</span></div><div class="u_active">在看<a href="#" title="大众POLO">大众POLO</a></div></div></li>
+					<li><div class="lst_content"><img width="38" height="38" alt="" src="http://img2.cache.netease.com/auto/2012/9/3/2012090310145517074.jpg"><div class="u_info"><span class="u_name">北京网友</span><span class="time">17分钟前</span></div><div class="u_active">在看<a href="#" title="大众POLO">大众POLO</a></div></div></li>																											
+					<li><div class="lst_content"><img width="38" height="38" alt="" src="http://img2.cache.netease.com/auto/2012/9/3/2012090310145517074.jpg"><div class="u_info"><span class="u_name">北京网友</span><span class="time">17分钟前</span></div><div class="u_active">在看<a href="#" title="大众POLO">大众POLO</a></div></div></li>
+					<li><div class="lst_content"><img width="38" height="38" alt="" src="http://img2.cache.netease.com/auto/2012/9/3/2012090310145517074.jpg"><div class="u_info"><span class="u_name">北京网友</span><span class="time">17分钟前</span></div><div class="u_active">在看<a href="#" title="大众POLO">大众POLO</a></div></div></li>																											
+					<li><div class="lst_content"><img width="38" height="38" alt="" src="http://img2.cache.netease.com/auto/2012/9/3/2012090310145517074.jpg"><div class="u_info"><span class="u_name">北京网友</span><span class="time">17分钟前</span></div><div class="u_active">在看<a href="#" title="大众POLO">大众POLO</a></div></div></li>								
+				</ul>								
+			</div>								
+		</div>
+		<script charset="gb2312" src="http://img3.cache.netease.com/cnews/js/ntes_jslib_1.x.js" language="javascript" type="text/javascript"></script>
+		<script src="listshow.js"></script>
+		<script>
+			var lst = new listPlay($("#userlooking .user_lst")[0]);	
+		</script>
+	</body>
+</html>

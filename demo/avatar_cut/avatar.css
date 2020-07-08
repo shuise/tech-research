@@ -1,0 +1,34 @@
+* {margin:0; padding:0}
+body {
+	position:relative
+}
+.popup_cut {
+	display:none;
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background: #000;
+}
+
+.popup_btn {
+	background:#bc1000;
+	height:45px;
+	line-height:45px;
+	color:#fff;
+}
+
+.popup_btn_back {
+	float:left;
+}
+
+.popup_btn_cut {
+	float:right
+}
+
+.popup_content {
+	text-align:center;
+	margin:0px auto 0;
+}
+

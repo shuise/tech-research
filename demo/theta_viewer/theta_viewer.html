@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<script src="images/jquery-1.10.2.min.js"></script>
+<script src="images/modernizr-2.7.1-csstransforms3d-canvas-touch.js"></script>
+<script src="images/megapix-image.js"></script>
+<script src="images/three.js"></script>
+<script src="images/Detector.js"></script>
+<script src="images/CSS3DRenderer.js"></script>
+<script src="images/theta-viewer.js"></script>
+<link rel="stylesheet" href="images/styles.css">
+
+<title>内饰</title>
+</head>
+<body>
+<div id="wrap">
+    <div id="theta-viewer"></div>
+</div>
+
+
+<script type="text/javascript">
+$('#wrap').height($(window).height());
+
+/*global jQuery */
+(function ($) {
+    'use strict';
+    $("#theta-viewer").createThetaViewer('panorama.jpg');
+}(jQuery));
+  </script>
+</body>
+</html>

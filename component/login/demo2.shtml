@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>通用导航</title>
+<link rel="stylesheet" type="text/css" href="common_nav.css" />
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+</head>
+<body style="margin:0;padding:0;">
+<div style="margin:0 auto;width:500px;" id="msg_box"><a href="demo.shtml">有头部登录</a></div>
+
+<div style="height:300px;margin-top:40px;">
+	<input id="username" type="text" value="" />
+	<input id="password" type="password" value="" />
+	<a href="#" id="submitBtn">登录</a>
+</div>
+
+<script type="text/javascript" src="login.js"></script>
+<script type="text/javascript">
+document.getElementById("submitBtn").onclick = function(){
+ 	var data = {
+ 		username : document.getElementById("username").value,
+ 		password : document.getElementById("password").value
+ 	}
+
+ 	NTESCommonLogin.login(data,function(data){
+ 		console.log(data);
+ 		document.getElementById("msg_box").innerHTML = "登录成功,登录名:" + data.userName || "";
+ 	});
+}
+</script>
+</body>
+</html>

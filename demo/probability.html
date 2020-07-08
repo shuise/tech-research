@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>probability</title>
+<style type="text/css">
+* {margin:0;padding:0;}
+body.ol,ul {padding:10px;}
+
+body ::-webkit-scrollbar {width:10px;height:10px;-webkit-border-radius:5px;}
+body ::-webkit-scrollbar:hover {background:#f6f6f6;}
+body ::-webkit-scrollbar-track-piece {-webkit-border-radius: 6px;}
+body ::-webkit-scrollbar-thumb:vertical{background-color: #4B5F6D;-webkit-border-radius: 6px;}
+body ::-webkit-scrollbar-thumb:horizontal{background-color: #4B5F6D;-webkit-border-radius: 6px;}
+body ::-webkit-scrollbar-button:start:decrement,
+body ::-webkit-scrollbar-button:end:increment{height:0;display:block;background-color:#fff;}
+body ::-webkit-scrollbar-button:start:decrement {-webkit-border-radius:0 0 5px 5px;}
+body {font-size:14px;line-height:20px;font-family:arial,"宋体";overflow-x:hidden;}
+
+ol,li {list-style:none;}
+li {padding:5px;}
+h1 {font-size:24px;margin-bottom:20px;}
+
+#area_inputs,#show {border:1px solid #ccc;background:#f5f5f5;border-radius:5px;margin:10px;padding:20px 20px 10px;}
+#area_inputs ol {margin-bottom:10px;border-top:1px dotted #333;padding-top:10px;}
+#area_inputs span.close {font-family:verdana;color:#f00;font-size:14px;font-weight:700;text-shadow:0 0 rgba(255,255,255,0);cursor:pointer;}
+#area_inputs input {padding:5px;border:2px solid #ccc;border-radius:3px;}
+
+input.text {width:300px;margin-right:10px;}
+input.values {width:60px;}
+ul li{float:left;}
+ul input.submit {border:1px solid #ccc;background:#333;color:#fff;border-radius:5px;padding:5px 15px;cursor:pointer;margin-left:20px;}
+#show {clear:both;min-height:25px;display:none;}
+#show em {font-size:24px;color:#f00;}
+</style>
+</head>
+
+<body>
+
+<div id="wrap" style="width:500px;padding-bottom:20px;">
+	<div id="area_inputs">
+		<h1>概率分析器</h1>
+		<ol>
+			<li><label>事件描述：</label><input type="text" class="text" value="某女孩是单身" /></li>
+			<li><label>初始概率：</label><input type="text" class="text values" value="0.6565" /></li>
+		</ol>
+		<ol>
+			<li><label>事件描述：</label><input type="text" class="text" value="手机使用率大于1.2次/小时的女孩是单身" />
+				<span class="close" onclick="deletes(this)">X</span>
+				</li>
+			<li><label>正向概率：</label><input type="text" class="text values" value="0.8" /></li>
+			<li><label>反向概率：</label><input type="text" class="text values" value="0.4" /></li>
+		</ol>	
+		<ol class="" id="">
+			<li><label>事件描述：</label><input type="text" class="text" value="爱读书的女孩是单身"> 
+				<span class="close" onclick="deletes(this)">X</span></li>
+			<li><label>正向概率：</label><input type="text" class="text values" value="0.7"></li>
+			<li><label>反向概率：</label><input type="text" class="text values" value="0.4"></li>
+		</ol>		
+	</div>
+	<div id="show"></div>
+	<ul>
+		<li><input type="submit" class="submit" value="增加事件" onclick="addInputs()" /></li>
+		<li><input type="submit" class="submit" value="计算" onclick="show()" /></li>
+	</ul>
+	<div style="clear:both;"></div>
+</div>
+
+<script type="text/javascript" src="http://static.gip.happyelements.com/common/lib_0_2.js"></script>
+<script>
+//http://songshuhui.net/archives/62770
+
+function show(){
+	var inputs = HE.$('input.values');
+	var label0 = HE.$('input')[0].value  + '的最终概率为：';
+	var prob = Math.floor(revolution(inputs[0].value,inputs[1].value,inputs[2].value)*10000)/100 + '%';
+	HE.show('#show');
+	HE.$('#show').innerHTML = label0 + '<em>' + prob + '</em>';
+}
+
+function revolution(prob1,prob2_0,prob2_1){
+	return prob1*(1-prob2_0)/(prob1*(1-prob2_0) + (1-prob1)*(1-prob2_1))
+}
+
+function addInputs(){
+	HE.hide('#show');
+	var html = ['<li><label>事件描述：</label><input type="text" class="text" /> <span class="close" onclick="deletes(this)">X</span></li>',
+				'<li><label>正向概率：</label><input type="text" class="text values" /></li>',
+				'<li><label>反向概率：</label><input type="text" class="text values" /></li>'].join('');
+	var node = HE.objMock('',HE.$('#area_inputs'),'ol');
+		node.innerHTML = html;
+}
+
+function deletes(obj){
+	var node = obj.parentNode.parentNode;
+		node.parentNode.removeChild(node);
+}
+</script>
+</body>
+</html>

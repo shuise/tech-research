@@ -1,0 +1,65 @@
+﻿*{margin:0;padding:0;list-style:none;font-family:verdana,arial,"宋体";}
+table{border-collapse:collapse;}
+.clear {clear:both;}
+
+.f2e_wrap {background:#EFEFEF url(images/bg.png) repeat-x 0 0;padding-top:36px;}
+.f2e_wrap a:link {text-decoration:none;}
+.f2e_wrap a:hover {text-decoration:underline;}
+
+.f2e_api_head {height:96px;border-bottom:1px solid #fff;}
+
+.f2e_api_logo {background:url(images/top.png) 0 0;float:left;padding:0 20px;margin:0 20px 0 -20px;}
+.f2e_api_logo strong {float:left;background:url(images/logo.png) no-repeat 0 0;display:block;width:218px;height:96px;overflow:hidden;line-height:300px;border-right:1px solid #fff;}
+.f2e_api_head address {font-size:36px;font-family:"微软雅黑";color:#F3F3F3;padding:30px 20px 0;font-style:normal;font-weight:400;background:url(images/top.png) 0 0;float:left;}
+
+.f2e_wrap_inner {width:1000px;margin:0 auto;}
+
+.f2e_api_body {background:url(images/m.png) repeat-y 0 0;padding:50px 0 150px;}
+.f2e_api_menu{width:168px;float:left;padding:0 25px;}
+.f2e_api_menu_item {margin-bottom:40px;}
+.f2e_api_menu_item h2 {padding-bottom:15px;}
+.f2e_api_menu_item h2 a{font-family:"微软雅黑";font-size:20px;font-weight:400;color:#020202;background:url(images/icons.png) no-repeat 0 7px;padding-left:25px;}
+.f2e_api_menu_item ul {margin-left:15px;}
+.f2e_api_menu_item li a {color:#38383A;font-size:12px;line-height:25px;background:url(images/icons.png) no-repeat 0 -42px;padding-left:20px;}
+
+.f2e_api_content {float:right;width:720px;font-size:12px;line-height:22px;}
+.f2e_api_content h1 {font-family:"微软雅黑";font-size:36px;font-weight:400;}
+.f2e_api_section {margin-top:60px;}
+.f2e_api_section h2{padding-bottom:15px;font-family:"微软雅黑";font-size:24px;font-weight:400;}
+.f2e_api_section p {text-indent:2em;color:#343434;margin:10px 0 0;}
+.f2e_api_section a {color:#cd0000;}
+.f2e_api_section pre {border:1px solid #ddd;background:#f8f8f8;color:#676767;padding:15px;line-height:1.5;font-family:verdana;overflow:auto;margin:0 10px;}
+
+.f2e_api_btns {margin-top:20px;}
+.f2e_api_btns input[type=button]{cursor:pointer;border:1px solid #090909;background:#181818;border-radius:3px;color:#fff;padding:8px 25px;font-size:14px;margin:0 20px 0 10px;}
+.f2e_api_btns a {font-size:14px;line-height:30px;color:#CB3301;}
+
+.f2e_api_table {width:100%;border:1px solid #ddd;}
+.f2e_api_table caption {font-size:14px;font-weight:700;padding-top:20px;line-height:40px;border-bottom:1px solid #fff;}
+.f2e_api_table thead td,.f2e_api_table thead th {background:#ddd;}
+.f2e_api_table td,.f2e_api_table th {padding:5px 10px;border-bottom:1px solid #ddd;}
+.f2e_api_table tr:hover {background:#fff;}
+.f2e_api_table td a {color:#333;}
+table.bordered th{ background:#dee7ec }
+table.bordered td,table.framed th{ padding:3pt 4px; border: 1px solid #555555;}
+table.bordered{ border: 2px solid #555555;border-collapse: collapse;margin-top:5pt;margin-bottom:5pt}
+.f2e_api_section h3{margin-left:20px}
+.f2e_api_subsection{margin:5px 20px;}
+
+.f2e_list{
+	margin:10px 20px 0 20px;
+}
+.f2e_api_section .f2e_list a{
+	color:#333;
+}
+.f2e_api_item{
+	margin:0 0 30px;
+	padding-left:2em;
+}
+.f2e_api_item h3{
+	margin-left:-10px;
+}
+.f2e_api_item p{
+	text-indent:0;
+}
+

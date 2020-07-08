@@ -1,0 +1,18 @@
+﻿<script src="m.js"></script>
+<script>
+(function(){	
+	var MORSE = morseTranslation();	
+	var MenuTranslation = function(info, tab){
+		var txt = info.selectionText;
+		var result = MORSE.getCode(txt);
+		var notification = window.webkitNotifications.createNotification(
+			"logo.png",               
+			result.name,  
+			result.code
+		);
+		notification.show();
+	}
+	var params = {"title": MORSE.title , "contexts":["selection"] ,"onclick": MenuTranslation};
+	var id = chrome.contextMenus.create(params);
+})();
+</script>

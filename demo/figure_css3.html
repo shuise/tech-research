@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>figure sharps</title>
+</head>
+<body>
+
+
+
+<style>
+.a0{
+	margin:0 30px 40px;
+	width:0;
+	height:0;
+	border:50px dotted red;
+	border-color:red green blue orange;
+	border-radius:50px;
+}
+</style>
+<div class="a0"></div>
+
+<style>
+.a1{
+	background:#f00;
+	width:200px;
+	height:100px;
+	border-radius:100px/50px;
+}
+</style>
+<div class="a1"></div>
+
+
+<style>
+.a2{
+	display:inline-block;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 100px solid red;
+}
+</style>
+<div class="a2"></div>
+
+<style>
+.a3{
+	display:inline-block;
+	margin-top:20px;
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 100px solid red;
+}
+</style>
+<div class="a3"></div>
+
+<style>
+.a4{
+	display:inline-block;
+	margin-top:20px;
+	width: 0;
+	height: 0;
+	border-left: 100px solid transparent;
+	border-bottom: 100px solid red;
+}
+</style>
+<div class="a4"></div>
+
+
+<style>
+.a5{
+	margin-top:20px;
+	width:300px;
+	height:100px;
+	background:red;
+	position:relative;
+}
+.a5::before,
+.a5::after{
+	content:"";
+	display:block;
+	width:0;
+	height:0;
+	background:#fff;
+	position:absolute;
+	top:0;
+}
+.a5::before{
+	left:0;
+	border-right:50px solid red;
+	border-top:100px solid #fff;
+}
+.a5::after{
+	right:0;
+	border-bottom:100px solid #fff;
+	border-left:50px solid red;
+}
+</style>
+<div class="a5"></div>
+
+
+
+
+<style>
+.a6,
+.a6::before{
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+}
+.a6{
+	margin-top:20px;
+	margin-bottom:40px;
+	border-bottom:90px solid red;
+}
+.a6::before{
+	content:"";
+	display:block;
+	border-top:90px solid red;
+	position:relative;
+	left:-50px;
+	top:30px;
+}
+</style>
+<div class="a6"></div>
+
+
+
+<style>
+.a7{
+	margin-bottom:80px;
+	margin-left:10px;
+	width: 0;
+	height: 0;
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+	border-bottom: 100px solid red;
+	position:relative;
+}
+.a7::before{
+	content:"";
+	display:block;
+	width:0;
+	height:0;
+	border-left: 55px solid transparent;
+	border-right: 55px solid transparent;
+	border-top: 35px solid red;
+	position:absolute;
+	top:35px;
+	left:-55px;
+}
+.a7::after{
+	content:"";
+	display:block;
+	width:0;
+	height:0;
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+	border-bottom: 30px solid #fff;
+	position:absolute;
+	top:70px;
+	left:-40px;
+}
+</style>
+<div class="a7"></div>
+
+
+
+<style>
+.a8{
+	margin-bottom:50px;
+	width:0;
+	height:0;
+	border-radius:10px;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 58px solid red;
+	position:relative;
+}
+.a8::before,
+.a8::after{
+	display:block;
+	content:"";
+	width:53px;
+	height:53px;
+	background:red;
+	border-radius:28px;
+	position:absolute;
+	top:-94px;
+}
+.a8::before{
+	right:-3px;
+}
+.a8::after{
+	left:-3px;
+}
+</style>
+<div class="a8"></div>
+
+
+
+
+<style>
+.a9{
+	background:red;
+	width:120px;
+	height:160px;
+	border-radius:67px 67px 67px 67px / 100px 100px 80px 80px;
+}
+</style>
+<div class="a9"></div>
+
+<style>
+.a10{
+	margin-top:50px;
+	border-style: solid;
+	border-color: transparent transparent red transparent;
+	border-width: 0 25px 25px 25px;
+	height: 0;
+	width: 50px;
+}
+.a10::before{
+	display:block;
+	content:"";
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 58px solid red;
+	position:relative;
+	left:-25px;
+	top:25px;
+}
+</style>
+<div class="a10"></div>
+
+
+
+
+<style>
+.a11{
+	margin:100px 0px;
+	width:96px;
+	height:48px;
+	background:#ccc;
+	border:1px solid red;
+	border-width:2px 2px 50px 2px;
+	border-radius:100%;
+	position:relative;
+	overflow:visible;
+}
+.a11::before{
+	display:block;
+	content:"";
+	height:8px;
+	width:8px;
+	border:20px solid red;
+	border-radius:100%;
+	position:absolute;
+	top:20px;
+	left:0;
+	z-index:100;
+}
+.a11::after{
+	display:block;
+	content:"";
+	height:8px;
+	width:8px;
+	background:red;
+	border:20px solid #ccc;
+	border-radius:100%;
+	position:absolute;
+	top:20px;
+	right:0;
+	z-index:100;
+}
+</style>
+<div class="a11">
+
+</div>
+
+<img src="http://images.cnblogs.com/cnblogs_com/sxwgf/201201/201201170833214520.png" alt="">
+
+<style>
+.a12 {
+	position: relative;
+	width: 212px;
+	height: 100px;
+}
+.a12::before,
+.a12::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	width: 60px;
+	height: 60px;
+	border: 20px solid red;
+}
+.a12::before{
+	left: 0;
+	border-radius: 50px 50px 0 50px;
+	transform: rotate(-45deg);
+}
+.a12::after {
+	right: 0;
+	border-radius: 50px 50px 50px 0;
+	transform: rotate(45deg);
+}
+.a12_test{
+	width:60px;
+	height:60px;
+	border:20px solid red;
+	border-radius:50px 50px 0 50px;
+}
+</style>
+<div class="a12_test"></div>
+<div class="a12"></div>
+<hr>
+
+</body>
+</html>

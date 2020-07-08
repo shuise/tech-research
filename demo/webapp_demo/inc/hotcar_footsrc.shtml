@@ -1,0 +1,21 @@
+<script type="text/javascript" src="http://img1.cache.netease.com/f2e/libs/jquery.js" _group="m"></script>
+<script type="text/javascript" src="js/anchor.js" _group="m"></script>
+<script type="text/javascript">
+    try { window.scrollTo(0, 1); } catch (e) { };
+</script>
+<script type="text/javascript" src="js/hotcar.js"></script>
+<script type="text/javascript" src="js/hotcar_init.js"></script>
+<!-- START WRating v1.0 -->
+<script type="text/javascript" src="http://img6.cache.netease.com/common/script/wrating.js"></script>
+<script type="text/javascript">
+    var vjAcc = "860010-0508010000";
+    var wrUrl = "http://163.wrating.com/";
+    vjTrack("");
+</script>
+<noscript><img src="http://163.wrating.com/a.gif?a=&c=860010-0508010000" width="1" height="1"/></noscript>
+<!-- END WRating v1.0 -->
+<script src="http://analytics.163.com/ntes.js" type="text/javascript" language="javascript"></script>
+    <script language="javascript" type="text/javascript">
+        _ntes_nacc = "auto"; //站点ID。
+        neteaseTracker();
+</script>

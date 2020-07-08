@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>html var</title>
+</head>
+<style>
+html{
+	--color:red;
+	line-height:2;
+}
+.wrap {
+	--color:blue;
+}
+.wrap p {
+	color:var(--color);
+}
+p{
+	color:var(--color);
+}	
+</style>
+
+<body>
+
+<div class="wrap">
+	若问心灵为何物，恰如墨画松涛声
+	<p>望断伊人来远处，自此相见无他思</p>
+</div>
+
+<p>问则答言不则体，达摩心中万般有</p>	
+
+
+</body>
+</html>

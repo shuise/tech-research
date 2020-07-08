@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>百度地图demo</title>
+  <style>
+    .map{
+      width:500px;
+      height:320px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" class="map">
+    
+  </div>
+
+  <label for="">城市 <input type="text" id="city" value="北京"/></label>
+  <!--1.4版本无需key-->
+  <script src="http://api.map.baidu.com/api?v=1.4"></script>
+
+  <script>
+    var map = new BMap.Map('map');
+    
+    map.enableScrollWheelZoom()
+    var markerA;
+    var markerB;
+
+    var iconA = new BMap.Icon("http://img3.cache.netease.com/utf8/gallery/img/share_logos_v2.png", new BMap.Size(24, 24), {    
+      offset: new BMap.Size(12, 12),    // 由中心点向左上偏移，icon宽高一半正好是居中
+      imageOffset: new BMap.Size(0, 0)   // background-position  
+    });
+    var iconB = new BMap.Icon("http://img3.cache.netease.com/utf8/gallery/img/share_logos_v2.png", new BMap.Size(24, 24), {    
+      offset: new BMap.Size(24, 24),    
+      imageOffset: new BMap.Size(0, -80)    
+    });
+
+    map.addEventListener("dragend", function(){    
+     console.log(map.getCenter());    
+    });
+    var lastPath ;
+    var router = function() {
+      var path = new BMap.WalkingRoute(map.getCenter(), {
+        onSearchComplete: function(res) {
+          if (path.getStatus() == BMAP_STATUS_SUCCESS) {
+            var arrPois = res.getPlan(0).getRoute(0).getPath();
+            map.removeOverlay(lastPath);
+            lastPath = new BMap.Polyline(arrPois, {
+              strokeColor: '#111'
+            })
+            map.addOverlay(lastPath);
+            map.setViewport(arrPois);
+          }
+        }
+      })
+      path.search(markerA.getPosition(),markerB.getPosition());
+    };
+    
+    var relocate = function () {
+      var myGeo = new BMap.Geocoder();
+      var city = document.getElementById('city').value
+      myGeo.getPoint(city, function(point){      
+        if (point) {      
+          map.centerAndZoom(point, 16);
+          markerA = new BMap.Marker(point,{
+            enableDragging:true,
+            title: 'A',
+            icon:iconA
+          });
+          markerB = new BMap.Marker(point,{
+            enableDragging:true,
+            title: 'B',
+            icon: iconB
+          });
+          map.clearOverlays()
+          map.addOverlay(markerA);
+          map.addOverlay(markerB);
+          markerA.addEventListener("dragend", router);
+          markerB.addEventListener("dragend", router);
+        }      
+      }, city);
+    }
+    relocate();
+    document.getElementById('city').onchange = relocate;
+  </script>
+
+</body>
+</html>

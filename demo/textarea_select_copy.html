@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>textarea select copy</title>  
+</head> 
+<body> 
+
+
+<textarea id="textarea" style="width:400px;height:100px;margin:50px 0;">Javascript语言的设计不够严谨，很多地方一不小心就会出错。举例来说，请考虑以下情况。现在，我们要判断一个全局对象myObj是否存在，如果不存在，就对它进行声明。用自然语言描述的算法如下：Javascript语言的设计不够严谨，很多地方一不小心就会出错。举例来说，请考虑以下情况。现在，我们要判断一个全局对象myObj是否存在，如果不存在，就对它进行声明。用自然语言描述的算法如下：</textarea>
+<br />
+<input type="text" id="start" value="0" />
+<input type="text" id="end" value="" />
+<input type="button" value="按选择范围粘贴" onclick="init()" />
+
+ 
+<script type="text/javascript">
+function init(){
+	var node = document.getElementById("textarea");
+	var start = document.getElementById("start");
+	var end = document.getElementById("end");
+	
+	copyTextarea(node,start.value,end.value);
+}
+
+function copyTextarea(oTextarea,start,end){ 	
+	var start = start || 0;
+	var end = end || oTextarea.length;
+	if(document.all){   
+		var oTextRange = oTextarea.createTextRange();   
+		var LStart = start;   
+		var LEnd = end;   
+		var start = 0;   
+		var end = 0;   
+		var value = oTextarea.value;   
+		for(var i=0; i<value.length && i<LStart; i++){   
+			var c = value.charAt(i);   
+			if(c!='\n'){   
+				start++;   
+			}   
+		}   
+		for(var i=value.length-1; i>=LEnd && i>=0; i--){   
+			var c = value.charAt(i);   
+			if(c!='\n'){   
+				end++;   
+			}   
+		}   
+		oTextRange.moveStart('character', start);   
+		oTextRange.moveEnd('character', -end);  
+		oTextRange.select();   
+		oTextarea.focus();   
+	}else{   
+		oTextarea.select();   
+		oTextarea.selectionStart=start;   
+		oTextarea.selectionEnd=end; 
+		alert("请使用CTRL+C进行粘贴");
+	}   
+}
+</script>
+</body> 
+</html>

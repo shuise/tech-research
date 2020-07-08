@@ -1,0 +1,22 @@
+<link href="/modules/hotnews/list.phone.css" rel="stylesheet"/>
+<div class="channel-nav">
+  <ul ne-module="/modules/tabs/tabs.js" ne-state="events:tap">
+    <li ne-repeat="category" ne-role="tab-nav">
+      <div><a href="javascript:">{{n}}</a></div>
+    </li>
+  </ul>
+</div>
+<ul class="net-newslist">
+<script type="text/template" ne-foreach="list">
+<li class="net-newsitem">
+  <div>
+    <a href="<%=l%>"><div>
+      <p class="net-newstitle"><%=t%></p>
+      <p></p>
+    </div></a>
+    <%if(typeof p=='string'&&p){%><span class="net-newstips"><%=p%></span><%}%>
+  </div>
+</li>
+</script>
+<div ne-hide="list.length" class="net-empty">没有相关文章</div>
+</ul>

@@ -1,0 +1,22 @@
+.clearfix:after {content:"."; display:block; height:0; clear:both; visibility:hidden; } 
+.wrapper{
+	width:960px;
+	margin: 0 auto;
+}
+.width960{
+	width: 960px;
+}
+.width1300{
+	width: 1300px;
+}
+.wrapper .col{
+	float: left;
+	border:solid 1px;
+}
+.unit{
+	border:solid 1px;
+}
+.unitid{
+	color: blue;
+	font-size: 30px;
+}

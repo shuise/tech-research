@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META charset="utf-8">
+<TITLE>canvas</TITLE>
+<style type="text/css">
+#imgs {position:fixed;right:0;top:0;float:right;border:1px solid #cd0000;font-size:12px;font-family:arial;line-height:18px;overflow:auto;height:600px;padding:20px;}
+</style>
+</HEAD>
+<BODY>
+
+<canvas id="canvas01" style="background:#ccc;border:1px solid #cd0000;"></canvas>
+<div id="imgs"></div>
+<br ><br > 
+<input type="button" value="setSize" onclick="setSize()" />  
+<input type="button" value="fillrect" onclick="fillrect()" />  
+<input type="button" value="clearCanvas" onclick="clearCanvas()" />  
+<input type="button" value="drawTriple" onclick="drawTriple()" />  
+<input type="button" value="drawCircle" onclick="drawCircle()" />  
+<input type="button" value="drawHeart" onclick="drawHeart()" /> 
+
+<br > <br > 
+<input type="button" value="drawText" onclick="drawText()" /> 
+<input type="button" value="drawImg" onclick="drawImg()" /> 
+<input type="button" value="cropImg" onclick="cropImg()" /> 
+<input type="button" value="save" onclick="save()" /> 
+<input type="button" value="restore" onclick="restore()" /> 
+
+<br > <br > 
+<input type="button" value="translate" onclick="translate()" />  
+<input type="button" value="scale" onclick="scale()" />  
+<input type="button" value="rotate" onclick="rotate()" />  
+<input type="button" value="animation" onclick="animation()" />  
+<input type="button" value="toDataUrl" onclick="toDataUrl()" />  
+<input type="button" value="getImageData" onclick="getImageData()" />  
+
+<script type="text/javascript" src="res/lib.js"></script>
+<SCRIPT type="text/javascript">
+
+function setFixHeight(boxHeight){
+	var top = 0;
+	var hb = boxHeight || 0;
+	var h1 = document.documentElement.clientHeight;
+	if(h1 > hb){
+		top = (h1 - hb)/2;
+	}
+	return top;
+}
+
+setFixHeight(200);
+window.onresize = function(){setFixHeight(200)};
+
+
+
+var canvas = HE.$('#canvas01');
+var context = canvas.getContext('2d');
+var joins = ['miter','round','miterLimit','bevel'];
+var size = {
+	width : 600,
+	height : 300
+	};
+setSize();	
+
+function save(){
+	context.save();
+}
+
+function restore(){
+	context.restore();
+}
+
+function setSize(){
+	// canvas.style.width = size.width + 'px';
+	// canvas.style.height = size.height + 'px';
+	canvas.width = size.width;
+	canvas.height = size.height;
+}
+function fillrect(){
+	context.fillStyle = 'red';
+	context.fillRect(0,0,200,200);
+}
+function clearCanvas(){
+	context.clearRect(0,0,800,800);
+}
+function drawTriple(){
+	clearCanvas();
+	context.fillStyle = 'orange'; 
+	context.lineWidth = 5;
+	context.lineJoin = 'round';
+	context.beginPath();
+	context.moveTo(0, 0); 
+	context.lineTo(100, 100);
+	context.lineTo(100, 120);
+	context.fill();
+	context.closePath();
+}	
+function drawCircle(){
+	clearCanvas();	
+	context.strokeStyle = 'red';
+	context.fillStyle = '666';
+	context.beginPath();
+	context.arc(150,150,60,Math.PI,Math.PI*2.5,false);
+	context.closePath();
+	context.stroke();
+	context.fill();
+	//alert(context.isPointInPath(55, 55))
+	//arc(x, y, radius, startAngle, endAngle, anticlockwise)
+}
+function drawHeart(){
+	clearCanvas();
+	context.fillStyle = 'red'; 
+	context.beginPath();  
+	context.moveTo(75,40);  
+	context.bezierCurveTo(75,37,70,25,50,25);  
+	context.bezierCurveTo(20,25,20,62.5,20,62.5);  
+	context.bezierCurveTo(20,80,40,102,75,120);  
+	context.bezierCurveTo(110,102,130,80,130,62.5);  
+	context.bezierCurveTo(130,62.5,130,25,100,25);  
+	context.bezierCurveTo(85,25,75,37,75,40);  
+	context.fill(); 
+	//贝塞尔和二次方曲线 Bezier and quadratic curves
+	//quadraticCurveTo(cp1x, cp1y, x, y) 
+	//bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+	//参数 x 和 y 是终点坐标，cp1x 和 cp1y 是第一个控制点的坐标，cp2x 和 cp2y 是第二个的。
+}
+function drawText(){ 
+	clearCanvas();  
+	context.font = "20pt Arial";    
+	context.textBaseline = 'top';
+	
+	context.fillStyle = "red"; 
+	context.fillText("hello world", 10, 50);
+
+	context.shadowOffsetX = 5;     
+	context.shadowOffsetY = 5;     
+	context.shadowBlur    = 4;     
+	context.shadowColor   = 'blue'; 	
+
+	context.strokeStyle = "black"; 
+	context.strokeText('Hello world!', 10, 50); 
+	//var metrics = context.measureText(text);
+}
+function drawImg(){
+	clearCanvas();	
+	img = new Image();
+	img.src  = 'res/color-circle.jpg';
+	img.onload = function(){
+		var w = img.width;
+		var h = img.height;
+
+		canvas.width = w;
+		canvas.height = h;
+
+		// context.scale(0.3, 0.3);
+		context.drawImage(img, -100, -100,w,h);
+	}
+}
+function cropImg(){
+	clearCanvas();	
+	img = new Image();
+	img.src  = 'res/color-circle.jpg';
+	context.drawImage(img, 0, 0,size.height,size.height,10,10,150,150);
+}
+function translate(){
+	clearCanvas();	
+	context.translate(50,50);
+}
+function scale(){
+	clearCanvas();	
+	context.scale(0.1, 0.1);
+}
+function rotate(){
+	clearCanvas();	
+	context.rotate(45*Math.PI/180);
+}
+function animation(){
+	clearCanvas();
+	var x=0;
+	var y=0;
+	var t = setInterval(function(){
+		if(y >= size.height){
+			x += 10;
+			y = 0;
+		}
+		if (x >= size.width){
+			context.clearRect(0,0,800,800);
+			x = 0;
+		}
+		y += 1;
+		context.fillStyle = 'green'; //设置颜色
+		context.fillRect(x,y,5,1);  //画一个矩形,参数为:x,y,宽,高
+	});
+}
+function toDataUrl(){
+	var url = canvas.toDataURL("image/jpeg");
+	var obj = HE.$('#imgs');
+		obj.innerHTML = '';
+	var node = HE.objMock('a',obj,'img');
+		node.style.float = 'right';
+		node.src = url;
+	console.log(url)	
+	console.log(url.length)	
+	node.onclick = function(){
+		transUrl(this.src,function(url){
+			window.open(url);
+		});
+	}
+	/*
+	canvas.toBlob(function(data){
+		alert(data);
+	},'image/png');	
+	*/
+}
+function getImageData(){
+	//getImageData,putImageData
+	var myImageData = context.getImageData(50, 50, 20, 20);
+	var obj = HE.$('#imgs');
+		obj.innerHTML = printData(myImageData);
+}
+function transUrl(src,callback){
+	HE.loadAjax({
+		url : 'trans.php',
+		method : 'post',
+		data : {
+			image : src
+			},
+		callback : function(url){
+			if(url && callback){
+				callback(url);
+			}
+		}	
+	});
+}
+function printData(obj){
+	HE.trace('printData')
+	HE.trace(obj)
+	var str = "";
+	if(typeof obj == 'object'){
+		str = "<table>";
+		for (prop in obj){
+			str += '<tr><th style="font-weight:400;text-align:right;padding-right:10px;">' + prop + ':</th><td>' + printData(obj[prop]) + '</td></tr>';
+		}
+		str += "</table>";
+	}else{
+		str = HE.json2Str(obj + '');
+	}
+	return str;
+}
+</SCRIPT>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cars</title>
+<style type="text/css">
+body {padding:50px 200px;font-size:12px;}
+#cars_relations {margin:50px auto;width:400px;height:300px;position:relative;overflow:hidden;border:1px solid #cd0000;}
+#cars_relations img {width:400px;height:300px;position:absolute;left:0;top:0;}
+#cars_relations img.rotate {
+	top : 200px;
+	-webkit-transform: left top;
+	-webkit-transition-duration:1s;
+	transition-timing-function:ease-out;
+}
+</style>
+</head>
+
+<body style="text-align:center">
+
+<div id="cars_relations"><img src="http://www.ccdphoto.com/attachment/200611/21/654_1164038400b175.jpg" alt="" ><img src="http://www.ccdphoto.com/attachment/200611/21/654_1164038400b175.jpg" alt="" ><img src="http://u.hezi.cc/attachment/200902/27/26206_1235711862j5tG.jpg" alt="" ><img src="http://u.hezi.cc/attachment/200902/27/26206_1235711862j5tG.jpg" alt="" ><img src="http://geren.chinaibi.cn/photo/ablumPic/10/06/22/06B36EE536F704FF12BF05F61DDAC033.jpg" alt="" ><img src="http://geren.chinaibi.cn/photo/ablumPic/10/06/22/06B36EE536F704FF12BF05F61DDAC033.jpg" alt="" ><img src="http://www.woloa.com/home/attachment/201007/31/21078_1280564003ytfG.jpg" alt="" ><img src="http://www.woloa.com/home/attachment/201007/31/21078_1280564003ytfG.jpg" alt="" ><img src="http://www.tigerbar.net/attachment/200904/15/1878_12397916168Qic.jpg" alt="" ><img src="http://www.tigerbar.net/attachment/200904/15/1878_12397916168Qic.jpg" alt="" ><img src="http://1.y688.com/5/zhmf/sanmen/1.jpg" alt="" ><img src="http://1.y688.com/5/zhmf/sanmen/1.jpg" alt="" ><img src="http://tonlo.com/attachment/200809/27/55005_1222491350k5nc.jpg" alt="" ><img src="http://tonlo.com/attachment/200809/27/55005_1222491350k5nc.jpg" alt="" >
+<img src="http://www.eu169.com/photo/ugc/200910/15/2009101508072390794.jpg" alt="" ><img src="http://www.eu169.com/photo/ugc/200910/15/2009101508072390794.jpg" alt="" ><img src="http://pic.xixixi.com/c/UploadPic/2010-6/201068112150113.jpg" alt="" ><img src="http://pic.xixixi.com/c/UploadPic/2010-6/201068112150113.jpg" alt="" ><img src="http://www.topsjs.com/upload/studio/1/1823/photo/b1179122417.jpg" alt="" ><img src="http://www.topsjs.com/upload/studio/1/1823/photo/b1179122417.jpg" alt="" ><img src="http://www.eu169.com/photo/ugc/200909/19/20090919223103fb897.jpg" alt="" ><img src="http://www.eu169.com/photo/ugc/200909/19/20090919223103fb897.jpg" alt="" ><img src="http://a3.att.hudong.com/85/68/14300000309206129463684241944.jpg" alt="" ><img src="http://a3.att.hudong.com/85/68/14300000309206129463684241944.jpg" alt="" ><img src="http://misc.clzg.cn/forum/day_090408/0904080908b747164f63321d53.jpg" alt="" ><img src="http://misc.clzg.cn/forum/day_090408/0904080908b747164f63321d53.jpg" alt="" ><img src="http://img2009.5sing.com/m/photo/2009/05/23/20090523162212_2353990.jpg" alt="" ><img src="http://img2009.5sing.com/m/photo/2009/05/23/20090523162212_2353990.jpg" alt="" ><img src="http://u.hezi.cc/attachment/200902/21/13356_12351970919H9U.jpg" alt="" ><img src="http://u.hezi.cc/attachment/200902/21/13356_12351970919H9U.jpg" alt="" ><img src="http://blog.liao1.com/attachment/201005/30/310322_1275207216oWsh.jpg" alt="" ><img src="http://blog.liao1.com/attachment/201005/30/310322_1275207216oWsh.jpg" alt="" ><img src="http://www.huoxi.wownei.com/attachment/200908/16/166410_1250412343SSQA.jpg" alt="" ><img src="http://www.huoxi.wownei.com/attachment/200908/16/166410_1250412343SSQA.jpg" alt="" ></div>
+<a href="###" onclick="loadDemo()" style="background:#cd0000;padding:5px 15px;margin:20px auto;color:#fff;font-family:arial;">start</a>
+
+
+<script src="lib.js"></script>
+<script type="text/javascript">
+function loadDemo(){
+	var imgs = HE.$('#cars_relations img');
+	HE.array.forEach(imgs,function(item,index){
+		setTimeout(function(){
+			HE.addClass(item,'rotate');
+		},index);
+	});
+}
+
+
+
+</script>
+</body>
+</html>

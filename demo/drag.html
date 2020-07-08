@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<head>
+<title>drag</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+* {margin:0;padding:0;list-style:none;font-size:14px;}
+
+.list {margin:10px 0;}
+.list li {padding:5px;}
+.list li.hover {background:#f00;opacity:1;}
+.list li.drag {background:#000;opacity:1;}
+.list li.end {background:green;opacity:1;}
+.list li.onmousedown {background:#333;opacity:1;border:2px dotted #ccc;}
+.list li.ondrop {border:2px solid #000;background:#000;}
+.list li:hover {background:#f5f5f5;}
+.list li a {color:#069;text-decoration:none;}
+.list li a:hover {color:#333;}
+</style>
+</head>
+<body>
+
+<div id="list" class="list">
+	<ul>
+		<li draggable="true"><a href="http://www.google.com">印尼赛-林丹爆大冷遭日名将横扫</a></li>
+		<li draggable="true"><a href="http://www.google.com">女单当家花旦连败</a></li>
+		<li draggable="true"><a href="http://www.google.com">林丹:没故意输 </a></li>
+		<li draggable="true"><a href="http://www.google.com">08后最惨1败</a></li>
+		<li draggable="true"><a href="http://www.google.com">称霸5年后下神坛? </a></li>
+		<li draggable="true"><a href="http://www.google.com">鲍春来负陶菲克</a></li>
+		<li draggable="true"><a href="http://www.google.com">曼联官方宣布1600万签第二援</a></li>
+		<li draggable="true"><a href="http://www.google.com">弗格森清洗阵容最强11人</a></li>
+		<li draggable="true"><a href="http://www.google.com">巴黎官方确认莱昂纳多上任</a></li>
+		<li draggable="true"><a href="http://www.google.com">印尼赛-林丹爆大冷遭日名将横扫</a></li>
+		<li draggable="true"><a href="http://www.google.com">女单当家花旦连败</a></li>
+		<li draggable="true"><a href="http://www.google.com">林丹:没故意输 </a></li>
+	</ul>
+</div>
+
+<script>
+listDrag();
+
+function listDrag(){
+	var obj = document.getElementById('list');
+	var items = obj.getElementsByTagName('li');
+	dragItems(items)
+}
+
+function dragItems(items){
+	var eleDrag;
+	for(var i = 0,len = items.length;i<len;i++){
+		items[i].onselectstart = function() {
+			return false;
+		}
+		items[i].ondragstart = function(event) {
+			event.dataTransfer.effectAllowed = "move";
+			eleDrag = event.target;
+			return true;
+		};
+		items[i].ondragend = function(event) {
+			var _this = this;
+			_this.className = 'ondrop';
+			setTimeout(function(){
+				_this.className = '';				
+			},500);
+			for(var j = 0;j<len;j++){
+				items[j].style.border = "0";
+			}
+			event.dataTransfer.clearData("text");
+			eleDrag = null;
+			return false
+		}
+		items[i].ondragover = function(event) {
+			event.preventDefault();
+			return true;
+		}
+		items[i].ondragenter = function(event) {
+			for(var j = 0;j<len;j++){
+				items[j].style.border = "0";
+			}
+			this.style.border = "2px solid #000";
+			return true;
+		}
+		items[i].onmousedown = function(event) {
+			this.className = 'onmousedown';
+			return true;
+		}
+		items[i].ondrop = function(event) {
+			if (eleDrag) {
+				if(eleDrag.constructor == Text){
+					eleDrag = eleDrag.parentNode.parentNode;
+				}
+				eleDrag.parentNode.insertBefore(eleDrag,this);
+			}
+			return false;
+		};
+	}
+}
+</script>
+</body>
+</html>

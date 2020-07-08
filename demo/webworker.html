@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title> 
+<style type="text/css">
+button {border:1px solid #ccc;border-radius:3px;padding:5px 10px;background:#333;color:#fff;}
+</style>
+</head> 
+ 
+<body> 
+
+<div id="div"></div>
+
+<button id="stop">stop</button>
+<button id="hello">hello</button>
+
+<script> 
+var title = "webWorker";
+document.title = title;
+
+var target = document.getElementById("div");
+
+(function(){
+	var worker = new Worker("echo.js");
+		worker.addEventListener("message",function(e){
+			target.innerHTML += e.data + "<br>";
+		},true);
+		worker.addEventListener("error",function(e){
+			target.innerHTML += e.data + "<br>";
+		},true);
+	
+	document.getElementById("stop").onclick = function(){
+		worker.terminate();
+	}
+	document.getElementById("hello").onclick = function(){
+		target.innerHTML += "I said:hi,John(2s timeout)<br>";
+		worker.postMessage("hi,John");
+	}
+})();
+</script> 
+</body> 
+</html>

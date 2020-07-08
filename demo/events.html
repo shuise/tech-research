@@ -1,0 +1,549 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-cn" />
+<link rel="stylesheet" href="/component/bootstrap/bootstrap.css">
+
+<style type="text/css">
+table.dataintable td.html5_new {
+	color:#cd0000;
+	}
+</style>
+
+<title>HTML 5 事件属性</title>
+</head>
+
+<body class="html">
+<div id="wrapper" style="padding:20px;">
+  <div id="maincontent">
+
+<h1>HTML 5 事件属性</h1>
+
+<div id="Window_Event_Attributes">
+<h2>Window 事件属性</h2>
+
+<p>window 对象触发的事件。</p>
+
+<p>适用于 &lt;body&gt; 标签：</p>
+
+<table class="dataintable table table-bordered">
+<tr>
+<th style="width:28%;">属性</th>
+<th style="width:8%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td class="html5_new">onafterprint</td>
+<td><i>script</i></td>
+<td>在打印文档之后运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onbeforeprint</td>
+<td><i>script</i></td>
+<td>在文档打印之前运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onbeforeonload</td>
+<td><i>script</i></td>
+<td>在文档加载之前运行脚本</td>
+</tr>
+
+<tr>
+<td>onblur</td>
+<td><i>script</i></td>
+<td>当窗口失去焦点时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onerror</td>
+<td><i>script</i></td>
+<td>当错误发生时运行脚本</td>
+</tr>
+
+<tr>
+<td>onfocus</td>
+<td><i>script</i></td>
+<td>当窗口获得焦点时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onhaschange</td>
+<td><i>script</i></td>
+<td>当文档改变时运行脚本</td>
+</tr>
+
+<tr>
+<td>onload</td>
+<td><i>script</i></td>
+<td>当文档加载时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onmessage</td>
+<td><i>script</i></td>
+<td>当触发消息时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onoffline</td>
+<td><i>script</i></td>
+<td>当文档离线时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ononline</td>
+<td><i>script</i></td>
+<td>当文档上线时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onpagehide</td>
+<td><i>script</i></td>
+<td>当窗口隐藏时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onpageshow</td>
+<td><i>script</i></td>
+<td>当窗口可见时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onpopstate</td>
+<td><i>script</i></td>
+<td>当窗口历史记录改变时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onredo</td>
+<td><i>script</i></td>
+<td>当文档执行再执行操作（redo）时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onresize</td>
+<td><i>script</i></td>
+<td>当调整窗口大小时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onstorage</td>
+<td><i>script</i></td>
+<td>当文档加载加载时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onundo</td>
+<td><i>script</i></td>
+<td>当 Web Storage 区域更新时（存储空间中的数据发生变化时）</td>
+</tr>
+
+<tr>
+<td class="html5_new">onunload</td>
+<td><i>script</i></td>
+<td>当用户离开文档时运行脚本</td>
+</tr>
+</table>
+</div>
+
+
+<div id="Form_Events">
+<h2>表单事件</h2>
+
+<p>由 HTML 表单内部的动作触发的事件。</p>
+
+<p>适用于所有 HTML 5 元素，不过最常用于表单元素中：</p>
+
+
+<table class="dataintable table table-bordered">
+<tr>
+<th style="width:28%;">属性</th>
+<th style="width:8%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>onblur</td>
+<td><i>script</i></td>
+<td>当元素失去焦点时运行脚本</td>
+</tr>
+
+<tr>
+<td>onchange</td>
+<td><i>script</i></td>
+<td>当元素改变时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">oncontextmenu</td>
+<td><i>script</i></td>
+<td>当触发上下文菜单时运行脚本</td>
+</tr>
+
+<tr>
+<td>onfocus</td>
+<td><i>script</i></td>
+<td>当元素获得焦点时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onformchange</td>
+<td><i>script</i></td>
+<td>当表单改变时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onforminput</td>
+<td><i>script</i></td>
+<td>当表单获得用户输入时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">oninput</td>
+<td><i>script</i></td>
+<td>当元素获得用户输入时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">oninvalid</td>
+<td><i>script</i></td>
+<td>当元素无效时运行脚本</td>
+</tr>
+
+<tr>
+<td>onreset</td>
+<td><i>script</i></td>
+<td>当表单重置时运行脚本。<span class="deprecated">HTML 5 不支持。</span></td>
+</tr>
+
+<tr>
+<td>onselect</td>
+<td><i>script</i></td>
+<td>当选取元素时运行脚本</td>
+</tr>
+
+<tr>
+<td>onsubmit</td>
+<td><i>script</i></td>
+<td>当提交表单时运行脚本</td>
+</tr>
+</table>
+</div>
+
+
+<div id="Keybord_Events">
+<h2>键盘事件</h2>
+
+<p>由键盘触发的事件。</p>
+
+<p>适用于所有 HTML 5 元素：</p>
+
+<table class="dataintable table table-bordered">
+<tr>
+<th style="width:28%;">属性</th>
+<th style="width:8%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>onkeydown</td>
+<td><i>script</i></td>
+<td>当按下按键时运行脚本</td>
+</tr>
+
+<tr>
+<td>onkeypress</td>
+<td><i>script</i></td>
+<td>当按下并松开按键时运行脚本</td>
+</tr>
+
+<tr>
+<td>onkeyup</td>
+<td><i>script</i></td>
+<td>当松开按键时运行脚本</td>
+</tr>
+</table>
+</div>
+
+
+<div id="Mouse_Events">
+<h2>鼠标事件</h2>
+
+<p>由鼠标或相似的用户动作触发的事件。</p>
+
+<p>适用于所有 HTML 5 元素：</p>
+
+<table class="dataintable table table-bordered">
+<tr>
+<th style="width:28%;">属性</th>
+<th style="width:8%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>onclick</td>
+<td><i>script</i></td>
+<td>当单击鼠标时运行脚本</td>
+</tr>
+
+<tr>
+<td>ondblclick</td>
+<td><i>script</i></td>
+<td>当双击鼠标时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondrag</td>
+<td><i>script</i></td>
+<td>当拖动元素时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondragend</td>
+<td><i>script</i></td>
+<td>当拖动操作结束时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondragenter</td>
+<td><i>script</i></td>
+<td>当元素被拖动至有效的拖放目标时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondragleave</td>
+<td><i>script</i></td>
+<td>当元素离开有效拖放目标时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondragover</td>
+<td><i>script</i></td>
+<td>当元素被拖动至有效拖放目标上方时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondragstart</td>
+<td><i>script</i></td>
+<td>当拖动操作开始时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondrop</td>
+<td><i>script</i></td>
+<td>当被拖动元素正在被拖放时运行脚本</td>
+</tr>
+
+<tr>
+<td>onmousedown</td>
+<td><i>script</i></td>
+<td>当按下鼠标按钮时运行脚本</td>
+</tr>
+
+<tr>
+<td>onmousemove</td>
+<td><i>script</i></td>
+<td>当鼠标指针移动时运行脚本</td>
+</tr>
+
+<tr>
+<td>onmouseout</td>
+<td><i>script</i></td>
+<td>当鼠标指针移出元素时运行脚本</td>
+</tr>
+
+<tr>
+<td>onmouseover</td>
+<td><i>script</i></td>
+<td>当鼠标指针移至元素之上时运行脚本</td>
+</tr>
+
+<tr>
+<td>onmouseup</td>
+<td><i>script</i></td>
+<td>当松开鼠标按钮时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onmousewheel</td>
+<td><i>script</i></td>
+<td>当转动鼠标滚轮时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onscroll</td>
+<td><i>script</i></td>
+<td>当滚动元素滚动元素的滚动条时运行脚本</td>
+</tr>
+</table>
+</div>
+
+
+<div id="Media_Events">
+<h2>媒介事件</h2>
+
+<p>由视频、图像以及音频等媒介触发的事件。</p>
+
+<p>适用于所有 HTML 5 元素，不过在媒介元素（诸如 audio、embed、img、object 以及 video）中最常用：</p>
+
+<table class="dataintable table table-bordered">
+<tr>
+<th style="width:28%;">属性</th>
+<th style="width:8%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>onabort</td>
+<td><i>script</i></td>
+<td>当发生中止事件时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">oncanplay</td>
+<td><i>script</i></td>
+<td>当媒介能够开始播放但可能因缓冲而需要停止时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">oncanplaythrough</td>
+<td><i>script</i></td>
+<td>当媒介能够无需因缓冲而停止即可播放至结尾时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ondurationchange</td>
+<td><i>script</i></td>
+<td>当媒介长度改变时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onemptied</td>
+<td><i>script</i></td>
+<td>当媒介资源元素突然为空时（网络错误、加载错误等）运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onended</td>
+<td><i>script</i></td>
+<td>当媒介已抵达结尾时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onerror</td>
+<td><i>script</i></td>
+<td>当在元素加载期间发生错误时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onloadeddata</td>
+<td><i>script</i></td>
+<td>当加载媒介数据时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onloadedmetadata</td>
+<td><i>script</i></td>
+<td>当媒介元素的持续时间以及其他媒介数据已加载时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onloadstart</td>
+<td><i>script</i></td>
+<td>当浏览器开始加载媒介数据时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onpause</td>
+<td><i>script</i></td>
+<td>当媒介数据暂停时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onplay</td>
+<td><i>script</i></td>
+<td>当媒介数据将要开始播放时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onplaying</td>
+<td><i>script</i></td>
+<td>当媒介数据已开始播放时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onprogress</td>
+<td><i>script</i></td>
+<td>当浏览器正在取媒介数据时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onratechange</td>
+<td><i>script</i></td>
+<td>当媒介数据的播放速率改变时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onreadystatechange</td>
+<td><i>script</i></td>
+<td>当就绪状态（ready-state）改变时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onseeked</td>
+<td><i>script</i></td>
+<td>当媒介元素的定位属性 [1] 不再为真且定位已结束时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onseeking</td>
+<td><i>script</i></td>
+<td>当媒介元素的定位属性为真且定位已开始时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onstalled</td>
+<td><i>script</i></td>
+<td>当取回媒介数据过程中（延迟）存在错误时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onsuspend</td>
+<td><i>script</i></td>
+<td>当浏览器已在取媒介数据但在取回整个媒介文件之前停止时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">ontimeupdate</td>
+<td><i>script</i></td>
+<td>当媒介改变其播放位置时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onvolumechange</td>
+<td><i>script</i></td>
+<td>当媒介改变音量亦或当音量被设置为静音时运行脚本</td>
+</tr>
+
+<tr>
+<td class="html5_new">onwaiting</td>
+<td><i>script</i></td>
+<td>当媒介已停止播放但打算继续播放时运行脚本</td>
+</tr>
+</table>
+
+<p class="note">&nbsp;</p>
+</div>
+
+
+
+</div>
+
+</div>
+</body>
+</html>

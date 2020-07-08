@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>noJS_Tabs</title>
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="railscasts.css">
+    <script src="highlight.min.js"></script>
+</head>
+<body>
+<div class="demo">
+    <div class="test_box">
+        <div class="test_tab">
+            <input type="radio" id="testTabRadio1" class="test_radio" name="tab" checked="checked" />
+            <label class="test_label" for="testTabRadio1">选项卡1</label>
+            <div class="test_tab_content">
+                <p>我是选项卡1对应的内容</p>
+                <img src="img/1.jpg" width="200" />
+            </div>
+        </div>
+        <div class="test_tab"> 
+            <input type="radio" id="testTabRadio2" class="test_radio" name="tab" />
+            <label class="test_label" for="testTabRadio2">选项卡2</label>
+            <div class="test_tab_content">
+                <p>我是选项卡2对应的内容</p>
+                <img src="img/2.jpg" width="200" />
+            </div>
+        </div>
+        <div class="test_tab">
+            <input type="radio" id="testTabRadio3" class="test_radio" name="tab" />
+            <label class="test_label" for="testTabRadio3">选项卡3</label>
+            <div class="test_tab_content">
+                <p>我是选项卡3对应的内容</p>
+                <img src="img/3.jpg" width="200" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<pre>
+    <code class="css">
+.test_box {
+    width: 50%;
+    min-height: 250px;
+    margin: 16px auto;
+    position: relative;
+}
+.test_tab {
+    width: 25%;
+    margin-right: -1px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    float: left;
+}
+.test_label {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #eee;
+    text-align: center;
+}
+.test_radio,
+.test_tab_content {
+    position: absolute;
+    left: -999px;
+}
+/* element1~element2 选择器 element1 之后出现的所有 element2。*/
+.test_radio:checked ~ .test_tab_content {
+    margin-top: -1px;
+    padding: 16px 32px;
+    border: 1px solid #ccc;
+    left: 0;
+    right: 0;
+}
+.test_radio:checked ~ .test_label {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    position: relative;
+    z-index: 1;
+}
+    </code>
+</pre>
+<script>
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
+</script>
+<style type="text/css">
+pre{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.demo {
+    padding: 10px;
+}
+.test_box {
+    width: 50%;
+    min-height: 250px;
+    margin: 16px auto;
+    position: relative;
+}
+.test_tab {
+    width: 25%;
+    margin-right: -1px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    float: left;
+}
+.test_label {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #eee;
+    text-align: center;
+}
+.test_radio,
+.test_tab_content {
+    position: absolute;
+    left: -999px;
+}
+/* element1~element2 选择器 element1 之后出现的所有 element2。*/
+.test_radio:checked ~ .test_tab_content {
+    margin-top: -1px;
+    padding: 16px 32px;
+    border: 1px solid #ccc;
+    left: 0;
+    right: 0;
+}
+.test_radio:checked ~ .test_label {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    position: relative;
+    z-index: 1;
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,23 @@
+ul,ol{
+    margin-bottom:0;
+}
+.page_main{;
+    margin:20px;
+}
+.page_main table{margin:20px auto;}
+.page_main caption{font-size: 16px;font-weight: bold;}
+.page_main thead th{
+    text-align:center;
+}
+.page_main th{font-weight: normal;}
+.page_main td{text-align: center;vertical-align:middle;}
+.page_main .desc{text-align: right;}
+.table caption{
+    background:#333;
+    color:#fff;
+    padding:10px;
+    text-align:left;
+}
+.page_main tr.even{
+    background:skyblue;
+}

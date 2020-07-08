@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>drop</title>
+<style>
+body {margin: 0; padding: 0;}
+.drag {position: absolute; top: 50px; z-index: 100; width: 58px; height: 58px; border: 1px solid #89B; background: #BCE; cursor: move;}
+.drop_list {position: absolute; left: 60%; top: 50px; width: 300px;}
+.drop_list div {float: left; display: inline; width: 120px; height: 100px; margin: 10px 0 0 10px; border: 1px dashed #888888; background-color: #eee;}
+.drop_list .dropped {background-color: #EBC; border-color: #B89;}
+.drop_list .active {background-color: #CEB; border-color: #9B8;}
+</style>
+<script src="../src/data.js"></script>
+<script src="../src/event.js"></script>
+<script src="../src/fixup.js"></script>
+<script src="../src/drag.js"></script>
+</head>
+
+<body>
+<div id="drag_list">
+	<div id="div_1" class="drag" style="left: 20px;">1</div>
+	<div id="div_2" class="drag" style="left: 100px;">2</div>
+	<div id="div_3" class="drag" style="left: 180px;">3</div>
+</div>
+	
+<div class="drop_list" id="drop_list">
+	<div id="a">a</div>
+	<div id="b">b</div>
+	<div id="c">c</div>
+	<div id="d">d</div>
+</div>
+<script>
+function $(id) {
+	return document.getElementById(id);
+}
+
+new Drag({
+	elem: $("drag_list").getElementsByTagName("div"),
+	draginit: function() {
+		return $("drag_list").getElementsByTagName("div");
+	},
+	drag: function(e, dd){
+		this.style.left = dd.left + dd.deltaX + "px";
+		this.style.top = dd.top + dd.deltaY + "px";
+	},
+	dropTarget: $("drop_list").getElementsByTagName("div"),
+	dropstart: function(e, dd) {
+		this.classList.add("active");
+	},
+	drop: function(e, dd) {
+		this.classList.toggle("dropped");
+	},
+	dropend: function(e, dd) {
+		this.classList.remove("active");
+	}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ajax</title>
+<link rel="stylesheet" href="share.css" />
+</head>
+
+<body id="top">
+
+<a href="#top" id="back_top">TOP</a>
+
+<h1>前端开发规范</h1>
+<ol class="menu" id="menu">
+	<li><a href="#a1">编码</a></li>
+	<li><a href="#a2">命名规范</a></li>
+	<li><a href="#a3_5">开发环境与工具要求</a></li>
+	<li><a href="#a3_10">代码格式</a></li>
+	<li><a href="#a3">html</a></li>
+	<li><a href="#a4">css</a></li>
+	<li><a href="#a5">javascript</a></li>
+	<li><a href="#a6">项目基本要求</a></li>
+</ol>
+
+
+<div id="a1" class="sections">
+	<ol>
+		<li>开发统一使用utf-8编码</li>
+		<li>发布器里目前使用gbk(这个转化由go系统自动处理)</li>
+		<li>后端项目统一采用utf-8</li>
+	</ol>
+</div>
+
+<div id="a2" class="sections">
+	<ol>
+		<li>采用命名空间管理的方式进行命名(详见相关语言细节)</li>
+		<li>统一使用小写</li>
+		<li>统一使用_链接</li>
+		<li>禁止出现字母，数字以及_之外的其他字符</li>
+		<li>私有变量,方法统一使用_前缀</li>
+		<li>项目中的碎片文件统一_前缀</li>
+	</ol>	
+</div>
+
+<div id="a3_5" class="sections">
+	<ol>		
+		<li>java环境</li>
+		<li>apache(启用ssi),绑定域名dev.f2e.netease.com</li>
+		<li>fiddler(.net framework)</li>
+		<li>sublime text2(zenCoding,placeHolder)或者其他支持这两个插件的编辑</li>
+		<li>less编译环境(winless/codekit)</li>
+		<li>svn(svn提交必须写log，每天下班必须把代码变动submit)</li>
+	</ol>	
+	
+</div>
+
+<div id="a3_10" class="sections">
+	<ol>		
+		<li>使用tab缩进(tab设置为4个空格宽度)</li>
+    <li>逐级缩进，保持紧凑</li>
+		<li>"use strict";</li>
+	</ol>	
+</div>
+
+<div id="a3" class="sections">
+	<!-- html -->
+	<ol>
+		<li>头部必须进行文档类型声明</li>
+		<li>标签，属性一律小写</li>
+		<li>css和js必须通过inc文件引入</li>
+		<li>推荐本地使用zenCoding(haml)开发</li>
+		<li>页面要求结构清晰合理，兼顾seo(seo不在此累赘)</li>
+	</ol>	
+</div>
+
+<div id="a4" class="sections">
+	<!-- css -->
+	<ol>
+		<li>css开发分级处理，按照ui对象和业务对象两个角度来划分结构</li>
+		<li>css选择器名称要求实意命名，结合命名空间层级递进</li>
+		<li>每个选择器独占一行</li>
+		<li>每个css命名独占一行，同时必须以分号结束</li>
+		<li>尽量减少选择器层级嵌套</li>
+		<li>推荐本地使用less或者saas开发</li>
+		<li>命名空间约定(见下表)</li>
+	</ol>	
+<pre>selector {
+	prop : value; 
+}</pre>
+
+<h3>频道命名空间约定</h3>
+<table class="fn_cm_table">
+  <tr>
+    <td>频道</td><td>域名</td><td>前缀</td><td>前缀缩写</td>
+  </tr>
+  <tr>
+    <td> 全站</td><td>163.com</td><td>ntes</td><td>ne</td>
+  </tr>
+  <tr>
+    <td> 财经</td><td>money.163.com</td><td>money</td><td></td>
+  </tr>
+  <tr>
+    <td> 商业</td><td>biz.163.com</td><td>biz</td><td></td>
+  </tr>
+  <tr>
+    <td> 科技</td><td>tech.163.com</td><td>tech</td><td></td>
+  </tr>
+  <tr>
+    <td> 汽车</td><td>auto.163.com</td><td>auto</td><td></td>
+  </tr>
+  <tr>
+    <td> 体育</td><td>sports.163.com</td><td>sports</td><td></td>
+  </tr>
+  <tr>
+    <td> 女人</td><td>lady.163.com</td><td>lady</td><td></td>
+  </tr>
+  <tr>
+    <td> 亲子</td><td>baby.163.com</td><td>baby</td><td></td>
+  </tr>
+  <tr>
+    <td> 服饰</td><td>fushi.163.com</td><td>fushi</td><td></td>
+  </tr>
+  <tr>
+    <td> 时尚</td><td>fashion.163.com</td><td>fashion</td><td></td>
+  </tr>
+  <tr>
+    <td> 读书</td><td>book.163.com</td><td>book</td><td></td>
+  </tr>
+  <tr>
+    <td> 原创</td><td>yc.163.com</td><td>yc</td><td>yc</td>
+  </tr>
+  <tr>
+    <td> 视频</td><td>v.163.com</td><td>v</td><td>v</td>
+  </tr>
+  <tr>
+    <td> 手机</td><td>mobile.163.com</td><td>mobile</td><td>mobi</td>
+  </tr>
+  <tr>
+    <td> 旅游</td><td>travel.163.com</td><td>travel</td><td></td>
+  </tr>
+  <tr>
+    <td> 教育</td><td>edu.163.com</td><td>edu</td><td>edu</td>
+  </tr>
+</table>
+
+
+<h3>固有名词</h3>
+<table class="fn_cm_table">
+  <tr>
+    <td>对象</td><td>命名</td><td>缩写</td>
+  </tr>
+  <tr>
+    <td>布局</td><td>grid</td><td></td>
+  </tr>
+  <tr>
+    <td>块</td><td>mod</td><td></td>
+  </tr>
+  <tr>
+    <td>图标</td><td>icon</td><td></td>
+  </tr>
+  <tr>
+    <td>组件</td><td>component</td><td></td>
+  </tr>
+  <tr>
+    <td>表格</td><td>table</td><td></td>
+  </tr>
+  <tr>
+    <td>标题</td><td>title</td><td></td>
+  </tr>
+  <tr>
+    <td>按钮</td><td>botton</td><td>btn</td>
+  </tr>
+  <tr>
+    <td>标签</td><td>tab</td><td></td>
+  </tr>
+  <tr>
+    <td>面板</td><td>panel</td><td></td>
+  </tr>
+  <tr>
+    <td>tab切换当前项</td><td>current</td><td></td>
+  </tr>
+  <tr>
+    <td>焦点图</td><td>focus</td><td></td>
+  </tr>
+  <tr>
+    <td>必填</td><td>require</td><td></td>
+  </tr>
+  <tr>
+    <td>表单</td><td>form</td><td></td>
+  </tr>
+</table>
+</div>
+</div>
+
+<div id="a5" class="sections">	
+	<!-- js -->
+	<ol>
+		<li>js开发使用严格模式(代码第一行固定为"use strict")</li>
+		<li>变量定义必须使用var</li>
+		<li>业务逻辑和非业务逻辑分离</li>
+		<li>js方法的定义和执行分离</li>
+		<li>尽量避免全局变量</li>
+		<li>禁止在逻辑判断里定义函数</li>
+		<li>禁止变量与函数同名</li>
+		<li>重要的通用逻辑要求提供单元测试代码</li>
+	</ol>
+</div>
+
+<div id="a6" class="sections">
+	<ol>
+		<li>所有项目必须通过go系统发布</li>
+		<li>所有项目必须进行尽可能精准的时间评估，并且写入项目管理系统</li>
+		<li>项目必须完成评估的时间准时完成，如果没法按时完成，必须提前至少1天发出项目预警</li>
+		<li>所有项目开发完后需要进行性能测试</li>
+		<li>项目的结束是以需求方的确认为标准的</li>
+		<li>项目完成后必须提供必须的说明并且和需求方确认</li>
+		<li>线上bug优先级最高，不管处于什么项目阶段，必须优先解决线上bug</li>
+	</ol>
+</div>
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" src="share.js"></script>
+</body>
+</html>

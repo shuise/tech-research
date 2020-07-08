@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a30</title>
+<link rel="stylesheet" href="/common/common.css">
+</head>
+<body>
+
+<style>
+html,body{
+	height:100%;
+}
+.show{
+	height:100%;
+	background:#ccc;
+	text-align:center;
+}	
+.show img{
+	max-width:100%;
+	max-height:100%;
+}
+</style>
+<div class="show">
+	<img src="black.png" alt="" id="img" />
+</div>
+	
+<script>
+(function(){
+	var imgs = ["black","brown","gray","white","red"];
+	var index = 0,max = imgs.length;
+	var target = document.getElementById("img");
+	var t = setInterval(function(){
+		index += 1;
+		index = index%max;
+		target.src = imgs[index] + ".png";
+	},2*1000);
+})();
+</script>	
+</body>
+</html>

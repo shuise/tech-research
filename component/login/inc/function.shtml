@@ -1,0 +1,5 @@
+<script type="text/template" id="common_login_template">
+    <!--#include file="common_login.html"-->
+</script>
+<script type="text/javascript" src="login.js"></script>
+<script type="text/javascript" src="init.js" _print="true"></script>

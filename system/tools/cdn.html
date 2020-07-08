@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>前端工具 @ 前端 @ 网易</title>
+<link rel="stylesheet" href="tools.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<div class="f2e_api_menu_item">
+				<h2><a href="#">前端辅助工具</a></h2>
+				<ol>
+					<li><a href="#h2_cdnclear">cdn缓存清理</a></li>
+					<li><a href="#h2_cssmerge">css合并</a></li>
+					<li><a href="#h2_jsmerge">js合并</a></li>
+					<li><a href="#cms_post">模板发布器</a></li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>前端辅助工具</h1>
+
+			<div class="f2e_api_section f2e_api_clear" id="f2e_api_clear">
+			<h2 id="h2_cdnclear">cdn缓存批量清理 &nbsp; <span class="help">说明</span></h2>
+                <div class="help">
+                    <ol>
+                        <li>本工具可批量对多个cdn地址进行清缓存处理，每个地址自动清5次缓存，用换行分隔多个地址</li>
+                        <li>cdn地址可有如下写法：<ul>
+                            <li>http://img1.cache.netease.com/...: 只对指定的服务器地址进行清缓存操作</li>
+                            <li>http://img*.cache.netease.com/...: 对img[1-6]六个服务器地址进行清缓存操作</li>
+                            <li>http://img[1-3].cache.netease.com/...: 对指定的多个服务器地址进行清缓存操作</li>
+                            </ul></li>
+                    </ol>
+                </div>
+                <form action="http://tools.f2e.netease.com/cgi-bin/clear.cgi" target="result" id="clearform" method="post">
+				<textarea placeholder="输入你要清除的JS/CSS/图片地址，如http://img*.cache.netease.com/... ; http://img1.cache.netease.com/... ; http://img[1-3].cache.netease.com/...，每个地址一行" name="url"></textarea>
+				<input type="submit" value="开始清除" />
+                </form>
+                <iframe frameborder="0" border="0" name="result" style="display:none" id="clearframe"></iframe>
+			</div>
+
+			<div class="f2e_api_section">
+			    <h2 id="h2_cssmerge">css合并 &nbsp; <span class="help">说明</span></h2>
+                <div class="help">
+                    <ol>
+                        <li>本工具可将http://static.f2e.netease.com下的css进行如下处理：合并@import内容，压缩，上传到cdn，清cdn缓存</li>
+                        <li>http://static.f2e.netease.com/{path_to.css} 处理完的地址为 http://img[1-6].cache.netease.com/f2e/{path_to.$ver.css}，其中$ver为自动累加的版本号</li>
+                        <li>工具会自动替换css中所引用图片的相对地址或测试机路径为CDN地址，对于CDN不存在的图片会从SVN中自动上传</li>
+                    </ol>
+                </div>
+				<input type="text" name="url" class="f2e_api_text" id="cssurl" value="http://static.f2e.netease.com/shorter/warning.css" />
+				<input type="button" value="开始合并" id="btn_cssmerge" />
+                
+				<div id="f2e_css_build">
+				</div>
+			</div>
+
+		    <div class="f2e_api_section f2e_api_jsmerge">
+			    <h2 id="h2_jsmerge">js合并 &nbsp; <span class="help">说明</span></h2>
+                <div class="help">
+                    <ol>
+                        <li>请将inc文件内容或类似的html片断复制到下面的文本框内进行处理;</li>
+                        <li>本工具会自动处理、替换html片断中的script标签，支持以下script标签属性：<ul>
+                            <li>_print="true": 将此外部script直接打印到html片断中</li>
+                            <li>_compress="2": 与上一属性配合使用，表示将js压缩后再打印，取值为[1|2|3]，值越大压缩程度越高</li>
+                            <li>_group="grp1": 合并标记，多个相同_group属性的script文件会被合并成一个，并上传到cdn中</li>
+                            </ul></li>
+                        <li>在步骤2的处理基础上，html片断中的其它static.f2e.netease.com域名下的css/js会被自动替换为相应的cdn地址</li>
+                    </ol>
+                </div>
+				<textarea placeholder="请将要处理的inc片断复制到此" name="inc" id="inc"></textarea>
+				<input type="button" value="开始合并" id="btn_jsmerge" />
+                
+				<div class="f2e_js_build" id="f2e_js_build" readonly>
+                    <div class="inc_link"></div>
+				    <textarea readonly></textarea>
+                </div>
+			</div>
+
+			<div class="f2e_api_section">
+			    <h2 id="cms_post">模板发布器 &nbsp; <span class="help">说明</span></h2>
+                <div class="help">
+                    <ol>
+                        <li>第一次使用时需要输入发布器帐号密码，提交成功后，在本会话关闭之前sessionStorage会自动缓存你的帐号密码</li>
+                        <li>在模板输入框内填写要更新的CMS模板ID，格式为频道id+模板名称，比如0080utf8test表示临时频道下名为utf8test的模板。</li>
+                        <li>填写要上传到发布器的svn文件路径，如 shorter/403.html (只限html文件)。本工具会对该文件最新版本的内容进行js, css合并处理，进行例行检查通过后发布到CMS中。</li>
+                        <li>所有成功的发布操作均有记录，同一个模板在下次更新时可以只填模板ID或SVN文件路径。</li>
+                        <li>上传的html中的script标签支持以下属性：<ul>
+                            <li>_print="true": 将此外部script直接打印到html片断中</li>
+                            <li>_compress="2": 与上一属性配合使用，表示将js压缩后再打印，取值为[1|2|3]，值越大压缩程度越高</li>
+                            <li>_group="grp1": 合并标记，多个相同_group属性的script文件会被合并成一个，并上传到cdn中</li>
+                            </ul></li>
+                        <li>上传的html中的link标签(外联css)支持以下属性：<ul>
+                            <li>charset="utf-8": 工具自动将utf-8格式的css转换为gbk格式</li>
+                            <li>_print="true": 将此外部css直接打印到html片断中</li>
+                            <li>_compress="1": 与上一属性配合使用，表示将css压缩后再打印，目前只有一个压缩等级</li>
+                        </ul></li>
+                    </ol>
+                </div>
+                <iframe frameborder="0" border="0" name="cmsresult" style="display:none"></iframe>
+                <form action="/cgi-bin/tools/cmspost.cgi" target="cmsresult" id="cmsform" method="post" enctype="multipart/form-data">
+				<div id="cmsauth"><label>帐号：</label><input type="text" name="name" class="f2e_short_input" />
+				<label>密码：</label><input type="password" name="password" class="f2e_short_input" /></div>
+				<label>模板：</label><input type="text" name="model_id" class="f2e_short_input" />
+				<label>SVN路径：</label><input type="text" name="svnpath" class="f2e_medium_input" />
+				<input type="submit" value="发布" id="btn_cmspost" />
+                </form>
+				<div id="f2e_cms_post">
+				</div>
+			</div>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<script type="text/javascript" src="http://static.f2e.netease.com/component/clipboard/clipboard.js"></script>
+<script src="http://static.f2e.netease.com/common/ntes.js"></script>
+<script type="text/javascript" src="http://static.f2e.netease.com/system/tools/js/cdn.js"></script>
+</body>
+</html>

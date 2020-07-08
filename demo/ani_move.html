@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>move</title>
+<style type="text/css">
+.move {
+	-webkit-transition-property:left top;
+	transition-timing-function:ease-out;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div  style="width:800px;height:400px;padding:50px;background:#ccc;position:relative;">
+	<div style="position:absolute;left:50%;top:50%;">
+		<span id="span" style="background:#cd0000;position:absolute;left:0;top:0;">1</span>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+(function(){
+	var node = document.getElementById('span');
+	
+	if(node.style["-webkit-animation-name"] != undefined){
+		node.style.cssText += " left:500px;top:200px;-webkit-transition-duration:3s;";
+		node.className += " move";
+	}else{
+		move(node,{left:500,top:200},1000);
+	}
+})();
+
+function move(node,pos,time){
+	var timer = 0,step = {},diff = {}, slope, t,top1,left1,top2,left2,coef = {};
+	var str = "atrue";
+	top1 = parseInt(node.style.left) || 0;
+	left1 = parseInt(node.style.left) || 0;
+	top2 = pos.top;
+	left2 = pos.left;
+	
+	diff.top = Math.abs(top2 - top1);
+	diff.left = Math.abs(left2 - left1);
+	
+	coef.top = str.indexOf((top2 > top1) + '');
+	coef.left = str.indexOf((left2 > left1) + '');
+	
+	if(diff.top == 0 && diff.left == 0){
+		return false;
+	}
+	if(diff.top == 0){
+		step.top = 0;
+		if(time > diff.left){
+			step.time = time/diff.left;
+			step.left = 1;
+		}else{
+			step.time = 1;
+			step.left = diff.left/time;
+		}
+	}
+	if(diff.left == 0){
+		step.left = 0;
+		if(time > diff.top){
+			step.time = time/diff.top;
+			step.top = 1;
+		}else{
+			step.time = 1;
+			step.top = diff.top/time;
+		}
+	}
+	if(diff.top > 0 && diff.left > 0){
+		if(diff.top > diff.left){
+			slope = diff.top/diff.left;
+			if(time > diff.left){
+				step.time = time/diff.left;
+				step.left = 1;
+			}else{
+				step.time = 1;
+				step.left = diff.left/time;
+			}
+			step.top = slope*step.left;
+		}else{
+			slope = diff.left/diff.top;
+			if(time > diff.top){
+				step.time = time/diff.top;
+				step.top = 1;
+			}else{
+				step.time = 1;
+				step.top = diff.top/time;
+			}
+			step.left = slope*step.top;
+		}
+	}
+	
+	t = setInterval(function(){
+		top1 += step.top*coef.top;
+		left1 += step.left*coef.left;
+		timer += step.time;
+		node.style.top = top1 + 'px';
+		node.style.left = left1 + 'px';
+		if(timer >= time){
+			clearInterval(t);
+			node.style.top = top2 + 'px';
+			node.style.left = left2 + 'px';
+		}
+	},step.time);
+}
+</script>
+</body>
+</html>

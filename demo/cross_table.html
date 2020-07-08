@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>table</title>
+</head>
+<body>
+
+<style>
+table{
+	border-collapse:collapse;
+	border:1px solid #ccc;
+}	
+td{
+	border:1px solid #ccc;
+	width:30px;
+	line-height:30px;
+	text-align:center;
+}
+.bg{
+	background:green;
+}
+</style>
+
+
+<table>
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+</table>
+	
+
+
+<script>
+(function(){
+	var _table = document.querySelector("table");
+	var trs = _table.querySelectorAll("tr");
+	var cols = _table.querySelectorAll("col");
+
+	var optBtn = false;
+	document.onkeydown = function(event){
+		if(event.keyCode == 18){
+			optBtn = true;
+		}
+	}
+	document.onkeyup = function(){
+		optBtn = false;
+	}
+
+	_table.onmousemove = function(event){
+		var _td = event.target;
+		if(optBtn){
+			crossTable(_td);
+		}
+	}
+	_table.onmouseout = function(){
+		clearTable();
+	}
+
+	function crossTable(_td){
+		clearTable();
+
+		var tr  = _td.parentNode;
+		if(tr.tagName.toLowerCase() == "tr"){
+			tr.className = "bg";
+		}
+		var col = cols[_td.innerHTML/1-1];
+		if(col){
+			col.className = "bg";
+		}
+	}
+
+	function clearTable(){
+		for(var i=0,len=trs.length;i<len;i++){
+			trs[i].className = "";
+		}
+		for(var i=0,len=cols.length;i<len;i++){
+			cols[i].className = "";
+		}
+	}
+})();
+</script>	
+</body>
+</html>

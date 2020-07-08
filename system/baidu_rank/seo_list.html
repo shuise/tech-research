@@ -1,0 +1,91 @@
+<div class="rank-wrap">
+	<table class="table">
+        <tbody>
+            <tr><th colspan="7" class="category">
+                    <span ng-repeat="item in catelist">
+                        <a ng-if="item.id!=category" href="#/list/{{item.id}}">{{item.title}}</a>
+                        <b ng-if="item.id==category">{{item.title}}</b>
+                    </span>
+            </th></tr>
+			<tr>
+				<th>关键词</th>
+				<th>目标页面</th>
+				<th></th>
+				<th>排名</th>
+				<th>同域最高排名页</th>
+				<th>同域最高排名</th>
+				<th align="center">排名走势</th>
+			</tr>
+		<tr ng-repeat-start="item in list">
+			<th rowspan="2">{{item.keyword}}</th>
+			<td rowspan="2"><a href="{{item.url}}" target="_blank">{{item.url}}</a></td>
+            <td><a href="http://www.baidu.com/s?wd={{item.keyword}}" target="_blank">百度</a></td>
+			<td>
+                <span ng-show="item.baidu"><i ng-class="{'trendUp':(item.baidu.trend==1), 'trendDown':(item.baidu.trend==-1)}" class="trend"></i>{{item.baidu.rank}}<span ng-show="item.baidu.p">(第{{item.baidu.p}}页,第{{item.baidu.r}}位)</span></span>
+            </td>
+			<td>
+                <a href="http://{{item.baidu.rurl}}" target="_blank" ng-class="{'hidden':!item.baidu.relrank}">同域最高排名页</a>
+            </td>
+			<td>
+               <span ng-show="item.baidu">{{item.baidu.relrank}}<span ng-show="item.baidu.relrank">(第{{item.baidu.rp}}页,第{{item.baidu.rr}}位)</span></span>
+            </td>
+			<td rowspan="2" class="acenter"><a href="#/detail/{{category}}/{{item._id}}" class="btn btn-small">排名走势</a></td>
+		</tr>
+		<tr ng-repeat-end class="subtr">
+            <td><a href="http://www.google.com.hk/search?q={{item.keyword}}" target="_blank">谷歌</a></td>
+			<td>
+                <span ng-show="item.google"><i ng-class="{'trendUp':(item.google.trend==1), 'trendDown':(item.google.trend==-1)}" class="trend"></i>{{item.google.rank}}<span ng-show="item.google.p">(第{{item.google.p}}页,第{{item.google.r}}位)</span></span>
+            </td>
+			<td>
+                <a href="http://{{item.google.rurl}}" target="_blank" ng-class="{'hidden':!item.google.relrank}">同域最高排名页</a>
+            </td>
+			<td>
+               <span ng-show="item.google">{{item.google.relrank}}<span ng-show="item.google.relrank">(第{{item.google.rp}}页,第{{item.google.rr}}位)</span></span>
+            </td>
+        </tr>
+        </tbody>
+	    <tbody class="togglewrap" ng-show="toggleold">
+            <tr><td colspan="7">
+                    <a class="category" ng-click="toggleold()">查看更多历史条目</a>
+            </td></tr>
+        </tbody>
+	    <tbody class="table" ng-show="showold">
+			<tr>
+				<th>关键词</th>
+				<th>目标页面</th>
+				<th></th>
+				<th>排名</th>
+				<th>同域最高排名页</th>
+				<th>排名</th>
+				<th align="center">排名走势</th>
+			</tr>
+		    <tr ng-repeat-start="item in oldlist">
+			<th rowspan="2">{{item.keyword}}</th>
+			<td rowspan="2"><a href="{{item.url}}" target="_blank">{{item.url}}</a></td>
+            <td><a href="http://www.baidu.com/s?wd={{item.keyword}}" target="_blank">百度</a></td>
+			<td>
+                <span ng-show="item.baidu">{{item.baidu.rank}}<span ng-show="item.baidu.p">(第{{item.baidu.p}}页,第{{item.baidu.r}}位)</span></span>
+            </td>
+			<td>
+                <a href="http://{{item.baidu.rurl}}" target="_blank" ng-class="{'hidden':!item.baidu.relrank}">同域最高排名页</a>
+            </td>
+			<td>
+               <span ng-show="item.baidu">{{item.baidu.relrank}}<span ng-show="item.baidu.relrank">(第{{item.baidu.rp}}页,第{{item.baidu.rr}}位)</span></span>
+            </td>
+			<td rowspan="2" class="acenter"><a href="#/detail/{{category}}/{{item._id}}" class="btn btn-small">排名走势</a></td>
+		</tr>
+		<tr ng-repeat-end class="subtr">
+            <td><a href="http://www.google.com.hk/search?q={{item.keyword}}" target="_blank">谷歌</a></td>
+			<td>
+                <span ng-show="item.google">{{item.google.rank}}<span ng-show="item.google.p">(第{{item.google.p}}页,第{{item.google.r}}位)</span></span>
+            </td>
+			<td>
+                <a href="http://{{item.google.rurl}}" target="_blank" ng-class="{'hidden':!item.google.relrank}">同域最高排名页</a>
+            </td>
+			<td>
+               <span ng-show="item.google">{{item.google.relrank}}<span ng-show="item.google.relrank">(第{{item.google.rp}}页,第{{item.google.rr}}位)</span></span>
+            </td>
+        </tr>
+</tbody>
+    </table>
+</div>

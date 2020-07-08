@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>slider @ 前端 @ 网易</title>
+<link rel="stylesheet" href="http://qa.developer.163.com/system/docs_temp/api.css" />
+</head>
+
+<body>
+<div class="f2e_wrap"><div class="f2e_wrap_inner">
+	<div class="f2e_api_head">
+		<div class="f2e_api_logo">
+			<strong>网易前端</strong>
+		</div>
+		<address>developer.163.com</address>
+	</div>
+	<div class="f2e_api_body">
+		<div class="f2e_api_menu">
+			<!--#include virtual="../menu.html"-->
+		</div>
+
+		<div class="f2e_api_content">
+			<h1>slider</h1>			
+			<div class="f2e_api_section">
+				<p>引入文件 <a href="http://qa.developer.163.com/component/slider/slider.css">http://qa.developer.163.com/component/slider/slider.css</a></p>
+				<p>引入文件 <a href="http://qa.developer.163.com/component/slider/slider.js">http://qa.developer.163.com/component/slider/slider.js</a></p>
+			</div>
+
+			<div class="f2e_api_section">
+				<h2>代码实例</h2>
+				<pre id="f2e_api_code">
+var _slide = new NE.slider(ui,param,callback);
+      _slide.init();
+
+参数解释：
+	ui : {//支持传入单个DOM结点，生成一个默认的UI集合(demo2),一般初始化如下：
+	 	slider,        //sliderUI
+		highlight,   //范围UI
+		upper,       //上限控制UI
+		lower        //下限控制UI
+	}
+	
+	param : {
+		slideClickbind,//true|false,默认true;是否绑定slidebody的click事件,为了重写click事件提供的接口(demo3)
+		orientation,    //"vertical"|"horizontal",默认"horizontal";水平或垂直slider
+		step,              //步长
+		min,               //范围下限
+		max,              //范围上限
+		values           //初始化上下限,[0]:下限值,[1]:上限值;送单值时，支持单侧slider(demo4)		
+	}
+	
+	callback : {
+		upperChange:function(value), //upperHandle,move过程触发callback
+		lowerChange:function(value), //lowerHandle,move过程触发callback
+		upperStop:function(value),     //upperHandle,stop触发callback
+		lowerStop:function(value)      //lowerHandle,stop触发callback
+	}
+	
+	</pre>
+			</div>
+
+			<div class="f2e_api_btns">
+				<a href="demo.html" target="_blank">查看demo</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div></div>
+
+</body>
+</html>

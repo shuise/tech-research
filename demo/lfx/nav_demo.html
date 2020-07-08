@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航条</title>
+    <style>
+        body {line-height:1.5;font-family:arial,"宋体";background:#ffffff;font-size:12px;}
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,
+        form,fieldset,legend,input,button,textarea,p,blockquote,th,td {
+            margin:0;
+            padding:0;
+        }
+        ol,ul{list-style:none;}
+        .nav{
+            width: 1200px;
+            margin: 15px auto 0;
+        }
+        .nav a{
+            text-decoration: none;
+            position: relative;
+            color: #c5c2b8;
+            overflow: hidden;
+            font-size: 20px;
+            line-height: 1;
+            display: inline-block;
+        }
+        .nav a:hover {
+            color: #c5c2b8;
+        }
+        .nav a em{
+            color: #e7e7e7;
+            font-size: 20px; 
+            padding:0 30px;
+        }
+        .nav a::before {
+            content: attr(data-letters);
+            position: absolute;
+            top: 0px;left: 0px;
+            z-index: 2;
+            overflow: hidden;
+            color: #424242;
+            white-space: nowrap;
+            width: 0%;
+            -webkit-transition: width 0.4s 0.3s;
+            transition: width 0.4s 0.3s;
+        }
+
+        .nav a:hover::before {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a class="first current" href="http://tech.163.com/" data-letters="首页">首页<em>/</em></a> 
+        <a href="http://tech.163.com/chuang/" data-letters="创业Club">创业Club<em>/</em></a>
+        <a href="http://tech.163.com/smart/" data-letters="智能硬件">智能硬件<em>/</em></a>
+        <a href="http://tech.163.com/internet/" data-letters="移动互联">移动互联<em>/</em></a>
+        <a href="http://tech.163.com/telecom/" data-letters="通讯">通讯<em>/</em></a> 
+        <a href="http://tech.163.com/it/" data-letters="IT">IT<em>/</em></a> 
+        <a href="http://tech.163.com/ping/" data-letters="易语中的">易语中的<em>/</em></a>
+        <a href="http://tech.163.com/special/chzt/" data-letters="策划">策划<em>/</em></a>
+        <a href="http://digi.163.com/" data-letters="数码">数码<em>/</em></a>
+        <a href="http://mobile.163.com/" data-letters="手机">手机<em>/</em></a>
+        <a href="http://tech.163.com/company/" data-letters="企业库">企业库</a> 
+    </div>
+</body>
+</html>

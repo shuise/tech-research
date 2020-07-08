@@ -1,0 +1,64 @@
+/* share13-light */
+.ns-share13-light { overflow: hidden; list-style:none; margin: 0; padding: 10px;}
+.ns-share13-light .ns-share-item {float: left; padding: 0 5px;}
+.ns-share13-light .ns-share-icon { display: inline-block; width: 24px; height: 24px; overflow: hidden; background: url(share13_fixed.png);transition: background .3s;}
+.ns-share13-light .ns-share-sinawb { background-position: 0 0; }
+.ns-share13-light .ns-share-qzone { background-position: -50px 0; }
+.ns-share13-light .ns-share-renren { background-position: -100px 0; }
+.ns-share13-light .ns-share-youdao { background-position: -150px 0; }
+.ns-share13-light .ns-share-yixin { background-position: -200px 0; }
+.ns-share13-light .ns-share-weixin { background-position: -250px 0; }
+.ns-share13-light .ns-share-lofter { background-position: -300px 0; }
+.ns-share13-light a:hover .ns-share-sinawb { background-position: 0 -25px; }
+.ns-share13-light a:hover .ns-share-qzone { background-position: -50px -25px; }
+.ns-share13-light a:hover .ns-share-renren { background-position: -100px -25px; }
+.ns-share13-light a:hover .ns-share-youdao { background-position: -150px -25px; }
+.ns-share13-light a:hover .ns-share-yixin { background-position: -200px -25px; } 
+.ns-share13-light a:hover .ns-share-weixin { background-position: -250px -25px; } 
+.ns-share13-light a:hover .ns-share-lofter { background-position: -300px -25px; }
+
+/* share13-dark */
+.ns-share13-dark { overflow: hidden; list-style:none; margin: 0; padding: 10px;}
+.ns-share13-dark .ns-share-item {float: left; padding: 0 5px;}
+.ns-share13-dark .ns-share-icon { display: inline-block; width: 24px; height: 24px; overflow: hidden; background: url(share13_fixed.png);transition: background .3s;}
+.ns-share13-dark .ns-share-sinawb { background-position: -25px 0; }
+.ns-share13-dark .ns-share-qzone { background-position: -75px 0; }
+.ns-share13-dark .ns-share-renren { background-position: -125px 0; }
+.ns-share13-dark .ns-share-youdao { background-position: -175px 0; }
+.ns-share13-dark .ns-share-yixin { background-position: -225px 0; }
+.ns-share13-dark .ns-share-weixin { background-position: -275px 0; }
+.ns-share13-dark .ns-share-lofter { background-position: -325px 0; }
+.ns-share13-dark a:hover .ns-share-sinawb { background-position: -25px -25px; }
+.ns-share13-dark a:hover .ns-share-qzone { background-position: -75px -25px; }
+.ns-share13-dark a:hover .ns-share-renren { background-position: -125px -25px; }
+.ns-share13-dark a:hover .ns-share-youdao { background-position: -175px -25px; }
+.ns-share13-dark a:hover .ns-share-yixin { background-position: -225px -25px; } 
+.ns-share13-dark a:hover .ns-share-weixin { background-position: -275px -25px; } 
+.ns-share13-dark a:hover .ns-share-lofter { background-position: -325px -25px; }
+
+/* share14 */
+.ns-share14 { overflow: hidden; list-style: none; margin: 0; padding: 10px; }
+.ns-share14 .ns-share-item { float: left; margin-right: 3px; }
+.ns-share14 .ns-share-icon { display: block; width: 40px; height: 28px; overflow: hidden; background: url(share14_fixed.png);}
+.ns-share14 .ns-share-yixin { background-position: 0 0; }
+.ns-share14 .ns-share-lofter { background-position: -40px 0; }
+.ns-share14 .ns-share-weixin { background-position: -80px 0; }
+.ns-share14 .ns-share-qzone { background-position: -120px 0; }
+.ns-share14 .ns-share-sinawb { background-position: -160px 0; }
+.ns-share14 .ns-share-renren { background-position: -200px 0; }
+.ns-share14 .ns-share-youdao { background-position: -240px 0; }
+.ns-share14 a:hover .ns-share-yixin { background-position: 0 -28px; }
+.ns-share14 a:hover .ns-share-lofter { background-position: -40px -28px; }
+.ns-share14 a:hover .ns-share-weixin { background-position: -80px -28px; }
+.ns-share14 a:hover .ns-share-qzone { background-position: -120px -28px; }
+.ns-share14 a:hover .ns-share-sinawb { background-position: -160px -28px; }
+.ns-share14 a:hover .ns-share-renren { background-position: -200px -28px; }
+.ns-share14 a:hover .ns-share-youdao { background-position: -240px -28px; }
+
+/* qrcode */
+.ns-qrcode {display:none;z-index:99;position:absolute;width:295px;height:160px; background: #fff;border:1px solid #ddd;}
+.ns-qrcode-image {padding:20px 0 0 18px;float:left;position:relative;}
+.ns-qrcode-image table {position:relative;top:10px;left:10px;}
+.ns-qrcode-text {width:130px;color:#656565;float:right;padding: 40px 10px 0 0;font:14px/24px "Microsoft YaHei";}
+.ns-qrcode-close {width: 24px;text-align:center;height:24px;position: absolute;top: 0;right:0;font:18px/20px "Tahoma","Verdana","Lucida Console","Arial";color:#888;text-decoration:none;background:#fafafa;border:1px solid #ddd;border-width: 0 0 1px 1px;}
+.ns-qrcode-close:hover, .ns-qrcode-close:active {color: #000;text-decoration:none;background:#f0f0f0;}

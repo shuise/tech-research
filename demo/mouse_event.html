@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>事件测试</title>
+</head>
+
+<body>
+
+<a href="###">test link focus on me then enter</a>
+
+<div id="wrap"></div>
+
+<script>
+
+var node = document.getElementById("wrap");
+
+//左键单击
+document.onclick = function(event){
+	node.innerHTML += "click <br>";
+}
+
+//右键菜单
+document.oncontextmenu = function(event){
+	node.innerHTML += "contextmenu <br>";
+}
+
+//双击
+document.ondblclick = function(event){
+	node.innerHTML += "dblclick <br>";
+}
+
+//鼠标按下
+document.onmousedown = function(event){
+	node.innerHTML += "mousedown <br>";
+}
+
+//聚焦
+document.onfocus = function(event){
+	node.innerHTML += "focus <br>";
+}
+
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>music.163</title>
+<script>
+document.domain = "music.163.com";
+</script>
+</head>
+<body>
+
+<style>
+.wrap{
+    width:630px;
+    margin:40px;
+}
+.article{
+    height:200px;
+    padding:5px;
+    border:1px solid #ccc;
+    font-size:12px;
+    line-height:20px;
+    outline:none;
+}
+.music{
+    background:#333;
+    color:#fff;
+    border-radius:1px;
+    padding:0 10px;
+    display:inline-block;
+    font-size:12px;
+    line-height:30px;
+    cursor:pointer;
+}
+</style>
+
+<div class="wrap">
+    <div class="article" id="article" contenteditable="true">
+        相信我，V是这世上最为风度翩翩的杀手、怪客、武士和复仇者 <br>
+        他熟读莎士比亚，热爱柴科夫斯基，每看一遍《基督山复仇记》都会被打动，懂得烹饪，怀旧，电唱机里播放老歌。 他不属于他所在的时代他所在的世界，他好像去错了时空的流亡贵族，自得其乐，但离群索居。 他很浪漫，在他用以摧毁国会大楼的炸药中，甚至混合得有大量烟火。该时刻，倾城惊动，众人仰面.........</div>
+    <div class="music" id="music">插入音乐</div>
+</div>
+
+<script src="http://img1.cache.netease.com/f2e/lib/js/ne.js"></script>
+
+<script>
+(function(){
+    var api = "http://music.163.com/api/search/suggest/web?csrf_token=5c4b4bd11c4e68d422c27f897e8cba45";
+    var keywords = ["爱情","伤心","love","you"];
+
+    var id = 27901356;
+    var tpl = {
+        "iframe" : '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&id={id}&auto=1&height=66"></iframe>',
+        "flash" : '<embed src="http://music.163.com/style/swf/widget.swf?sid={id}&type=2&auto=1&width=320&height=66" width="340" height="86"  allowNetworking="all"></embed>'
+    };
+
+    var btn = NE.$("#music");
+    var target = NE.$("#article");
+
+    btn.onclick = function(){
+        var ids = [25706282,25706279,25706285,25706283,25706277];
+        var len = ids.length;
+        var index = Math.ceil(Math.random()*1000)%len;
+
+
+        var player = document.createElement("div");
+            player.innerHTML = NE.template.replace(tpl.flash,{id:ids[index]})
+        target.appendChild(player);
+        target.style.height = target.clientHeight + 60 + "px";
+
+        return false;
+
+        var option = {
+            url : api,
+            data : {
+                "s" : keywords[index] || "love",
+                "limit" : 8
+            }
+        };
+        NE.load.ajax(option,function(data){
+            console.log(data.result.mvs[0].id);
+        });
+    }
+})();
+</script>
+
+
+
+</body>
+</html>

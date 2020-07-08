@@ -1,0 +1,89 @@
+pre b
+{
+    color: #a79f4f;
+    font-weight: normal;
+}
+pre i, pre i *, pre i .d
+{
+    color: #7bb967;
+    font-style: normal;
+}
+pre .s
+{
+    color: #b78e31;
+}
+pre .d
+{
+    color: #ff7a5c;
+}
+pre .c, pre .c *
+{
+    color: #88c;
+}
+.f2e_api_section pre
+{
+    margin: 15px 30px;
+}
+.f2e_wrap .cur {font-size:16px; color:#ff6600; font-weight:bold;}
+.f2e_api_menu_item h2 {cursor: pointer;}
+.f2e_api_section ul ul{text-indent: 2em; padding:10px;}
+code {background: #E1EBC1;padding: 0 5px;}
+
+.f2e_api_section h2{
+    font-size:1.4em;
+    padding: 0 0 0 10px;
+    margin-left: -7px;
+    /*border-left: 5px solid #ff6600;*/
+}
+.f2e_api_section ul {
+    list-style-type: disc;
+}
+.f2e_api_section li {
+display: list-item;
+text-align: -webkit-match-parent;
+}
+.f2e_api_section .syntax{
+    text-indent: 0em;
+    margin:5px 10px 5px 30px;
+    background:#F8F8F8;
+    border:1px solid #DDD;
+    padding:15px;
+    line-height:1.5em;
+    word-wrap:break-word;
+    margin-bottom:20px;
+    width:96%;
+}
+.argu{
+    margin:10px 0 10px 30px;
+    width:100%;
+}
+.argu code{
+    background:#E0E1E3;
+    padding:0 5px;
+}
+.default_data{
+    color:#ADADAD;
+}
+code,.syntax,.code_word{font-family:'DejaVu Sans Mono',Monaco,Consolas;}
+.description{
+    margin:20px 0px 20px 30px;
+    max-width:970px;
+}
+.returntop {
+    float: right;
+    margin-top: 50px;
+}
+
+.func_list{
+    margin: 10px 0px 10px 30px;
+}
+.fun_info {
+    /*border-left: 5px solid #999;*/
+    margin-bottom: 40px;
+    padding: 5px 2px;
+}
+
+.f2e_api_table {
+    width: 640px;
+    margin: 0 15px 15px;
+}

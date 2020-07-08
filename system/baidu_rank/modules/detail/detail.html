@@ -1,0 +1,23 @@
+<div class="rank_detail">
+  <h2 class="lead">关键词:{{info.keyword}} <small><a href="#/list/{{category}}">返回列表页</a></small></h2>
+  <div class="lead_more">
+	<a href="{{info.url}}" target="_blank">{{info.url}}</a>
+  </div>
+
+  <div class="br_key_rank" ne-role="trend-chart"></div>
+</div>
+
+<table class="table">
+  <thead>
+	<tr>
+	  <th>日期</th>
+	  <th><a href="http://www.baidu.com/s?wd={{info.keyword}}" target="_blank">百度排名</a></th>
+	  <th><a href="http://www.so.com/s?q={{info.keyword}}" target="_blank">360排名</a></th>
+	</tr>
+  </thead>
+  <tr ne-repeat="item in listByDate">
+	<th>{{item.createTime}}</th>
+	<td>{!{item.rank.baidu}}</td>
+	<td>{!{item.rank.qihoo}}</td>
+  </tr>
+</table>

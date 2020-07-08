@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="@popform.css" media="screen" />
+<div ne-role="pop-wrap" data-pop-name="selfMod" ne-plugin-state="maxWidth:500;closeDelay:300;hideOnMask:false" class="ne-popbox">
+  <a href="javascript:" ne-role="popbox-close" class="ne-popbox-close">关闭</a>
+  <h3>添加新模块</h3>
+  <div class="ne-form">
+    <div class="ne-form-line">
+      <label>模块名:</label><input type="text" ne-model="selfMod.title" placeholder="必填"/>
+    </div>
+    <div class="ne-form-line">
+      <label>模块目录:</label><div class="ne-form-indent"><span>modules/</span><input type="text" ne-model="selfMod._id" placeholder="必填，如 detail/"/></div>
+    </div>
+    <div class="ne-form-line">
+      <label>模块文件:</label>
+      <input type="checkbox" ne-model="selfMod.files.js"/>JS
+      <input type="checkbox" ne-model="selfMod.files.html"/>HTML
+      <input type="checkbox" ne-model="selfMod.files.css"/>CSS
+    </div>
+    <div class="ne-form-tools">
+      <a ne-role="popbox-close" href="javascript:">取消</a> &nbsp;
+      <input type="submit" value="保存" ne-click="selfMod.save()" />
+    </div>
+  </div>
+</div>

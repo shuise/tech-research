@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+<style>
+    .svg-clipped {
+    	display:block;
+    	width:100%;
+        -webkit-clip-path: url(#svgPath);
+        clip-path: url(#svgPath);
+    }
+</style>
+<img class="svg-clipped" src="flowers.jpg" alt="Micheal Jackson">
+<video src="http://dev.f2e.163.com/demo/res/1.mp4" id="video" autoplay class="svg-clipped"></video>
+
+<svg height="0" width="0">
+    <defs>
+        <clipPath id="svgPath">
+            <text x="0" y="300" textLength="1200" lengthAdjust="spacing" font-family="Vollkorn" font-size="200px" font-weight="700" font-style="italic">Micheal Jackson</text>
+        </clipPath>
+    </defs>
+</svg>
+</body>
+</html>

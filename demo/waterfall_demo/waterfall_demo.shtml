@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!--[if IE 6 ]> <html id="ne_wrap" class="ne_ua_ie6 ne_ua_ielte8"> <![endif]-->
+<!--[if IE 7 ]> <html id="ne_wrap" class="ne_ua_ie7 ne_ua_ielte8"> <![endif]-->
+<!--[if IE 8 ]> <html id="ne_wrap" class="ne_ua_ie8 ne_ua_ielte8"> <![endif]-->
+<!--[if IE 9 ]> <html id="ne_wrap" class="ne_ua_ie9"> <![endif]-->
+<!--[if (gte IE 10)|!(IE)]><!--> <html id="ne_wrap"> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="cms_id" content="0001zkjwaterfall_test" />
+<meta name="model_url" content="${modelUrl}" />
+<title>waterfall_demo</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--#include virtual="/news/common/head_static.html"-->
+<!--#include file="inc/head_static.html"-->
+</head>
+<body>
+<div class="waterfall_demo_wrap" id="waterfall_demo_wrap">
+    
+<h1 style="display:none"> waterfall_demo </h1>
+    <div id="waterfall_demo_content">
+        <!-- 项目内容 -->
+        <div class="pin oldpin">
+            <div class="box">
+                    <div class="pic">
+                        <img src="http://img1.cache.netease.com/3g/2016/4/12/201604120849239184f.jpg"/>
+                    </div>
+                    <div class="abstract">
+                        <p>被搭档女演员王子文爆料"一点不张嘴，很奇怪啊。</p>
+                    </div>
+                    <div class="share"></div>
+            </div>
+        </div>
+        <div class="pin oldpin">
+            <div class="box">
+                    <div class="pic">
+                        <img src="http://img3.cache.netease.com/photo/0005/2016-04-10/BK9T5M0S28F90005.jpg"/>
+                    </div>
+                    <div class="abstract">
+                        <p>北京时间4月10日，在一场受到全世界拳迷关注的大战中，菲律宾拳王帕奎奥在比赛中三度击倒对手美国“沙漠风暴”布莱德利，最终凭借116-110的点数优势取得胜利，赢得WBO次中量级金腰带，退役战完美收官。</p>
+                    </div>
+                    <div class="share"></div>
+            </div>
+        </div>
+        <div class="pin oldpin">
+          <div class="box">
+                <div class="pic">
+                        <img src="http://easyread.ph.126.net/mADIPJeaISaMnUTexlaA2g==/7917069759688953286.jpg"/>
+                </div>
+                <div class="abstract">
+                        <p>最近在韩国一项治疗体验非常火爆，那就是体验10分钟死亡。体验者们相信，在活着的时候有机会窥一眼死后的世界，将有助于他们珍惜生命，活得更好。"
+</p>
+                </div>
+                <div class="share"></div>
+            </div>
+        </div>
+           <div class="pin oldpin">
+            <div class="box">
+                    <div class="pic">
+                        <img src="http://img5.cache.netease.com/3g/2016/4/12/201604120143126122a.jpg"/>
+                    </div>
+                    <div class="abstract">
+                        <p>小土豆趴在沙发扶手上，小脑袋靠在姥爷肩膀上，十分温馨。</p>
+                    </div>
+                    <div class="share"></div>
+            </div>
+        </div>
+        <div class="pin oldpin">
+            <div class="box">
+                    <div class="pic">
+                        <img src="http://easyread.ph.126.net/pzmF-oNxI_DHflKeBQtqrQ==/7917055466037792857.jpg"/>
+                    </div>
+                    <div class="abstract">
+                        <p>英国圣公会坎特伯雷大主教贾斯汀&middot韦尔比最近“摊上了大事儿”。</p>
+                    </div>
+                    <div class="share"></div>
+            </div>
+        </div>
+        <div class="pin oldpin">
+          <div class="box">
+                <div class="pic">
+                        <img src="http://dingyue.nosdn.127.net/McJGnp2pJUIEWYwZiF9r0BJCOZHQnhOOgICYOG7Pil3Fk1460369471299compressflag.jpg"/>
+                </div>
+                <div class="abstract">
+                        <p>有人说，著名科学家彭加木在罗布泊神秘失踪，入选20世纪世界十大之谜当之无愧，因为它最具悬念，最让人震惊，最不可思议！彭加木原名彭加睦，广东番禺人，汉族。</p>
+                </div>
+                <div class="share"></div>
+            </div>
+        </div>
+
+
+ 
+    </div>
+
+    
+</div>
+<!--#include file="inc/foot_static.html"-->
+<!--#include virtual="/news/common/foot_static.html"-->
+<!--#include virtual="/news/common/stat.html"-->
+
+</body>
+</html>

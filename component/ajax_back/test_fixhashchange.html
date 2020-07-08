@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>IE6,7，fixhashChange</title>
+	<link type="text/css" rel="stylesheet" href="http://img1.cache.netease.com/cnews/css07/style.css">
+	<style type="text/css">
+		.slide_box{width:800px; margin: 40px auto;position:relative;text-align:left;padding-bottom:40px;}
+	     .scroll_ctrls{clear: both;list-style-type:none;margin: 0;padding: 0;position:absolute;bottom: 10px;right: 10px;}
+		 .scroll_ctrls a{float:left;display:block; margin-left:4px;width:24px; height:24px;line-height:24px; text-align:center;font-size:14px;cursor: pointer;color:#fff; background:#2c2c2c;}
+		 .scroll_ctrls a.current{color: red;}		
+		.slide_box .panels{height: 400px;background-color:#eee;}
+		.slide_box .panel{display: none;}
+		.slide_box .panel h2{font-size: 23px;font-family: "微软雅黑";color: blue;text-shadow: 5px 5px 5px #999;text-align: center;}
+		.slide_box .current{display: block;}		
+	</style>
+</head>
+<body>
+	<div class="slide_box" id="slide_box">
+		<div class="panels">
+			<div class="panel current">
+				<h2>Tab1</h2>
+			</div>
+			<div class="panel">
+				<h2>Tab2</h2>
+			</div>
+			<div class="panel">
+				<h2>Tab3</h2>
+			</div>
+			<div class="panel">
+				<h2>Tab4</h2>
+			</div>
+		</div>							
+		<div class="scroll_ctrls">
+			<a class="current" _index="0" href="javascript:;">1</a>
+			<a _index="1" href="javascript:;">2</a>
+			<a _index="2" href="javascript:;">3</a>
+			<a _index="3" href="javascript:;">4</a>
+		</div>	
+	</div>
+	
+<script src="http://img1.cache.netease.com/cnews/js/ntes_jslib_1.x.js" charset="gb2312"></script>
+<script type="text/javascript" src="fix_hashchange.js"></script>
+<script type="text/javascript">
+// (function($){
+	//头图1
+	var _back = new fixHashChange();
+	
+	function handle(index){
+		var panels = $(".panels .panel");
+		var ctrls =  $(".scroll_ctrls a");
+		panels.removeCss("current");
+		$(panels[index]).addCss("current");
+		ctrls.removeCss("current");
+		$(ctrls[index]).addCss("current");
+	}
+	_back.registerHash("#h1",function(){
+		handle(0);
+	});
+	_back.registerHash("#h2",function(){
+		handle(1);
+	});
+	_back.registerHash("#h3",function(){
+		handle(2);
+	});
+	_back.registerHash("#h4",function(){
+		handle(3);
+	});	
+	_back.start();		
+	$(".scroll_ctrls a").addEvent("click",function(e){
+		e.preventDefault();
+		var index = this.getAttribute("_index")*1+1;
+		_back.setHash("#h"+index);
+	});	
+//})(NTES);		
+</script>
+</body>
+</html>

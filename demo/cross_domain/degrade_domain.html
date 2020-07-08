@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>降域</title>
+<script src="http://img1.cache.netease.com/f2e/libs/jquery.js"></script>
+</head>
+
+<body>
+<button type="button" id="btn_post">post</button>
+<iframe src="http://test.cross_domain.163.com:8080/proxy.html" frameborder="0" id="proxy" style="position: absolute; left: 0; top: -9999px;"></iframe>
+<script>
+document.domain = "163.com";
+
+$(function(){
+	$("#btn_post").click(function(){
+		var $proxy = $("#proxy");
+		var dfd = $proxy[0].contentWindow.$.post("http://test.cross_domain.163.com:8080?date=1396684617824", {
+		    "username": "netease",
+			"age": 14
+		}, function(data){
+		    console.info(data);
+		});
+
+	});
+});
+</script>
+
+<dl style="position: fixed; left: 10px; bottom: 10px;">
+	<dt>参考资料</dt>
+	<dd><a href="https://developer.mozilla.org/zh-CN/docs/Same_origin_policy_for_JavaScript" target="_blank">JavaScript的同源策略</a></dd>
+	<dd><a href="http://www.nczonline.net/blog/2009/09/15/iframes-onload-and-documentdomain/">iframes-onload-and-documentdomain</a></dd>
+</dl>
+</body>
+</html>

@@ -1,0 +1,81 @@
+html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100% }
+body { margin: 0; background-color: #0e081a; color: #5e5e5e; font-size: 14px; -webkit-font-smoothing: antialiased; font-family: "Helvetica Neue", Helvetica, "STHeiTi", sans-serif; line-height: 1.5 }
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block }
+audio, canvas, progress, video { display: inline-block; vertical-align: baseline }
+audio:not([controls]) { display: none; height: 0 }
+[hidden], template { display: none }
+a { background: transparent; color: #585a5c; text-decoration: none }
+a:active, a:hover { outline: 0 }
+abbr[title] { border-bottom: 1px dotted }
+b, strong { font-weight: 700 }
+dfn { font-style: italic }
+h1 { font-size: 2em; margin: 0.67em 0 }
+mark { background: #ff0; color: #000 }
+small { font-size: 80% }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline }
+sup { top: -0.5em }
+sub { bottom: -0.25em }
+img { border: 0; vertical-align: middle }
+svg:not(:root) { overflow: hidden }
+figure { margin: 1em 40px }
+hr { box-sizing: content-box; height: 0 }
+pre { overflow: auto }
+code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em }
+button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0 }
+button { overflow: visible }
+button, select { text-transform: none }
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; cursor: pointer }
+button[disabled], html input[disabled] { cursor: default }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0 }
+input { line-height: normal }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0 }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { height: auto }
+input[type="search"] { -webkit-appearance: textfield; box-sizing: content-box }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none }
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em .625em .75em }
+legend { border: 0; padding: 0 }
+textarea { overflow: auto }
+optgroup { font-weight: 700 }
+table { border-collapse: collapse; border-spacing: 0 }
+td, th { padding: 0 }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0 }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: 400 }
+ul, ol { list-style: none }
+.clearfix:before, .clearfix:after { content: " "; display: table }
+.clearfix:after { clear: both }
+.clearfix { *zoom: 1 }
+html, body { height: 100% }
+#doc { background-color: #0d0817; background-position: center; background-size: 100%; background-repeat: no-repeat; border-top: 1px solid transparent; box-sizing: border-box; margin: 0 auto; max-width: 480px; min-width: 320px; padding-bottom: 54px }
+.game-title { background-image: url(images/title.png); background-position: center; background-repeat: no-repeat; background-size: contain; height: 0; margin-top: 4.166667%; margin-bottom: 7.777778%; padding-top: 25.833333% }
+.game-timer { background-image: url(images/timer_block.png); background-repeat: no-repeat; background-size: 100%; height: 98px; margin: 0 auto 7.777778%; text-align: center; width: 199px }
+.game-timer .time { color: #fff; font-size: 26px; height: 40px; line-height: 40px; padding-top: 12px; text-align: center }
+.game-timer .time .msec { background-image: url(images/ms.png); background-size: 25px; background-position: bottom right; background-repeat: no-repeat; display: inline-block; height: 26px; line-height: 30px; padding-right: 30px }
+.game-timer .desc { color: #2a94f6; font-size: 12px; line-height: 30px }
+.game-opt { margin-bottom: 7.777778%; text-align: center }
+.game-opt .btn-wrap { height: 192px; margin: 0 auto; position: relative; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; width: 192px }
+.game-opt .btn-wrap .outline { -webkit-animation: rotate2 1s linear infinite; animation: rotate2 1s linear infinite; background-image: url(images/outline.png); background-size: 100% 100%; height: 192px; left: 0; position: absolute; top: 0; width: 192px }
+.game-opt .btn-wrap .borderline { -webkit-animation: rotate2 10s linear infinite; animation: rotate2 10s linear infinite; background-image: url(images/borderline.png); background-size: 100% 100%; height: 161px; left: 50%; margin-top: -80.5px; margin-left: -80.5px; position: absolute; top: 50%; width: 161px }
+.game-opt .btn { background-color: transparent; background-image: url(images/btn.png); background-size: 100%; border: none; height: 158px; left: 50%; outline: none; position: absolute; -webkit-tap-highlight-color: transparent; top: 50%; -webkit-transform: translate3d(-50%, -50%, 0); transform: translate3d(-50%, -50%, 0); width: 158px }
+.game-opt .btn.active { background-image: url(images/btn_c.png); background-size: 100% 100% }
+@-webkit-keyframes rotate {
+	0% { -webkit-transform: rotate3d(0, 0, 1, 360deg); transform: rotate3d(0, 0, 1, 360deg) }
+	50% { -webkit-transform: rotate3d(0, 0, 1, 180deg); transform: rotate3d(0, 0, 1, 180deg) }
+	100% { -webkit-transform: rotate3d(0, 0, 1, 0deg); transform: rotate3d(0, 0, 1, 0deg) }
+}
+@keyframes rotate {
+	0% { -webkit-transform: rotate3d(0, 0, 1, 360deg); transform: rotate3d(0, 0, 1, 360deg) }
+	50% { -webkit-transform: rotate3d(0, 0, 1, 180deg); transform: rotate3d(0, 0, 1, 180deg) }
+	100% { -webkit-transform: rotate3d(0, 0, 1, 0deg); transform: rotate3d(0, 0, 1, 0deg) }
+}
+@-webkit-keyframes rotate2 {
+	0% { -webkit-transform: rotateZ(360deg); transform: rotateZ(360deg) }
+	50% { -webkit-transform: rotateZ(180deg); transform: rotateZ(180deg) }
+	100% { -webkit-transform: rotateZ(0deg); transform: rotateZ(0deg) }
+}
+@keyframes rotate2 {
+	0% { -webkit-transform: rotateZ(360deg); transform: rotateZ(360deg) }
+	50% { -webkit-transform: rotateZ(180deg); transform: rotateZ(180deg) }
+	100% { -webkit-transform: rotateZ(0deg); transform: rotateZ(0deg) }
+}
+.game-desc .text { color: #45a5ff; font-size: 12px; text-align: center }
+.game-desc .em { color: #ffb35a; font-style: normal }

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>column</title>
+</head>
+<body>
+
+<style>
+*{margin:0;padding:0;}
+.t{
+	font-size:80%;
+	line-height:1.5em;
+	width:60em;
+	border:1px solid #ccc;
+	padding:10px;
+	text-align:justify;
+	-webkit-column-rule:0.3em dotted #f00;
+	-webkit-column-count:3;
+	-webkit-column-gap:2em;
+	/*-webkit-column-fill:balance;*/
+	-moz-column-count:3;
+	-moz-column-gap:2em;
+	text-indent:2em;
+	margin-bottom:30px;
+}
+.t p{
+	border:1px solid #f00;
+	background:url(http://d6.sina.com.cn/pfpghc/ec9746b11b084729b24da2bd37ad7576.jpg) no-repeat 0 0;
+
+}
+.t2 p{
+	border:1px solid #090;
+	background:url(http://img3.cache.netease.com/photo/0031/2013-12-23/9GQ9O7QH025D0031.jpg) no-repeat 0 0;
+
+}
+
+
+
+.c {
+	font-size:80%;
+	width: 60em;
+	border:1px solid #ccc;
+	padding:10px;
+}
+.c div {
+	float: left;
+	width: 20em;
+	height: 152px; /* 3column, so 1/3 p's height */
+	overflow: hidden;
+	position: relative;
+}
+.c p {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.c .p1 {
+	top: 0;
+}
+.c .p2 {
+	top: -152px;
+}
+.c .p3 {
+	top: -304px;
+}
+.clearfix:after {
+	clear: both;
+	height: 0;
+	overflow: hidden;
+	display: block;
+	visibility: hidden;
+	content: ".";
+}
+</style>
+
+<div class="t">
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+qui officia deserunt mollit anim id est laborum
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。
+</div>
+
+
+<div class="t">
+	<!-- <img src="http://d6.sina.com.cn/pfpghc/ec9746b11b084729b24da2bd37ad7576.jpg" alt=""> -->
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> 
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+qui officia deserunt mollit anim id est laborum</p>
+<p>然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+<p>然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+</div>
+<div class="t t2">
+	<!-- <img src="http://d6.sina.com.cn/pfpghc/ec9746b11b084729b24da2bd37ad7576.jpg" alt=""> -->
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> 
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+qui officia deserunt mollit anim id est laborum</p>
+<p>然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+<p>然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+</div>
+
+
+<div class="c clearfix">
+	<div>
+		<p class="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+qui officia deserunt mollit anim id est laborum
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+	</div>
+	<div>
+		<p class="p2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+qui officia deserunt mollit anim id est laborum
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+	</div>
+	<div>
+		<p class="p3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+qui officia deserunt mollit anim id est laborum
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。
+然而，一些情况下，明确设置最大列高也是有用的，这样内容从第一列开始，尽可能多的生成列，甚至会溢出右边沿。因此，如果通过设置height 或 max-height 属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度。该模型对布局来说也更高效。</p>
+	</div>
+</div>
+</body>
+</html>

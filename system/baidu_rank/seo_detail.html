@@ -1,0 +1,27 @@
+<div class="rank_detail">
+	<h2 class="lead">关键词:{{info.keyword}} <small><a href="#/list/{{category}}">返回列表页</a></small></h2>
+	<div class="lead_more">
+		<a href="{{info.url}}" target="_blank">{{info.url}}</a>
+	</div>
+
+	<div class="br_key_rank" id="br_key_rank"></div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>日期</th>
+			<th><a href="http://www.baidu.com/s?wd={{info.keyword}}" target="_blank">百度排名</a></th>
+			<th>百度同域最高</th>
+			<th><a href="http://www.google.com.hk/search?q={{info.keyword}}" target="_blank">谷歌排名</a></th>
+			<th>谷歌同域最高</th>
+		</tr>
+	</thead>
+	<tr ng-repeat="item in listByDate">
+		<th>{{item.day}}</th>
+		<td>{{item.baidu.rank}}<span ng-show="item.baidu.p">(第{{item.baidu.p}}页, 第{{item.baidu.r}}项)</span></td>
+		<td class="acenter"><span ng-show="item.baidu.relrank">{{item.baidu.relrank}} <a target="_blank" href="http://{{item.baidu.rurl}}">同域最高页</a></span></td>
+		<td>{{item.google.rank}}<span ng-show="item.google.p">(第{{item.google.p}}页, 第{{item.google.r}}项)</span></td>
+		<td class="acenter"><span ng-show="item.google.relrank">{{item.google.relrank}} <a target="_blank" href="http://{{item.google.rurl}}">同域最高页</a></span></td>
+	</tr>
+</table>

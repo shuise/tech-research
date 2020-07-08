@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>queryString、hash与数据统计</title>
+<link rel="stylesheet" href="share.css" />
+</head>
+
+<body id="top">
+<h1>queryString、hash与数据统计</h1>
+<div id="a0" class="sections">
+	<pre>
+url=Uniform Resource Locator;
+互联网上一切资源的定位标识，换句话说，每个互联网上的资源都有一个对应的唯一的url.
+
+一个最完整的url例子：
+http://www.163.com:8080/page.html?key1=value1&key2=value2#hash
+
+对应的分别是：
+	协议			http:
+	域				www.163.com
+	端口			8080
+	路径			/page.html
+	queryString		?key1=value1&key2=value2
+	hash			hash
+
+js操作方法：
+location = location.protocal + "//" + location.domain + ":" + location.port + location.path + location.search + "#" + location.hash
+</pre>
+
+	<ol>
+		<li>queryString表示的是相同逻辑的变化，queryString值的改变就等于一个新的页面，会导致页面的跳转</li>
+		<li>hash是一个浏览器动作，标示了一个页面内资源，hash对应的是页面中某个id值为hash的dom节点，<br>
+		单单改变#后的部分，浏览器只会滚动到相应位置，不会重新加载网页<br>
+		#是用来指导浏览器动作的，对服务器端完全无用。所以，HTTP请求中不包括#</li>
+		<li>页面中dom节点的id不得以!等特殊字符开头（浏览器的规定）</li>
+		<li>每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录，使用"后退"按钮，就可以回到上一个位置。<br>
+			这对于ajax应用程序特别有用，可以用不同的#值，表示不同的访问状态，然后向用户给出可以访问某个状态的链接。</li>
+		<li>默认情况下，Google的网络蜘蛛忽视URL的#部分。<br>
+			但是，Google还规定，如果你希望Ajax生成的内容被浏览引擎读取，那么URL中可以使用"#!"，Google会自动将其后面的内容转成查询字符串_escaped_fragment_的值。</li>
+	</ol>
+<br>
+<br>
+	<h3>综上所述：</h3>
+	<ol>
+		<li>在不影响业务的前提下，推荐使用queryString统计业务</li>
+		<li>ajax请求或者tab切换等页面间操作需要标示资源时，推荐使用#!</li>
+		<li>因为直接给hash赋值的方式是独占的，容易导致不同业务的冲突，因此可以考虑通过借鉴queryString区分参数的方式来使用hash</li>
+		<li>推荐格式：#!key1=value1&key2=value2</li>
+		<li>key1和key2代表了不同的业务，相应的值标示业务类型的区分，为了更好的防止冲突，可以通过业务分组或者部门标识的方式来定制参数前缀，比如前端独有参数，我们一般都使用f2e前缀，比如?f2e_share=tsina</li>
+	</ol>
+</div>
+</body>
+</html>
