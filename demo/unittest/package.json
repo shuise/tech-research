@@ -14,7 +14,7 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
     "jquery": "^2.1.4",
-    "lodash": "^3.10.0",
+    "lodash": "^4.17.15",
     "weekday": "^1.0.0"
   },
   "scripts": {
