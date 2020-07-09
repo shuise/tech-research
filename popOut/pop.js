@@ -1,4 +1,0 @@
-function pop(content,options){
-	
-}
-

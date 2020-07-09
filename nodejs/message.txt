@@ -1,1 +1,0 @@
-[{"name":"人生这碗饭","path":"res/1.jpg"},{"name":"反差","path":"res/2.jpg"},{"name":"灵感","path":"res/3.jpg"},{"name":"焖饭","path":"res/4.jpg"},{"name":"高沢圭一","path":"res/5.jpeg"}]
