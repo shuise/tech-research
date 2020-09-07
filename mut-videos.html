@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>同时播放多个视频</title>
 </head>
 <body>
 
@@ -19,9 +19,10 @@ video{
 }
 </style>
 
-<video src="res/3.mp4" autoplay muted></video>
-<video src="res/4.mp4" autoplay muted></video>
-<video src="res/8.mp4" autoplay></video>
+<video  controls="controls" src="res/3.mp4" id="ckplayer_a1" x5-video-player-type="h5" preload="metadata" playsinline="true" webkit-playsinline="true"  x-webkit-airplay="true"x5-video-orientation="portraint" x5-video-player-fullscreen="true" autoplay></video>
+
+<video  controls="controls" src="res/4.mp4" id="ckplayer_a2" x5-video-player-type="h5" preload="metadata" playsinline="true" webkit-playsinline="true"  x-webkit-airplay="true"x5-video-orientation="portraint" x5-video-player-fullscreen="true" autoplay></video>
+
 
 </body>
 </html>

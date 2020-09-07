@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+<!--
+https://webkit.org/blog/8421/viewing-augmented-reality-assets-in-safari-for-ios/
+https://developer.apple.com/documentation/arkit/previewing_a_model_with_ar_quick_look
+https://developer.apple.com/augmented-reality/tools/
+-->
+
+<div>
+    <a rel="ar" id="ar-link-2" href="/drummer.usdz">
+        <img src="/drummer.jpg" alt="">
+    </a>
+</div>
+
+<script>
+var isRelAR = false;
+var a = document.createElement('a');
+if (a.relList.supports('ar')) {
+	isRelAR = true;
+}
+document.write(isRelAR);
+</script>
+</body>
+</html>

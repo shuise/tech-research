@@ -10,7 +10,9 @@
 <h1>queryString、hash与数据统计</h1>
 <div id="a0" class="sections">
 	<pre>
-url=Uniform Resource Locator;
+
+url = Uniform Resource Locator;
+
 互联网上一切资源的定位标识，换句话说，每个互联网上的资源都有一个对应的唯一的url.
 
 一个最完整的url例子：
@@ -18,14 +20,15 @@ http://www.163.com:8080/page.html?key1=value1&key2=value2#hash
 
 对应的分别是：
 	协议			http:
-	域				www.163.com
+	域名			163.com
+	子域			www
 	端口			8080
 	路径			/page.html
 	queryString		?key1=value1&key2=value2
 	hash			hash
 
 js操作方法：
-location = location.protocal + "//" + location.domain + ":" + location.port + location.path + location.search + "#" + location.hash
+location = location.protocal + "//" + location.domain + ":" + location.port + location.path + location.search + location.hash
 </pre>
 
 	<ol>
