@@ -1,8 +1,0 @@
-.net-tabnav{ position:relative;padding:0;margin-top:10px;outline:1px solid #ccc; }
-.net-tabnav:before{ content:"";position:absolute;background:#f0f0f0;width:76px;height:100%;left:0;top:0 }
-.net-tabnav-leftnav{ float:left;width:76px;text-align:center;font-size:14px;color:#888;position:relative; }
-.net-tabnav-leftnav-item{ display:block;padding:10px 0; }
-.net-tabnav-leftnav-item.current{ background:#fff }
-.net-tabnav-body{ margin-left:76px;display:none;padding:8px 3%;background:#fff;z-index:99;position:relative;line-height:1.8;font-size:16px;}
-.net-tabnav-body a{ margin-right:8px;white-space: nowrap; }
-.net-tabnav-body.current{ display:block; }
