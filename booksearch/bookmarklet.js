@@ -3,17 +3,14 @@
 	var url1 = "http://cn.epubee.com/books/?s=";
 	var url2 = "http://www.ireadweek.com/index.php?g=portal&m=search&a=index&keyword=";
 	var url3 = "http://www.duokan.com/search/{keyword}/1";
+	var url4 = 'https://www.amazon.cn/s?k=';
 	for(var i=0;i<names.length;i++){
 		var keyword = names[i].innerText;
+		console.log(keyword);
 			// keyword = keyword.split("，")[0].split(" ")[0];
 		// window.open(url1 + keyword);
-		// window.open(url2 + keyword);
+		window.open(url4 + keyword);
 		// window.open(url3.replace('{keyword}',keyword));
-		var node = document.createElement('a');
-			node.href = 'https://www.amazon.cn/s?k=' + keyword;
-			node.innerHTML = keyword;
-		names[i].parentNode.insertBefore(node, names[i]);
-		// u(keyword);
 	}
 
 	function u(name){
