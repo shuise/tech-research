@@ -16,7 +16,7 @@
 </style>
 <input type="file" id="file" />
 
-<div class="li"><a id="url" target="_blank"></a></div>
+<div class="li"><a id="url" download></a></div>
 <div id="text" class="li"></div>
 <div id="binary" class="li"></div>
 <div id="arrayBuffer" class="li"></div>
@@ -47,7 +47,7 @@ function callback(file){
   getFile(file,"binary");
 
   document.getElementById("url").href = getBlobUrl(file);
-  document.getElementById("url").innerHTML = getBlobUrl(file) || "no";  
+  document.getElementById("url").innerHTML = getBlobUrl(file) || "no";
 }
 
 function getBlobUrl(file){
@@ -60,7 +60,7 @@ function getBlobUrl(file){
     url = window.URL.createObjectURL(file);     //chrome,firefox
   }else if(window.webkitURL && window.webkitURL.createObjectURL){
     url = window.webkitURL.createObjectURL(file);   //safari
-  } 
+  }
   return url;
 }
 
@@ -82,7 +82,7 @@ function getFile(file,type) {
     // console.log(evt.target.result);
     console.log(evt);
   }
-} 
-</script> 
+}
+</script>
 </body>
 </html>
