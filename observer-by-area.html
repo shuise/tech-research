@@ -12,7 +12,7 @@ html,body,.list{
 }
 .list span{
   display: block;
-  height:510px;
+  height:5010px;
   margin-top: 10px;
 }  
 .list span:nth-child(even){
@@ -36,7 +36,6 @@ let options = {
 
 let observer = new IntersectionObserver(callback, options);
 observer.observe(document.querySelector('.a'));
-
 
 function callback(entries, observer) {
   console.log(entries, observer);

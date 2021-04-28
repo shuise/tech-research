@@ -1,15 +1,15 @@
 (function(){
 	var names = document.querySelectorAll(".item-show .title a");
-	var url1 = "http://cn.epubee.com/books/?s=";
-	var url2 = "http://www.ireadweek.com/index.php?g=portal&m=search&a=index&keyword=";
-	var url3 = "http://www.duokan.com/search/{keyword}/1";
+	// var url3 = "http://www.duokan.com/search/{keyword}/1";
 	var url4 = 'https://www.amazon.cn/s?k=';
-	for(var i=0;i<names.length;i++){
+	var url5 = 'https://blah.me/search?q=';
+	for(var i=0;i<14;i++){
 		var keyword = names[i].innerText;
 		console.log(keyword);
 			// keyword = keyword.split("，")[0].split(" ")[0];
 		// window.open(url1 + keyword);
 		window.open(url4 + keyword);
+		window.open(url5 + keyword);
 		// window.open(url3.replace('{keyword}',keyword));
 	}
 
