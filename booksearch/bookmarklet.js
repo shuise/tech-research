@@ -3,7 +3,7 @@
 	// var url3 = "http://www.duokan.com/search/{keyword}/1";
 	var url4 = 'https://www.amazon.cn/s?k=';
 	var url5 = 'https://blah.me/search?q=';
-	for(var i=0;i<14;i++){
+	for(var i=0;i<50;i++){
 		var keyword = names[i].innerText;
 		console.log(keyword);
 			// keyword = keyword.split("，")[0].split(" ")[0];
